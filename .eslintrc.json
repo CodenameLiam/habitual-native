@@ -1,0 +1,70 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "react-native/react-native": true
+    },
+    "extends": ["plugin:react/recommended", "standard", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "@typescript-eslint", "react-native", "react-hooks", "prettier"],
+    "rules": {
+        "no-tabs": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        // "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single", "avoid-escape"],
+        "semi": ["error", "always"],
+        "react-native/no-unused-styles": 2,
+        "react-native/split-platform-components": 2,
+        // TODO: uncomment these and fix lint issues
+        // "react-native/no-inline-styles": 2,
+        // "react-native/no-color-literals": 2,
+        "react-native/no-raw-text": 1,
+        "react-native/sort-styles": [
+            "error",
+            "asc",
+            {
+                "ignoreClassNames": false,
+                "ignoreStyleProperties": false
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            {
+                "allowExpressions": true,
+                "allowTypedFunctionExpressions": true
+            }
+        ],
+        "react/jsx-uses-vars": 1,
+        "react/jsx-uses-react": 1,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "no-unused-vars": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "@typescript-eslint/no-empty-interface": "warn",
+        "react/prop-types": 0,
+        "react/display-name": 0,
+        "import/no-named-as-default": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "JSX": "readonly",
+        "NodeJS": "readonly"
+    }
+}
