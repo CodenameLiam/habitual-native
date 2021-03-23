@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useDrawerStatus } from '@react-navigation/drawer';
 import {
     createStackNavigator,
     GestureHandlerRefContext,
@@ -6,7 +7,7 @@ import {
     StackNavigationProp,
     TransitionPresets,
 } from '@react-navigation/stack';
-import { AppParamList, TabNavProps } from './types';
+import { AppNavProps, AppParamList, TabNavProps } from './types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -60,10 +61,15 @@ const styles = StyleSheet.create({
     headerTitle: { fontFamily: 'Montserrat-Bold', fontSize: 20 },
 });
 
-const TabHeader = (navigation: TabNavProps): StackNavigationOptions => ({
+interface TabHeaderProps {
+    navigation: TabNavProps;
+    handleSettings: () => void;
+}
+
+const TabHeader = ({ navigation, handleSettings }: TabHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <View />,
     headerLeft: () => (
-        <TouchableOpacity style={{ paddingLeft: 8 }} onPress={() => navigation.navigate('Create')}>
+        <TouchableOpacity style={{ paddingLeft: 8 }} onPress={() => handleSettings()}>
             <Icon family="feather" name="chevron-left" size={36} colour={'black'} />
         </TouchableOpacity>
     ),
@@ -74,7 +80,18 @@ const TabHeader = (navigation: TabNavProps): StackNavigationOptions => ({
     ),
 });
 
-const AppNavigation: React.FC = () => {
+interface AppNavigationProps {
+    navigation: AppNavProps;
+}
+
+const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
+    const isDrawerOpen = useDrawerStatus();
+    const [isOpen, setOpen] = useState(false);
+
+    const handleSettings = (): void => {
+        navigation.toggleDrawer();
+    };
+
     return (
         <Stack.Navigator
             mode="modal"
@@ -87,7 +104,11 @@ const AppNavigation: React.FC = () => {
                 ...TransitionPresets.ModalPresentationIOS,
             }}
         >
-            <Stack.Screen name="Tabs" component={TabNavigation} options={({ navigation }) => TabHeader(navigation)} />
+            <Stack.Screen
+                name="Tabs"
+                component={TabNavigation}
+                options={({ navigation }) => TabHeader({ navigation, handleSettings })}
+            />
             <Stack.Screen name="Create" component={CreateScreen} />
         </Stack.Navigator>
     );

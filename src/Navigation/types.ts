@@ -1,3 +1,4 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export type AppParamList = {
@@ -12,4 +13,10 @@ export type TabParamList = {
     Awards: undefined;
 };
 
+export type SettingsParamList = {
+    Settings: undefined;
+    App: undefined;
+};
+
+export type AppNavProps = DrawerNavigationProp<SettingsParamList, 'App'>;
 export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
