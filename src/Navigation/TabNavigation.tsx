@@ -12,7 +12,7 @@ const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
         Home: {
             labelStyle: {
                 color: TabColours.HOME,
-                fontFamily: 'Montserrat_700Bold',
+                fontFamily: 'Montserrat-Bold',
             },
             icon: {
                 component: () => <Icon family="feather" name="home" size={20} colour={colour} />,
@@ -22,7 +22,7 @@ const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
         Calendar: {
             labelStyle: {
                 color: TabColours.CALENDAR,
-                fontFamily: 'Montserrat_700Bold',
+                fontFamily: 'Montserrat-Bold',
             },
             icon: {
                 component: () => <Icon family="feather" name="calendar" size={20} colour={colour} />,
@@ -32,7 +32,7 @@ const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
         Trends: {
             labelStyle: {
                 color: TabColours.TRENDS,
-                fontFamily: 'Montserrat_700Bold',
+                fontFamily: 'Montserrat-Bold',
             },
             icon: {
                 component: () => <Icon family="entypo" name="line-graph" size={20} colour={colour} />,
@@ -42,7 +42,7 @@ const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
         Awards: {
             labelStyle: {
                 color: TabColours.AWARDS,
-                fontFamily: 'Montserrat_700Bold',
+                fontFamily: 'Montserrat-Bold',
             },
             icon: {
                 component: () => <Icon family="feather" name="award" size={20} colour={colour} />,

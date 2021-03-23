@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const RootNavigation: React.FC = () => {
+// const Drawer = createDrawerNavigator<RootDrawerParamList>();
+
+const SettingsNavigation: React.FC = () => {
     return (
         <View>
             <Text>Poop and piss</Text>
@@ -9,4 +11,4 @@ const RootNavigation: React.FC = () => {
     );
 };
 
-export default RootNavigation;
+export default SettingsNavigation;

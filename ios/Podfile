@@ -12,6 +12,8 @@ target 'Habitual' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'HabitualTests' do
     inherit! :complete
     # Pods for testing
@@ -24,6 +26,10 @@ target 'Habitual' do
   use_flipper!()
 
   post_install do |installer|
-    react_native_post_install(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+      end
+    end
   end
 end
