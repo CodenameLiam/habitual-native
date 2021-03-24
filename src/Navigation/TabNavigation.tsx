@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView, Text } from 'react-native';
-import { TabParamList } from './types';
+import { TabParamList } from './Params';
 
-import { TabColours } from './Colours';
+import { TabColours } from '../Styles/Colours';
 import AnimatedTabBar, { FlashyTabBarItemConfig, TabsConfig } from '@gorhom/animated-tabbar';
 import Icon from 'Components/Icon';
+import { useTheme } from '@emotion/react';
 
 const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
     return {
@@ -71,13 +72,20 @@ const CalendarScreen: React.FC = () => {
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const TabNavigation: React.FC = () => {
-    const colour = 'black';
+    const theme = useTheme();
 
-    const CustomTabs = useMemo(() => getCustomTabs(colour), [colour]);
+    const CustomTabs = useMemo(() => getCustomTabs(theme.text), [theme]);
 
     return (
         <Tab.Navigator
-            tabBar={props => <AnimatedTabBar tabs={CustomTabs} preset="flashy" {...props} />}
+            tabBar={props => (
+                <AnimatedTabBar
+                    tabs={CustomTabs}
+                    preset="flashy"
+                    style={{ backgroundColor: theme.background }}
+                    {...props}
+                />
+            )}
             screenOptions={{ headerShown: false }}
         >
             <Tab.Screen name="Home" component={HomeScreen} />

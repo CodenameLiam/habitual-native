@@ -19,4 +19,6 @@ export type SettingsParamList = {
 };
 
 export type AppNavProps = DrawerNavigationProp<SettingsParamList, 'App'>;
+
 export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
+export type CreateNavProps = StackNavigationProp<AppParamList, 'Create'>;

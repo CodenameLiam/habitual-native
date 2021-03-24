@@ -1,3 +1,27 @@
+export interface ITheme {
+    text: string;
+    background: string;
+    card: string;
+}
+
+interface IThemeColours {
+    dark: ITheme;
+    light: ITheme;
+}
+
+export const ThemeColours: IThemeColours = {
+    dark: {
+        text: '#FFFFFF',
+        background: '#0F2028',
+        card: '#223843',
+    },
+    light: {
+        text: '#0F2028',
+        background: '#f4f4f4',
+        card: '#fff',
+    },
+};
+
 export const GreyColours = {
     GREY0: '#f4f4f4',
     GREY1: '#dddddd',
@@ -8,7 +32,7 @@ export const GreyColours = {
     GREY6: '#222222',
 };
 
-export type GradientType =
+export type IColours =
     | 'MIDNIGHT'
     | 'PURPLE'
     | 'RED'
@@ -22,13 +46,13 @@ export type GradientType =
     | 'LIME'
     | 'PINK';
 
-export interface GradientShape {
+export interface IGradient {
     start: string;
     end: string;
     solid: string;
 }
 
-export const GradientColours: { [key in GradientType]: GradientShape } = {
+export const GradientColours: { [key in IColours]: IGradient } = {
     MIDNIGHT: {
         start: '#8f79f8',
         end: '#bf7df3',

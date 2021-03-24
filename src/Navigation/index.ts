@@ -1,2 +1,2 @@
-export * from './AppNavigation';
-export * from './SettingsNavigation';
+export * from './AppNavigation/AppNavigation';
+export * from './SettingsNavigation/SettingsNavigation';

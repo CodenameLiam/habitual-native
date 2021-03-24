@@ -1,21 +1,20 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import AppNavigation from 'Navigation/AppNavigation';
-import SettingsNavigation from 'Navigation/SettingsNavigation';
-
-// const Stack = createStackNavigator();
+import SettingsNavigation from 'Navigation/SettingsNavigation/SettingsNavigation';
+import { DarkTheme, LightTheme, NavDarkTheme, NavLightTheme } from 'Styles/Themes';
+import { ThemeProvider } from '@emotion/react';
 
 const App: React.FC = () => {
-    // const isDarkMode = useColorScheme() === 'dark';
+    const [darkTheme, setDarkTheme] = useState(false);
 
     return (
-        <NavigationContainer>
-            <SettingsNavigation />
-        </NavigationContainer>
+        <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
+            <NavigationContainer theme={darkTheme ? NavDarkTheme : NavLightTheme}>
+                <SettingsNavigation darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+            </NavigationContainer>
+        </ThemeProvider>
     );
 };
 
