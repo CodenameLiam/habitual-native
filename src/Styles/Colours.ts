@@ -2,6 +2,7 @@ export interface ITheme {
     text: string;
     background: string;
     card: string;
+    grey: string;
 }
 
 interface IThemeColours {
@@ -14,11 +15,13 @@ export const ThemeColours: IThemeColours = {
         text: '#FFFFFF',
         background: '#0F2028',
         card: '#223843',
+        grey: '#c5c5c5',
     },
     light: {
         text: '#0F2028',
         background: '#f4f4f4',
         card: '#fff',
+        grey: '#989898',
     },
 };
 

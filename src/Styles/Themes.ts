@@ -3,12 +3,14 @@ import { ITheme, ThemeColours } from './Colours';
 
 export const DarkTheme: ITheme = {
     text: ThemeColours.dark.text,
+    grey: ThemeColours.dark.grey,
     background: ThemeColours.dark.background,
     card: ThemeColours.dark.card,
 };
 
 export const LightTheme: ITheme = {
     text: ThemeColours.light.text,
+    grey: ThemeColours.light.grey,
     background: ThemeColours.light.background,
     card: ThemeColours.light.card,
 };
