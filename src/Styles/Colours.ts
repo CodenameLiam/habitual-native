@@ -122,5 +122,5 @@ export const TabColours = {
     HOME: GradientColours.TANGERINE.solid,
     CALENDAR: GradientColours.RED.solid,
     TRENDS: GradientColours.AQUA.solid,
-    AWARDS: GradientColours.YELLOW.solid,
+    AWARDS: GradientColours.PURPLE.solid,
 };
