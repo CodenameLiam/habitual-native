@@ -8,7 +8,7 @@ import { DarkTheme, LightTheme, NavDarkTheme, NavLightTheme } from 'Styles/Theme
 import { ThemeProvider } from '@emotion/react';
 import { useTheme } from 'Controllers/ThemeController';
 import { StatusBar } from 'react-native';
-import { useHabits } from 'Controllers/HabitController';
+import { useHabits } from 'Controllers/HabitController/HabitController';
 import { AppContext } from 'Context/AppContext';
 import { useColours } from 'Controllers/ColourController';
 

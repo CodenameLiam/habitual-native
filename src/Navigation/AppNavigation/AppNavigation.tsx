@@ -8,7 +8,6 @@ import { useTheme } from '@emotion/react';
 import TabHeader from './Headers/TabHeader';
 import CreateHeader from './Headers/CreateHeader';
 import { headerTitle } from './AppNavigation.styles';
-import CreateScreen from 'Screens/Create/CreateScreen';
 import BuildScreen from 'Screens/Build/BuildScreen';
 
 const Stack = createStackNavigator<AppParamList>();

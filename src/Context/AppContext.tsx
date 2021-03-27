@@ -1,4 +1,4 @@
-import { IAllHabits, IHabit } from 'Controllers/HabitController';
+import { IAllHabits, IHabit } from 'Controllers/HabitController/HabitController';
 import { createContext } from 'react';
 import { IColours } from 'Styles/Colours';
 

@@ -1,7 +1,7 @@
 import { IconProps } from 'Components/Icon';
-import { useEffect, useReducer, useState } from 'react';
-import { IColours, IGradient } from 'Styles/Colours';
-import { getData, storeData } from './StorageController';
+import { useEffect, useState } from 'react';
+import { IColours } from 'Styles/Colours';
+import { getData, storeData } from '../StorageController';
 
 const HABITS_KEY = '@Habits';
 
