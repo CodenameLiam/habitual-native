@@ -6,19 +6,19 @@ export type ThemeType = 'dark' | 'light';
 const THEME_KEY = '@Theme';
 const DEFAULT_THEME: ThemeType = 'light';
 
-interface IUseTheme {
+interface IThemeController {
     loadingTheme: boolean;
-    darkTheme: boolean | undefined;
-    setTheme: (theme: ThemeType) => void;
+    darkTheme: boolean;
+    updateTheme: (theme: ThemeType) => void;
 }
 
-export const useTheme = (): IUseTheme => {
+export const useTheme = (): IThemeController => {
     // Store state
-    const [darkTheme, setDarkTheme] = useState<boolean>();
+    const [darkTheme, setDarkTheme] = useState<boolean>(false);
     const [loadingTheme, setLoading] = useState<boolean>(true);
 
     // Updates the value in local storage
-    const setTheme = (theme: ThemeType): void => {
+    const updateTheme = (theme: ThemeType): void => {
         setDarkTheme(theme === 'dark');
         storeValue(THEME_KEY, theme);
     };
@@ -28,14 +28,14 @@ export const useTheme = (): IUseTheme => {
         const configureTheme = async (): Promise<void> => {
             const theme = await getValue(THEME_KEY);
             if (!theme) {
-                setTheme(DEFAULT_THEME);
+                updateTheme(DEFAULT_THEME);
             } else {
-                setTheme(theme as ThemeType);
+                updateTheme(theme as ThemeType);
             }
             setLoading(false);
         };
         configureTheme();
     }, []);
 
-    return { loadingTheme, darkTheme, setTheme };
+    return { loadingTheme, darkTheme, updateTheme };
 };

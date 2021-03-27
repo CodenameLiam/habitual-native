@@ -21,7 +21,7 @@ const TabHeader = ({ active, colour, navigation, handleSettings }: TabHeaderProp
         </TouchableOpacity>
     ),
     headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => navigation.navigate('Create')}>
+        <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => navigation.navigate('Build', {})}>
             <Icon family="entypo" name="plus" size={38} colour={colour} />
         </TouchableOpacity>
     ),

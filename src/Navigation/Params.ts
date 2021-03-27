@@ -1,9 +1,14 @@
+import { RouteProp } from '@react-navigation/core';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+interface BuildRoute {
+    id?: string;
+}
+
 export type AppParamList = {
     Tabs: undefined;
-    Create: undefined;
+    Build: BuildRoute;
 };
 
 export type TabParamList = {
@@ -21,4 +26,5 @@ export type SettingsParamList = {
 export type AppNavProps = DrawerNavigationProp<SettingsParamList, 'App'>;
 
 export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
-export type CreateNavProps = StackNavigationProp<AppParamList, 'Create'>;
+export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
+export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
