@@ -1,3 +1,4 @@
+import 'react-native-get-random-values';
 import { v4 } from 'uuid';
 import { getRandomColour } from 'Styles/Colours';
 import { IHabit, ISchedule } from './HabitController';
