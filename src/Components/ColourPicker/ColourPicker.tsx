@@ -11,8 +11,12 @@ interface ColourPickerProps {
 const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient }) => {
     return (
         <PickerContainer>
-            {Object.keys(GradientColours).map(colour => (
-                <Swatch key={colour} onPress={() => updateGradient(colour as IColours)}>
+            {Object.keys(GradientColours).map((colour, index) => (
+                <Swatch
+                    key={colour}
+                    onPress={() => updateGradient(colour as IColours)}
+                    style={{ marginBottom: index < 6 ? 10 : 3 }}
+                >
                     <LinearGradient
                         style={StyleSheet.absoluteFill}
                         start={{ x: 0, y: 0 }}

@@ -18,7 +18,7 @@ export const ScheduleButton = styled(TouchableOpacity)`
     border-radius: ${scheduleDimensions};
     overflow: hidden;
     background-color: ${props => props.theme.background};
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     align-items: center;
     justify-content: center;
     overflow: hidden;
