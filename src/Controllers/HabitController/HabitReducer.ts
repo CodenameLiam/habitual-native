@@ -2,7 +2,7 @@ import { IHabit } from './HabitController';
 
 type HabitActions = 'name' | 'icon' | 'colour' | 'schedule' | 'total' | 'type';
 
-type Action = {
+export type Action = {
     type: HabitActions;
     payload: Partial<IHabit>;
 };

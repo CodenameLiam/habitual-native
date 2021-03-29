@@ -18,5 +18,4 @@ export const Swatch = styled(TouchableOpacity)`
     border-radius: ${swatchDimensions};
     overflow: hidden;
     background-color: red;
-    /* margin-bottom: 10px; */
 `;

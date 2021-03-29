@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 export const ColourButtonContainer = styled.View`
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 5px;
 `;
 
 interface ButtonContainerProps {

@@ -15,7 +15,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient }) => {
                 <Swatch
                     key={colour}
                     onPress={() => updateGradient(colour as IColours)}
-                    style={{ marginBottom: index < 6 ? 10 : 3 }}
+                    style={{ marginBottom: index < 6 ? 10 : 5 }}
                 >
                     <LinearGradient
                         style={StyleSheet.absoluteFill}
