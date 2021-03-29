@@ -1,4 +1,4 @@
-import uuid from 'react-native-uuid';
+import { v4 } from 'uuid';
 import { getRandomColour } from 'Styles/Colours';
 import { IHabit, ISchedule } from './HabitController';
 
@@ -33,7 +33,7 @@ export const WEEKEND_SCHEDULE: ISchedule = {
 };
 
 export const DEFAULT_HABIT: IHabit = {
-    id: uuid.v4(),
+    id: v4(),
     name: '',
     icon: { family: 'fontawesome5', name: 'icons' },
     colour: getRandomColour(),

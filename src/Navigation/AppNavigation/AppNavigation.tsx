@@ -9,6 +9,8 @@ import TabHeader from './Headers/TabHeader';
 import CreateHeader from './Headers/CreateHeader';
 import { headerTitle } from './AppNavigation.styles';
 import BuildScreen from 'Screens/Build/BuildScreen';
+import IconScreen from 'Screens/Icon/IconScreen';
+import IconHeader from './Headers/IconHeader';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -46,6 +48,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 name="Build"
                 component={BuildScreen}
                 options={({ navigation }) => CreateHeader({ colour, navigation })}
+            />
+            <Stack.Screen
+                name="Icon"
+                component={IconScreen}
+                options={({ navigation }) => IconHeader({ colour, navigation })}
             />
         </Stack.Navigator>
     );
