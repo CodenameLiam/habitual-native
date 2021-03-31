@@ -25,7 +25,6 @@ export const Label = styled.Text`
     color: ${props => props.theme.text};
     font-size: 16px;
     font-family: 'Montserrat-Bold';
-    border-radius: 10px;
     overflow: hidden;
 `;
 

@@ -18,7 +18,7 @@ interface IconScreenProps {
     navigation: IconNavProps;
 }
 
-const IconDimensions = Dimensions.get('screen').width / 10.2;
+const IconDimensions = (Dimensions.get('screen').width - 20) / 10.5;
 
 const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
     const theme = useTheme();
@@ -41,9 +41,9 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
                 {IconOptions.map((group, index) => (
                     <IconGroupContainer key={group.label}>
                         <LabelContainer>
-                            <Label>{group.label}</Label>
+                            <Label style={{ borderRadius: 10 }}>{group.label}</Label>
                         </LabelContainer>
-                        {((!isReady && index < 2) || isReady) && (
+                        {((!isReady && index < 3) || isReady) && (
                             <Row>
                                 {group.icons.map((icon, index) => (
                                     <IconContainer key={index + icon.name} onPress={() => handlePress(icon)}>

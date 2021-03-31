@@ -12,5 +12,6 @@ export const CardText = styled.Text`
     padding-bottom: 10px;
     color: ${props => props.theme.grey};
     font-size: 18px;
-    font-family: 'Montserrat-Bold';
+    font-family: Montserrat;
+    font-weight: 600;
 `;

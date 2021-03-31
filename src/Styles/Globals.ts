@@ -16,3 +16,7 @@ export const MarginLeft = css`
 export const MarginRight = css`
     margin-right: 10px;
 `;
+
+export const Absolute = css`
+    position: absolute;
+`;

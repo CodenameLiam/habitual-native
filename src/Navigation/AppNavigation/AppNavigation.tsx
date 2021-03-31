@@ -11,6 +11,7 @@ import { headerTitle } from './AppNavigation.styles';
 import BuildScreen from 'Screens/Build/BuildScreen';
 import IconScreen from 'Screens/Icon/IconScreen';
 import IconHeader from './Headers/IconHeader';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -25,11 +26,15 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
     const isDrawerOpen = useDrawerStatus();
     const active = isDrawerOpen === 'open';
 
-    const handleSettings = (): void => navigation.toggleDrawer();
+    const handleSettings = (): void => {
+        navigation.toggleDrawer();
+        ReactNativeHapticFeedback.trigger('impactLight');
+    };
 
     return (
         <Stack.Navigator
             mode="modal"
+            initialRouteName="Tabs"
             screenOptions={{
                 gestureEnabled: true,
                 cardOverlayEnabled: true,

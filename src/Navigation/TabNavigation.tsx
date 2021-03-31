@@ -7,6 +7,7 @@ import { TabColours } from '../Styles/Colours';
 import AnimatedTabBar, { FlashyTabBarItemConfig, TabsConfig } from '@gorhom/animated-tabbar';
 import Icon from 'Components/Icon';
 import { useTheme } from '@emotion/react';
+import HomeScreen from 'Screens/Home/HomeScreen';
 
 const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
     return {
@@ -51,14 +52,6 @@ const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
             },
         },
     };
-};
-
-const HomeScreen: React.FC = () => {
-    return (
-        <SafeAreaView>
-            <Text>Home</Text>
-        </SafeAreaView>
-    );
 };
 
 const CalendarScreen: React.FC = () => {
