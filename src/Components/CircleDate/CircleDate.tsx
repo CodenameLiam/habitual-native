@@ -57,7 +57,7 @@ const CircleDate: React.FC<CircleDateProps> = ({
     }, [alpha, progressAnimation]);
 
     return (
-        <CircleButton circleDimensions={circleDimensions}>
+        <CircleButton circleDimensions={circleDimensions} onPress={handlePress}>
             <DayNumber selected={selected}>{dayNumber}</DayNumber>
             <DayText selected={selected}>{dayText}</DayText>
             <View style={Absolute}>

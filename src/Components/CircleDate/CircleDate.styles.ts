@@ -19,11 +19,13 @@ interface CircleTextProps {
 
 export const DayNumber = styled.Text<CircleTextProps>`
     font-family: 'Montserrat';
-    color: ${props => (props.selected ? props.theme.text : props.theme.grey)};
+    font-weight: 600;
+    color: ${props => (props.selected ? props.theme.text : props.theme.disabled)};
 `;
 
 export const DayText = styled.Text<CircleTextProps>`
     font-size: 8px;
+    font-weight: 700;
     font-family: 'Montserrat';
-    color: ${props => (props.selected ? props.theme.text : props.theme.grey)};
+    color: ${props => (props.selected ? props.theme.text : props.theme.disabled)};
 `;

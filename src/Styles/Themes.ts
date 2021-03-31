@@ -6,6 +6,7 @@ export const DarkTheme: ITheme = {
     grey: ThemeColours.dark.grey,
     background: ThemeColours.dark.background,
     card: ThemeColours.dark.card,
+    disabled: ThemeColours.dark.disabled,
 };
 
 export const LightTheme: ITheme = {
@@ -13,6 +14,7 @@ export const LightTheme: ITheme = {
     grey: ThemeColours.light.grey,
     background: ThemeColours.light.background,
     card: ThemeColours.light.card,
+    disabled: ThemeColours.light.disabled,
 };
 
 export const NavDarkTheme: Theme = {
