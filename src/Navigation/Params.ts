@@ -11,6 +11,7 @@ interface BuildRoute {
 
 interface ViewRoute {
     id: string;
+    prevIndex: number;
 }
 
 export type AppParamList = {

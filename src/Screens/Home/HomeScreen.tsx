@@ -79,6 +79,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                         initialHabit={habit}
                         navigation={navigation}
                         date={prevDates[6 - prevDateIndex].format('YYYY-MM-DD')}
+                        dateIndex={prevDateIndex}
                     />
                 ))}
             </ScrollView>

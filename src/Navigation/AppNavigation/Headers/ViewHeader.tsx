@@ -1,8 +1,7 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
 import BackIcon from 'Navigation/Components/BackIcon';
 import EditIcon from 'Navigation/Components/EditIcon';
-import IdeasIcon from 'Navigation/Components/IdeasIcon';
-import { BuildNavProps, ViewNavProps, ViewRouteProps } from 'Navigation/Params';
+import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 import React from 'react';
 import { View } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';

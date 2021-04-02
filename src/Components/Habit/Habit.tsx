@@ -45,6 +45,7 @@ interface HabitProps {
     navigation: TabNavProps;
     initialHabit: IHabit;
     date: string;
+    dateIndex: number;
 }
 
 // Habit to update the habit stored in state if the user edits the habit
@@ -62,7 +63,7 @@ const updateHabitState = (initialHabit: IHabit, habit: IHabit, habitDispatch: Re
         habitDispatch({ type: 'schedule', payload: { schedule: initialHabit.schedule } });
 };
 
-const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
+const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex }) => {
     // Thene styles
     const theme = useTheme();
 
@@ -131,7 +132,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
 
     // View the current habit
     const handleView = (): void => {
-        navigation.navigate('View', { id: habit.id });
+        navigation.navigate('View', { id: habit.id, prevIndex: dateIndex });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
