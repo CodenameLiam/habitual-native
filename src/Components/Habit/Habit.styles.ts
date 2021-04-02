@@ -1,5 +1,6 @@
 import styled, { css } from '@emotion/native';
 import { Animated, TouchableOpacity } from 'react-native';
+import TextTicker from 'react-native-text-ticker';
 
 export const HabitContainer = styled(Animated.View)`
     background-color: ${props => props.theme.card};
@@ -16,6 +17,7 @@ export const HabitContentContainer = styled.View`
     flex-direction: row;
     align-items: center;
     padding: 5px;
+    flex: 1;
 `;
 
 export const HabitIconContainer = styled.View`
@@ -24,6 +26,27 @@ export const HabitIconContainer = styled.View`
     margin: 15px;
     width: 35px;
     height: 30px;
+`;
+
+interface HabitColourContainerProps {
+    colour: string;
+}
+export const HabitColourContainer = styled(Animated.View)<HabitColourContainerProps>`
+    background-color: ${props => props.colour};
+    height: 35px;
+    width: 35px;
+    overflow: hidden;
+    border-radius: 1000px;
+`;
+
+export const HabitTextContainer = styled.View`
+    flex: 1;
+`;
+
+export const HabitText = styled(TextTicker)`
+    font-family: 'Montserrat';
+    font-weight: 600;
+    color: ${props => props.theme.text};
 `;
 
 export const RightAction = styled(TouchableOpacity)`
@@ -43,4 +66,14 @@ export const HabitScroll = css`
 export const HabitIcon = css`
     position: absolute;
     z-index: 1;
+`;
+
+export const HabitProgressButton = css`
+    padding: 26px;
+`;
+
+export const HabitProgressText = styled.Text`
+    font-family: 'Montserrat';
+    font-weight: 600;
+    color: ${props => props.theme.text};
 `;

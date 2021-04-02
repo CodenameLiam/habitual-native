@@ -1,15 +1,45 @@
 import { IHabit } from 'Controllers/HabitController/HabitController';
 import { Action, habitReducer } from 'Controllers/HabitController/HabitReducer';
 import { TabNavProps } from 'Navigation/Params';
-import React, { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
-import { PanGestureHandler, PanGestureHandlerGestureEvent, Swipeable } from 'react-native-gesture-handler';
+import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { PanGestureHandler, PanGestureHandlerGestureEvent, State, Swipeable } from 'react-native-gesture-handler';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { AppContext } from 'Context/AppContext';
 import RightActions, { renderRightActions } from './RightActions';
-import { Animated, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { HabitContainer, HabitContentContainer, HabitIcon, HabitIconContainer } from './Habit.styles';
+import {
+    Animated,
+    Dimensions,
+    StyleSheet,
+    Text,
+    TouchableWithoutFeedback,
+    TouchableOpacity,
+    Easing,
+} from 'react-native';
+import {
+    HabitColourContainer,
+    HabitContainer,
+    HabitContentContainer,
+    HabitIcon,
+    HabitIconContainer,
+    HabitProgressButton,
+    HabitProgressText,
+    HabitText,
+    HabitTextContainer,
+} from './Habit.styles';
 import Icon from 'Components/Icon';
 import { useTheme } from '@emotion/react';
+import { GradientColours } from 'Styles/Colours';
+import LinearGradient from 'react-native-linear-gradient';
+
+const HabitMaxInterpolation = Dimensions.get('screen').width - 120;
+const HabitMaxTransformInterpolation = Dimensions.get('screen').width / 20.5;
+
+const normaliseProgress = (translationX: number, total: number, tempProgress: number): number => {
+    const interpolateX = translationX / HabitMaxInterpolation;
+    const scaledX = interpolateX * total;
+    const progress = tempProgress + scaledX;
+    return Math.min(Math.max(progress, 0), total);
+};
 
 interface HabitProps {
     navigation: TabNavProps;
@@ -17,6 +47,7 @@ interface HabitProps {
     date: string;
 }
 
+// Habit to update the habit stored in state if the user edits the habit
 const updateHabitState = (initialHabit: IHabit, habit: IHabit, habitDispatch: React.Dispatch<Action>): void => {
     // Updating name
     initialHabit.name !== habit.name && habitDispatch({ type: 'name', payload: { name: initialHabit.name } });
@@ -35,31 +66,117 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
     // Thene styles
     const theme = useTheme();
 
+    // Initial render ref
+    const mountRef = useRef<boolean>(false);
+
+    // Setting initial mount ref back to false when days change
+    useEffect(() => {
+        mountRef.current = false;
+    }, [date]);
+
     // Habit and context actions
     const { updateHabit, deleteHabit } = useContext(AppContext);
     const [habit, habitDispatch] = useReducer(habitReducer, initialHabit);
+    const gradient = useMemo(() => GradientColours[habit.colour], [habit.colour]);
+
+    // Progress
+    const progress = habit.dates[date] ? habit.dates[date].progress : 0;
+    const progressOffset = useMemo(() => (habit.type === 'time' ? 0.5 : 0.5), [habit.type]);
+    const progressInterval = useMemo(() => progressOffset * 2, [progressOffset]);
+    const [tempProgress, setTempProgress] = useState(progress);
+
+    // Gestures
+    const swipableRef = useRef<Swipeable>(null);
+    const panRef = useRef<PanGestureHandler>(null);
+    const [isDragging, setIsDragging] = useState(false);
+
+    // Animations
+    const progressAnimation = useRef(new Animated.Value(progress)).current;
+    const progressInterpolation = progressAnimation.interpolate({
+        inputRange: [0, habit.total],
+        outputRange: [1, HabitMaxTransformInterpolation],
+    });
+
+    const animateProgress = useCallback(() => {
+        Animated.timing(progressAnimation, {
+            toValue: progress,
+            duration: 500,
+            useNativeDriver: true,
+            easing: Easing.out(Easing.quad),
+        }).start();
+    }, [progress, progressAnimation]);
 
     // Updating habit from initial habit
     useEffect(() => {
         updateHabitState(initialHabit, habit, habitDispatch);
     }, [initialHabit, habit]);
 
+    // Animating progress and providing haptic feedback
+    useEffect(() => {
+        !isDragging && animateProgress();
+
+        console.log(mountRef.current);
+
+        if (mountRef.current) {
+            // Habit feedback
+            progress === habit.total
+                ? ReactNativeHapticFeedback.trigger('notificationSuccess')
+                : ReactNativeHapticFeedback.trigger('impactMedium');
+        } else {
+            mountRef.current = true;
+        }
+
+        !isDragging && updateHabit(habit);
+        // Disabling exhausting dependencies which causes infinite re-renders when using context values
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [habit, progress, progressAnimation]);
+
+    // View the current habit
     const handleView = (): void => {
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
-    // Gesture references
-    const swipableRef = useRef<Swipeable>(null);
-    const panRef = useRef<PanGestureHandler>(null);
-
     // Gesture handler
-    const handleGesture = useCallback((event: PanGestureHandlerGestureEvent) => {
+    const handleGesture = (event: PanGestureHandlerGestureEvent): void => {
         if (event.nativeEvent.velocityX > 1000) {
             habitDispatch({ type: 'progress', payload: { date: date, progress: habit.total } });
+            return;
         }
-    }, []);
 
-    const handleGestureEnd = useCallback(() => {}, []);
+        const progressNormalised = normaliseProgress(event.nativeEvent.translationX, habit.total, tempProgress);
+        progressAnimation.setValue(progressNormalised);
+
+        if (progressNormalised >= progress + progressOffset) {
+            habitDispatch({ type: 'progress', payload: { date: date, progress: progress + progressInterval } });
+        } else if (progressNormalised <= progress - progressOffset) {
+            habitDispatch({ type: 'progress', payload: { date: date, progress: progress - progressInterval } });
+        }
+    };
+
+    // Gesture state change handler
+    const handleGestureChange = useCallback(
+        (event: PanGestureHandlerGestureEvent) => {
+            if (event.nativeEvent.state === State.BEGAN) {
+                setIsDragging(true);
+            } else if (event.nativeEvent.state === State.END) {
+                setIsDragging(false);
+                animateProgress();
+                updateHabit(habit);
+            }
+        },
+        // Disabling exhausting dependencies which causes infinite re-renders when using context values
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [habit, animateProgress, progress],
+    );
+
+    //
+    const handlePress = (): void => {
+        setTempProgress(progress >= habit.total ? 0 : progress + 1);
+        habitDispatch({
+            type: 'progress',
+            payload: { date: date, progress: progress >= habit.total ? 0 : progress + 1 },
+        });
+    };
 
     return (
         <Swipeable
@@ -75,10 +192,11 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
                 failOffsetX={[0, 1000]}
                 minDeltaX={0}
                 onGestureEvent={handleGesture}
-                onHandlerStateChange={handleGestureEnd}
+                onHandlerStateChange={handleGestureChange}
             >
                 <HabitContainer>
-                    <TouchableWithoutFeedback onPress={handleView} style={StyleSheet.absoluteFill}>
+                    {/* Left hand side, icon and name */}
+                    <TouchableWithoutFeedback onPress={handleView}>
                         <HabitContentContainer>
                             <HabitIconContainer>
                                 <Icon
@@ -88,10 +206,45 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
                                     colour={theme.text}
                                     style={HabitIcon}
                                 />
+                                <HabitColourContainer
+                                    colour={gradient.solid}
+                                    style={{ transform: [{ scale: progressInterpolation }] }}
+                                >
+                                    <LinearGradient
+                                        colors={[gradient.start, gradient.end]}
+                                        locations={[0.3, 1]}
+                                        style={StyleSheet.absoluteFill}
+                                        start={{ x: 0, y: 0.5 }}
+                                        end={{ x: 1, y: 0 }}
+                                    />
+                                </HabitColourContainer>
                             </HabitIconContainer>
-                            <Text style={{ backgroundColor: 'red' }}>{habit.name}</Text>
+                            <HabitTextContainer>
+                                <HabitText
+                                    scroll={false}
+                                    animationType="bounce"
+                                    duration={3000}
+                                    bounceDelay={1500}
+                                    marqueeDelay={1000}
+                                    bouncePadding={{ left: 0, right: 0 }}
+                                >
+                                    {habit.name}
+                                </HabitText>
+                            </HabitTextContainer>
                         </HabitContentContainer>
                     </TouchableWithoutFeedback>
+                    {/* Right hand side, progress button */}
+                    <TouchableOpacity onPress={handlePress} style={HabitProgressButton}>
+                        {habit.total === progress ? (
+                            <Icon family="entypo" name="check" size={18} colour={theme.text} />
+                        ) : progress > 0 ? (
+                            <HabitProgressText>
+                                {progress}/{habit.total}
+                            </HabitProgressText>
+                        ) : (
+                            <Icon family="fontawesome" name="circle-o" size={12} colour={theme.text} />
+                        )}
+                    </TouchableOpacity>
                 </HabitContainer>
             </PanGestureHandler>
         </Swipeable>
