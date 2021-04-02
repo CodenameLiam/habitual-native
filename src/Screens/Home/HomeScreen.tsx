@@ -9,6 +9,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { CircleDateContainer } from './HomeScreen.styles';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 // Creates constant day text/number values
 const prevDates = [...Array(7).keys()].reverse().map(date => moment().subtract(date, 'day'));
@@ -51,6 +52,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         prevDateIndex,
     ]);
 
+    const handlePress = (index: number): void => {
+        setPrevDateIndex(6 - index);
+        ReactNativeHapticFeedback.trigger('impactLight');
+    };
+
     return (
         <View>
             <CircleDateContainer>
@@ -58,7 +64,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     <CircleDate
                         key={date.format('YYYY-MM-DD')}
                         alpha={allAlphaValues[index]}
-                        handlePress={() => setPrevDateIndex(6 - index)}
+                        handlePress={() => handlePress(index)}
                         selected={6 - index === prevDateIndex}
                         dayText={date.format('ddd').toUpperCase()}
                         dayNumber={date.format('D')}

@@ -115,8 +115,6 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
     useEffect(() => {
         !isDragging && animateProgress();
 
-        console.log(mountRef.current);
-
         if (mountRef.current) {
             // Habit feedback
             progress === habit.total
@@ -133,6 +131,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date }) => {
 
     // View the current habit
     const handleView = (): void => {
+        navigation.navigate('View', { id: habit.id });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 

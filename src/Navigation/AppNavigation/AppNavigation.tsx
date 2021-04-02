@@ -6,12 +6,17 @@ import { Dimensions } from 'react-native';
 import TabNavigation from '../TabNavigation';
 import { useTheme } from '@emotion/react';
 import TabHeader from './Headers/TabHeader';
-import CreateHeader from './Headers/CreateHeader';
+import ViewHeader from './Headers/ViewHeader';
 import { headerTitle } from './AppNavigation.styles';
 import BuildScreen from 'Screens/Build/BuildScreen';
 import IconScreen from 'Screens/Icon/IconScreen';
 import IconHeader from './Headers/IconHeader';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import IdeasIcon from 'Navigation/Components/IdeasIcon';
+import IdeasHeader from './Headers/IdeasHeader';
+import ViewScreen from 'Screens/View/ViewScreen';
+import CreateHeader from './Headers/CreateHeader';
+import IdeasScreen from 'Screens/Ideas/IdeasScreen';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -50,6 +55,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 options={({ navigation }) => TabHeader({ active, colour, navigation, handleSettings })}
             />
             <Stack.Screen
+                name="View"
+                component={ViewScreen}
+                options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
+            />
+            <Stack.Screen
                 name="Build"
                 component={BuildScreen}
                 options={({ navigation }) => CreateHeader({ colour, navigation })}
@@ -58,6 +68,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 name="Icon"
                 component={IconScreen}
                 options={({ navigation }) => IconHeader({ colour, navigation })}
+            />
+            <Stack.Screen
+                name="Ideas"
+                component={IdeasScreen}
+                options={({ navigation }) => IdeasHeader({ colour, navigation })}
             />
         </Stack.Navigator>
     );

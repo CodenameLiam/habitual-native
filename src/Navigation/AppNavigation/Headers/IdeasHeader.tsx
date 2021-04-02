@@ -5,16 +5,16 @@ import { IconNavProps } from 'Navigation/Params';
 import React from 'react';
 import { View } from 'react-native';
 
-interface IconHeaderProps {
+interface IdeasHeaderProps {
     colour: string;
     navigation: IconNavProps;
 }
 
-const IconHeader = ({ colour, navigation }: IconHeaderProps): StackNavigationOptions => ({
+const IdeasHeader = ({ colour, navigation }: IdeasHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <View></View>,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => navigation.navigate('Build', {})} />,
     headerStyle: { height: 60 },
-    headerTitle: 'Select Icon',
+    headerTitle: 'Habit Ideas',
 });
 
-export default IconHeader;
+export default IdeasHeader;

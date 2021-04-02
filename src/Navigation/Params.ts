@@ -9,10 +9,16 @@ interface BuildRoute {
     icon?: Partial<IconProps>;
 }
 
+interface ViewRoute {
+    id: string;
+}
+
 export type AppParamList = {
     Tabs: undefined;
     Build: BuildRoute;
+    View: ViewRoute;
     Icon: undefined;
+    Ideas: undefined;
 };
 
 export type TabParamList = {
@@ -34,4 +40,6 @@ export type AppNavProps = DrawerNavigationProp<SettingsParamList, 'App'>;
 export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
 export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
 export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
+export type ViewNavProps = StackNavigationProp<AppParamList, 'View'>;
+export type ViewRouteProps = RouteProp<AppParamList, 'View'>;
 export type IconNavProps = StackNavigationProp<AppParamList, 'Icon'>;
