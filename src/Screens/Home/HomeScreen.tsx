@@ -1,7 +1,10 @@
 import CircleDate from 'Components/CircleDate/CircleDate';
+import Habit from 'Components/Habit/Habit';
+import { HabitScroll } from 'Components/Habit/Habit.styles';
 import { AppContext } from 'Context/AppContext';
 import { IAllHabits, IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment, { Moment } from 'moment';
+import { TabNavProps } from 'Navigation/Params';
 import React, { useContext, useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -34,7 +37,11 @@ const getAllAlphaValues = (habits: IAllHabits): number[] => {
     });
 };
 
-const HomeScreen: React.FC = () => {
+interface HomeScreenProps {
+    navigation: TabNavProps;
+}
+
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     const { habits, colour } = useContext(AppContext);
 
     const [prevDateIndex, setPrevDateIndex] = useState(0);
@@ -59,9 +66,14 @@ const HomeScreen: React.FC = () => {
                     />
                 ))}
             </CircleDateContainer>
-            <ScrollView>
+            <ScrollView contentContainerStyle={HabitScroll}>
                 {selectedDateHabits.map(habit => (
-                    <Text key={habit.id}>{habit.name}</Text>
+                    <Habit
+                        key={habit.id}
+                        initialHabit={habit}
+                        navigation={navigation}
+                        date={prevDates[6 - prevDateIndex].format('YYYY-MM-DD')}
+                    />
                 ))}
             </ScrollView>
         </View>
