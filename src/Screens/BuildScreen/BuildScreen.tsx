@@ -26,7 +26,6 @@ import { BuildInput } from './BuildScreen.styles';
 import { CountModule } from './Modules/CountModule';
 import { SqaureButton } from './Modules/CountModule.styles';
 import SaveModule from './Modules/SaveModule';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Toast from 'react-native-toast-message';
 import { ToastConfig } from 'Components/Toast/CustomToast';
 
@@ -65,14 +64,9 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
     }, []);
 
     // Specifies scheduling quick actions
-    const setScheduleFunctions = useMemo(
-        () =>
-            scheduleFunctions.map(schedule => () => {
-                ReactNativeHapticFeedback.trigger('impactLight');
-                setSchedule(schedule);
-            }),
-        [setSchedule],
-    );
+    const setScheduleFunctions = useMemo(() => scheduleFunctions.map(schedule => () => setSchedule(schedule)), [
+        setSchedule,
+    ]);
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} extraScrollHeight={60}>

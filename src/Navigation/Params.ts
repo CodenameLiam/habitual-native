@@ -49,3 +49,6 @@ export type ViewNavProps = StackNavigationProp<AppParamList, 'View'>;
 export type ViewRouteProps = RouteProp<AppParamList, 'View'>;
 export type IconNavProps = StackNavigationProp<AppParamList, 'Icon'>;
 export type IdeaNavProps = StackNavigationProp<AppParamList, 'Ideas'>;
+
+// Tab Navigation Types
+export type HomeRouteProps = RouteProp<TabParamList, 'Home'>;

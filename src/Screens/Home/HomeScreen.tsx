@@ -40,29 +40,24 @@ const getAllAlphaValues = (habits: IAllHabits): number[] => {
     });
 };
 
+// Gets the current title of the page
+const getHeaderTitle = (dayIndex: number): string => {
+    switch (dayIndex) {
+        case 0:
+            return 'Today';
+        case 1:
+            return 'Yesterday';
+        default:
+            return moment().subtract(dayIndex, 'd').format('MMM Do');
+    }
+};
+
 interface HomeScreenProps {
     navigation: TabNavProps;
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     const { habits, colour } = useContext(AppContext);
-    const [isFocused, setIsFocused] = useState(navigation.isFocused());
-    // const habitKey = useRef<string>(v4());
-
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         setIsFocused(navigation.isFocused());
-    //     }, [navigation]),
-    // );
-
-    // // useEffect(() => {
-    // //     console.log(navigation.isFocused());
-    // //     return () => {
-    // //         console.log(navigation.isFocused());
-    // //     };
-    // // }, [navigation]);
-
-    // console.log(navigation.isFocused());
 
     const [prevDateIndex, setPrevDateIndex] = useState(0);
     const allAlphaValues = useMemo(() => getAllAlphaValues(habits), [habits]);
@@ -70,6 +65,15 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         habits,
         prevDateIndex,
     ]);
+
+    useFocusEffect(
+        useCallback(() => {
+            const parentNavigation = navigation.getParent();
+            if (parentNavigation) {
+                parentNavigation.setOptions({ headerTitle: getHeaderTitle(prevDateIndex) });
+            }
+        }, [navigation, prevDateIndex]),
+    );
 
     const handlePress = (index: number): void => {
         setPrevDateIndex(6 - index);

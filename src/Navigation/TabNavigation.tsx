@@ -1,13 +1,30 @@
-import React, { useMemo } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView, Text } from 'react-native';
-import { TabParamList } from './Params';
+import { HomeRouteProps, TabNavProps, TabParamList } from './Params';
 
 import { TabColours } from '../Styles/Colours';
 import AnimatedTabBar, { FlashyTabBarItemConfig, TabsConfig } from '@gorhom/animated-tabbar';
 import Icon from 'Components/Icon';
 import { useTheme } from '@emotion/react';
 import HomeScreen from 'Screens/Home/HomeScreen';
+import CalendarScreen from 'Screens/Calendar/CalendarScreen';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
+const getHeaderTitle = (route: HomeRouteProps): string => {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+
+    switch (routeName) {
+        case 'Calendar':
+            return 'Calendar';
+        case 'Trends':
+            return 'Trends';
+        case 'Awards':
+            return 'Awards';
+        default:
+            return 'Home';
+    }
+};
 
 const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
     return {
@@ -54,20 +71,21 @@ const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
     };
 };
 
-const CalendarScreen: React.FC = () => {
-    return (
-        <SafeAreaView>
-            <Text>Calendar</Text>
-        </SafeAreaView>
-    );
-};
-
 const Tab = createBottomTabNavigator<TabParamList>();
 
-const TabNavigation: React.FC = () => {
+interface TabNavigationProps {
+    navigation: TabNavProps;
+    route: HomeRouteProps;
+}
+
+const TabNavigation: React.FC<TabNavigationProps> = ({ navigation, route }) => {
     const theme = useTheme();
 
     const CustomTabs = useMemo(() => getCustomTabs(theme.text), [theme]);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+    }, [navigation, route]);
 
     return (
         <Tab.Navigator
