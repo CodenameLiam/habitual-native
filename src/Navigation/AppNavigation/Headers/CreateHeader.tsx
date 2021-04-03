@@ -1,7 +1,8 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
+import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import BackIcon from 'Navigation/Components/BackIcon';
 import IdeasIcon from 'Navigation/Components/IdeasIcon';
-import { BuildNavProps } from 'Navigation/Params';
+import { BuildNavProps, BuildRouteProps } from 'Navigation/Params';
 import React from 'react';
 import { View } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -9,6 +10,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 interface CreateHeaderProps {
     colour: string;
     navigation: BuildNavProps;
+    route: BuildRouteProps;
 }
 
 const handleBack = (navigation: BuildNavProps): void => {
@@ -21,12 +23,13 @@ const handleIdeas = (navigation: BuildNavProps): void => {
     ReactNativeHapticFeedback.trigger('impactLight');
 };
 
-const CreateHeader = ({ colour, navigation }: CreateHeaderProps): StackNavigationOptions => ({
-    headerBackground: () => <View></View>,
+const CreateHeader = ({ colour, navigation, route }: CreateHeaderProps): StackNavigationOptions => ({
+    headerBackground: () =>
+        route && route.params.colour ? <HeaderBackground colour={route.params.colour} /> : <View></View>,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
     headerRight: () => <IdeasIcon colour={colour} handlePress={() => handleIdeas(navigation)} />,
     headerStyle: { height: 60 },
-    headerTitle: 'Create Habit',
+    headerTitle: route && route.params.id ? 'Edit Habit' : 'Create Habit',
 });
 
 export default CreateHeader;

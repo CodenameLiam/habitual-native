@@ -1,6 +1,6 @@
 import { IHabit } from './HabitController';
 
-type HabitActions = 'name' | 'icon' | 'colour' | 'schedule' | 'total' | 'type' | 'progress';
+type HabitActions = 'name' | 'icon' | 'colour' | 'schedule' | 'total' | 'type' | 'progress' | 'all';
 
 interface Payload extends IHabit {
     date?: string;
@@ -33,6 +33,11 @@ export const habitReducer = (habit: IHabit, action: Action): IHabit => {
                     ...habit.dates,
                     [action.payload.date!]: { progressTotal: habit.total, progress: action.payload.progress! },
                 },
+            };
+        case 'all':
+            return {
+                ...habit,
+                ...action.payload,
             };
         default:
             return habit;

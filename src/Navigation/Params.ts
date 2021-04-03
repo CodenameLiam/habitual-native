@@ -3,14 +3,18 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IconProps } from 'Components/Icon';
 import { IHabit } from 'Controllers/HabitController/HabitController';
+import { IColours } from 'Styles/Colours';
 
 interface BuildRoute {
     id?: string;
     icon?: Partial<IconProps>;
+    colour?: IColours;
 }
 
 interface ViewRoute {
     id: string;
+    colour: IColours;
+    name: string;
     prevIndex: number;
 }
 

@@ -1,4 +1,4 @@
-import { IHabit } from 'Controllers/HabitController/HabitController';
+import { getProgress, IHabit } from 'Controllers/HabitController/HabitController';
 import { Action, habitReducer } from 'Controllers/HabitController/HabitReducer';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
@@ -43,27 +43,37 @@ const normaliseProgress = (translationX: number, total: number, tempProgress: nu
 
 interface HabitProps {
     navigation: TabNavProps;
-    initialHabit: IHabit;
+    habit: IHabit;
     date: string;
     dateIndex: number;
 }
 
 // Habit to update the habit stored in state if the user edits the habit
-const updateHabitState = (initialHabit: IHabit, habit: IHabit, habitDispatch: React.Dispatch<Action>): void => {
-    // Updating name
-    initialHabit.name !== habit.name && habitDispatch({ type: 'name', payload: { name: initialHabit.name } });
-    // Updating colour
-    initialHabit.colour !== habit.colour && habitDispatch({ type: 'colour', payload: { colour: initialHabit.colour } });
-    // Updating icon
-    initialHabit.icon !== habit.icon && habitDispatch({ type: 'icon', payload: { icon: initialHabit.icon } });
-    // Updating total
-    initialHabit.total !== habit.total && habitDispatch({ type: 'total', payload: { total: initialHabit.total } });
-    // Updating schedule
-    initialHabit.schedule !== habit.schedule &&
-        habitDispatch({ type: 'schedule', payload: { schedule: initialHabit.schedule } });
-};
+// const updateHabitState = (
+//     initialHabit: IHabit,
+//     habit: IHabit,
+//     habitDispatch: React.Dispatch<Action>,
+//     date: string,
+// ): void => {
+//     // Updating name
+//     initialHabit.name !== habit.name && habitDispatch({ type: 'name', payload: { name: initialHabit.name } });
+//     // Updating colour
+//     initialHabit.colour !== habit.colour && habitDispatch({ type: 'colour', payload: { colour: initialHabit.colour } });
+//     // Updating icon
+//     initialHabit.icon !== habit.icon && habitDispatch({ type: 'icon', payload: { icon: initialHabit.icon } });
+//     // Updating total
+//     initialHabit.total !== habit.total && habitDispatch({ type: 'total', payload: { total: initialHabit.total } });
+//     // Updating schedule
+//     initialHabit.schedule !== habit.schedule &&
+//         habitDispatch({ type: 'schedule', payload: { schedule: initialHabit.schedule } });
+//     // // Updating progress
+//     // initialHabit.dates[date] &&
+//     //     habit.dates[date] &&
+//     //     initialHabit.dates[date].progress !== habit.dates[date].progress &&
+//     //     habitDispatch({ type: 'progress', payload: { date: date, progress: initialHabit.dates[date].progress } });
+// };
 
-const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex }) => {
+const Habit: React.FC<HabitProps> = ({ navigation, habit, date, dateIndex }) => {
     // Thene styles
     const theme = useTheme();
 
@@ -77,14 +87,14 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex
 
     // Habit and context actions
     const { updateHabit, deleteHabit } = useContext(AppContext);
-    const [habit, habitDispatch] = useReducer(habitReducer, initialHabit);
+    // const [habit, habitDispatch] = useReducer(habitReducer, initialHabit);
     const gradient = useMemo(() => GradientColours[habit.colour], [habit.colour]);
 
     // Progress
-    const progress = habit.dates[date] ? habit.dates[date].progress : 0;
+    const [progress, setProgress] = useState(getProgress(habit, date));
+    const [tempProgress, setTempProgress] = useState(progress);
     const progressOffset = useMemo(() => (habit.type === 'time' ? 0.5 : 0.5), [habit.type]);
     const progressInterval = useMemo(() => progressOffset * 2, [progressOffset]);
-    const [tempProgress, setTempProgress] = useState(progress);
 
     // Gestures
     const swipableRef = useRef<Swipeable>(null);
@@ -107,10 +117,10 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex
         }).start();
     }, [progress, progressAnimation]);
 
-    // Updating habit from initial habit
+    // Updating progress from initial habit
     useEffect(() => {
-        updateHabitState(initialHabit, habit, habitDispatch);
-    }, [initialHabit, habit]);
+        setProgress(getProgress(habit, date));
+    }, [date]);
 
     // Animating progress and providing haptic feedback
     useEffect(() => {
@@ -125,21 +135,29 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex
             mountRef.current = true;
         }
 
-        !isDragging && updateHabit(habit);
+        !isDragging &&
+            updateHabit({
+                ...habit,
+                dates: {
+                    ...habit.dates,
+                    [date]: { progressTotal: habit.total, progress: progress },
+                },
+            });
         // Disabling exhausting dependencies which causes infinite re-renders when using context values
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [habit, progress, progressAnimation]);
+    }, [progress, progressAnimation]);
 
     // View the current habit
     const handleView = (): void => {
-        navigation.navigate('View', { id: habit.id, prevIndex: dateIndex });
+        navigation.navigate('View', { id: habit.id, name: habit.name, colour: habit.colour, prevIndex: dateIndex });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
     // Gesture handler
     const handleGesture = (event: PanGestureHandlerGestureEvent): void => {
         if (event.nativeEvent.velocityX > 1000) {
-            habitDispatch({ type: 'progress', payload: { date: date, progress: habit.total } });
+            setProgress(habit.total);
+            // habitDispatch({ type: 'progress', payload: { date: date, progress: habit.total } });
             return;
         }
 
@@ -147,9 +165,11 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex
         progressAnimation.setValue(progressNormalised);
 
         if (progressNormalised >= progress + progressOffset) {
-            habitDispatch({ type: 'progress', payload: { date: date, progress: progress + progressInterval } });
+            setProgress(progress + progressInterval);
+            // habitDispatch({ type: 'progress', payload: { date: date, progress: progress + progressInterval } });
         } else if (progressNormalised <= progress - progressOffset) {
-            habitDispatch({ type: 'progress', payload: { date: date, progress: progress - progressInterval } });
+            setProgress(progress - progressInterval);
+            // habitDispatch({ type: 'progress', payload: { date: date, progress: progress - progressInterval } });
         }
     };
 
@@ -172,10 +192,11 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex
     //
     const handlePress = (): void => {
         setTempProgress(progress >= habit.total ? 0 : progress + 1);
-        habitDispatch({
-            type: 'progress',
-            payload: { date: date, progress: progress >= habit.total ? 0 : progress + 1 },
-        });
+        setProgress(progress >= habit.total ? 0 : progress + 1);
+        // habitDispatch({
+        //     type: 'progress',
+        //     payload: { date: date, progress: progress >= habit.total ? 0 : progress + 1 },
+        // });
     };
 
     return (
@@ -235,7 +256,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, initialHabit, date, dateIndex
                     </TouchableWithoutFeedback>
                     {/* Right hand side, progress button */}
                     <TouchableOpacity onPress={handlePress} style={HabitProgressButton}>
-                        {habit.total === progress ? (
+                        {progress >= habit.total ? (
                             <Icon family="entypo" name="check" size={18} colour={theme.text} />
                         ) : progress > 0 ? (
                             <HabitProgressText>

@@ -1,13 +1,13 @@
 import styled from '@emotion/native';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-export const ViewScreenTitleContainer = styled.View`
+export const ArrowContainer = styled.View`
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
 `;
 
-export const ViewScreenTitle = styled.Text`
+export const ArrowTitle = styled.Text`
     font-family: 'Montserrat';
     font-weight: 600;
     font-size: 18px;
@@ -21,7 +21,7 @@ interface ArrowProps {
     placement: 'left' | 'right';
 }
 
-export const ViewScreenArrow = styled(TouchableOpacity)<ArrowProps>`
+export const ArrowButton = styled(TouchableOpacity)<ArrowProps>`
     background-color: ${props => props.colour + '50'};
     width: 25px;
     height: 25px;
@@ -30,22 +30,4 @@ export const ViewScreenArrow = styled(TouchableOpacity)<ArrowProps>`
     align-items: center;
     margin-left: ${props => (props.placement === 'left' ? '25px' : 0)};
     margin-right: ${props => (props.placement === 'right' ? '25px' : 0)};
-`;
-
-interface CircleContainerProps {
-    height: number;
-}
-
-export const CircleContainer = styled.View<CircleContainerProps>`
-    height: ${props => props.height + 'px'};
-    justify-content: center;
-    align-items: center;
-    /* background: red; */
-`;
-
-export const CircleText = styled.Text`
-    font-family: 'Montserrat';
-    font-weight: 800;
-    font-size: 28px;
-    color: ${props => props.theme.text};
 `;

@@ -45,6 +45,10 @@ export const useHabits = (): IHabitController => {
     return { loadingHabits, habits, updateHabit, deleteHabit };
 };
 
+export const getProgress = (habit: IHabit, selectedDate: string): number => {
+    return habit.dates[selectedDate] ? habit.dates[selectedDate].progress : 0;
+};
+
 export interface IAllHabits {
     [id: string]: IHabit;
 }

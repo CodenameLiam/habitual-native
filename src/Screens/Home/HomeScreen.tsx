@@ -5,11 +5,13 @@ import { AppContext } from 'Context/AppContext';
 import { IAllHabits, IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment, { Moment } from 'moment';
 import { TabNavProps } from 'Navigation/Params';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { CircleDateContainer } from './HomeScreen.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { v4 } from 'uuid';
+import { useFocusEffect } from '@react-navigation/core';
 
 // Creates constant day text/number values
 const prevDates = [...Array(7).keys()].reverse().map(date => moment().subtract(date, 'day'));
@@ -25,7 +27,7 @@ const getSelectedDateHabits = (habits: IAllHabits, selectedDate: Moment): IHabit
 const getAlphaValue = (habits: IHabit[], selectedDate: string): number => {
     const completeHabits = habits.filter(
         habit =>
-            habit.dates[selectedDate] && habit.dates[selectedDate].progress === habit.dates[selectedDate].progressTotal,
+            habit.dates[selectedDate] && habit.dates[selectedDate].progress >= habit.dates[selectedDate].progressTotal,
     );
     return completeHabits.length === 0 ? 1 : 1 - completeHabits.length / habits.length;
 };
@@ -44,6 +46,23 @@ interface HomeScreenProps {
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     const { habits, colour } = useContext(AppContext);
+    const [isFocused, setIsFocused] = useState(navigation.isFocused());
+    // const habitKey = useRef<string>(v4());
+
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         setIsFocused(navigation.isFocused());
+    //     }, [navigation]),
+    // );
+
+    // // useEffect(() => {
+    // //     console.log(navigation.isFocused());
+    // //     return () => {
+    // //         console.log(navigation.isFocused());
+    // //     };
+    // // }, [navigation]);
+
+    // console.log(navigation.isFocused());
 
     const [prevDateIndex, setPrevDateIndex] = useState(0);
     const allAlphaValues = useMemo(() => getAllAlphaValues(habits), [habits]);
@@ -76,7 +95,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 {selectedDateHabits.map(habit => (
                     <Habit
                         key={habit.id}
-                        initialHabit={habit}
+                        habit={habit}
                         navigation={navigation}
                         date={prevDates[6 - prevDateIndex].format('YYYY-MM-DD')}
                         dateIndex={prevDateIndex}
