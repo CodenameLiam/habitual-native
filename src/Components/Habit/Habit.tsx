@@ -70,14 +70,17 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, date, dateIndex }) => 
     });
 
     // Animate progress
-    const animateProgress = useCallback(() => {
-        Animated.timing(progressAnimation, {
-            toValue: ceilingProgress(habit, progress),
-            duration: 500,
-            useNativeDriver: true,
-            easing: Easing.out(Easing.quad),
-        }).start();
-    }, [habit, progress, progressAnimation]);
+    const animateProgress = useCallback(
+        (localProgress?: number) => {
+            Animated.timing(progressAnimation, {
+                toValue: ceilingProgress(habit, localProgress ?? progress),
+                duration: 500,
+                useNativeDriver: true,
+                easing: Easing.out(Easing.quad),
+            }).start();
+        },
+        [habit, progress, progressAnimation],
+    );
 
     // Check for animation requirements
     useEffect(() => {
@@ -121,6 +124,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, date, dateIndex }) => 
             if (event.nativeEvent.state === State.BEGAN) {
                 setIsDragging(true);
             } else if (event.nativeEvent.state === State.END) {
+                setTempProgress(progress);
                 setIsDragging(false);
                 animateProgress();
                 updateHabit({ ...habit, dates: mergeDates(habit, date, progress) });
@@ -136,6 +140,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, date, dateIndex }) => 
         setTempProgress(progress >= habit.total ? 0 : progress + 1);
         setProgress(progress >= habit.total ? 0 : progress + 1);
         provideFeedback(habit, progress >= habit.total ? 0 : progress + 1);
+        animateProgress(progress >= habit.total ? 0 : progress + 1);
         updateHabit({
             ...habit,
             dates: mergeDates(habit, date, progress >= habit.total ? 0 : progress + 1),
