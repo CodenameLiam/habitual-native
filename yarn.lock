@@ -1432,6 +1432,15 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
+"@types/react-native-calendars@^1.505.2":
+  version "1.505.2"
+  resolved "https://registry.yarnpkg.com/@types/react-native-calendars/-/react-native-calendars-1.505.2.tgz#69b4640d8eefa9f4f7a68b35cd79aa98c02c01b4"
+  integrity sha512-NjH/JGLPPDSZ2wiFBxEil7tAUEra08oZeasTe12hFQJzXTRRVnhlamdP/Ky2a79bQIcitJVscOu0FIXLTQvpyQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+    "@types/xdate" "*"
+
 "@types/react-native-vector-icons@^6.4.6":
   version "6.4.6"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.6.tgz#848e3b14572def56212cafbf5cb1254b445bfb41"
@@ -1477,6 +1486,11 @@
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
   integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
+
+"@types/xdate@*":
+  version "0.8.31"
+  resolved "https://registry.yarnpkg.com/@types/xdate/-/xdate-0.8.31.tgz#7bec14a47c9bb30715d507f32bc82ab163149574"
+  integrity sha512-iZYRKKK8UZXoepNh2kwK6TPITMj/dwdv0NzNi9DFMt2foGkU7h+ncaCpGsdD2fp/CXMs9dxPAzV9uddFy7c4QA==
 
 "@types/yargs-parser@*":
   version "20.2.0"

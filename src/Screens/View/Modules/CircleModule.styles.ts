@@ -14,6 +14,6 @@ export const CircleContainer = styled.View<CircleContainerProps>`
 export const CircleText = styled.Text`
     font-family: 'Montserrat';
     font-weight: 800;
-    font-size: 28px;
+    font-size: 30px;
     color: ${props => props.theme.text};
 `;

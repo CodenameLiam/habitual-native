@@ -5,16 +5,27 @@ import DismissableScrollView from 'Components/DismissableScrollView/DismissableS
 import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import Icon from 'Components/Icon';
 import { AppContext } from 'Context/AppContext';
-import { getProgress, IHabit, mergeDates, provideFeedback } from 'Controllers/HabitController/HabitController';
+import {
+    getProgress,
+    IHabit,
+    ISchedule,
+    mergeDates,
+    provideFeedback,
+    ScheduleType,
+} from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { View, InteractionManager } from 'react-native';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { View, InteractionManager, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GradientColours, GreyColours } from 'Styles/Colours';
 import { Row } from 'Styles/Globals';
 import CircleModule from './Modules/CircleModule';
 import ProgressButtonModule from './Modules/ProgressButtonModule';
+import { YearlyTitle } from './ViewScreen.styles';
+import { CalendarList, DateObject } from 'react-native-calendars';
+import CalendarModule from './Modules/CalendarModule';
+import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 
 interface ViewScreenProps {
     navigation: ViewNavProps;
@@ -60,6 +71,8 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
         setProgress(getProgress(habit, date));
     }, [habit, date]);
 
+    console.log(date);
+
     return (
         <DismissableScrollView navigation={navigation}>
             <ArrowControls
@@ -77,6 +90,10 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                 habit={habit}
                 updateHabit={updateHabit}
             />
+            <YearlyTitle>Yearly Progress</YearlyTitle>
+            <YearlyCalendar habit={habit} colour={gradient.solid} />
+
+            {isReady && <CalendarModule colour={gradient.solid} habit={habit} updateHabit={updateHabit} />}
         </DismissableScrollView>
     );
 };
