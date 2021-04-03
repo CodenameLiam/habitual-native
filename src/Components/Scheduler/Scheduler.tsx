@@ -1,9 +1,10 @@
 import { ISchedule, ScheduleType } from 'Controllers/HabitController/HabitController';
 import React, { useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { GradientColours, IColours } from 'Styles/Colours';
 import { ScheduleButton, ScheduleContainer, ScheduleText } from './Scheduler.styles';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface ScheduleProps {
     colour: IColours;
@@ -19,6 +20,7 @@ const Scheduler: React.FC<ScheduleProps> = ({ colour, schedule, setSchedule }) =
             const tempSchedule = schedule;
             tempSchedule[day] = !tempSchedule[day];
             setSchedule(tempSchedule);
+            ReactNativeHapticFeedback.trigger('impactLight');
         },
         [schedule, setSchedule],
     );

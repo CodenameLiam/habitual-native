@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import TextTicker from 'react-native-text-ticker';
 
 export const CardContainer = styled.View`
     margin: 15px;
@@ -8,7 +9,7 @@ export const CardContainer = styled.View`
     background-color: ${props => props.theme.card};
 `;
 
-export const CardText = styled.Text`
+export const CardText = styled(TextTicker)`
     padding-bottom: 10px;
     color: ${props => props.theme.grey};
     font-size: 18px;

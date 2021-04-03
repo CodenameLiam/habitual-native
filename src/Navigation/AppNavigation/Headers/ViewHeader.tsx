@@ -4,9 +4,7 @@ import BackIcon from 'Navigation/Components/BackIcon';
 import EditIcon from 'Navigation/Components/EditIcon';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 import React from 'react';
-import { View } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-
 interface ViewHeaderProps {
     colour: string;
     navigation: ViewNavProps;

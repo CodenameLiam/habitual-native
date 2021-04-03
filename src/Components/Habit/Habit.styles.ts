@@ -46,7 +46,7 @@ export const HabitTextContainer = styled.View`
 export const HabitText = styled(TextTicker)`
     font-family: 'Montserrat';
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     color: ${props => props.theme.text};
 `;
 

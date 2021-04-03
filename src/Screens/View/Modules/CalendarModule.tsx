@@ -1,8 +1,7 @@
 import { useTheme } from '@emotion/react';
-import { IHabit, mergeDates, provideFeedback, ScheduleType } from 'Controllers/HabitController/HabitController';
+import { IHabit, mergeDates, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-import React, { useCallback, useMemo, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useCallback } from 'react';
 import { CalendarList, DateObject } from 'react-native-calendars';
 import { GreyColours } from 'Styles/Colours';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -110,6 +109,7 @@ const CalendarModule: React.FC<CalendarModuleProps> = ({ habit, updateHabit, col
                 selectedDayBackgroundColor: colour,
                 todayTextColor: colour,
                 dotColor: colour,
+                textMonthFontSize: 15,
                 textMonthFontFamily: 'Montserrat',
                 textMonthFontWeight: '600',
                 textDayFontFamily: 'Montserrat',

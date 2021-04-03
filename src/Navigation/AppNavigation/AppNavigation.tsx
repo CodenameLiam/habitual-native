@@ -8,7 +8,7 @@ import { useTheme } from '@emotion/react';
 import TabHeader from './Headers/TabHeader';
 import ViewHeader from './Headers/ViewHeader';
 import { headerTitle } from './AppNavigation.styles';
-import BuildScreen from 'Screens/Build/BuildScreen';
+import BuildScreen from 'Screens/BuildScreen/BuildScreen';
 import IconScreen from 'Screens/Icon/IconScreen';
 import IconHeader from './Headers/IconHeader';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -62,7 +62,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
             <Stack.Screen
                 name="Build"
                 component={BuildScreen}
-                options={({ navigation }) => CreateHeader({ colour, navigation })}
+                options={({ navigation, route }) => CreateHeader({ colour, navigation, route })}
             />
             <Stack.Screen
                 name="Icon"

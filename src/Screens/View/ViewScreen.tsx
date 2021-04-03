@@ -80,6 +80,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                 colour={gradient.solid}
                 onLeftPress={() => setCurrentDateIndex(currentDateIndex - 1)}
                 onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
+                rightDisabled={date === moment().format('YYYY-MM-DD')}
             />
             <CircleModule progress={progress} total={habit.total} colour={gradient.solid} />
             <ProgressButtonModule

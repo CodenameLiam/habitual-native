@@ -24,12 +24,11 @@ const handleIdeas = (navigation: BuildNavProps): void => {
 };
 
 const CreateHeader = ({ colour, navigation, route }: CreateHeaderProps): StackNavigationOptions => ({
-    headerBackground: () =>
-        route && route.params.colour ? <HeaderBackground colour={route.params.colour} /> : <View></View>,
+    headerBackground: () => (route.params.colour ? <HeaderBackground colour={route.params.colour} /> : <View></View>),
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
     headerRight: () => <IdeasIcon colour={colour} handlePress={() => handleIdeas(navigation)} />,
     headerStyle: { height: 60 },
-    headerTitle: route && route.params.id ? 'Edit Habit' : 'Create Habit',
+    headerTitle: route.params.id ? 'Edit Habit' : 'Create Habit',
 });
 
 export default CreateHeader;
