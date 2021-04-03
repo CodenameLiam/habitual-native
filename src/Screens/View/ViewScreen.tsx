@@ -3,6 +3,7 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import DismissableScrollView from 'Components/DismissableScrollView/DismissableScrollView';
 import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
+import Icon from 'Components/Icon';
 import { AppContext } from 'Context/AppContext';
 import { getProgress, IHabit, mergeDates, provideFeedback } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
@@ -10,18 +11,11 @@ import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { View, InteractionManager } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { GradientColours } from 'Styles/Colours';
+import { GradientColours, GreyColours } from 'Styles/Colours';
 import { Row } from 'Styles/Globals';
 import CircleModule from './Modules/CircleModule';
+import ProgressButtonModule from './Modules/ProgressButtonModule';
 
-// Debouncing update to prevent lag during excessive renders
-const updateHabitDebounced = AwesomeDebouncePromise(
-    (habit: IHabit, updateHabit: (habit: IHabit) => Promise<void>, date: string, progress: number) => {
-        console.log('Yes');
-        updateHabit({ ...habit, dates: mergeDates(habit, date, progress) });
-    },
-    500,
-);
 interface ViewScreenProps {
     navigation: ViewNavProps;
     route: ViewRouteProps;
@@ -75,32 +69,13 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                 onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
             />
             <CircleModule progress={progress} total={habit.total} colour={gradient.solid} />
-
-            <View style={Row}></View>
-
-            <TouchableOpacity
-                style={{ backgroundColor: 'red', width: 50, height: 50 }}
-                onPress={() => {
-                    setProgress(progress + 1);
-                    updateHabitDebounced(habit, updateHabit, date, progress + 1);
-                    provideFeedback(habit, progress + 1);
-                }}
-            />
-            <TouchableOpacity
-                disabled={progress <= 0}
-                style={{ backgroundColor: 'green', width: 50, height: 50 }}
-                onPress={() => {
-                    setProgress(progress - 1);
-                    updateHabitDebounced(habit, updateHabit, date, progress - 1);
-                }}
-            />
-            <TouchableOpacity
-                style={{ backgroundColor: 'yellow', width: 50, height: 50 }}
-                onPress={() => {
-                    setProgress(progress >= habit.total ? 0 : habit.total);
-                    provideFeedback(habit, progress >= habit.total ? 0 : habit.total);
-                    updateHabitDebounced(habit, updateHabit, date, progress >= habit.total ? 0 : habit.total);
-                }}
+            <ProgressButtonModule
+                progress={progress}
+                setProgress={setProgress}
+                date={date}
+                colour={gradient.solid}
+                habit={habit}
+                updateHabit={updateHabit}
             />
         </DismissableScrollView>
     );
