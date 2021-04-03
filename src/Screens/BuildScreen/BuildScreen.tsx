@@ -27,6 +27,8 @@ import { CountModule } from './Modules/CountModule';
 import { SqaureButton } from './Modules/CountModule.styles';
 import SaveModule from './Modules/SaveModule';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import Toast from 'react-native-toast-message';
+import { ToastConfig } from 'Components/Toast/CustomToast';
 
 interface BuildScreenProps {
     navigation: BuildNavProps;
@@ -121,6 +123,7 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
                 </Card>
             </View>
             <SaveModule habit={habit} navigation={navigation} />
+            <Toast config={ToastConfig} ref={ref => Toast.setRef(ref)} />
         </KeyboardAwareScrollView>
     );
 };
