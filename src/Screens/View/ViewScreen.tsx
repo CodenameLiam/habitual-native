@@ -24,8 +24,9 @@ import CircleModule from './Modules/CircleModule';
 import ProgressButtonModule from './Modules/ProgressButtonModule';
 import { YearlyTitle } from './ViewScreen.styles';
 import { CalendarList, DateObject } from 'react-native-calendars';
-import CalendarModule from './Modules/CalendarModule';
+import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
 import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
+import StatsModule from './Modules/StatsModule';
 
 interface ViewScreenProps {
     navigation: ViewNavProps;
@@ -33,9 +34,6 @@ interface ViewScreenProps {
 }
 
 const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
-    // Theme colours
-    const theme = useTheme();
-
     // Habit and context actions
     const { habits, updateHabit } = useContext(AppContext);
     const { id, prevIndex } = route.params;
@@ -63,6 +61,10 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     const currentDate = useMemo(() => moment().add(currentDateIndex, 'd'), [currentDateIndex]);
     const date = useMemo(() => currentDate.format('YYYY-MM-DD'), [currentDate]);
 
+    const [month, setMonth] = useState(today);
+    const sortedDates = useMemo(() => sortDates(Object.keys(habit.dates)), [habit.dates]);
+    const markedDates = useMemo(() => getMarkedDates(habit, month, sortedDates), [habit, month, sortedDates]);
+
     // Progress and animations
     const [progress, setProgress] = useState(getProgress(habit, date));
 
@@ -70,8 +72,6 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     useEffect(() => {
         setProgress(getProgress(habit, date));
     }, [habit, date]);
-
-    console.log(date);
 
     return (
         <DismissableScrollView navigation={navigation}>
@@ -93,7 +93,17 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
             <YearlyTitle>Yearly Progress</YearlyTitle>
             <YearlyCalendar habit={habit} colour={gradient.solid} />
 
-            {isReady && <CalendarModule colour={gradient.solid} habit={habit} updateHabit={updateHabit} />}
+            <StatsModule habit={habit} colour={gradient.solid} sortedDates={sortedDates} markedDates={markedDates} />
+
+            {isReady && (
+                <CalendarModule
+                    colour={gradient.solid}
+                    habit={habit}
+                    updateHabit={updateHabit}
+                    markedDates={markedDates}
+                    setMonth={setMonth}
+                />
+            )}
         </DismissableScrollView>
     );
 };

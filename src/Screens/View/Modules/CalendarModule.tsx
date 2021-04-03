@@ -1,21 +1,22 @@
 import { useTheme } from '@emotion/react';
-import { IHabit, mergeDates, ScheduleType } from 'Controllers/HabitController/HabitController';
+import { IHabit, mergeDates, provideFeedback, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import React, { useCallback, useMemo, useState } from 'react';
 import { View, Text } from 'react-native';
 import { CalendarList, DateObject } from 'react-native-calendars';
 import { GreyColours } from 'Styles/Colours';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 // Constants
-const today = moment().format('YYYY-MM-DD');
+export const today = moment().format('YYYY-MM-DD');
 
 // Sorts sorts in ascending order
-const sortDates = (dates: string[]): string[] => {
+export const sortDates = (dates: string[]): string[] => {
     return dates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 };
 
 // Returns all days in which the habit is disabled
-const getDisabledDays = (habit: IHabit): number[] => {
+export const getDisabledDays = (habit: IHabit): number[] => {
     const disabledDays: number[] = [];
     Object.keys(habit.schedule).forEach((day, index) => {
         if (!habit.schedule[day as ScheduleType]) {
@@ -47,7 +48,7 @@ const getDisabledDates = (habit: IHabit, month: string, markedDates: any): any =
 };
 
 // Returns an array of marked dates for use in the calendar
-const getMarkedDates = (habit: IHabit, month: string, sortedDates: string[]): any => {
+export const getMarkedDates = (habit: IHabit, month: string, sortedDates: string[]): any => {
     let markedDates = Object.assign(
         {},
         ...sortedDates
@@ -65,15 +66,13 @@ const getMarkedDates = (habit: IHabit, month: string, sortedDates: string[]): an
 interface CalendarModuleProps {
     habit: IHabit;
     colour: string;
+    markedDates: any;
+    setMonth: React.Dispatch<React.SetStateAction<string>>;
     updateHabit: (habit: IHabit) => Promise<void>;
 }
 
-const CalendarModule: React.FC<CalendarModuleProps> = ({ habit, updateHabit, colour }) => {
+const CalendarModule: React.FC<CalendarModuleProps> = ({ habit, updateHabit, colour, markedDates, setMonth }) => {
     const theme = useTheme();
-
-    const [month, setMonth] = useState(today);
-    const sortedDates = useMemo(() => sortDates(Object.keys(habit.dates)), [habit.dates]);
-    const markedDates = useMemo(() => getMarkedDates(habit, month, sortedDates), [habit, month, sortedDates]);
 
     const handleCalendarPress = useCallback(
         (day: DateObject) => {
@@ -84,6 +83,8 @@ const CalendarModule: React.FC<CalendarModuleProps> = ({ habit, updateHabit, col
                 ...habit,
                 dates: mergeDates(habit, day.dateString, newProgress),
             });
+
+            ReactNativeHapticFeedback.trigger(newProgress === 0 ? 'impactLight' : 'notificationSuccess');
         },
         [habit, updateHabit],
     );

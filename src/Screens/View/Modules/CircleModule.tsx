@@ -63,6 +63,7 @@ const CircleModule: React.FC<CircleModuleProps> = ({ progress, total, colour }) 
                     r={radius}
                     strokeWidth={20}
                     strokeDashoffset={interpolatedSize}
+                    strokeLinecap="round"
                     strokeDasharray={[circumference, circumference]}
                 />
             </Svg>
