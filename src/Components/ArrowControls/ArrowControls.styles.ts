@@ -11,7 +11,7 @@ export const ArrowTitle = styled.Text`
     font-family: 'Montserrat';
     font-weight: 600;
     font-size: 18px;
-    padding: 20px 0px;
+    padding: 25px 0px;
     text-align: center;
     color: ${props => props.theme.text};
 `;
@@ -28,6 +28,6 @@ export const ArrowButton = styled(TouchableOpacity)<ArrowProps>`
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    margin-left: ${props => (props.placement === 'left' ? '25px' : 0)};
-    margin-right: ${props => (props.placement === 'right' ? '25px' : 0)};
+    margin-left: ${props => (props.placement === 'left' ? '30px' : 0)};
+    margin-right: ${props => (props.placement === 'right' ? '30px' : 0)};
 `;

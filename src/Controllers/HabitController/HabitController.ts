@@ -2,6 +2,7 @@ import { IconProps } from 'Components/Icon';
 import { useEffect, useState } from 'react';
 import { IColours } from 'Styles/Colours';
 import { getData, storeData } from '../StorageController';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const HABITS_KEY = '@Habits';
 
@@ -47,6 +48,16 @@ export const useHabits = (): IHabitController => {
 
 export const getProgress = (habit: IHabit, selectedDate: string): number => {
     return habit.dates[selectedDate] ? habit.dates[selectedDate].progress : 0;
+};
+
+export const mergeDates = (habit: IHabit, date: string, progress: number): HabitDates => {
+    return { ...habit.dates, [date]: { progressTotal: habit.total, progress: progress } };
+};
+
+export const provideFeedback = (habit: IHabit, progress: number): void => {
+    progress === habit.total
+        ? ReactNativeHapticFeedback.trigger('notificationSuccess')
+        : ReactNativeHapticFeedback.trigger('impactMedium');
 };
 
 export interface IAllHabits {
