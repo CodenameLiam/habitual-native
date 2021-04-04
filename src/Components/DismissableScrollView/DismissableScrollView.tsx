@@ -21,15 +21,15 @@ const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({ children,
         setScrolledTop(scrolledTop);
     };
 
-    useEffect(() => {
-        if (mountRef.current) {
-            navigation.setOptions({
-                gestureResponseDistance: scrolledTop ? Dimensions.get('screen').height : DEFAULT_GESTURE_RESPONSE,
-            });
-        } else {
-            mountRef.current = true;
-        }
-    }, [navigation, scrolledTop]);
+    // useEffect(() => {
+    //     if (mountRef.current) {
+    //         navigation.setOptions({
+    //             gestureResponseDistance: scrolledTop ? Dimensions.get('screen').height : DEFAULT_GESTURE_RESPONSE,
+    //         });
+    //     } else {
+    //         mountRef.current = true;
+    //     }
+    // }, [navigation, scrolledTop]);
 
     return (
         <GestureHandlerRefContext.Consumer>
@@ -37,7 +37,7 @@ const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({ children,
                 <ScrollView
                     waitFor={scrolledTop ? ref : undefined}
                     onScroll={onScroll}
-                    scrollEventThrottle={8}
+                    scrollEventThrottle={1}
                     showsVerticalScrollIndicator={false}
                 >
                     {children}

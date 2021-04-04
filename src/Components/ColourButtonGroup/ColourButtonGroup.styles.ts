@@ -13,7 +13,7 @@ interface ButtonContainerProps {
 }
 
 export const ButtonContainer = styled.View<ButtonContainerProps>`
-    background-color: ${props => props.backgroundColour + '50'};
+    background-color: ${props => props.backgroundColour + '30'};
     width: ${props => props.width + '%'};
     border-radius: 5px;
 `;

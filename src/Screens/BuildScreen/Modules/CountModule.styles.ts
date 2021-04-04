@@ -9,7 +9,7 @@ interface ButtonProps {
 }
 
 export const SqaureButton = styled(TouchableOpacity)<ButtonProps>`
-    background-color: ${props => (props.grey ? GreyColours.GREY2 + 50 : props.colour + 50)};
+    background-color: ${props => (props.grey ? GreyColours.GREY2 + 30 : props.colour + 30)};
     border-radius: 5px;
     overflow: hidden;
     height: 45px;

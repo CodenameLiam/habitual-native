@@ -17,7 +17,7 @@ import moment from 'moment';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { View, InteractionManager, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { GradientColours, GreyColours } from 'Styles/Colours';
 import { Row } from 'Styles/Globals';
 import CircleModule from './Modules/CircleModule';

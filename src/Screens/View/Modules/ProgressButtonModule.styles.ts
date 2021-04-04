@@ -13,7 +13,7 @@ interface ProgressButtonProps {
 
 export const ProgressButton = styled(TouchableOpacity)<ProgressButtonProps>`
     margin: 5px;
-    background-color: ${props => props.colour + 50};
+    background-color: ${props => props.colour + 30};
     height: 50px;
     width: 50px;
     border-radius: 5px;

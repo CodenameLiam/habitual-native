@@ -22,7 +22,7 @@ interface ArrowProps {
 }
 
 export const ArrowButton = styled(TouchableOpacity)<ArrowProps>`
-    background-color: ${props => props.colour + '50'};
+    background-color: ${props => props.colour + '30'};
     width: 25px;
     height: 25px;
     border-radius: 5px;
