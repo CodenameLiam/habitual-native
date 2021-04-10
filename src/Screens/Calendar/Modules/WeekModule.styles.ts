@@ -16,11 +16,13 @@ export const WeekDayContainer = styled.View`
 `;
 
 export const WeekHabitButton = styled(TouchableOpacity)`
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     width: ${weekTextContainer + 'px'};
     height: ${weekCellContainer + 'px'};
-    justify-content: center;
     padding-right: 10px;
-    padding-left: 20px;
+    padding-left: 10px;
 `;
 
 export const WeekHabitText = styled(TextTicker)`

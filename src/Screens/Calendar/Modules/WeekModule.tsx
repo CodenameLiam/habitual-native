@@ -14,10 +14,14 @@ import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback, useState } from 'react';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { today } from 'Screens/View/Modules/CalendarModule';
 import { GradientColours, GreyColours, IColours } from 'Styles/Colours';
+import { MarginRight } from 'Styles/Globals';
 import { WeekCell, WeekDayContainer, WeekHabitButton, WeekHabitContainer, WeekHabitText } from './WeekModule.styles';
 
-interface WeekModulesProps {
+interface WeekModuleProps {
+    weekIndex: number;
+    setWeekIndex: React.Dispatch<React.SetStateAction<number>>;
     habits: IAllHabits;
     colour: string;
     navigation: TabNavProps;
@@ -45,10 +49,16 @@ const getBackgroundColour = (habit: IHabit, date: string, defaultBackground: str
     return defaultBackground;
 };
 
-const WeekModule: React.FC<WeekModulesProps> = ({ navigation, habits, colour, updateHabit }) => {
+const WeekModule: React.FC<WeekModuleProps> = ({
+    weekIndex,
+    setWeekIndex,
+    navigation,
+    habits,
+    colour,
+    updateHabit,
+}) => {
     const theme = useTheme();
 
-    const [weekIndex, setWeekIndex] = useState<number>(0);
     const weekStart = moment().add(weekIndex, 'w').startOf('isoWeek');
     const weekEnd = moment().add(weekIndex, 'w').endOf('isoWeek');
 
@@ -71,12 +81,13 @@ const WeekModule: React.FC<WeekModulesProps> = ({ navigation, habits, colour, up
     );
 
     return (
-        <View style={{ height: '100%' }}>
+        <View style={{ flex: 1 }}>
             <ArrowControls
                 colour={colour}
                 title={`${weekStart.format('MMM Do')} - ${weekEnd.format('MMM Do, YYYY')}`}
                 onLeftPress={() => setWeekIndex(weekIndex - 1)}
                 onRightPress={() => setWeekIndex(weekIndex + 1)}
+                onTitlePress={() => setWeekIndex(0)}
                 rightDisabled={weekIndex === 0}
             />
             <WeekDayContainer>
@@ -86,12 +97,19 @@ const WeekModule: React.FC<WeekModulesProps> = ({ navigation, habits, colour, up
                     </WeekCell>
                 ))}
             </WeekDayContainer>
-            <ScrollView style={{ height: '100%' }}>
+            <ScrollView style={{ flexGrow: 1 }}>
                 {Object.keys(habits).map(id => {
                     const habit = habits[id];
                     return (
                         <WeekHabitContainer key={id}>
                             <WeekHabitButton onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}>
+                                <Icon
+                                    style={MarginRight}
+                                    family={habit.icon.family}
+                                    name={habit.icon.name}
+                                    size={14}
+                                    colour={theme.text}
+                                />
                                 <WeekHabitText
                                     scroll={false}
                                     animationType="bounce"
@@ -108,6 +126,7 @@ const WeekModule: React.FC<WeekModulesProps> = ({ navigation, habits, colour, up
                                     key={index}
                                     colour={getBackgroundColour(habit, day.format('YYYY-MM-DD'), theme.card)}
                                     onPress={() => handleCellPress(habit, day.format('YYYY-MM-DD'))}
+                                    disabled={day.isAfter(moment().add(1, 'd'))}
                                 >
                                     {renderDisabledIcon(
                                         habit,

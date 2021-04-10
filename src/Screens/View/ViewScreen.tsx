@@ -75,36 +75,43 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     return (
         <DismissableScrollView navigation={navigation}>
-            <ArrowControls
-                title={currentDate.format('MMM Do YYYY')}
-                colour={gradient.solid}
-                onLeftPress={() => setCurrentDateIndex(currentDateIndex - 1)}
-                onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
-                rightDisabled={date === moment().format('YYYY-MM-DD')}
-            />
-            <CircleModule progress={progress} total={habit.total} colour={gradient.solid} />
-            <ProgressButtonModule
-                progress={progress}
-                setProgress={setProgress}
-                date={date}
-                colour={gradient.solid}
-                habit={habit}
-                updateHabit={updateHabit}
-            />
-            <YearlyTitle>Yearly Progress</YearlyTitle>
-            <YearlyCalendar habit={habit} colour={gradient.solid} />
-
-            <StatsModule habit={habit} colour={gradient.solid} sortedDates={sortedDates} markedDates={markedDates} />
-
-            {isReady && (
-                <CalendarModule
+            <ScrollView>
+                <ArrowControls
+                    title={currentDate.format('MMM Do YYYY')}
+                    colour={gradient.solid}
+                    onLeftPress={() => setCurrentDateIndex(currentDateIndex - 1)}
+                    onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
+                    rightDisabled={date === moment().format('YYYY-MM-DD')}
+                />
+                <CircleModule progress={progress} total={habit.total} colour={gradient.solid} />
+                <ProgressButtonModule
+                    progress={progress}
+                    setProgress={setProgress}
+                    date={date}
                     colour={gradient.solid}
                     habit={habit}
                     updateHabit={updateHabit}
-                    markedDates={markedDates}
-                    setMonth={setMonth}
                 />
-            )}
+                <YearlyTitle>Yearly Progress</YearlyTitle>
+                <YearlyCalendar habit={habit} colour={gradient.solid} />
+
+                <StatsModule
+                    habit={habit}
+                    colour={gradient.solid}
+                    sortedDates={sortedDates}
+                    markedDates={markedDates}
+                />
+
+                {isReady && (
+                    <CalendarModule
+                        colour={gradient.solid}
+                        habit={habit}
+                        updateHabit={updateHabit}
+                        markedDates={markedDates}
+                        setMonth={setMonth}
+                    />
+                )}
+            </ScrollView>
         </DismissableScrollView>
     );
 };

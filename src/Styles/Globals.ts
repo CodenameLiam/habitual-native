@@ -9,6 +9,11 @@ export const RowBetween = css`
     justify-content: space-between;
 `;
 
+export const RowCenter = css`
+    flex-direction: row;
+    justify-content: center;
+`;
+
 export const MarginLeft = css`
     margin-left: 10px;
 `;

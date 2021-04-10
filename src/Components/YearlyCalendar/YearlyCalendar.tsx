@@ -1,18 +1,26 @@
 import { useTheme } from '@emotion/react';
 import { IHabit } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-import React, { useCallback } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { View, Text, Dimensions, ViewStyle } from 'react-native';
 import { CalendarCell, CalendarContainer } from './YearlyCalendar.styles';
 
 // Constants
-const yearDateArray = Array.from(Array(365)).map((value, index) =>
-    moment().subtract(364, 'd').add(index, 'd').format('YYYY-MM-DD'),
-);
+const yearArray = (fromStart?: boolean, yearIndex?: number): string[] =>
+    Array.from(Array(fromStart && moment().add(yearIndex, 'year').isLeapYear() ? 366 : 365)).map((value, index) => {
+        if (fromStart) {
+            return moment().add(yearIndex, 'year').startOf('year').add(index, 'd').format('YYYY-MM-DD');
+        } else {
+            return moment().add(yearIndex, 'year').subtract(364, 'd').add(index, 'd').format('YYYY-MM-DD');
+        }
+    });
 
 interface YearlyCalendarProps {
+    style?: ViewStyle;
     habit: IHabit;
     colour: string;
+    fromStart?: boolean;
+    yearIndex?: number;
 }
 
 const getAlphaValue = (habit: IHabit, day: string): number | string => {
@@ -29,7 +37,7 @@ const getAlphaValue = (habit: IHabit, day: string): number | string => {
     return value;
 };
 
-const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ habit, colour }) => {
+const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ style, habit, colour, fromStart, yearIndex }) => {
     const theme = useTheme();
 
     const getColour = useCallback(
@@ -42,10 +50,10 @@ const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ habit, colour }) => {
     );
 
     return (
-        <CalendarContainer>
-            {yearDateArray.map((day, index) => {
-                return <CalendarCell key={day} colour={getColour(day)} />;
-            })}
+        <CalendarContainer style={style}>
+            {yearArray(fromStart, yearIndex).map((day, index) => (
+                <CalendarCell key={day} colour={getColour(day)} />
+            ))}
         </CalendarContainer>
     );
 };

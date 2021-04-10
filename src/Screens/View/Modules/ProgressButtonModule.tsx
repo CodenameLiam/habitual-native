@@ -7,11 +7,11 @@ import { GreyColours } from 'Styles/Colours';
 import { ProgressButton, ProgressButtonContainer } from './ProgressButtonModule.styles';
 
 // Debouncing update to prevent lag during excessive renders
-const updateHabitDebounced = AwesomeDebouncePromise(
+export const updateHabitDebounced = AwesomeDebouncePromise(
     (habit: IHabit, updateHabit: (habit: IHabit) => Promise<void>, date: string, progress: number) => {
         updateHabit({ ...habit, dates: mergeDates(habit, date, progress) });
     },
-    500,
+    600,
 );
 
 interface ProgressButtonModuleProps {

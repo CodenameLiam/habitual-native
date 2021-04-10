@@ -14,7 +14,7 @@ interface SaveModuleProps {
     navigation: BuildNavProps;
 }
 
-const bottomOffset = Dimensions.get('screen').height * 0.16;
+export const bottomOffset = 100;
 
 const SaveModule: React.FC<SaveModuleProps> = ({ habit, navigation }) => {
     const { updateHabit } = useContext(AppContext);

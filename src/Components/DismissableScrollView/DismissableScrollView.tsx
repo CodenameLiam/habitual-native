@@ -1,6 +1,6 @@
 // DismissableFlatList.js
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GestureHandlerRefContext } from '@react-navigation/stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -16,20 +16,20 @@ const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({ children,
     const [scrolledTop, setScrolledTop] = useState(true);
     const mountRef = useRef(false);
 
-    const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
+    const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>): void => {
         const scrolledTop = event.nativeEvent.contentOffset.y <= 0;
         setScrolledTop(scrolledTop);
-    };
+    }, []);
 
-    // useEffect(() => {
-    //     if (mountRef.current) {
-    //         navigation.setOptions({
-    //             gestureResponseDistance: scrolledTop ? Dimensions.get('screen').height : DEFAULT_GESTURE_RESPONSE,
-    //         });
-    //     } else {
-    //         mountRef.current = true;
-    //     }
-    // }, [navigation, scrolledTop]);
+    useEffect(() => {
+        if (mountRef.current) {
+            navigation.setOptions({
+                gestureResponseDistance: scrolledTop ? Dimensions.get('screen').height : DEFAULT_GESTURE_RESPONSE,
+            });
+        } else {
+            mountRef.current = true;
+        }
+    }, [navigation, scrolledTop]);
 
     return (
         <GestureHandlerRefContext.Consumer>
@@ -37,7 +37,7 @@ const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({ children,
                 <ScrollView
                     waitFor={scrolledTop ? ref : undefined}
                     onScroll={onScroll}
-                    scrollEventThrottle={1}
+                    scrollEventThrottle={16}
                     showsVerticalScrollIndicator={false}
                 >
                     {children}
