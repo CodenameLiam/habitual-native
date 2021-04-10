@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, ScrollView, InteractionManager } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GradientColours, IColours } from 'Styles/Colours';
-import { MarginRight, Row } from 'Styles/Globals';
+import { MarginRight, Row, RowCenter } from 'Styles/Globals';
 import { WeekHabitButton, WeekHabitText } from './WeekModule.styles';
 import { YearHabitText } from './YearModule.styles';
 
@@ -56,8 +56,7 @@ const YearModule: React.FC<YearModuleProps> = ({
                     const habitColour = GradientColours[habit.colour].solid;
                     return (
                         <TouchableOpacity key={id} onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}>
-                            {/* <WeekHabitButton onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}> */}
-                            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <View style={RowCenter}>
                                 <Icon
                                     style={MarginRight}
                                     family={habit.icon.family}
@@ -68,7 +67,6 @@ const YearModule: React.FC<YearModuleProps> = ({
                                 <YearHabitText colour={habitColour}>{habit.name}</YearHabitText>
                             </View>
 
-                            {/* </WeekHabitButton> */}
                             <YearlyCalendar
                                 style={{ marginTop: 10, marginBottom: 25 }}
                                 habit={habit}

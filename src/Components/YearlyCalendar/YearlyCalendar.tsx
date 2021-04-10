@@ -1,12 +1,12 @@
 import { useTheme } from '@emotion/react';
 import { IHabit } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-import React, { useCallback, useMemo } from 'react';
-import { View, Text, Dimensions, ViewStyle } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { View, Text, Dimensions, ViewStyle, InteractionManager } from 'react-native';
 import { CalendarCell, CalendarContainer } from './YearlyCalendar.styles';
 
 // Constants
-const yearArray = (fromStart?: boolean, yearIndex?: number): string[] =>
+const getYearArray = (fromStart?: boolean, yearIndex?: number): string[] =>
     Array.from(Array(fromStart && moment().add(yearIndex, 'year').isLeapYear() ? 366 : 365)).map((value, index) => {
         if (fromStart) {
             return moment().add(yearIndex, 'year').startOf('year').add(index, 'd').format('YYYY-MM-DD');
@@ -39,6 +39,7 @@ const getAlphaValue = (habit: IHabit, day: string): number | string => {
 
 const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ style, habit, colour, fromStart, yearIndex }) => {
     const theme = useTheme();
+    const yearArray = useMemo(() => getYearArray(fromStart, yearIndex), [fromStart, yearIndex]);
 
     const getColour = useCallback(
         (day: string) => {
@@ -51,7 +52,7 @@ const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ style, habit, colour, f
 
     return (
         <CalendarContainer style={style}>
-            {yearArray(fromStart, yearIndex).map((day, index) => (
+            {yearArray.map((day, index) => (
                 <CalendarCell key={day} colour={getColour(day)} />
             ))}
         </CalendarContainer>

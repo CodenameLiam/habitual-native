@@ -29,14 +29,8 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
     const [range, setRange] = useState<rangeType>('Weekly');
     const buttonFunctions = useMemo(() => rangeMap.map(range => () => setRange(range)), []);
 
-    const handleYearChange = (): void => {
-        Toast.show({
-            type: 'error',
-            text1: 'Please schedule your habit for at least one day',
-            position: 'bottom',
-            bottomOffset: 100,
-        });
-    };
+    // Store cached arrays
+    const handleYearChange = (): void => {};
 
     const renderRange = (): React.ReactNode => {
         switch (range) {
