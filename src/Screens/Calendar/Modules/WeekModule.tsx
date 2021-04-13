@@ -25,6 +25,7 @@ import {
     WeekHabitContainer,
     WeekHabitText,
 } from './WeekModule.styles';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface WeekModuleProps {
     weekIndex: number;
@@ -73,6 +74,7 @@ const WeekModule: React.FC<WeekModuleProps> = ({
 
     const handleHabitPress = useCallback(
         (id: string, name: string, colour: IColours, prevIndex: number) => {
+            ReactNativeHapticFeedback.trigger('impactLight');
             navigation.navigate('View', { id, name, colour, prevIndex });
         },
         [navigation],

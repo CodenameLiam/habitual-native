@@ -7,11 +7,12 @@ import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, ScrollView, InteractionManager } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { GradientColours, IColours } from 'Styles/Colours';
 import { MarginRight, Row, RowCenter } from 'Styles/Globals';
 import { WeekHabitButton, WeekHabitText } from './WeekModule.styles';
 import { YearHabitText } from './YearModule.styles';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface YearModuleProps {
     yearIndex: number;
@@ -35,6 +36,7 @@ const YearModule: React.FC<YearModuleProps> = ({
 
     const handleHabitPress = useCallback(
         (id: string, name: string, colour: IColours, prevIndex: number) => {
+            ReactNativeHapticFeedback.trigger('impactLight');
             navigation.navigate('View', { id, name, colour, prevIndex });
         },
         [navigation],
@@ -55,7 +57,10 @@ const YearModule: React.FC<YearModuleProps> = ({
                     const habit = habits[id];
                     const habitColour = GradientColours[habit.colour].solid;
                     return (
-                        <TouchableOpacity key={id} onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}>
+                        <TouchableWithoutFeedback
+                            key={id}
+                            onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}
+                        >
                             <View style={RowCenter}>
                                 <Icon
                                     style={MarginRight}
@@ -74,7 +79,7 @@ const YearModule: React.FC<YearModuleProps> = ({
                                 yearIndex={yearIndex}
                                 fromStart
                             />
-                        </TouchableOpacity>
+                        </TouchableWithoutFeedback>
                     );
                 })}
             </ScrollView>

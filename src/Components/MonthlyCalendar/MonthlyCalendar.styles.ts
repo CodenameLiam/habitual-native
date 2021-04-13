@@ -17,12 +17,6 @@ interface MonthProps {
     colour: string;
 }
 
-export const MonthText = styled(TextTicker)<MonthProps>`
-    color: ${props => props.colour};
-    font-family: 'Montserrat';
-    font-weight: 600;
-`;
-
 export const MonthCell = styled.View<MonthProps>`
     width: ${cellDimensions + 'px'};
     height: ${cellDimensions + 'px'};
