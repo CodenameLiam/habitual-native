@@ -3,13 +3,12 @@ import Icon from 'Components/Icon';
 import MonthlyCalendar from 'Components/MonthlyCalendar/MonthlyCalendar';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { IAllHabits, IHabit } from 'Controllers/HabitController/HabitController';
-import { useTheme } from 'Controllers/ThemeController';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
 import { View, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { GradientColours, IColours } from 'Styles/Colours';
-import { MarginRight, Row, RowCenter } from 'Styles/Globals';
+import { MarginRight } from 'Styles/Globals';
 import { AllMonthContainer, MonthCalendarContainer, MonthText, MonthTextContainer } from './MonthModule.styles';
 
 interface MonthModuleProps {
@@ -18,18 +17,9 @@ interface MonthModuleProps {
     habits: IAllHabits;
     colour: string;
     navigation: TabNavProps;
-    updateHabit: (habit: IHabit) => Promise<void>;
 }
 
-const MonthModule: React.FC<MonthModuleProps> = ({
-    monthIndex,
-    setMonthIndex,
-    navigation,
-    habits,
-    colour,
-    updateHabit,
-}) => {
-    const theme = useTheme();
+const MonthModule: React.FC<MonthModuleProps> = ({ monthIndex, setMonthIndex, navigation, habits, colour }) => {
     const month = moment().add(monthIndex, 'month');
 
     const handleHabitPress = useCallback(

@@ -52,7 +52,6 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                         setMonthIndex={setMonthIndex}
                         navigation={navigation}
                         habits={habits}
-                        updateHabit={updateHabit}
                         colour={GradientColours[colour].solid}
                     />
                 );
@@ -63,7 +62,6 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                         setYearIndex={setYearIndex}
                         navigation={navigation}
                         habits={habits}
-                        updateHabit={updateHabit}
                         colour={GradientColours[colour].solid}
                     />
                 );

@@ -1,16 +1,14 @@
-import { useTheme } from '@emotion/react';
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import Icon from 'Components/Icon';
 import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 import { IAllHabits, IHabit } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, ScrollView, InteractionManager } from 'react-native';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import React, { useCallback } from 'react';
+import { View, ScrollView } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { GradientColours, IColours } from 'Styles/Colours';
-import { MarginRight, Row, RowCenter } from 'Styles/Globals';
-import { WeekHabitButton, WeekHabitText } from './WeekModule.styles';
+import { MarginRight, RowCenter } from 'Styles/Globals';
 import { YearHabitText } from './YearModule.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
@@ -20,18 +18,9 @@ interface YearModuleProps {
     habits: IAllHabits;
     colour: string;
     navigation: TabNavProps;
-    updateHabit: (habit: IHabit) => Promise<void>;
 }
 
-const YearModule: React.FC<YearModuleProps> = ({
-    yearIndex,
-    setYearIndex,
-    habits,
-    colour,
-    navigation,
-    updateHabit,
-}) => {
-    const theme = useTheme();
+const YearModule: React.FC<YearModuleProps> = ({ yearIndex, setYearIndex, habits, colour, navigation }) => {
     const year = moment().add(yearIndex, 'year');
 
     const handleHabitPress = useCallback(

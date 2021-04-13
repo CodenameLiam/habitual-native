@@ -11,10 +11,9 @@ import {
 } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
-import React, { useCallback, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useCallback } from 'react';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { today } from 'Screens/View/Modules/CalendarModule';
 import { GradientColours, GreyColours, IColours } from 'Styles/Colours';
 import { MarginRight } from 'Styles/Globals';
 import {
