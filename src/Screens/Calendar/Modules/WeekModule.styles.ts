@@ -25,15 +25,21 @@ export const WeekHabitButton = styled(TouchableOpacity)`
     padding-left: 15px;
 `;
 
-export const WeekHabitText = styled(TextTicker)`
+export const WeekDayText = styled.Text`
     color: ${props => props.theme.text};
     font-family: 'Montserrat';
-    font-weight: 600;
+    font-weight: 800;
 `;
 
 interface WeekCellProps {
     colour: string;
 }
+
+export const WeekHabitText = styled(TextTicker)<WeekCellProps>`
+    color: ${props => props.colour};
+    font-family: 'Montserrat';
+    font-weight: 600;
+`;
 
 export const WeekCell = styled(TouchableOpacity)<WeekCellProps>`
     background-color: ${props => props.colour};

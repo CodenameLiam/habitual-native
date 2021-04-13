@@ -17,7 +17,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { today } from 'Screens/View/Modules/CalendarModule';
 import { GradientColours, GreyColours, IColours } from 'Styles/Colours';
 import { MarginRight } from 'Styles/Globals';
-import { WeekCell, WeekDayContainer, WeekHabitButton, WeekHabitContainer, WeekHabitText } from './WeekModule.styles';
+import {
+    WeekCell,
+    WeekDayContainer,
+    WeekDayText,
+    WeekHabitButton,
+    WeekHabitContainer,
+    WeekHabitText,
+} from './WeekModule.styles';
 
 interface WeekModuleProps {
     weekIndex: number;
@@ -93,13 +100,14 @@ const WeekModule: React.FC<WeekModuleProps> = ({
             <WeekDayContainer>
                 {prevDates.map((day, index) => (
                     <WeekCell key={index} disabled={true} colour={theme.card}>
-                        <WeekHabitText>{day.format('dd')[0]}</WeekHabitText>
+                        <WeekDayText>{day.format('dd')[0]}</WeekDayText>
                     </WeekCell>
                 ))}
             </WeekDayContainer>
             <ScrollView style={{ flexGrow: 1 }}>
                 {Object.keys(habits).map(id => {
                     const habit = habits[id];
+                    const habitColour = GradientColours[habit.colour].solid;
                     return (
                         <WeekHabitContainer key={id}>
                             <WeekHabitButton onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}>
@@ -108,9 +116,10 @@ const WeekModule: React.FC<WeekModuleProps> = ({
                                     family={habit.icon.family}
                                     name={habit.icon.name}
                                     size={14}
-                                    colour={theme.text}
+                                    colour={habitColour}
                                 />
                                 <WeekHabitText
+                                    colour={habitColour}
                                     scroll={false}
                                     animationType="bounce"
                                     duration={5000}
