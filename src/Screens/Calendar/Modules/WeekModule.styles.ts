@@ -22,7 +22,7 @@ export const WeekHabitButton = styled(TouchableOpacity)`
     width: ${weekTextContainer + 'px'};
     height: ${weekCellContainer + 'px'};
     padding-right: 10px;
-    padding-left: 10px;
+    padding-left: 15px;
 `;
 
 export const WeekHabitText = styled(TextTicker)`
@@ -40,7 +40,7 @@ export const WeekCell = styled(TouchableOpacity)<WeekCellProps>`
     height: ${weekCellContainer + 'px'};
     width: ${weekCellContainer + 'px'};
     margin: 2px;
-    border-radius: 8px;
+    border-radius: 5px;
     justify-content: center;
     align-items: center;
 `;

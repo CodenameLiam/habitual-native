@@ -116,7 +116,7 @@ const WeekModule: React.FC<WeekModuleProps> = ({
                                     duration={5000}
                                     bounceDelay={1500}
                                     marqueeDelay={1000}
-                                    bouncePadding={{ left: 0, right: 0 }}
+                                    bouncePadding={{ left: 0, right: 15 }}
                                 >
                                     {habit.name}
                                 </WeekHabitText>

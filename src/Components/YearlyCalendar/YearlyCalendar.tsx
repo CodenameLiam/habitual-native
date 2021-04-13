@@ -23,7 +23,7 @@ interface YearlyCalendarProps {
     yearIndex?: number;
 }
 
-const getAlphaValue = (habit: IHabit, day: string): number | string => {
+export const getAlphaValue = (habit: IHabit, day: string): number | string => {
     let value: number | string = habit.dates[day]
         ? habit.dates[day].progress >= habit.dates[day].progressTotal
             ? 1
