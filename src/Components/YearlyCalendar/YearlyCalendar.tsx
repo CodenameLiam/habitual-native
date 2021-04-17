@@ -9,9 +9,7 @@ interface YearlyCalendarProps {
     style?: ViewStyle;
     habit: IHabit;
     colour: string;
-    // fromStart?: boolean;
     yearStart: Moment;
-    // yearIndex?: number;
     yearArray: string[];
 }
 

@@ -1,11 +1,8 @@
 import { ColourButtonGroup } from 'Components/ColourButtonGroup/ColourButtonGroup';
-import { ToastConfig } from 'Components/Toast/CustomToast';
 import { AppContext } from 'Context/AppContext';
-import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useContext, useMemo, useState } from 'react';
-import { View, Text } from 'react-native';
-import Toast from 'react-native-toast-message';
+import { View } from 'react-native';
 import { GradientColours } from 'Styles/Colours';
 import { CalendarButtonGroupContainer } from './CalendarScreen.styles';
 import MonthModule from './Modules/MonthModule';
@@ -28,9 +25,6 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
 
     const [range, setRange] = useState<rangeType>('Weekly');
     const buttonFunctions = useMemo(() => rangeMap.map(range => () => setRange(range)), []);
-
-    // Store cached arrays
-    const handleYearChange = (): void => {};
 
     const renderRange = (): React.ReactNode => {
         switch (range) {
