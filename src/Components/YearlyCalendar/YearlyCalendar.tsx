@@ -41,7 +41,7 @@ const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ style, habit, colour, y
     return (
         <CalendarContainer style={style}>
             {yearArray.map((day, index) => (
-                <CalendarCell key={index} colour={getColour(habit, colour, theme.disabled, index, yearStart)} />
+                <CalendarCell key={index} colour={getColour(habit, colour, theme.card, index, yearStart)} />
             ))}
         </CalendarContainer>
     );

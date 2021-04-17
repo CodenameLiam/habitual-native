@@ -25,11 +25,9 @@ const MonthlyCalendar: React.FC<MonthlyCalendarProps> = ({ habit, colour, monthI
 
     const getColour = useCallback(
         (day: string) => {
-            return habit.dates[day] && habit.dates[day].progress > 0
-                ? colour + getAlphaValue(habit, day)
-                : theme.disabled;
+            return habit.dates[day] && habit.dates[day].progress > 0 ? colour + getAlphaValue(habit, day) : theme.card;
         },
-        [colour, habit, theme.disabled],
+        [colour, habit, theme.card],
     );
 
     return (
