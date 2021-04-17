@@ -81,7 +81,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     };
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <CircleDateContainer>
                 {prevDates.map((date, index) => (
                     <CircleDate
@@ -95,7 +95,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     />
                 ))}
             </CircleDateContainer>
-            <ScrollView contentContainerStyle={HabitScroll}>
+            <ScrollView
+                style={{ flexGrow: 1 }}
+                contentContainerStyle={HabitScroll}
+                showsVerticalScrollIndicator={false}
+            >
                 {selectedDateHabits.map(habit => (
                     <Habit
                         key={habit.id}

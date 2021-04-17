@@ -57,8 +57,6 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, date, dateIndex }) => 
     const progressOffset = useMemo(() => (habit.type === 'time' ? 0.5 : 0.5), [habit.type]);
     const progressInterval = useMemo(() => progressOffset * 2, [progressOffset]);
 
-    console.log(tempProgress);
-
     // Gestures
     const swipableRef = useRef<Swipeable>(null);
     const panRef = useRef<PanGestureHandler>(null);

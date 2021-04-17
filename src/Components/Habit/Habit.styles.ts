@@ -60,7 +60,6 @@ export const RightAction = styled(TouchableOpacity)`
 `;
 
 export const HabitScroll = css`
-    height: 100%;
     padding: 10px;
 `;
 

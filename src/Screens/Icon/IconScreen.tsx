@@ -4,6 +4,7 @@ import Icon, { IconProps } from 'Components/Icon';
 import { IconNavProps } from 'Navigation/Params';
 import React, { useEffect, useState } from 'react';
 import { InteractionManager, Dimensions } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { IconOptions } from './IconConstants';
 import {
     IconContainer,
@@ -36,7 +37,8 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
     };
 
     return (
-        <DismissableScrollView navigation={navigation}>
+        // <DismissableScrollView navigation={navigation}>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <IconScreenContainer>
                 {IconOptions.map((group, index) => (
                     <IconGroupContainer key={group.label}>
@@ -60,7 +62,7 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
                     </IconGroupContainer>
                 ))}
             </IconScreenContainer>
-        </DismissableScrollView>
+        </ScrollView>
     );
 };
 

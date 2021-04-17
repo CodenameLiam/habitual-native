@@ -193,9 +193,7 @@ export const IconOptions: IconGroup[] = [
             { family: 'materialcommunity', name: 'trophy' },
             { family: 'materialcommunity', name: 'medal' },
             { family: 'materialcommunity', name: 'compass' },
-
             { family: 'materialcommunity', name: 'death-star-variant' },
-
             { family: 'materialcommunity', name: 'one-up' },
             { family: 'materialcommunity', name: 'space-invaders' },
         ],
