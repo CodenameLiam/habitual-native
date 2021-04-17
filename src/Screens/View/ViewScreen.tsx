@@ -25,7 +25,7 @@ import ProgressButtonModule from './Modules/ProgressButtonModule';
 import { YearlyTitle } from './ViewScreen.styles';
 import { CalendarList, DateObject } from 'react-native-calendars';
 import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
-import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
+import YearlyCalendar, { getYearArray } from 'Components/YearlyCalendar/YearlyCalendar';
 import StatsModule from './Modules/StatsModule';
 
 interface ViewScreenProps {
@@ -93,7 +93,12 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                     updateHabit={updateHabit}
                 />
                 <YearlyTitle>Yearly Progress</YearlyTitle>
-                <YearlyCalendar habit={habit} colour={gradient.solid} />
+                <YearlyCalendar
+                    habit={habit}
+                    colour={gradient.solid}
+                    yearArray={getYearArray(false, 0)}
+                    yearStart={moment().add(1, 'day').subtract(1, 'year')}
+                />
 
                 <StatsModule
                     habit={habit}
