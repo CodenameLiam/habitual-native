@@ -1,31 +1,19 @@
-import { useTheme } from '@emotion/react';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import DismissableScrollView from 'Components/DismissableScrollView/DismissableScrollView';
 import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
-import Icon from 'Components/Icon';
 import { AppContext } from 'Context/AppContext';
-import {
-    getProgress,
-    IHabit,
-    ISchedule,
-    mergeDates,
-    provideFeedback,
-    ScheduleType,
-} from 'Controllers/HabitController/HabitController';
+import { getProgress } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { View, InteractionManager, Dimensions } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { GradientColours, GreyColours } from 'Styles/Colours';
-import { Row } from 'Styles/Globals';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { InteractionManager } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { GradientColours } from 'Styles/Colours';
 import CircleModule from './Modules/CircleModule';
 import ProgressButtonModule from './Modules/ProgressButtonModule';
 import { YearlyTitle } from './ViewScreen.styles';
-import { CalendarList, DateObject } from 'react-native-calendars';
 import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
-import YearlyCalendar, { getYearArray } from 'Components/YearlyCalendar/YearlyCalendar';
+import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 import StatsModule from './Modules/StatsModule';
 
 interface ViewScreenProps {
@@ -96,7 +84,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                 <YearlyCalendar
                     habit={habit}
                     colour={gradient.solid}
-                    yearArray={getYearArray(false, 0)}
+                    yearArray={Array.from(Array(365))}
                     yearStart={moment().add(1, 'day').subtract(1, 'year')}
                 />
 

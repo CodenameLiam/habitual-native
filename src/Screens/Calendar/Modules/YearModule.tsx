@@ -1,7 +1,7 @@
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import Icon from 'Components/Icon';
-import YearlyCalendar, { getYearArray } from 'Components/YearlyCalendar/YearlyCalendar';
-import { IAllHabits, IHabit } from 'Controllers/HabitController/HabitController';
+import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
+import { IAllHabits } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
@@ -67,9 +67,6 @@ const YearModule: React.FC<YearModuleProps> = ({ yearIndex, setYearIndex, habits
                                 colour={habitColour}
                                 yearArray={Array.from(Array(year.isLeapYear() ? 366 : 365))}
                                 yearStart={year.startOf('year')}
-                                // yearArray={getYearArray(true, yearIndex)}
-                                // yearIndex={yearIndex}
-                                // fromStart
                             />
                         </TouchableWithoutFeedback>
                     );

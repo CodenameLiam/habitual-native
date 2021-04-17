@@ -1,20 +1,9 @@
 import { useTheme } from '@emotion/react';
 import { IHabit } from 'Controllers/HabitController/HabitController';
-import moment, { Moment } from 'moment';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Dimensions, ViewStyle, InteractionManager } from 'react-native';
-import { add } from 'react-native-reanimated';
+import { Moment } from 'moment';
+import React from 'react';
+import { ViewStyle } from 'react-native';
 import { CalendarCell, CalendarContainer } from './YearlyCalendar.styles';
-
-// Constants
-export const getYearArray = (fromStart?: boolean, yearIndex?: number): string[] =>
-    Array.from(Array(fromStart && moment().add(yearIndex, 'year').isLeapYear() ? 366 : 365)).map((value, index) => {
-        if (fromStart) {
-            return moment().add(yearIndex, 'year').startOf('year').add(index, 'd').format('YYYY-MM-DD');
-        } else {
-            return moment().add(yearIndex, 'year').subtract(364, 'd').add(index, 'd').format('YYYY-MM-DD');
-        }
-    });
 
 interface YearlyCalendarProps {
     style?: ViewStyle;
