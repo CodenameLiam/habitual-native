@@ -16,7 +16,7 @@ import { IHabit, ISchedule } from 'Controllers/HabitController/HabitController';
 import { habitReducer } from 'Controllers/HabitController/HabitReducer';
 import { BuildNavProps, BuildRouteProps } from 'Navigation/Params';
 import React, { useCallback, useContext, useEffect, useMemo, useReducer } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { getRandomColour, GradientColours } from 'Styles/Colours';
@@ -107,9 +107,9 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
                 <Card title="Reminders" style={{ flex: 1.2, marginLeft: 7.5 }}>
                     <SqaureButton colour={GradientColours[habit.colour].solid} grey={false} style={{ width: '100%' }}>
                         <Icon
-                            family="antdesign"
-                            name="clockcircle"
-                            size={24}
+                            family="ion"
+                            name="notifications"
+                            size={26}
                             colour={GradientColours[habit.colour].solid}
                             style={{ zIndex: 1 }}
                         />
