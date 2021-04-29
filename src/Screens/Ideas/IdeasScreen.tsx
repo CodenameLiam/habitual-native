@@ -1,11 +1,20 @@
+import Category from 'Components/Category/Category';
+import { Categories } from 'Components/Category/Category.constants';
+import { IdeaNavProps } from 'Navigation/Params';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { CategoryContainer } from './IdeasScreen.styles';
 
-const IdeasScreen: React.FC = () => {
+interface IdeaScreenProps {
+    navigation: IdeaNavProps;
+}
+
+const IdeasScreen: React.FC<IdeaScreenProps> = ({ navigation }) => {
     return (
-        <View>
-            <Text>Ideas</Text>
-        </View>
+        <CategoryContainer>
+            {Categories.map(category => (
+                <Category key={category.name} navigation={navigation} category={category} />
+            ))}
+        </CategoryContainer>
     );
 };
 

@@ -4,6 +4,7 @@ export interface ITheme {
     card: string;
     grey: string;
     disabled: string;
+    // category: string;
 }
 
 interface IThemeColours {
@@ -97,7 +98,7 @@ export const GradientColours: { [key in IColours]: IGradient } = {
     SKY: {
         start: '#83EAF1',
         end: '#63A4FF',
-        solid: '#63A4FF',
+        solid: '#63c6ff',
     },
     AQUA: {
         start: '#39E5B6',
@@ -112,7 +113,7 @@ export const GradientColours: { [key in IColours]: IGradient } = {
     LIME: {
         start: '#1cfdab',
         end: '#CEF576',
-        solid: '#57FA99',
+        solid: '#5dfc98',
     },
     PINK: {
         start: '#F1A7F1',
