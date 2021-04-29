@@ -11,8 +11,8 @@ interface IdeaScreenProps {
 const IdeasScreen: React.FC<IdeaScreenProps> = ({ navigation }) => {
     return (
         <CategoryContainer>
-            {Categories.map(category => (
-                <Category key={category.name} navigation={navigation} category={category} />
+            {Object.values(Categories).map(category => (
+                <Category key={category.id} navigation={navigation} category={category} />
             ))}
         </CategoryContainer>
     );

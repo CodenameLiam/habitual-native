@@ -1,14 +1,18 @@
 import { RouteProp } from '@react-navigation/core';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { CategoryType } from 'Components/Category/Category.constants';
 import { IconProps } from 'Components/Icon';
-import { IHabit } from 'Controllers/HabitController/HabitController';
 import { IColours } from 'Styles/Colours';
 
 interface BuildRoute {
     id?: string;
     icon?: Partial<IconProps>;
     colour?: IColours;
+}
+
+interface CategoryParams {
+    category: CategoryType;
 }
 
 interface ViewRoute {
@@ -24,6 +28,7 @@ export type AppParamList = {
     View: ViewRoute;
     Icon: undefined;
     Ideas: undefined;
+    Category: CategoryParams;
 };
 
 export type TabParamList = {
@@ -43,12 +48,14 @@ export type AppNavProps = DrawerNavigationProp<SettingsParamList, 'App'>;
 
 // App Navigation Types
 export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
-export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
-export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
-export type ViewNavProps = StackNavigationProp<AppParamList, 'View'>;
-export type ViewRouteProps = RouteProp<AppParamList, 'View'>;
 export type IconNavProps = StackNavigationProp<AppParamList, 'Icon'>;
 export type IdeaNavProps = StackNavigationProp<AppParamList, 'Ideas'>;
+export type ViewNavProps = StackNavigationProp<AppParamList, 'View'>;
+export type ViewRouteProps = RouteProp<AppParamList, 'View'>;
+export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
+export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
+export type CategoryNavProps = StackNavigationProp<AppParamList, 'Category'>;
+export type CategoryRouteProps = RouteProp<AppParamList, 'Category'>;
 
 // Tab Navigation Types
 export type HomeRouteProps = RouteProp<TabParamList, 'Home'>;

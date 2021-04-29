@@ -12,11 +12,13 @@ import BuildScreen from 'Screens/BuildScreen/BuildScreen';
 import IconScreen from 'Screens/Icon/IconScreen';
 import IconHeader from './Headers/IconHeader';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import IdeasIcon from 'Navigation/Components/IdeasIcon';
 import IdeasHeader from './Headers/IdeasHeader';
 import ViewScreen from 'Screens/View/ViewScreen';
 import CreateHeader from './Headers/CreateHeader';
 import IdeasScreen from 'Screens/Ideas/IdeasScreen';
+import CategoryScreen from 'Screens/Category/CategoryScreen';
+import CategoryHeader from './Headers/CategoryHeader';
+import { Categories } from 'Components/Category/Category.constants';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -73,6 +75,13 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 name="Ideas"
                 component={IdeasScreen}
                 options={({ navigation }) => IdeasHeader({ colour, navigation })}
+            />
+            <Stack.Screen
+                name="Category"
+                component={CategoryScreen}
+                options={({ navigation, route }) =>
+                    CategoryHeader({ colour, navigation, title: Categories[route.params.category].name })
+                }
             />
         </Stack.Navigator>
     );

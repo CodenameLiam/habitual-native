@@ -10,14 +10,14 @@ interface CategoryProps {
     navigation: IdeaNavProps;
 }
 
-const Category: React.FC<CategoryProps> = ({ category }) => {
+const Category: React.FC<CategoryProps> = ({ navigation, category }) => {
     const theme = useTheme();
 
-    const { name, colour, icon } = category;
+    const { id, name, colour, icon } = category;
     const solid = GradientColours[colour].solid;
 
     return (
-        <CategoryButton colour={solid}>
+        <CategoryButton colour={solid} onPress={() => navigation.navigate('Category', { category: id })}>
             <CategoryText>{name}</CategoryText>
             <CategoryIcon family={icon.family} name={icon.name} size={120} colour={theme.background} />
         </CategoryButton>
