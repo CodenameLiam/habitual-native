@@ -5,7 +5,6 @@ import { GradientColours, IColours } from 'Styles/Colours';
 
 interface HeaderBackgroundProps {
     colour: IColours;
-    // setRandomColour?: React.Dispatch<React.SetStateAction<GradientType>>;
 }
 
 const HeaderBackground: React.FC<HeaderBackgroundProps> = ({ colour }) => {
