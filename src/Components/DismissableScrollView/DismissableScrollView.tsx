@@ -4,15 +4,19 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GestureHandlerRefContext } from '@react-navigation/stack';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Dimensions, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, StyleProp, ViewStyle } from 'react-native';
 
 export const DEFAULT_GESTURE_RESPONSE = 135;
 interface DismissableScrollViewProps {
-    children?: React.ReactNode;
     navigation: any;
+    contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
-const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({ children, navigation }) => {
+const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({
+    children,
+    navigation,
+    contentContainerStyle,
+}) => {
     const [scrolledTop, setScrolledTop] = useState(true);
     const mountRef = useRef(false);
 
@@ -35,6 +39,8 @@ const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({ children,
         <GestureHandlerRefContext.Consumer>
             {ref => (
                 <ScrollView
+                    style={{ flexGrow: 1 }}
+                    contentContainerStyle={contentContainerStyle}
                     waitFor={scrolledTop ? ref : undefined}
                     onScroll={onScroll}
                     scrollEventThrottle={16}

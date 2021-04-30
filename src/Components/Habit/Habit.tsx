@@ -23,7 +23,7 @@ import { GradientColours } from 'Styles/Colours';
 import LinearGradient from 'react-native-linear-gradient';
 
 const HabitMaxInterpolation = Dimensions.get('screen').width - 120;
-const HabitMaxTransformInterpolation = Dimensions.get('screen').width / 20.5;
+export const HabitMaxTransformInterpolation = Dimensions.get('screen').width / 20.5;
 
 const ceilingProgress = (habit: IHabit, progress: number): number => {
     return progress >= habit.total ? habit.total : progress;
@@ -207,7 +207,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, date, dateIndex }) => 
                     {/* Right hand side, progress button */}
                     <TouchableOpacity onPress={handlePress} style={HabitProgressButton}>
                         {progress >= habit.total ? (
-                            <Icon family="entypo" name="check" size={18} colour={theme.text} />
+                            <Icon family="entypo" name="check" size={20} colour={theme.text} />
                         ) : progress > 0 ? (
                             <HabitProgressText>
                                 {progress}/{habit.total}

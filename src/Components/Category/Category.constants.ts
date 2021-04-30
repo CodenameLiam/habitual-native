@@ -8,7 +8,7 @@ export interface ICategory {
     name: string;
     icon: Partial<IconProps>;
     colour: IColours;
-    habits?: Partial<IHabit>[];
+    habits: IHabit[];
 }
 
 export type CategoryType =
@@ -34,8 +34,56 @@ export const Categories: AllCategories = {
         icon: { family: 'materialcommunity', name: 'heart' },
         colour: 'GREEN',
         habits: [
-            { name: 'Go For A Run', colour: 'MIDNIGHT', total: 1, schedule: { ...EVERYDAY_SCHEDULE }, type: 'count' },
-            { name: 'Lift Weights', colour: 'TANGERINE', total: 1, schedule: { ...EVERYDAY_SCHEDULE }, type: 'count' },
+            {
+                id: 'Eat Fruit & Vegetables',
+                icon: { family: 'materialcommunity', name: 'food-apple' },
+                name: 'Eat Fruit & Vegetables',
+                colour: 'LIME',
+                total: 4,
+                schedule: { ...EVERYDAY_SCHEDULE },
+                dates: {},
+                type: 'count',
+            },
+            {
+                id: 'Go For A Run',
+                icon: { family: 'materialcommunity', name: 'run' },
+                name: 'Go For A Run',
+                colour: 'GREEN',
+                total: 1,
+                schedule: { ...EVERYDAY_SCHEDULE },
+                dates: {},
+                type: 'count',
+            },
+            {
+                id: 'Go For A Walk',
+                icon: { family: 'materialcommunity', name: 'walk' },
+                name: 'Go For A Walk',
+                colour: 'AQUA',
+                total: 1,
+                schedule: { ...EVERYDAY_SCHEDULE },
+                dates: {},
+                type: 'count',
+            },
+            {
+                id: 'Lift Weights',
+                icon: { family: 'materialcommunity', name: 'dumbbell' },
+                name: 'Lift Weights',
+                colour: 'ORANGE',
+                total: 1,
+                schedule: { ...EVERYDAY_SCHEDULE },
+                dates: {},
+                type: 'count',
+            },
+            {
+                id: 'Drink Water',
+                icon: { family: 'materialcommunity', name: 'beer' },
+                name: 'Drink Water',
+                colour: 'BLUE',
+                total: 5,
+                schedule: { ...EVERYDAY_SCHEDULE },
+                dates: {},
+                type: 'count',
+            },
         ],
     },
     wellbeing: {
@@ -43,53 +91,62 @@ export const Categories: AllCategories = {
         name: 'Mental\nWellbeing',
         icon: { family: 'materialcommunity', name: 'flower-tulip' },
         colour: 'PURPLE',
+        habits: [],
     },
     intellect: {
         id: 'intellect',
         name: 'Intellectual\nGrowth',
         icon: { family: 'materialcommunity', name: 'school' },
         colour: 'ORANGE',
+        habits: [],
     },
     organisation: {
         id: 'organisation',
         name: 'Organisation',
         icon: { family: 'materialcommunity', name: 'puzzle' },
         colour: 'PINK',
+        habits: [],
     },
     social: {
         id: 'social',
         name: 'Social\nDevelopment',
         icon: { family: 'materialcommunity', name: 'account-group' },
         colour: 'TANGERINE',
+        habits: [],
     },
     diet: {
         id: 'diet',
         name: 'Food &\nDiet',
         icon: { family: 'materialcommunity', name: 'food-apple' },
         colour: 'SKY',
+        habits: [],
     },
     art: {
         id: 'art',
         name: 'Arts &\nCreativity',
         icon: { family: 'materialcommunity', name: 'palette' },
         colour: 'YELLOW',
+        habits: [],
     },
     finance: {
         id: 'finance',
         name: 'Financial\nIndependence',
         icon: { family: 'materialcommunity', name: 'finance' },
         colour: 'AQUA',
+        habits: [],
     },
     thoughful: {
         id: 'thoughful',
         name: 'Being\nThoughtful',
         icon: { family: 'materialcommunity', name: 'account-heart' },
         colour: 'RED',
+        habits: [],
     },
     thankful: {
         id: 'thankful',
         name: 'Being\nThankful',
         icon: { family: 'materialcommunity', name: 'weather-sunset' },
         colour: 'BLUE',
+        habits: [],
     },
 };

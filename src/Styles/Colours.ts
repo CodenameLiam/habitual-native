@@ -88,7 +88,7 @@ export const GradientColours: { [key in IColours]: IGradient } = {
     YELLOW: {
         start: '#fbbf60',
         end: '#fde293',
-        solid: '#fbbf60',
+        solid: '#ffd269',
     },
     BLUE: {
         start: '#09C6F9',

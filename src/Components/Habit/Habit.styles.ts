@@ -69,7 +69,11 @@ export const HabitIcon = css`
 `;
 
 export const HabitProgressButton = css`
-    padding: 26px;
+    height: 100%;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const HabitProgressText = styled.Text`

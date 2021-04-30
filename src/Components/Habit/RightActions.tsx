@@ -6,6 +6,7 @@ import { RightAction } from './Habit.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { TabNavProps } from 'Navigation/Params';
 import { Swipeable } from 'react-native-gesture-handler';
+import { deleteAlert } from 'Helpers/DeleteAlert';
 
 interface RightActionProps {
     progress: Animated.AnimatedInterpolation;
@@ -22,18 +23,7 @@ const RightActions: React.FC<RightActionProps> = ({ progress, confirmDelete, han
     });
 
     const handleDelete = (): void => {
-        Alert.alert(
-            'Delete',
-            'Are you sure you want to delete this habit?',
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel',
-                },
-                { text: 'Yes', onPress: confirmDelete },
-            ],
-            { cancelable: false },
-        );
+        deleteAlert(confirmDelete);
     };
 
     return (
