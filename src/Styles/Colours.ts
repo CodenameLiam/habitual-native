@@ -111,8 +111,8 @@ export const GradientColours: { [key in IColours]: IGradient } = {
         solid: '#33EAB0',
     },
     LIME: {
-        start: '#1cfdab',
-        end: '#CEF576',
+        start: '#35e678',
+        end: '#cef576',
         solid: '#5dfc98',
     },
     PINK: {

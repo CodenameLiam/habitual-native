@@ -5,7 +5,7 @@ import { IconNavProps } from 'Navigation/Params';
 import React, { useEffect, useState } from 'react';
 import { InteractionManager, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { IconOptions } from './IconConstants';
+import { IconOptions } from './IconScreen.constants';
 import {
     IconContainer,
     IconGroupContainer,
