@@ -42,13 +42,12 @@ const MonthModule: React.FC<MonthModuleProps> = ({ monthIndex, setMonthIndex, na
             />
             <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
                 <AllMonthContainer>
-                    {Object.keys(habits).map(id => {
-                        const habit = habits[id];
+                    {Object.values(habits).map(habit => {
                         const habitColour = GradientColours[habit.colour].solid;
                         return (
                             <TouchableWithoutFeedback
-                                key={id}
-                                onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}
+                                key={habit.id}
+                                onPress={() => handleHabitPress(habit.id, habit.name, habit.colour, 0)}
                             >
                                 <MonthCalendarContainer>
                                     <MonthTextContainer>

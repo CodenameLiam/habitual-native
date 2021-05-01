@@ -42,13 +42,12 @@ const YearModule: React.FC<YearModuleProps> = ({ yearIndex, setYearIndex, habits
                 rightDisabled={yearIndex === 0}
             />
             <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-                {Object.keys(habits).map(id => {
-                    const habit = habits[id];
+                {Object.values(habits).map(habit => {
                     const habitColour = GradientColours[habit.colour].solid;
                     return (
                         <TouchableWithoutFeedback
-                            key={id}
-                            onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}
+                            key={habit.id}
+                            onPress={() => handleHabitPress(habit.id, habit.name, habit.colour, 0)}
                         >
                             <View style={RowCenter}>
                                 <Icon

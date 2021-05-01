@@ -10,16 +10,20 @@ interface BuildRoute {
     icon?: Partial<IconProps>;
     colour?: IColours;
 }
-
-interface CategoryParams {
+interface ViewRoute {
+    id: string;
+    name: string;
+    colour: IColours;
+    prevIndex: number;
+}
+interface CategoryRoute {
     category: CategoryType;
 }
 
-interface ViewRoute {
+interface IndividualTrendRoute {
     id: string;
-    colour: IColours;
     name: string;
-    prevIndex: number;
+    colour: IColours;
 }
 
 export type AppParamList = {
@@ -28,7 +32,8 @@ export type AppParamList = {
     View: ViewRoute;
     Icon: undefined;
     Ideas: undefined;
-    Category: CategoryParams;
+    Category: CategoryRoute;
+    IndividualTrend: IndividualTrendRoute;
 };
 
 export type TabParamList = {
@@ -56,6 +61,8 @@ export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
 export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
 export type CategoryNavProps = StackNavigationProp<AppParamList, 'Category'>;
 export type CategoryRouteProps = RouteProp<AppParamList, 'Category'>;
+export type IndividualTrendNavProps = StackNavigationProp<AppParamList, 'IndividualTrend'>;
+export type IndividualTrendRouteProps = RouteProp<AppParamList, 'IndividualTrend'>;
 
 // Tab Navigation Types
 export type HomeRouteProps = RouteProp<TabParamList, 'Home'>;

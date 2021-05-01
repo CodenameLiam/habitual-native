@@ -106,12 +106,11 @@ const WeekModule: React.FC<WeekModuleProps> = ({
                 ))}
             </WeekDayContainer>
             <ScrollView style={{ flexGrow: 1 }}>
-                {Object.keys(habits).map(id => {
-                    const habit = habits[id];
+                {Object.values(habits).map(habit => {
                     const habitColour = GradientColours[habit.colour].solid;
                     return (
-                        <WeekHabitContainer key={id}>
-                            <WeekHabitButton onPress={() => handleHabitPress(id, habit.name, habit.colour, 0)}>
+                        <WeekHabitContainer key={habit.id}>
+                            <WeekHabitButton onPress={() => handleHabitPress(habit.id, habit.name, habit.colour, 0)}>
                                 <Icon
                                     style={MarginRight}
                                     family={habit.icon.family}
