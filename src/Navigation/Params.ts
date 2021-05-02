@@ -3,7 +3,8 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CategoryType } from 'Components/Category/Category.constants';
 import { IconProps } from 'Components/Icon';
-import { IColours } from 'Styles/Colours';
+import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
+import { IColours, IGradient } from 'Styles/Colours';
 
 interface BuildRoute {
     id?: string;
@@ -24,6 +25,9 @@ interface IndividualTrendRoute {
     id: string;
     name: string;
     colour: IColours;
+    weeklyTotalArray: IWeeklyTotalArray;
+    threeMonthAverage: number;
+    yearAverage: number;
 }
 
 export type AppParamList = {

@@ -7,6 +7,7 @@ export const CardContainer = styled.View`
     padding: 10px;
     border-radius: 5px;
     background-color: ${props => props.theme.card};
+    overflow: hidden;
 `;
 
 export const CardText = styled(TextTicker)`

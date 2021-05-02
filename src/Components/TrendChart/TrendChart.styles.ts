@@ -54,7 +54,8 @@ interface TrendLineProps {
 }
 
 export const TrendLine = styled.View<TrendLineProps>`
-    width: 2px;
+    width: 3px;
     height: ${props => props.height}px;
     background-color: ${props => props.colour};
+    border-radius: 10px;
 `;

@@ -117,8 +117,8 @@ export const GradientColours: { [key in IColours]: IGradient } = {
     },
     PINK: {
         start: '#F1A7F1',
-        end: '#FAD0C4',
-        solid: '#F1A7F1',
+        end: '#f876de',
+        solid: '#f876de',
     },
 };
 
