@@ -25,18 +25,17 @@ const monthArray = Array.from(Array(12))
     .map((value, index) => moment().subtract(index, 'month').startOf('month'))
     .reverse();
 
-const lineEnd = Dimensions.get('screen').width - 15;
-const lineMid = (lineEnd / 4) * 3;
+const lineEnd = Dimensions.get('screen').width - 35;
+const lineMid = (lineEnd / 4) * 3 + 15;
 
 interface TrendChartProps {
-    habit: IHabit;
     colour: string;
     weeklyTotalArray: IWeeklyTotalArray;
     threeMonthAverage: number;
     yearAverage: number;
 }
 
-const TrendChart: React.FC<TrendChartProps> = ({ habit, colour, weeklyTotalArray, threeMonthAverage, yearAverage }) => {
+const TrendChart: React.FC<TrendChartProps> = ({ colour, weeklyTotalArray, threeMonthAverage, yearAverage }) => {
     const theme = useTheme();
     const { enoughData, heights, maxHeight } = weeklyTotalArray;
 
@@ -58,7 +57,7 @@ const TrendChart: React.FC<TrendChartProps> = ({ habit, colour, weeklyTotalArray
                         stroke={theme.grey}
                         strokeWidth={3}
                         strokeDasharray={4}
-                        x1={0}
+                        x1={5}
                         x2={lineEnd}
                         y={160 - getHeight(maxHeight, yearAverage)}
                     />

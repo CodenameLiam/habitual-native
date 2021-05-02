@@ -42,13 +42,12 @@ export const getChartStats = (habit: IHabit): ChartStats => {
             if (date.isSameOrAfter(threeMonthPoint)) {
                 threeMonthTotal += 1;
             }
-
             yearTotal += 1;
         }
     });
 
-    const threeMonthPercentage = Math.round((threeMonthAchieved / threeMonthTotal) * 100) / 100;
-    const yearPercentage = Math.round((yearAchieved / yearTotal) * 100) / 100;
+    const threeMonthPercentage = Math.round((threeMonthAchieved / threeMonthTotal) * 10000) / 100;
+    const yearPercentage = Math.round((yearAchieved / yearTotal) * 10000) / 100;
 
     return { threeMonthAchieved, threeMonthTotal, threeMonthPercentage, yearAchieved, yearTotal, yearPercentage };
 };

@@ -82,7 +82,6 @@ const IndividualTrendScreen: React.FC<IndividualTrendScreenProps> = ({ navigatio
                 {moment().format('MMM Do YYYY') + ' - ' + moment().format('MMM Do YYYY')}
             </TrendMessage>
             <TrendChart
-                habit={habit}
                 colour={gradient.solid}
                 weeklyTotalArray={weeklyTotalArray}
                 threeMonthAverage={threeMonthAverage}
