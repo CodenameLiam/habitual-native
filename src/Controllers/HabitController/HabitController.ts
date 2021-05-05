@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { IColours } from 'Styles/Colours';
 import { getData, storeData } from '../StorageController';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import moment from 'moment';
 
 const HABITS_KEY = '@Habits';
 
@@ -26,6 +27,8 @@ export const useHabits = (): IHabitController => {
     const updateHabit = async (habit: IHabit): Promise<void> => {
         const newHabits = { ...habits };
         newHabits[habit.id] = habit;
+
+        console.log(habit);
 
         setHabits(newHabits);
         storeData(HABITS_KEY, newHabits);
@@ -59,6 +62,11 @@ export const provideFeedback = (habit: IHabit, progress: number): void => {
         ? ReactNativeHapticFeedback.trigger('notificationSuccess')
         : ReactNativeHapticFeedback.trigger('impactMedium');
 };
+
+// export const checkAward = (habit: IHabit, date: string) => {
+//     const startDate = moment(date).startOf('month');
+//     console.log(startDate);
+// };
 
 export interface IAllHabits {
     [id: string]: IHabit;
