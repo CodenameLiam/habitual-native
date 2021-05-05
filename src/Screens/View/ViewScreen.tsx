@@ -39,9 +39,10 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     // Ready state
     const [isReady, setIsReady] = useState(false);
     useEffect(() => {
-        InteractionManager.runAfterInteractions(() => {
+        const handle = InteractionManager.runAfterInteractions(() => {
             setIsReady(true);
         });
+        return handle.cancel();
     }, []);
 
     // Dates

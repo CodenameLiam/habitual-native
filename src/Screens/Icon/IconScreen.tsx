@@ -26,9 +26,10 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
 
     const [isReady, setIsReady] = useState(false);
     useEffect(() => {
-        InteractionManager.runAfterInteractions(() => {
+        const handle = InteractionManager.runAfterInteractions(() => {
             setIsReady(true);
         });
+        return handle.cancel();
     }, []);
 
     const handlePress = (icon: Partial<IconProps>): void => {
