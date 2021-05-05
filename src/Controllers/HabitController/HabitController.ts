@@ -28,8 +28,6 @@ export const useHabits = (): IHabitController => {
         const newHabits = { ...habits };
         newHabits[habit.id] = habit;
 
-        console.log(habit);
-
         setHabits(newHabits);
         storeData(HABITS_KEY, newHabits);
     };

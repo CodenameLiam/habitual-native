@@ -25,12 +25,9 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
     const theme = useTheme();
 
     const [isReady, setIsReady] = useState(false);
-    useEffect(() => {
-        const handle = InteractionManager.runAfterInteractions(() => {
-            setIsReady(true);
-        });
-        return handle.cancel();
-    }, []);
+    InteractionManager.runAfterInteractions(() => {
+        setIsReady(true);
+    });
 
     const handlePress = (icon: Partial<IconProps>): void => {
         navigation.navigate('Build', { icon: icon });
@@ -38,8 +35,7 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
     };
 
     return (
-        // <DismissableScrollView navigation={navigation}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <DismissableScrollView navigation={navigation}>
             <IconScreenContainer>
                 {IconOptions.map((group, index) => (
                     <IconGroupContainer key={group.label}>
@@ -63,7 +59,7 @@ const IconScreen: React.FC<IconScreenProps> = ({ navigation }) => {
                     </IconGroupContainer>
                 ))}
             </IconScreenContainer>
-        </ScrollView>
+        </DismissableScrollView>
     );
 };
 

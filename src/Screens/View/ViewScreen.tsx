@@ -38,12 +38,9 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     // Ready state
     const [isReady, setIsReady] = useState(false);
-    useEffect(() => {
-        const handle = InteractionManager.runAfterInteractions(() => {
-            setIsReady(true);
-        });
-        return handle.cancel();
-    }, []);
+    InteractionManager.runAfterInteractions(() => {
+        setIsReady(true);
+    });
 
     // Dates
     const [currentDateIndex, setCurrentDateIndex] = useState(-prevIndex);
