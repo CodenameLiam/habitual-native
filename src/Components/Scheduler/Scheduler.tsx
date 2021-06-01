@@ -2,12 +2,12 @@ import { ISchedule, ScheduleType } from 'Controllers/HabitController/HabitContro
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { GradientColours, IColours } from 'Styles/Colours';
+import { GradientColours, Colours } from 'Styles/Colours';
 import { ScheduleButton, ScheduleContainer, ScheduleText } from './Scheduler.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface ScheduleProps {
-    colour: IColours;
+    colour: Colours;
     schedule: ISchedule;
     setSchedule: (newSchedule: ISchedule) => void;
 }

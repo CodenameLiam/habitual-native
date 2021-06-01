@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { GradientColours, IColours } from 'Styles/Colours';
+import { GradientColours } from 'Styles/Colours';
+import { Colour } from 'Types/Colour.types';
 
 interface HeaderBackgroundProps {
-    colour: IColours;
+    colour: Colour;
 }
 
 const HeaderBackground: React.FC<HeaderBackgroundProps> = ({ colour }) => {

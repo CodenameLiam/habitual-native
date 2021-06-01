@@ -4,7 +4,7 @@ import { View, Text, Dimensions, Animated, Easing } from 'react-native';
 import { color } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
-import { GradientColours, IColours } from 'Styles/Colours';
+import { GradientColours, Colours } from 'Styles/Colours';
 import { Absolute } from 'Styles/Globals';
 import { CircleButton, DayNumber, DayText } from './CircleDate.styles';
 
@@ -16,7 +16,7 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface CircleDateProps {
     alpha: number;
-    colour: IColours;
+    colour: Colours;
     dayText: string;
     dayNumber: string;
     handlePress: () => void;

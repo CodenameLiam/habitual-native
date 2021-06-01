@@ -1,10 +1,11 @@
+import { Colour } from 'Types/Colour.types';
+
 export interface ITheme {
     text: string;
     background: string;
     card: string;
     grey: string;
     disabled: string;
-    // category: string;
 }
 
 interface IThemeColours {
@@ -39,27 +40,13 @@ export const GreyColours = {
     GREY6: '#222222',
 };
 
-export type IColours =
-    | 'MIDNIGHT'
-    | 'PURPLE'
-    | 'RED'
-    | 'ORANGE'
-    | 'TANGERINE'
-    | 'YELLOW'
-    | 'BLUE'
-    | 'SKY'
-    | 'AQUA'
-    | 'GREEN'
-    | 'LIME'
-    | 'PINK';
-
 export interface IGradient {
     start: string;
     end: string;
     solid: string;
 }
 
-export const GradientColours: { [key in IColours]: IGradient } = {
+export const GradientColours: { [key in Colour]: IGradient } = {
     MIDNIGHT: {
         start: '#8f79f8',
         end: '#bf7df3',
@@ -128,15 +115,4 @@ export const TabColours = {
     CALENDAR: GradientColours.RED.solid,
     TRENDS: GradientColours.AQUA.solid,
     AWARDS: GradientColours.PURPLE.solid,
-};
-
-const getRandomInt = (max: number): number => {
-    return Math.floor(Math.random() * max);
-};
-
-export const getRandomColour = (): IColours => {
-    const gradientKeys = Object.keys(GradientColours);
-    const randomGradientIndex = getRandomInt(gradientKeys.length);
-    const randomGradientResult = gradientKeys[randomGradientIndex];
-    return randomGradientResult as IColours;
 };

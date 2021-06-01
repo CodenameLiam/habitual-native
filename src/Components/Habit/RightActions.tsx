@@ -4,9 +4,12 @@ import React from 'react';
 import { Animated, Alert } from 'react-native';
 import { RightAction } from './Habit.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { TabNavProps } from 'Navigation/Params';
+
 import { Swipeable } from 'react-native-gesture-handler';
 import { deleteAlert } from 'Helpers/DeleteAlert';
+import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
+import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
+import { deleteHabit } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
 interface RightActionProps {
     progress: Animated.AnimatedInterpolation;
@@ -47,11 +50,11 @@ const RightActions: React.FC<RightActionProps> = ({ progress, confirmDelete, han
 export default RightActions;
 
 export const renderRightActions = (
-    swipableRef: React.RefObject<Swipeable>,
-    progress: Animated.AnimatedInterpolation,
     id: string,
     navigation: TabNavProps,
-    deleteHabit: (id: string) => Promise<void>,
+    swipableRef: React.RefObject<Swipeable>,
+    progress: Animated.AnimatedInterpolation,
+    dispatchHabits: (action: HabitAction) => void,
 ): React.ReactNode => {
     // Edits the current habit
     const handleEdit = (): void => {
@@ -62,7 +65,7 @@ export const renderRightActions = (
 
     // Deletes the current habit
     const confirmDelete = (): void => {
-        deleteHabit(id);
+        dispatchHabits(deleteHabit(id));
         ReactNativeHapticFeedback.trigger('notificationSuccess');
     };
 

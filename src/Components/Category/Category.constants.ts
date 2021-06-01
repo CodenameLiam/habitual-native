@@ -1,13 +1,13 @@
 import { IconProps } from 'Components/Icon';
 import { EVERYDAY_SCHEDULE } from 'Controllers/HabitController/HabitConstants';
 import { IHabit } from 'Controllers/HabitController/HabitController';
-import { IColours } from 'Styles/Colours';
+import { Colours } from 'Styles/Colours';
 
 export interface ICategory {
     id: CategoryType;
     name: string;
     icon: Partial<IconProps>;
-    colour: IColours;
+    colour: Colours;
     habits: IHabit[];
 }
 

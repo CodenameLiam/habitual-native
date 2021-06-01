@@ -14,7 +14,7 @@ import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { GradientColours, GreyColours, IColours } from 'Styles/Colours';
+import { GradientColours, GreyColours, Colours } from 'Styles/Colours';
 import { MarginRight } from 'Styles/Globals';
 import {
     WeekCell,
@@ -72,7 +72,7 @@ const WeekModule: React.FC<WeekModuleProps> = ({
     const prevDates = [...Array(7).keys()].reverse().map(date => weekEnd.clone().subtract(date, 'day'));
 
     const handleHabitPress = useCallback(
-        (id: string, name: string, colour: IColours, prevIndex: number) => {
+        (id: string, name: string, colour: Colours, prevIndex: number) => {
             ReactNativeHapticFeedback.trigger('impactLight');
             navigation.navigate('View', { id, name, colour, prevIndex });
         },

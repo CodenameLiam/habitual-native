@@ -7,7 +7,7 @@ import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
 import { View, ScrollView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { GradientColours, IColours } from 'Styles/Colours';
+import { GradientColours, Colours } from 'Styles/Colours';
 import { MarginRight, RowCenter } from 'Styles/Globals';
 import { YearHabitText } from './YearModule.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -24,7 +24,7 @@ const YearModule: React.FC<YearModuleProps> = ({ yearIndex, setYearIndex, habits
     const year = moment().add(yearIndex, 'year');
 
     const handleHabitPress = useCallback(
-        (id: string, name: string, colour: IColours, prevIndex: number) => {
+        (id: string, name: string, colour: Colours, prevIndex: number) => {
             ReactNativeHapticFeedback.trigger('impactLight');
             navigation.navigate('View', { id, name, colour, prevIndex });
         },
