@@ -1,32 +1,36 @@
 import Icon from 'Components/Icon';
-import { IHabit } from 'Controllers/HabitController/HabitController';
-import { Action } from 'Controllers/HabitController/HabitReducer';
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { View } from 'react-native';
-import { GradientColours, GreyColours } from 'Styles/Colours';
+import { Gradients, GreyColours } from 'Styles/Colours';
 import { RowBetween, MarginLeft, MarginRight } from 'Styles/Globals';
 import { ProgressTextInput, SqaureButton } from './CountModule.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { HabitObject } from 'Types/Habit.types';
+import { BuildAction } from 'Reducers/BuildReducer/BuildReducer.types';
+import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 
 interface CountModuleProps {
-    habit: IHabit;
-    habitDispatch: React.Dispatch<Action>;
+    habit: HabitObject;
+    dispatchBuild: Dispatch<BuildAction>;
 }
 
-export const CountModule: React.FC<CountModuleProps> = ({ habit, habitDispatch }) => {
-    const colour = GradientColours[habit.colour].solid;
+export const CountModule: React.FC<CountModuleProps> = ({ habit, dispatchBuild }) => {
+    const colour = Gradients[habit.colour].solid;
 
     const handleProgressChange = (text: string): void => {
-        habitDispatch({ type: 'total', payload: { total: Number(text) } });
+        dispatchBuild(buildActions.total(Number(text)));
+        // habitDispatch({ type: 'total', payload: { total: Number(text) } });
     };
 
     const handleAddProgress = (): void => {
-        habitDispatch({ type: 'total', payload: { total: habit.total + 1 } });
+        dispatchBuild(buildActions.total(habit.total + 1));
+        // habitDispatch({ type: 'total', payload: { total: habit.total + 1 } });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
     const handleRemoveProgress = (): void => {
-        habitDispatch({ type: 'total', payload: { total: habit.total - 1 } });
+        dispatchBuild(buildActions.total(habit.total - 1));
+        // habitDispatch({ type: 'total', payload: { total: habit.total - 1 } });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 

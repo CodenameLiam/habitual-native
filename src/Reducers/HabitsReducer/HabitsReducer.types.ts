@@ -1,4 +1,4 @@
-import { IHabit, HabitDate, Habits } from 'Types/Habit.types';
+import { HabitObject, HabitDate, Habits } from 'Types/Habit.types';
 
 interface InitAction {
     type: 'INIT';
@@ -7,7 +7,7 @@ interface InitAction {
 
 interface AddAction {
     type: 'ADD';
-    payload: IHabit;
+    payload: HabitObject;
 }
 
 interface DeleteAction {
@@ -27,11 +27,12 @@ interface TotalAction {
     id: string;
 }
 
-interface DateAction {
-    type: 'DATE';
+interface Progress {
+    type: 'PROGRESS';
     payload: HabitDate;
     id: string;
     date: string;
+    complete: boolean;
 }
 
-export type HabitAction = InitAction | AddAction | DeleteAction | NameAction | TotalAction | DateAction;
+export type HabitAction = InitAction | AddAction | DeleteAction | NameAction | TotalAction | Progress;

@@ -14,18 +14,18 @@ export const CircleButton = styled(TouchableOpacity)<CircleButtonProps>`
 `;
 
 interface CircleTextProps {
-    selected: boolean;
+    active: boolean;
 }
 
 export const DayNumber = styled.Text<CircleTextProps>`
     font-family: 'Montserrat';
     font-weight: 600;
-    color: ${props => (props.selected ? props.theme.text : props.theme.disabled)};
+    color: ${props => (props.active ? props.theme.text : props.theme.disabled)};
 `;
 
 export const DayText = styled.Text<CircleTextProps>`
     font-size: 8px;
     font-weight: 700;
     font-family: 'Montserrat';
-    color: ${props => (props.selected ? props.theme.text : props.theme.disabled)};
+    color: ${props => (props.active ? props.theme.text : props.theme.disabled)};
 `;

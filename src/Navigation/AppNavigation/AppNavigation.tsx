@@ -19,7 +19,7 @@ import CategoryHeader from '../../Components/Headers/CategoryHeader';
 import { Categories } from 'Components/Category/Category.constants';
 import IndividualTrendScreen from 'Screens/IndividualTrend/IndividualTrendScreen';
 import TrendHeader from '../../Components/Headers/TrendHeader';
-import { headerTitle } from 'Styles/Fonts';
+import { headerFont } from 'Styles/Fonts';
 import { AppNavProps } from 'Navigation/RootNavigation/RootNavigation.params';
 import { AppParamList } from './AppNavigation.params';
 
@@ -51,7 +51,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 gestureEnabled: true,
                 cardOverlayEnabled: true,
                 gestureResponseDistance: Dimensions.get('screen').height,
-                headerTitleStyle: headerTitle,
+                headerTitleStyle: headerFont,
                 headerTitleAlign: 'center',
                 ...TransitionPresets.ModalPresentationIOS,
             }}
@@ -61,15 +61,15 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 component={TabNavigation}
                 options={({ navigation }) => TabHeader({ active, colour, navigation, handleSettings })}
             />
-            {/* <Stack.Screen
-                name="View"
-                component={ViewScreen}
-                options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
-            />
             <Stack.Screen
                 name="Build"
                 component={BuildScreen}
                 options={({ navigation, route }) => CreateHeader({ colour, navigation, route })}
+            />
+            {/* <Stack.Screen
+                name="View"
+                component={ViewScreen}
+                options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
             />
             <Stack.Screen
                 name="Icon"

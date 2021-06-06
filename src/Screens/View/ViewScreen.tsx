@@ -8,7 +8,7 @@ import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { InteractionManager } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import CircleModule from './Modules/CircleModule';
 import ProgressButtonModule from './Modules/ProgressButtonModule';
 import { YearlyTitle } from './ViewScreen.styles';
@@ -26,7 +26,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     const { habits, updateHabit } = useContext(AppContext);
     const { id, prevIndex } = route.params;
     const habit = habits[id];
-    const gradient = useMemo(() => GradientColours[habit.colour], [habit.colour]);
+    const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
 
     // Updating header information if habit is updated
     useEffect(() => {

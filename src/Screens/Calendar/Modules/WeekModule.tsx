@@ -14,7 +14,7 @@ import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { GradientColours, GreyColours, Colours } from 'Styles/Colours';
+import { Gradients, GreyColours, Colours } from 'Styles/Colours';
 import { MarginRight } from 'Styles/Globals';
 import {
     WeekCell,
@@ -50,7 +50,7 @@ const getBackgroundColour = (habit: IHabit, date: string, defaultBackground: str
         if (progress <= 10) progress = 20;
         if (progress >= 100) progress = '';
 
-        return GradientColours[habit.colour].solid + progress;
+        return Gradients[habit.colour].solid + progress;
     }
 
     return defaultBackground;
@@ -107,7 +107,7 @@ const WeekModule: React.FC<WeekModuleProps> = ({
             </WeekDayContainer>
             <ScrollView style={{ flexGrow: 1 }}>
                 {Object.values(habits).map(habit => {
-                    const habitColour = GradientColours[habit.colour].solid;
+                    const habitColour = Gradients[habit.colour].solid;
                     return (
                         <WeekHabitContainer key={habit.id}>
                             <WeekHabitButton onPress={() => handleHabitPress(habit.id, habit.name, habit.colour, 0)}>

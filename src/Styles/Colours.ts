@@ -40,13 +40,13 @@ export const GreyColours = {
     GREY6: '#222222',
 };
 
-export interface IGradient {
+export interface Gradient {
     start: string;
     end: string;
     solid: string;
 }
 
-export const GradientColours: { [key in Colour]: IGradient } = {
+export const Gradients: { [key in Colour]: Gradient } = {
     MIDNIGHT: {
         start: '#8f79f8',
         end: '#bf7df3',
@@ -111,8 +111,8 @@ export const GradientColours: { [key in Colour]: IGradient } = {
 };
 
 export const TabColours = {
-    HOME: GradientColours.TANGERINE.solid,
-    CALENDAR: GradientColours.RED.solid,
-    TRENDS: GradientColours.AQUA.solid,
-    AWARDS: GradientColours.PURPLE.solid,
+    HOME: Gradients.PURPLE.solid,
+    CALENDAR: Gradients.RED.solid,
+    TRENDS: Gradients.AQUA.solid,
+    AWARDS: Gradients.TANGERINE.solid,
 };

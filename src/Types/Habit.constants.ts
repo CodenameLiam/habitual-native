@@ -1,7 +1,7 @@
 import { getRandomColour } from 'Helpers/RandomColour';
 import 'react-native-get-random-values';
 import { v4 } from 'uuid';
-import { IHabit, Schedule } from './Habit.types';
+import { HabitObject, Schedule } from './Habit.types';
 
 export const EVERYDAY_SCHEDULE: Schedule = {
     MON: true,
@@ -33,7 +33,7 @@ export const WEEKEND_SCHEDULE: Schedule = {
     SUN: true,
 };
 
-export const DEFAULT_HABIT: IHabit = {
+export const DEFAULT_HABIT: HabitObject = {
     id: v4(),
     name: '',
     icon: { family: 'fontawesome5', name: 'icons' },

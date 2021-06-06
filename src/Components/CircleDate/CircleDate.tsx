@@ -1,11 +1,11 @@
-import { useTheme } from '@emotion/react';
-import React, { useEffect, useMemo, useRef } from 'react';
-import { View, Text, Dimensions, Animated, Easing } from 'react-native';
-import { color } from 'react-native-reanimated';
+import { Moment } from 'moment';
+import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useMemo, useRef } from 'react';
+import { View, Dimensions, Animated, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-import { GradientColours, Colours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { Absolute } from 'Styles/Globals';
+import { Colour } from 'Types/Colour.types';
 import { CircleButton, DayNumber, DayText } from './CircleDate.styles';
 
 const circleDimensions = Dimensions.get('screen').width / 9;
@@ -15,35 +15,41 @@ const circumference = radius * 2 * Math.PI;
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface CircleDateProps {
+    active: boolean;
     alpha: number;
-    colour: Colours;
-    dayText: string;
-    dayNumber: string;
+    colour: Colour;
+    date: Moment;
     handlePress: () => void;
-    selected: boolean;
-    disabled?: boolean;
+
+    // dayText: string;
+    // dayNumber: string;
+    // selected: boolean;
+    // disabled?: boolean;
 }
 
-const CircleDate: React.FC<CircleDateProps> = ({
+const CircleDate: FC<CircleDateProps> = ({
+    active,
     alpha,
-    dayNumber,
-    dayText,
-    selected,
-    disabled,
-    handlePress,
     colour,
+    date,
+    handlePress,
+    // dayNumber,
+    // dayText,
+    // disabled,
 }) => {
-    const theme = useTheme();
-    const circleColour = useMemo(() => (disabled ? theme.grey : GradientColours[colour].solid), [
-        theme.grey,
-        disabled,
-        colour,
-    ]);
+    // const theme = useTheme();
+    // const circleColour = useMemo(() => (disabled ? theme.grey : Gradients[colour].solid), [
+    //     theme.grey,
+    //     disabled,
+    //     colour,
+    // ]);
+
+    const circleColour = useMemo(() => Gradients[colour].solid, [colour]);
 
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
     const interpolatedSize = progressAnimation.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, circumference],
+        outputRange: [circumference, 0],
     });
 
     // Animate circle progress
@@ -58,8 +64,8 @@ const CircleDate: React.FC<CircleDateProps> = ({
 
     return (
         <CircleButton circleDimensions={circleDimensions} onPress={handlePress}>
-            <DayNumber selected={selected}>{dayNumber}</DayNumber>
-            <DayText selected={selected}>{dayText}</DayText>
+            <DayNumber active={active}>{date.format('D')}</DayNumber>
+            <DayText active={active}>{date.format('ddd').toUpperCase()}</DayText>
             <View style={Absolute}>
                 <Svg width={circleDimensions} height={circleDimensions}>
                     <Circle stroke={circleColour + '50'} cx={cXcY} cy={cXcY} r={radius} strokeWidth={3} />
@@ -87,4 +93,8 @@ const CircleDate: React.FC<CircleDateProps> = ({
     );
 };
 
-export default CircleDate;
+const MemoizedCircleDate = React.memo(
+    CircleDate,
+    (prev, next) => prev.alpha === next.alpha && prev.active === next.active,
+);
+export default MemoizedCircleDate;

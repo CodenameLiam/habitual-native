@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 
 export const SaveContainer = styled.View`
     flex: 1;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     margin: 10px;
 `;
@@ -15,7 +15,7 @@ export const SaveButton = styled(TouchableOpacity)`
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 10px;
+    margin: 20px;
 `;
 
 export const SaveText = styled.Text`

@@ -3,7 +3,7 @@ import { AppContext } from 'Context/AppContext';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useContext, useMemo, useState } from 'react';
 import { View } from 'react-native';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { CalendarButtonGroupContainer } from './CalendarScreen.styles';
 import MonthModule from './Modules/MonthModule';
 import WeekModule from './Modules/WeekModule';
@@ -36,7 +36,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                         navigation={navigation}
                         habits={habits}
                         updateHabit={updateHabit}
-                        colour={GradientColours[colour].solid}
+                        colour={Gradients[colour].solid}
                     />
                 );
             case 'Monthly':
@@ -46,7 +46,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                         setMonthIndex={setMonthIndex}
                         navigation={navigation}
                         habits={habits}
-                        colour={GradientColours[colour].solid}
+                        colour={Gradients[colour].solid}
                     />
                 );
             case 'Yearly':
@@ -56,7 +56,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                         setYearIndex={setYearIndex}
                         navigation={navigation}
                         habits={habits}
-                        colour={GradientColours[colour].solid}
+                        colour={Gradients[colour].solid}
                     />
                 );
             default:
@@ -70,7 +70,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                 <ColourButtonGroup
                     buttons={['Weekly', 'Monthly', 'Yearly']}
                     buttonFunctions={buttonFunctions}
-                    colour={GradientColours[colour].solid}
+                    colour={Gradients[colour].solid}
                     activeTitle={range}
                 />
             </CalendarButtonGroupContainer>

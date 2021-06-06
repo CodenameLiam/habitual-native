@@ -1,7 +1,7 @@
 import { getValue, getData } from 'Controllers/StorageController';
 import { useState, useEffect, useReducer, Dispatch } from 'react';
 import colourReducer from 'Reducers/ColourReducer/ColourReducer';
-import { initHabits } from 'Reducers/HabitsReducer/HabitReducer.actions';
+import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import habitsReducer from 'Reducers/HabitsReducer/HabitsReducer';
 import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
 import themeReducer from 'Reducers/ThemeReducer/ThemeReducer';
@@ -47,7 +47,7 @@ const useStorage = (): UseStorage => {
 
             theme && dispatchTheme(theme);
             colour && dispatchColours(colour);
-            habits && dispatchHabits(initHabits(habits));
+            habits && dispatchHabits(habitActions.init(habits));
 
             setLoading(false);
         })();

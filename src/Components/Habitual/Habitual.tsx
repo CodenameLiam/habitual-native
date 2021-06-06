@@ -8,7 +8,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import {
     HabitualProgressContainer,
     HabitualContainer,
@@ -51,7 +51,7 @@ const getProgress = (habits: IAllHabits): number => {
 const Habitual: React.FC = () => {
     const theme = useTheme();
     const { habits, colour } = useContext(AppContext);
-    const gradient = GradientColours[colour];
+    const gradient = Gradients[colour];
 
     const progress = useMemo(() => getProgress(habits), [habits]);
     const interpolateProgress = progress * 0.19;

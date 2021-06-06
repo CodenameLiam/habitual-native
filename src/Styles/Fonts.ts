@@ -1,9 +1,16 @@
-import { css } from '@emotion/native';
+import styled, { css } from '@emotion/native';
 
-export const headerTitle = css`
+export const fontFamily = 'Montserrat';
+
+export const headerFont = css`
     font-family: 'Montserrat';
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
 `;
 
-export const fontFamily = 'Montserrat';
+export const BodyFont = styled.Text`
+    font-family: ${fontFamily};
+    font-size: 18px;
+    font-weight: 600;
+    color: ${props => props.theme.text};
+`;

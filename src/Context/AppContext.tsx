@@ -1,18 +1,14 @@
 import { ThemeProvider } from '@emotion/react';
 import useStorage, { DEFAULT_COLOUR, DEFAULT_HABITS, DEFAULT_THEME } from 'Hooks/useStorage';
-import React, { createContext, Dispatch, FC, useContext, useEffect, useReducer } from 'react';
+import React, { createContext, Dispatch, FC, useContext, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import colourReducer from 'Reducers/ColourReducer/ColourReducer';
-import habitsReducer from 'Reducers/HabitsReducer/HabitsReducer';
 import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
-import themeReducer from 'Reducers/ThemeReducer/ThemeReducer';
 import { DarkTheme, LightTheme, NavDarkTheme, NavLightTheme } from 'Styles/Themes';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colour } from 'Types/Colour.types';
 import { Habits } from 'Types/Habit.types';
 import { Theme } from 'Types/Theme.types';
-import { initHabits } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
 interface AppContextState {
     habits: [Habits, Dispatch<HabitAction>];

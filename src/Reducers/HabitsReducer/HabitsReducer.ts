@@ -3,6 +3,7 @@ import { HabitAction } from './HabitsReducer.types';
 import produce from 'immer';
 import { storeData } from 'Controllers/StorageController';
 import { HABITS_KEY } from 'Hooks/useStorage';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const habitsReducer = produce((state: Habits, action: HabitAction) => {
     switch (action.type) {
@@ -18,8 +19,9 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
         case 'NAME':
             state[action.id].name = action.payload;
             break;
-        case 'DATE':
+        case 'PROGRESS':
             state[action.id].dates[action.date] = action.payload;
+            ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactMedium');
             break;
     }
     storeData(HABITS_KEY, state);

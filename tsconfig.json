@@ -42,13 +42,14 @@
         "paths": {
             "@Components": ["./src/Components"],
             "@Context": ["./src/Context"],
-            "@Navigation": ["./src/Navigation"],
-            "@Screens": ["./src/Screens"],
             "@Controllers": ["./src/Controllers"],
-            "@Styles": ["./src/Styles"],
             "@Helpers": ["./src/Helpers"],
             "@Hooks": ["./src/Hooks"],
+            "@Modules": ["./src/Modules"],
+            "@Navigation": ["./src/Navigation"],
             "@Reducers": ["./src/Reducers"],
+            "@Screens": ["./src/Screens"],
+            "@Styles": ["./src/Styles"],
             "@Types": ["./src/Types"]
         },
 

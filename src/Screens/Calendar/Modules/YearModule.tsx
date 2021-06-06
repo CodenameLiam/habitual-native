@@ -7,7 +7,7 @@ import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
 import { View, ScrollView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { GradientColours, Colours } from 'Styles/Colours';
+import { Gradients, Colours } from 'Styles/Colours';
 import { MarginRight, RowCenter } from 'Styles/Globals';
 import { YearHabitText } from './YearModule.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -43,7 +43,7 @@ const YearModule: React.FC<YearModuleProps> = ({ yearIndex, setYearIndex, habits
             />
             <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
                 {Object.values(habits).map(habit => {
-                    const habitColour = GradientColours[habit.colour].solid;
+                    const habitColour = Gradients[habit.colour].solid;
                     return (
                         <TouchableWithoutFeedback
                             key={habit.id}

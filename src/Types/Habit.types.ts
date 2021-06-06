@@ -3,11 +3,11 @@ import { Colour } from './Colour.types';
 
 /* A collection of habits */
 export interface Habits {
-    [id: string]: IHabit;
+    [id: string]: HabitObject;
 }
 
 /* An individual habit */
-export interface IHabit {
+export interface HabitObject {
     id: string;
     name: string;
     total: number;

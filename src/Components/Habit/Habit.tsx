@@ -27,19 +27,20 @@ import {
 } from './Habit.styles';
 import Icon from 'Components/Icon';
 import { useTheme } from '@emotion/react';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import LinearGradient from 'react-native-linear-gradient';
 import { weekArray } from 'Helpers/Dates';
 import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
-import { updateHabitDate, updateHabitName } from 'Reducers/HabitsReducer/HabitReducer.actions';
+// import { updateHabitDate, updateHabitName } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { getProgress, handleView } from './Habit.functions';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { IHabit } from 'Types/Habit.types';
+import { HabitObject } from 'Types/Habit.types';
+import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
 const HabitMaxInterpolation = Dimensions.get('screen').width - 120;
 export const HabitMaxTransformInterpolation = Dimensions.get('screen').width / 20.5;
 
-const ceilingProgress = (habit: IHabit, progress: number): number => {
+const ceilingProgress = (habit: HabitObject, progress: number): number => {
     return progress >= habit.total ? habit.total : progress;
 };
 
@@ -53,7 +54,7 @@ const ceilingProgress = (habit: IHabit, progress: number): number => {
 interface HabitProps {
     navigation: TabNavProps;
     dateIndex: number;
-    habit: IHabit;
+    habit: HabitObject;
     dispatchHabits: (action: HabitAction) => void;
 }
 
@@ -63,7 +64,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
 
     // Memoized values
     const date = useMemo(() => weekArray[dateIndex].format('YYYY-MM-DD'), [dateIndex]);
-    const gradient = useMemo(() => GradientColours[habit.colour], [habit.colour]);
+    const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
 
     // Gestures
     const swipableRef = useRef<Swipeable>(null);
@@ -116,14 +117,13 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
 
     //
     const handlePress = (): void => {
-        setTempProgress(progress >= habit.total ? 0 : progress + 1);
-        setProgress(progress >= habit.total ? 0 : progress + 1);
+        const next = progress >= habit.total ? 0 : progress + 1;
+        setTempProgress(next);
+        setProgress(next);
         // provideFeedback(habit, progress >= habit.total ? 0 : progress + 1);
-        animateProgress(progress >= habit.total ? 0 : progress + 1);
-        dispatchHabits(updateHabitDate(habit.id, date, progress >= habit.total ? 0 : progress + 1, habit.total));
+        animateProgress(next);
+        dispatchHabits(habitActions.progress(habit.id, date, next, habit.total, next >= habit.total));
     };
-
-    console.log(habit.id);
 
     return (
         <Swipeable
