@@ -6,28 +6,24 @@ import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import Icon from 'Components/Icon';
 import Scheduler from 'Components/Scheduler/Scheduler';
 import { useHabits } from 'Context/AppContext';
-import React, { useCallback, useEffect, useMemo, useReducer } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Full, Row } from 'Styles/Globals';
 import { v4 } from 'uuid';
-// import { BuildInput } from './BuildScreen.styles';
-// import { CountModule } from './Modules/CountModule';
-import { SqaureButton } from '../../Modules/BuildModules/BuildCount/CountModule.styles';
-// import SaveModule from './Modules/SaveModule';
+import { SqaureButton } from 'Modules/BuildModules/BuildCount/CountModule.styles';
 import Toast from 'react-native-toast-message';
 import { ToastConfig } from 'Components/Toast/CustomToast';
 import { BuildNavProps, BuildRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { DEFAULT_HABIT, EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE } from 'Types/Habit.constants';
-import { HabitObject, Schedule } from 'Types/Habit.types';
+import { HabitObject } from 'Types/Habit.types';
 import { getRandomColour } from 'Helpers/RandomColour';
 import { Gradients } from 'Styles/Colours';
 import buildReducer from 'Reducers/BuildReducer/BuildReducer';
 import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import BuildIcon from 'Modules/BuildModules/BuildIcon/BuildIcon';
 import BuildInput from 'Modules/BuildModules/BuildInput/BuildInput';
-import SaveModule from 'Modules/BuildModules/BuildSave/SaveModule';
+import BuildSave from 'Modules/BuildModules/BuildSave/BuildSave';
 import { CountModule } from 'Modules/BuildModules/BuildCount/CountModule';
 
 interface BuildScreenProps {
@@ -61,9 +57,9 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
     }, [navigation, habit.colour, id]);
 
     // Updates habit icon if passed as a route parameter
-    // useEffect(() => {
-    //     icon && habitDispatch({ type: 'icon', payload: { icon: icon } });
-    // }, [icon]);
+    useEffect(() => {
+        icon && dispatchBuild(buildActions.icon(icon));
+    }, [icon]);
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={Full} scrollEnabled={false} extraScrollHeight={60}>
@@ -108,7 +104,7 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
                     </SqaureButton>
                 </Card>
             </View>
-            <SaveModule habit={habit} dispatchHabits={dispatchHabits} navigation={navigation} />
+            <BuildSave habit={habit} dispatchHabits={dispatchHabits} navigation={navigation} />
             <Toast config={ToastConfig} ref={ref => Toast.setRef(ref)} />
         </KeyboardAwareScrollView>
     );

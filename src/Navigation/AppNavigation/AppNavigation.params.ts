@@ -1,13 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CategoryType } from 'Components/Category/Category.constants';
-import { IconProps } from 'Components/Icon/Icon.types';
+import { HabitIcon } from 'Components/Icon/Icon.types';
 import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
 import { Colour } from 'Types/Colour.types';
 
 interface BuildRoute {
     id?: string;
-    icon?: Partial<IconProps>;
+    icon?: HabitIcon;
     colour?: Colour;
 }
 interface ViewRoute {

@@ -1,3 +1,4 @@
+import { HabitIcon } from 'Components/Icon/Icon.types';
 import { Colour } from 'Types/Colour.types';
 import { HabitObject, Schedule, ScheduleType } from 'Types/Habit.types';
 
@@ -32,4 +33,16 @@ interface DayAction {
     day: ScheduleType;
 }
 
-export type BuildAction = InitAction | NameAction | TotalAction | ColourAction | ScheduleAction | DayAction;
+interface IconAction {
+    type: 'ICON';
+    payload: HabitIcon;
+}
+
+export type BuildAction =
+    | InitAction
+    | NameAction
+    | TotalAction
+    | ColourAction
+    | ScheduleAction
+    | DayAction
+    | IconAction;

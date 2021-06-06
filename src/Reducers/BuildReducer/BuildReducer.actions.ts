@@ -1,3 +1,4 @@
+import { HabitIcon } from 'Components/Icon/Icon.types';
 import { Colour } from 'Types/Colour.types';
 import { Schedule, ScheduleType } from 'Types/Habit.types';
 import { BuildAction } from './BuildReducer.types';
@@ -23,5 +24,9 @@ export const buildActions = {
     total: (value: number): BuildAction => ({
         type: 'TOTAL',
         payload: value,
+    }),
+    icon: (icon: HabitIcon): BuildAction => ({
+        type: 'ICON',
+        payload: icon,
     }),
 };
