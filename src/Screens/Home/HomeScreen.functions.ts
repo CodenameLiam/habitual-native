@@ -5,7 +5,6 @@ import { HabitObject, Habits, ScheduleType } from 'Types/Habit.types';
 // ------------------------------------------------------------------------------------------------
 // Helpers
 // ------------------------------------------------------------------------------------------------
-
 // Returns true if no habits exist
 export const emptyHabits = (habits: Habits): boolean => Object.keys(habits).length < 1;
 
@@ -19,9 +18,7 @@ export const getDateHabits = (habits: Habits, date: Moment): HabitObject[] => {
 // Gets the ratio of habits completed for a specified date
 export const getDateComplete = (habits: HabitObject[], date: string): number => {
     if (habits.length < 1) return 0;
-    const completeHabits = habits.filter(
-        habit => habit.dates[date] && habit.dates[date].progress >= habit.dates[date].total,
-    );
+    const completeHabits = habits.filter(habit => habit.dates[date] && habit.dates[date].progress >= habit.total);
     return completeHabits.length === 0 ? 0 : completeHabits.length / habits.length;
 };
 
@@ -58,20 +55,3 @@ export const getHomeScreenData = (habits: Habits, dateIndex: number): HomeScreen
 
     return { todaysHabits, alphaWeekArray };
 };
-
-// // Gets the alpga value for a selected date
-// const getAlphaValue = (habits: IHabit[], selectedDate: string): number => {
-//     const completeHabits = habits.filter(
-//         habit =>
-//             habit.dates[selectedDate] && habit.dates[selectedDate].progress >= habit.dates[selectedDate].progressTotal,
-//     );
-//     return completeHabits.length === 0 ? 1 : 1 - completeHabits.length / habits.length;
-// };
-
-// // Gets all of the alpha values for each habit
-// const getAllAlphaValues = (habits: IAllHabits): number[] => {
-//     return prevDates.map(date => {
-//         const selectedDateHabits = getSelectedDateHabits(habits, date);
-//         return getAlphaValue(selectedDateHabits, date.format('YYYY-MM-DD'));
-//     });
-// };
