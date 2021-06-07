@@ -66,11 +66,12 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 component={BuildScreen}
                 options={({ navigation, route }) => CreateHeader({ colour, navigation, route })}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
                 name="View"
                 component={ViewScreen}
                 options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
             />
+            {/* 
             <Stack.Screen
                 name="Icon"
                 component={IconScreen}

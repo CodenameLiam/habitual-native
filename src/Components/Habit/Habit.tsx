@@ -61,7 +61,6 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     // ------------------------------------------------------------------------------------------------
     // Animations
     // ------------------------------------------------------------------------------------------------
-
     // Updating progress when date is changed habit
     useEffect(() => {
         const progress = getProgress(habit, date);
@@ -141,7 +140,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
             >
                 <HabitContainer>
                     {/* Left hand side, icon and name */}
-                    <TouchableWithoutFeedback onPress={() => handleView(navigation, habit, date)}>
+                    <TouchableWithoutFeedback onPress={() => handleView(navigation, habit, dateIndex)}>
                         <HabitContentContainer>
                             <HabitIconContainer>
                                 <Icon

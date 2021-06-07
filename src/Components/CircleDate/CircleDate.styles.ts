@@ -29,3 +29,16 @@ export const DayText = styled.Text<CircleTextProps>`
     font-family: 'Montserrat';
     color: ${props => (props.active ? props.theme.text : props.theme.disabled)};
 `;
+
+interface CircleActiveProps {
+    colour: string;
+}
+
+export const CircleActiveDot = styled.View<CircleActiveProps>`
+    height: 5px;
+    width: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -10px;
+    background-color: ${props => props.colour};
+`;

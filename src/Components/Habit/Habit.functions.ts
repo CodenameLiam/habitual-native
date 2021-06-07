@@ -9,8 +9,8 @@ import { HabitObject } from 'Types/Habit.types';
 // Helpers
 // ------------------------------------------------------------------------------------------------
 // View the current habit
-export const handleView = (navigation: TabNavProps, habit: HabitObject, date: string): void => {
-    navigation.navigate('View', { id: habit.id, name: habit.name, colour: habit.colour, date });
+export const handleView = (navigation: TabNavProps, habit: HabitObject, dateIndex: number): void => {
+    navigation.navigate('View', { id: habit.id, name: habit.name, colour: habit.colour, dateIndex });
     ReactNativeHapticFeedback.trigger('impactLight');
 };
 

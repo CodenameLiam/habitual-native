@@ -14,7 +14,7 @@ interface ViewRoute {
     id: string;
     name: string;
     colour: Colour;
-    date: string;
+    dateIndex: number;
 }
 interface CategoryRoute {
     category: CategoryType;

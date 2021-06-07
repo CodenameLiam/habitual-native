@@ -1,12 +1,12 @@
 import { Moment } from 'moment';
-import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { View, Dimensions, Animated, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
 import { Gradients } from 'Styles/Colours';
 import { Absolute } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
-import { CircleButton, DayNumber, DayText } from './CircleDate.styles';
+import { CircleActiveDot, CircleButton, DayNumber, DayText } from './CircleDate.styles';
 
 const circleDimensions = Dimensions.get('screen').width / 9;
 const cXcY = circleDimensions / 2;
@@ -20,30 +20,9 @@ interface CircleDateProps {
     colour: Colour;
     date: Moment;
     handlePress: () => void;
-
-    // dayText: string;
-    // dayNumber: string;
-    // selected: boolean;
-    // disabled?: boolean;
 }
 
-const CircleDate: FC<CircleDateProps> = ({
-    active,
-    alpha,
-    colour,
-    date,
-    handlePress,
-    // dayNumber,
-    // dayText,
-    // disabled,
-}) => {
-    // const theme = useTheme();
-    // const circleColour = useMemo(() => (disabled ? theme.grey : Gradients[colour].solid), [
-    //     theme.grey,
-    //     disabled,
-    //     colour,
-    // ]);
-
+const CircleDate: FC<CircleDateProps> = ({ active, alpha, colour, date, handlePress }) => {
     const circleColour = useMemo(() => Gradients[colour].solid, [colour]);
 
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
@@ -64,6 +43,8 @@ const CircleDate: FC<CircleDateProps> = ({
 
     return (
         <CircleButton circleDimensions={circleDimensions} onPress={handlePress}>
+            {active && <CircleActiveDot colour={circleColour} />}
+
             <DayNumber active={active}>{date.format('D')}</DayNumber>
             <DayText active={active}>{date.format('ddd').toUpperCase()}</DayText>
             <View style={Absolute}>
