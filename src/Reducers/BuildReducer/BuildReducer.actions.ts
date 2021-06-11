@@ -2,6 +2,9 @@ import { HabitIcon } from 'Components/Icon/Icon.types';
 import { Colour } from 'Types/Colour.types';
 import { Schedule, ScheduleType } from 'Types/Habit.types';
 
+// ------------------------------------------------------------------------------------
+// Types
+// ------------------------------------------------------------------------------------
 interface NameAction {
     type: 'NAME';
     payload: string;
@@ -35,6 +38,9 @@ interface IconAction {
 
 export type BuildAction = NameAction | TotalAction | ColourAction | ScheduleAction | DayAction | IconAction;
 
+// ------------------------------------------------------------------------------------
+// Actions
+// ------------------------------------------------------------------------------------
 export const buildActions = {
     name: (name: string): BuildAction => ({
         type: 'NAME',

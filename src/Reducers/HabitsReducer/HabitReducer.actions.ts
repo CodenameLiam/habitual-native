@@ -1,5 +1,8 @@
 import { HabitObject, Habits, HabitDate } from 'Types/Habit.types';
 
+// ------------------------------------------------------------------------------------
+// Types
+// ------------------------------------------------------------------------------------
 interface InitAction {
     type: 'INIT';
     payload: Habits;
@@ -37,6 +40,9 @@ interface Progress {
 
 export type HabitAction = InitAction | AddAction | DeleteAction | NameAction | TotalAction | Progress;
 
+// ------------------------------------------------------------------------------------
+// Actions
+// ------------------------------------------------------------------------------------
 export const habitActions = {
     init: (habits: Habits): HabitAction => ({
         type: 'INIT',

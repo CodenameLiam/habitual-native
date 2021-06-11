@@ -20,10 +20,11 @@ import { Gradients } from 'Styles/Colours';
 import LinearGradient from 'react-native-linear-gradient';
 import { weekArray } from 'Helpers/Dates';
 import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
-import { getProgress, HabitMaxTransformInterpolation, handleView, normaliseProgress } from './Habit.functions';
+import { HabitMaxTransformInterpolation, handleView, normaliseProgress } from './Habit.functions';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { HabitObject } from 'Types/Habit.types';
 import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
+import { getProgress } from 'Helpers/Habits';
 
 interface HabitProps {
     navigation: TabNavProps;

@@ -8,6 +8,7 @@ import { Absolute } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
 import { CircleActiveDot, CircleButton, DayNumber, DayText } from './CircleDate.styles';
 
+// Constants
 const circleDimensions = Dimensions.get('screen').width / 9;
 const cXcY = circleDimensions / 2;
 const radius = circleDimensions / 2 - 2;

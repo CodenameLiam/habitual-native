@@ -14,11 +14,6 @@ export const handleView = (navigation: TabNavProps, habit: HabitObject, dateInde
     ReactNativeHapticFeedback.trigger('impactLight');
 };
 
-// Returns the progress of the habit for a given date
-export const getProgress = (habit: HabitObject, date: string): number => {
-    return habit.dates[date]?.progress ?? 0;
-};
-
 // ------------------------------------------------------------------------------------------------
 // Gestures
 // ------------------------------------------------------------------------------------------------
