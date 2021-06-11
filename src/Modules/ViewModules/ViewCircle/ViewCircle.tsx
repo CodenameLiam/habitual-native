@@ -1,9 +1,7 @@
-import { getAlphaValue } from 'Components/YearlyCalendar/YearlyCalendar';
 import { getAlpha } from 'Helpers/Habits';
 import React, { FC, useEffect, useMemo, useRef } from 'react';
-import { View, Text, Animated, Dimensions, Easing } from 'react-native';
+import { Animated, Dimensions, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
-import { Gradient } from 'Styles/Colours';
 import { CircleContainer, CircleText } from './ViewCircle.styles';
 
 // Constants
@@ -22,6 +20,7 @@ interface ViewCircleProps {
 const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total }) => {
     // Offset and animation values
     const alpha = useMemo(() => getAlpha(progress, total), [progress, total]);
+    console.log(alpha);
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
     const interpolatedSize = progressAnimation.interpolate({
         inputRange: [0, 1],

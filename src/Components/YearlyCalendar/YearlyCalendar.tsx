@@ -1,47 +1,28 @@
 import { useTheme } from '@emotion/react';
-import { IHabit } from 'Controllers/HabitController/HabitController';
 import { Moment } from 'moment';
-import React from 'react';
+import React, { FC } from 'react';
 import { ViewStyle } from 'react-native';
+import { HabitObject } from 'Types/Habit.types';
+import { getColour } from './YearlyCalendar.functions';
 import { CalendarCell, CalendarContainer } from './YearlyCalendar.styles';
 
 interface YearlyCalendarProps {
     style?: ViewStyle;
-    habit: IHabit;
+    habit: HabitObject;
     colour: string;
-    yearStart: Moment;
-    yearArray: string[];
+    yearArray: Moment[];
 }
 
-export const getAlphaValue = (habit: IHabit, day: string): number | string => {
-    let value: number | string = habit.dates[day]
-        ? habit.dates[day].progress >= habit.dates[day].progressTotal
-            ? 1
-            : habit.dates[day].progress / habit.dates[day].progressTotal
-        : 1;
-
-    value = (Math.round(value * 10) / 10) * 100;
-    if (value <= 10) value = 20;
-    if (value === 100) value = '';
-
-    return value;
-};
-
-const getColour = (habit: IHabit, colour: string, disabledColour: string, index: number, yearStart: Moment): string => {
-    const day = yearStart.clone().add(index, 'day').format('YYYY-MM-DD');
-    if (!habit.dates[day]) {
-        return disabledColour;
-    }
-    return habit.dates[day].progress > 0 ? colour + getAlphaValue(habit, day) : disabledColour;
-};
-
-const YearlyCalendar: React.FC<YearlyCalendarProps> = ({ style, habit, colour, yearStart, yearArray }) => {
+const YearlyCalendar: FC<YearlyCalendarProps> = ({ style, habit, colour, yearArray }) => {
     const theme = useTheme();
 
     return (
         <CalendarContainer style={style}>
-            {yearArray.map((day, index) => (
-                <CalendarCell key={index} colour={getColour(habit, colour, theme.card, index, yearStart)} />
+            {yearArray.map(date => (
+                <CalendarCell
+                    key={date.format('l')}
+                    colour={getColour(habit, date.format('YYYY-MM-DD'), colour, theme.card)}
+                />
             ))}
         </CalendarContainer>
     );

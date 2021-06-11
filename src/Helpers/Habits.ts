@@ -2,7 +2,7 @@ import produce from 'immer';
 import moment from 'moment';
 import { MarkedDateCustomStyles } from 'react-native-calendars';
 import { HabitDates, HabitObject, Schedule, ScheduleType } from 'Types/Habit.types';
-import { dayArray, today } from './Dates';
+import { getDateArray, today } from './Dates';
 
 // ------------------------------------------------------------------------------------------------
 // Basic
@@ -14,7 +14,7 @@ export const getProgress = (habit: HabitObject, date: string): number => {
 
 // Gets the alpha value for animating the view circle
 export const getAlpha = (progress: number, total: number): number => {
-    return Math.min(progress / total, total);
+    return Math.min(progress / total, 1);
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ const getDisabledDates = (habit: HabitObject, month: string): string[] => {
     if (Object.values(habit.schedule).some(schedule => schedule === true)) {
         const start = moment(month).subtract(1, 'month').startOf('month');
         const end = moment(month).add(1, 'month').endOf('month');
-        return dayArray(start, end)
+        return getDateArray(start, end)
             .filter(date => habit.schedule[date.format('ddd').toUpperCase() as ScheduleType] === false)
             .map(date => date.format('YYYY-MM-DD'));
     } else {
