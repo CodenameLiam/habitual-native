@@ -1,8 +1,8 @@
 import { Habits } from 'Types/Habit.types';
-import { HabitAction } from './HabitsReducer.types';
-import produce from 'immer';
-import { storeData } from 'Controllers/StorageController';
+import { HabitAction } from './HabitReducer.actions';
 import { HABITS_KEY } from 'Hooks/useStorage';
+import { storeData } from 'Controllers/StorageController';
+import produce from 'immer';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const habitsReducer = produce((state: Habits, action: HabitAction) => {

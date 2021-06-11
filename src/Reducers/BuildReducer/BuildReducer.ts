@@ -1,12 +1,9 @@
 import produce from 'immer';
 import { HabitObject } from 'Types/Habit.types';
-import { BuildAction } from './BuildReducer.types';
+import { BuildAction } from './BuildReducer.actions';
 
 const buildReducer = produce((state: HabitObject, action: BuildAction) => {
     switch (action.type) {
-        case 'INIT':
-            state = action.payload;
-            break;
         case 'NAME':
             state.name = action.payload;
             break;

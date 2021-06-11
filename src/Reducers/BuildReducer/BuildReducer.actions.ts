@@ -1,7 +1,39 @@
 import { HabitIcon } from 'Components/Icon/Icon.types';
 import { Colour } from 'Types/Colour.types';
 import { Schedule, ScheduleType } from 'Types/Habit.types';
-import { BuildAction } from './BuildReducer.types';
+
+interface NameAction {
+    type: 'NAME';
+    payload: string;
+}
+
+interface TotalAction {
+    type: 'TOTAL';
+    payload: number;
+}
+
+interface ColourAction {
+    type: 'COLOUR';
+    payload: Colour;
+}
+
+interface ScheduleAction {
+    type: 'SCHEDULE';
+    payload: Schedule;
+}
+
+interface DayAction {
+    type: 'DAY';
+    payload: boolean;
+    day: ScheduleType;
+}
+
+interface IconAction {
+    type: 'ICON';
+    payload: HabitIcon;
+}
+
+export type BuildAction = NameAction | TotalAction | ColourAction | ScheduleAction | DayAction | IconAction;
 
 export const buildActions = {
     name: (name: string): BuildAction => ({
