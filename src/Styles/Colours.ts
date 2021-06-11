@@ -22,7 +22,7 @@ export const ThemeColours: IThemeColours = {
         background: '#0F2028',
         card: '#223843',
         grey: '#c5c5c5',
-        disabled: '#2c424d',
+        disabled: '#989898',
     },
     light: {
         text: '#0F2028',

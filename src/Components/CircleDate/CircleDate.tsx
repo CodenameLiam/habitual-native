@@ -26,6 +26,7 @@ interface CircleDateProps {
 const CircleDate: FC<CircleDateProps> = ({ active, alpha, colour, date, handlePress }) => {
     const circleColour = useMemo(() => Gradients[colour].solid, [colour]);
 
+    // Offset and animation values
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
     const interpolatedSize = progressAnimation.interpolate({
         inputRange: [0, 1],

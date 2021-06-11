@@ -12,6 +12,11 @@ export const getProgress = (habit: HabitObject, date: string): number => {
     return habit.dates[date]?.progress ?? 0;
 };
 
+// Gets the alpha value for animating the view circle
+export const getAlpha = (progress: number, total: number): number => {
+    return Math.min(progress / total, total);
+};
+
 // ------------------------------------------------------------------------------------------------
 // Calendar
 // ------------------------------------------------------------------------------------------------

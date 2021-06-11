@@ -1,8 +1,8 @@
 import { useColour, useHabits } from 'Context/AppContext';
-import React, { useEffect, useState, FC, useCallback } from 'react';
+import React, { useState, FC, useCallback, useMemo } from 'react';
 import { View } from 'react-native';
 import { weekArray } from 'Helpers/Dates';
-import { emptyHabits, getHomeScreenData, getHomeTitle } from './HomeScreen.functions';
+import { emptyHabits, getDateHabits, getHomeScreenData, getHomeTitle } from './HomeScreen.functions';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { Full } from 'Styles/Globals';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
@@ -12,8 +12,7 @@ import { CircleDatesContainer } from './HomeScreen.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useFocusEffect } from '@react-navigation/native';
 import MemoizedCircleDate from 'Components/CircleDate/CircleDate';
-import { addHabit } from 'Reducers/HabitsReducer/HabitReducer.actions';
-import { DEFAULT_HABIT } from 'Types/Habit.constants';
+import moment from 'moment';
 
 interface HomeScreenProps {
     navigation: TabNavProps;
@@ -25,12 +24,6 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
     const [dateIndex, setDateIndex] = useState(6);
     const { todaysHabits, alphaWeekArray } = getHomeScreenData(habits, dateIndex);
-
-    useEffect(() => {
-        // dispatchHabits(addHabit({ ...DEFAULT_HABIT, name: 'yaaah' }));
-        // dispatchHabits(updateHabitName('5d1aa1f6-fbaf-4099-ae82-fc0ab5bfecd0', 'new habit'));
-        // console.log(habits);
-    }, []);
 
     useFocusEffect(
         useCallback(() => {
@@ -54,8 +47,6 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                         active={dateIndex === index}
                         alpha={alphaWeekArray[index]}
                         handlePress={() => handlePress(index)}
-                        // dayNumber={date.format('D')}
-                        // dayText={date.format('ddd').toUpperCase()}
                     />
                 ))}
             </CircleDatesContainer>

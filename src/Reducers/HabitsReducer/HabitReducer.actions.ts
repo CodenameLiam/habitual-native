@@ -52,10 +52,10 @@ export const habitActions = {
         type: 'ADD',
         payload: habit,
     }),
-    progress: (id: string, date: string, progress: number, total: number, complete: boolean): HabitAction => ({
+    progress: (habit: HabitObject, date: string, progress: number, complete: boolean): HabitAction => ({
         type: 'PROGRESS',
-        payload: { progress, total },
-        id,
+        payload: { progress, total: habit.total },
+        id: habit.id,
         date,
         complete,
     }),

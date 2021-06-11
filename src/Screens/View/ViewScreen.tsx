@@ -19,6 +19,8 @@ import { ViewNavProps, ViewRouteProps } from 'Navigation/AppNavigation/AppNaviga
 // import { getProgress } from 'Components/Habit/Habit.functions';
 import { getCalendarDates, getProgress } from 'Helpers/Habits';
 import { today } from 'Helpers/Dates';
+import ViewCircle from 'Modules/ViewModules/ViewCircle/ViewCircle';
+import ViewProgressButton from 'Modules/ViewModules/ViewProgressButton/ViewProgressButton';
 // import { today } from './Modules/CalendarModule';
 
 interface ViewScreenProps {
@@ -69,7 +71,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     console.time('sort');
     // const sortedDates = getSortedDates(habit.dates);
-    console.log(calendarDates);
+    // console.log(calendarDates);
     // const markedDates = getMarkedDates(habit);
 
     console.timeEnd('sort');
@@ -94,15 +96,14 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                     onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
                     rightDisabled={currentDateString === moment().format('YYYY-MM-DD')}
                 />
-                {/* <CircleModule progress={progress} total={habit.total} colour={gradient.solid} /> */}
-                {/* <ProgressButtonModule
-                    progress={progress}
-                    setProgress={setProgress}
-                    date={date}
-                    colour={gradient.solid}
+                <ViewCircle progress={progress} total={habit.total} colour={gradient.solid} />
+                <ViewProgressButton
                     habit={habit}
-                    updateHabit={updateHabit}
-                /> */}
+                    dispatchHabits={dispatchHabits}
+                    colour={gradient.solid}
+                    progress={progress}
+                    date={currentDateString}
+                />
                 <YearlyTitle>Yearly Progress</YearlyTitle>
                 {/* <YearlyCalendar
                     habit={habit}

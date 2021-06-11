@@ -19,11 +19,10 @@ import { useTheme } from '@emotion/react';
 import { Gradients } from 'Styles/Colours';
 import LinearGradient from 'react-native-linear-gradient';
 import { weekArray } from 'Helpers/Dates';
-import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
 import { HabitMaxTransformInterpolation, handleView, normaliseProgress } from './Habit.functions';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { HabitObject } from 'Types/Habit.types';
-import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
+import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { getProgress } from 'Helpers/Habits';
 
 interface HabitProps {
@@ -85,7 +84,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
         const next = progress >= habit.total ? 0 : progress + 1;
         setProgress(next);
         setDragProgress(next);
-        dispatchHabits(habitActions.progress(habit.id, date, next, habit.total, next >= habit.total));
+        dispatchHabits(habitActions.progress(habit, date, next, next >= habit.total));
     };
 
     // ------------------------------------------------------------------------------------------------
@@ -116,7 +115,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
         } else if (event.nativeEvent.state === State.END) {
             setDragProgress(progress);
             setIsDragging(false);
-            dispatchHabits(habitActions.progress(habit.id, date, progress, habit.total, progress >= habit.total));
+            dispatchHabits(habitActions.progress(habit, date, progress, progress >= habit.total));
         }
     };
 

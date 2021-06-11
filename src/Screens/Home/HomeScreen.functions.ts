@@ -16,7 +16,7 @@ export const getDateHabits = (habits: Habits, date: Moment): HabitObject[] => {
 };
 
 // Gets the ratio of habits completed for a specified date
-export const getDateComplete = (habits: HabitObject[], date: string): number => {
+export const getHabitsAlpha = (habits: HabitObject[], date: string): number => {
     if (habits.length < 1) return 0;
     const completeHabits = habits.filter(habit => habit.dates[date] && habit.dates[date].progress >= habit.total);
     return completeHabits.length === 0 ? 0 : completeHabits.length / habits.length;
@@ -50,7 +50,7 @@ export const getHomeScreenData = (habits: Habits, dateIndex: number): HomeScreen
     const alphaWeekArray = weekArray.map((date, index) => {
         const dateHabits = getDateHabits(habits, date);
         index === dateIndex && (todaysHabits = dateHabits);
-        return getDateComplete(dateHabits, date.format('YYYY-MM-DD'));
+        return getHabitsAlpha(dateHabits, date.format('YYYY-MM-DD'));
     });
 
     return { todaysHabits, alphaWeekArray };
