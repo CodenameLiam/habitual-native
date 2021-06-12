@@ -6,6 +6,7 @@ import { Colour } from 'Types/Colour.types';
 
 interface BuildRoute {
     id?: string;
+    colour?: Colour;
 }
 interface ViewRoute {
     id: string;
@@ -38,7 +39,6 @@ export type AppParamList = {
 
 // App Navigation Types
 export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
-export type IconNavProps = StackNavigationProp<AppParamList, 'Icon'>;
 export type IdeaNavProps = StackNavigationProp<AppParamList, 'Ideas'>;
 export type ViewNavProps = StackNavigationProp<AppParamList, 'View'>;
 export type ViewRouteProps = RouteProp<AppParamList, 'View'>;

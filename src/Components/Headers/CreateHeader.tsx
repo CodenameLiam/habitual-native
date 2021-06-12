@@ -1,11 +1,11 @@
-import { StackNavigationOptions } from '@react-navigation/stack';
-import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
-import BackIcon from 'Components/HeaderIcons/BackIcon';
-import IdeasIcon from 'Components/HeaderIcons/IdeasIcon';
-import { BuildNavProps, BuildRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 import { View } from 'react-native';
+import BackIcon from 'Components/HeaderIcons/BackIcon';
+import IdeasIcon from 'Components/HeaderIcons/IdeasIcon';
+import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { BuildNavProps, BuildRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
+import { StackNavigationOptions } from '@react-navigation/stack';
 
 interface CreateHeaderProps {
     colour: string;

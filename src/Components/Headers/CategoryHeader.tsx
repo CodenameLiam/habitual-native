@@ -1,10 +1,9 @@
-import { StackNavigationOptions } from '@react-navigation/stack';
-import BackIcon from 'Components/HeaderIcons/BackIcon';
-import { CategoryNavProps } from 'Navigation/Params';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-
 import React from 'react';
+import BackIcon from 'Components/HeaderIcons/BackIcon';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { View } from 'react-native';
+import { StackNavigationOptions } from '@react-navigation/stack';
+import { CategoryNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 
 interface CategoryHeaderProps {
     colour: string;

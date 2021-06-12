@@ -1,24 +1,15 @@
 import React from 'react';
 import { useDrawerStatus } from '@react-navigation/drawer';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { Dimensions, Text, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import TabNavigation from '../TabNavigation/TabNavigation';
 import { useTheme } from '@emotion/react';
 import TabHeader from '../../Components/Headers/TabHeader';
 import ViewHeader from '../../Components/Headers/ViewHeader';
 import BuildScreen from 'Screens/BuildScreen/BuildScreen';
-import IconScreen from 'Screens/Icon/IconScreen';
-import IconHeader from '../../Components/Headers/IconHeader';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import IdeasHeader from '../../Components/Headers/IdeasHeader';
 import ViewScreen from 'Screens/View/ViewScreen';
 import CreateHeader from '../../Components/Headers/CreateHeader';
-import IdeasScreen from 'Screens/Ideas/IdeasScreen';
-import CategoryScreen from 'Screens/Category/CategoryScreen';
-import CategoryHeader from '../../Components/Headers/CategoryHeader';
-import { Categories } from 'Components/Category/Category.constants';
-import IndividualTrendScreen from 'Screens/IndividualTrend/IndividualTrendScreen';
-import TrendHeader from '../../Components/Headers/TrendHeader';
 import { headerFont } from 'Styles/Fonts';
 import { AppNavProps } from 'Navigation/RootNavigation/RootNavigation.params';
 import { AppParamList } from './AppNavigation.params';
@@ -72,11 +63,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
             />
             {/* 
-            <Stack.Screen
-                name="Icon"
-                component={IconScreen}
-                options={({ navigation }) => IconHeader({ colour, navigation })}
-            />
+           
             <Stack.Screen
                 name="Ideas"
                 component={IdeasScreen}
