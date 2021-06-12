@@ -1,15 +1,13 @@
 import { useTheme } from '@emotion/react';
 import Icon from 'Components/Icon';
 import React from 'react';
-import { Animated, Alert } from 'react-native';
+import { Animated } from 'react-native';
 import { RightAction } from './Habit.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-
 import { Swipeable } from 'react-native-gesture-handler';
 import { deleteAlert } from 'Helpers/DeleteAlert';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
-import { deleteHabit } from 'Reducers/HabitsReducer/HabitReducer.actions';
+import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
 interface RightActionProps {
     progress: Animated.AnimatedInterpolation;
@@ -65,7 +63,7 @@ export const renderRightActions = (
 
     // Deletes the current habit
     const confirmDelete = (): void => {
-        dispatchHabits(deleteHabit(id));
+        dispatchHabits(habitActions.delete(id));
         ReactNativeHapticFeedback.trigger('notificationSuccess');
     };
 

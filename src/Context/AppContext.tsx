@@ -3,12 +3,12 @@ import useStorage, { DEFAULT_COLOUR, DEFAULT_HABITS, DEFAULT_THEME } from 'Hooks
 import React, { createContext, Dispatch, FC, useContext, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { HabitAction } from 'Reducers/HabitsReducer/HabitsReducer.types';
 import { DarkTheme, LightTheme, NavDarkTheme, NavLightTheme } from 'Styles/Themes';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colour } from 'Types/Colour.types';
 import { Habits } from 'Types/Habit.types';
 import { Theme } from 'Types/Theme.types';
+import { HabitAction } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
 interface AppContextState {
     habits: [Habits, Dispatch<HabitAction>];

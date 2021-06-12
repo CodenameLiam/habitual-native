@@ -20,7 +20,6 @@ interface ViewCircleProps {
 const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total }) => {
     // Offset and animation values
     const alpha = useMemo(() => getAlpha(progress, total), [progress, total]);
-    console.log(alpha);
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
     const interpolatedSize = progressAnimation.interpolate({
         inputRange: [0, 1],

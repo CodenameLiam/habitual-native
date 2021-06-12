@@ -2,9 +2,7 @@ import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import DismissableScrollView from 'Components/DismissableScrollView/DismissableScrollView';
 import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import { AppContext, useHabits } from 'Context/AppContext';
-// import { getProgress } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-// import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { InteractionManager } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -12,15 +10,17 @@ import { Gradients } from 'Styles/Colours';
 import CircleModule from './Modules/CircleModule';
 import ProgressButtonModule from './Modules/ProgressButtonModule';
 import { YearlyTitle } from './ViewScreen.styles';
-// import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
 import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 import StatsModule from './Modules/StatsModule';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
-// import { getProgress } from 'Components/Habit/Habit.functions';
 import { getCalendarDates, getProgress } from 'Helpers/Habits';
 import { getDateArray, today } from 'Helpers/Dates';
 import ViewCircle from 'Modules/ViewModules/ViewCircle/ViewCircle';
 import ViewProgressButton from 'Modules/ViewModules/ViewProgressButton/ViewProgressButton';
+// import { getProgress } from 'Controllers/HabitController/HabitController';
+// import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
+// import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
+// import { getProgress } from 'Components/Habit/Habit.functions';
 // import { today } from './Modules/CalendarModule';
 
 interface ViewScreenProps {
@@ -69,12 +69,12 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     // const [month, setMonth] = useState(today);
 
-    console.time('sort');
+    // console.time('sort');
     // const sortedDates = getSortedDates(habit.dates);
     // console.log(calendarDates);
     // const markedDates = getMarkedDates(habit);
 
-    console.timeEnd('sort');
+    // console.timeEnd('sort');
     // const sortedDates = useMemo(() => sortDates(Object.keys(habit.dates)), [habit.dates]);
     // const markedDates = useMemo(() => getMarkedDates(habit, month, sortedDates), [habit, month, sortedDates]);
 
