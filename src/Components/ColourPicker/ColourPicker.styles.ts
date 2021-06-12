@@ -2,7 +2,8 @@ import styled from '@emotion/native';
 import { Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const swatchDimensions = Dimensions.get('screen').width / 7.8 + 'px';
+const swatchDimensions = Dimensions.get('screen').width / 8 + 'px';
+const smallSwatchDimensions = '32px';
 
 export const PickerContainer = styled.View`
     flex-wrap: wrap;
@@ -17,5 +18,11 @@ export const Swatch = styled(TouchableOpacity)`
     height: ${swatchDimensions};
     border-radius: ${swatchDimensions};
     overflow: hidden;
-    background-color: red;
+`;
+
+export const SwatchSmall = styled.View`
+    width: ${smallSwatchDimensions};
+    height: ${smallSwatchDimensions};
+    border-radius: ${smallSwatchDimensions};
+    overflow: hidden;
 `;

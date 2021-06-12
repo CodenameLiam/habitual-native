@@ -17,7 +17,7 @@ const BuildIcon: FC<BuildIconProps> = ({ onPress, family, name, colour }) => {
     return (
         <TouchableOpacity onPress={onPress}>
             <Card>
-                <Icon family={family} name={name} size={28} colour={colour} />
+                <Icon family={family} name={name} size={32} colour={colour} />
             </Card>
         </TouchableOpacity>
     );

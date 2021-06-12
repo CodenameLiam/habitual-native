@@ -1,13 +1,13 @@
-import { useTheme } from '@emotion/react';
-import Icon from 'Components/Icon';
 import React, { FC, RefObject } from 'react';
+import { useTheme } from '@emotion/react';
 import { Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { HabitIcon } from 'Components/Icon/Icon.types';
 import { IconOptions } from './BuildIconModal.constants';
 import { IconContainer, IconGroupContainer, Label, LabelContainer, Row } from './BuildIconModal.styles';
-import BottomSheet from 'reanimated-bottom-sheet';
-import { HabitIcon } from 'Components/Icon/Icon.types';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
+import Icon from 'Components/Icon';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 const IconDimensions = (Dimensions.get('screen').width - 30) / 10.5;
 

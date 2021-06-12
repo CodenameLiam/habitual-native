@@ -9,7 +9,7 @@ export const ScheduleContainer = styled.View`
     flex-direction: row;
     justify-content: space-between;
     padding: 5px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 `;
 
 export const ScheduleButton = styled(TouchableOpacity)`

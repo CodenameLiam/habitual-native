@@ -10,6 +10,11 @@ export const CardContainer = styled.View`
     overflow: hidden;
 `;
 
+export const CardContainerCircle = styled(CardContainer)`
+    border-radius: 100px;
+    margin-left: 0px;
+`;
+
 export const CardText = styled(TextTicker)`
     padding-bottom: 10px;
     color: ${props => props.theme.grey};

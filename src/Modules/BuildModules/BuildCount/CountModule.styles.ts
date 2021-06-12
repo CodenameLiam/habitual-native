@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { TextInput } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GreyColours } from 'Styles/Colours';
 
 interface ButtonProps {
@@ -8,7 +8,7 @@ interface ButtonProps {
     grey: boolean;
 }
 
-export const SqaureButton = styled(TouchableOpacity)<ButtonProps>`
+export const SqaureButton = styled.TouchableOpacity<ButtonProps>`
     background-color: ${props => (props.grey ? GreyColours.GREY2 + 30 : props.colour + 30)};
     border-radius: 5px;
     overflow: hidden;

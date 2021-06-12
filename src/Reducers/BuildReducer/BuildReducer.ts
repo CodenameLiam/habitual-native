@@ -1,9 +1,9 @@
 import produce from 'immer';
 import { HabitObject } from 'Types/Habit.types';
 import { BuildAction } from './BuildReducer.actions';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const buildReducer = produce((state: HabitObject, action: BuildAction) => {
-    console.log(action.payload);
     switch (action.type) {
         case 'NAME':
             state.name = action.payload;
@@ -19,6 +19,10 @@ const buildReducer = produce((state: HabitObject, action: BuildAction) => {
             break;
         case 'ICON':
             state.icon = action.payload;
+            break;
+        case 'TYPE':
+            state.type = action.payload;
+            ReactNativeHapticFeedback.trigger('impactLight');
             break;
         case 'DAY':
             state.schedule[action.day] = action.payload;

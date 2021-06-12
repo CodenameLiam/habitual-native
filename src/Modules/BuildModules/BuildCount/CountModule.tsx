@@ -6,8 +6,7 @@ import { RowBetween, MarginLeft, MarginRight } from 'Styles/Globals';
 import { ProgressTextInput, SqaureButton } from './CountModule.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { HabitObject } from 'Types/Habit.types';
-import { BuildAction } from 'Reducers/BuildReducer/BuildReducer.types';
-import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
+import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 
 interface CountModuleProps {
     habit: HabitObject;
@@ -19,18 +18,15 @@ export const CountModule: React.FC<CountModuleProps> = ({ habit, dispatchBuild }
 
     const handleProgressChange = (text: string): void => {
         dispatchBuild(buildActions.total(Number(text)));
-        // habitDispatch({ type: 'total', payload: { total: Number(text) } });
     };
 
     const handleAddProgress = (): void => {
         dispatchBuild(buildActions.total(habit.total + 1));
-        // habitDispatch({ type: 'total', payload: { total: habit.total + 1 } });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
     const handleRemoveProgress = (): void => {
         dispatchBuild(buildActions.total(habit.total - 1));
-        // habitDispatch({ type: 'total', payload: { total: habit.total - 1 } });
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 

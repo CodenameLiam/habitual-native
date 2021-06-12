@@ -6,7 +6,7 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 // Content options
-type BuildScreenModal = 'Mount' | 'Icon' | 'Time';
+type BuildScreenModal = 'Mount' | 'Icon' | 'Time' | 'Reminder';
 
 // Snap point options
 type BuildScreenSnaps = {
@@ -17,7 +17,8 @@ type BuildScreenSnaps = {
 export const BuildScreenSnapPoints: BuildScreenSnaps = {
     Mount: '0px',
     Icon: '70%',
-    Time: '300px',
+    Time: '400px',
+    Reminder: '500px',
 };
 
 interface UseBuildModal {

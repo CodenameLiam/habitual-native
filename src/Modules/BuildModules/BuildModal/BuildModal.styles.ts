@@ -33,14 +33,3 @@ export const BuildModalHandle = styled.View`
     height: 5px;
     width: 50px;
 `;
-
-export const BuildModalShadow = styled.View`
-    z-index: 1;
-    /* box-shadow: 10px 10px 10px black; */
-    background-color: white;
-    position: absolute;
-    top: 30px;
-    left: 10px;
-    right: 10px;
-    height: 10px;
-`;

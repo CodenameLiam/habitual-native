@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useReducer, useRef, FC, useCallback, useState, Fragment } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, TouchableOpacity, View, Dimensions } from 'react-native';
+import React, { useEffect, useMemo, useReducer, Fragment, FC } from 'react';
+import { Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { useHabits } from 'Context/AppContext';
 import { useTheme } from '@emotion/react';
 import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
@@ -26,20 +26,16 @@ import buildReducer from 'Reducers/BuildReducer/BuildReducer';
 import BuildIcon from 'Modules/BuildModules/BuildIcon/BuildIcon';
 import BuildInput from 'Modules/BuildModules/BuildInput/BuildInput';
 import BuildSave from 'Modules/BuildModules/BuildSave/BuildSave';
-import Animated from 'react-native-reanimated';
-import styled from '@emotion/native';
 import { BuildScreenSnapPoints, useBuildModal } from './BuildScreen.functions';
 import {
     BuildModalContainer,
     BuildModalContent,
     BuildModalHandle,
     BuildModalHeader,
-    BuildModalShadow,
 } from 'Modules/BuildModules/BuildModal/BuildModal.styles';
-import { GrowScrollContainer } from 'Components/GrowScrollView/GrowScrollView.styles';
-import { ScrollView } from 'react-native-gesture-handler';
 import BuildShadow from 'Modules/BuildModules/BuildShadow/BuildShadow';
 import BuildIconModal from 'Modules/BuildModules/BuildIconModal/BuildIconModal';
+import { CardContainerCircle } from 'Components/Card/Card.styles';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -47,14 +43,15 @@ interface BuildScreenProps {
     route: BuildRouteProps;
 }
 
-const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
+const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
     const theme = useTheme();
     const [habits, dispatchHabits] = useHabits();
-    const { id, icon } = route.params;
+    const { id } = route.params;
 
     // Dispatch to update habit state
     const initialHabit: HabitObject = id ? habits[id] : { ...DEFAULT_HABIT, id: v4(), colour: getRandomColour() };
     const [habit, dispatchBuild] = useReducer(buildReducer, initialHabit);
+    const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
 
     // Updates the header to reflect the current gradient
     useEffect(() => {
@@ -63,11 +60,6 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
             headerTitle: id ? 'Edit Habit' : 'Create Habit',
         });
     }, [navigation, habit.colour, id]);
-
-    // Updates habit icon if passed as a route parameter
-    // useEffect(() => {
-    //     icon && dispatchBuild(buildActions.icon(icon));
-    // }, [icon]);
 
     // Specifies scheduling quick actions
     const setScheduleFunctions = useMemo(
@@ -81,6 +73,7 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
     return (
         <KeyboardAwareScrollView contentContainerStyle={Full} scrollEnabled={false} extraScrollHeight={60}>
             <View style={Row}>
+                {/* Icon */}
                 <BuildIcon
                     onPress={() => {
                         setModal('Icon');
@@ -90,46 +83,73 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
                     name={habit.icon.name}
                     colour={theme.grey}
                 />
+                {/* Name */}
                 <BuildInput
-                    colour={Gradients[habit.colour].solid}
+                    colour={gradient.solid}
                     placeholderColour={theme.grey}
                     value={habit.name}
                     dispatchBuild={dispatchBuild}
                 />
+                {/* Reminders */}
+                <TouchableOpacity
+                    onPress={() => {
+                        setModal('Reminder');
+                        handleOpen();
+                    }}
+                >
+                    <CardContainerCircle>
+                        <Icon family="ion" name="notifications" size={32} colour={theme.grey} />
+                    </CardContainerCircle>
+                </TouchableOpacity>
             </View>
+            {/* Colour */}
             <Card title="Colour">
                 <ColourPicker updateGradient={gradient => dispatchBuild(buildActions.colour(gradient))} />
             </Card>
+            {/* Schedule */}
             <Card title="Schedule">
                 <Scheduler colour={habit.colour} schedule={{ ...habit.schedule }} dispatchBuild={dispatchBuild} />
                 <ColourButtonGroup
-                    colour={Gradients[habit.colour].solid}
+                    colour={gradient.solid}
                     buttons={['Everyday', 'Weekdays', 'Weekend']}
                     buttonFunctions={setScheduleFunctions}
                 />
             </Card>
             <View style={Row}>
-                <Card title="Count" style={{ flex: 2, marginRight: 7.5 }}>
-                    <CountModule habit={habit} dispatchBuild={dispatchBuild} />
+                {/* Units */}
+                <Card title="Units" style={{ flex: 1.2, marginRight: 7.5 }}>
+                    <View style={[Row]}>
+                        <SqaureButton
+                            colour={gradient.solid}
+                            grey={habit.type === 'time'}
+                            style={{ flex: 1, marginRight: 10 }}
+                            onPress={() => dispatchBuild(buildActions.type('count'))}
+                        >
+                            <Icon
+                                family="fontawesome"
+                                name="plus"
+                                size={24}
+                                colour={habit.type === 'count' ? gradient.solid : theme.grey}
+                            />
+                        </SqaureButton>
+                        <SqaureButton
+                            colour={gradient.solid}
+                            grey={habit.type === 'count'}
+                            style={{ flex: 1 }}
+                            onPress={() => dispatchBuild(buildActions.type('time'))}
+                        >
+                            <Icon
+                                family="antdesign"
+                                name="clockcircle"
+                                size={24}
+                                colour={habit.type === 'time' ? gradient.solid : theme.grey}
+                            />
+                        </SqaureButton>
+                    </View>
                 </Card>
-                <Card title="Reminders" style={{ flex: 1.2, marginLeft: 7.5 }}>
-                    <SqaureButton
-                        colour={Gradients[habit.colour].solid}
-                        grey={false}
-                        style={{ width: '100%' }}
-                        onPress={() => {
-                            setModal('Time');
-                            handleOpen();
-                        }}
-                    >
-                        <Icon
-                            family="ion"
-                            name="notifications"
-                            size={26}
-                            colour={Gradients[habit.colour].solid}
-                            style={{ zIndex: 1 }}
-                        />
-                    </SqaureButton>
+                {/* Total */}
+                <Card title={habit.type === 'count' ? 'Total' : 'Time'} style={{ flex: 2, marginLeft: 7.5 }}>
+                    <CountModule habit={habit} dispatchBuild={dispatchBuild} />
                 </Card>
             </View>
             <BuildSave habit={habit} dispatchHabits={dispatchHabits} navigation={navigation} />
@@ -167,6 +187,7 @@ const BuildScreen: React.FC<BuildScreenProps> = ({ navigation, route }) => {
                                             handleClose={handleClose}
                                         />
                                     ),
+                                    Reminder: <Text>This is reminder screen</Text>,
                                     Time: <Text>This is time screen</Text>,
                                 }[modal]
                             }
