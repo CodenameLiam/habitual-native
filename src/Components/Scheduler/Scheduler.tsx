@@ -1,28 +1,30 @@
-import { ISchedule, ScheduleType } from 'Controllers/HabitController/HabitController';
-import React, { useCallback } from 'react';
+// import { ISchedule, ScheduleType } from 'Controllers/HabitController/HabitController';
+import React, { Dispatch, useCallback, useMemo } from 'react';
+import { Colour } from 'Types/Colour.types';
 import { StyleSheet } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import { GradientColours, IColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
+import { BuildAction } from 'Reducers/BuildReducer/BuildReducer.types';
+import { Schedule, ScheduleType } from 'Types/Habit.types';
+import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import { ScheduleButton, ScheduleContainer, ScheduleText } from './Scheduler.styles';
+import LinearGradient from 'react-native-linear-gradient';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface ScheduleProps {
-    colour: IColours;
-    schedule: ISchedule;
-    setSchedule: (newSchedule: ISchedule) => void;
+    colour: Colour;
+    schedule: Schedule;
+    dispatchBuild: Dispatch<BuildAction>;
 }
 
-const Scheduler: React.FC<ScheduleProps> = ({ colour, schedule, setSchedule }) => {
-    const gradient = GradientColours[colour];
+const Scheduler: React.FC<ScheduleProps> = ({ colour, schedule, dispatchBuild }) => {
+    const gradient = useMemo(() => Gradients[colour], [colour]);
 
     const handleSchedule = useCallback(
         (day: ScheduleType) => {
-            const tempSchedule = schedule;
-            tempSchedule[day] = !tempSchedule[day];
-            setSchedule(tempSchedule);
+            dispatchBuild(buildActions.day(!schedule[day], day));
             ReactNativeHapticFeedback.trigger('impactLight');
         },
-        [schedule, setSchedule],
+        [dispatchBuild, schedule],
     );
 
     return (

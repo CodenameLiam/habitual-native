@@ -9,22 +9,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { IconProps } from './Icon.types';
 
-export interface IconProps {
-    family?:
-        | 'fontawesome'
-        | 'fontawesome5'
-        | 'entypo'
-        | 'material'
-        | 'materialcommunity'
-        | 'feather'
-        | 'antdesign'
-        | 'ion';
-    name: any;
-    size: number;
-    colour: string;
-    style?: StyleProp<TextStyle>;
-}
+// export interface IconProps {
+//     family?:
+//         | 'fontawesome'
+//         | 'fontawesome5'
+//         | 'entypo'
+//         | 'material'
+//         | 'materialcommunity'
+//         | 'feather'
+//         | 'antdesign'
+//         | 'ion';
+//     name: any;
+//     size: number;
+//     colour: string;
+//     style?: StyleProp<TextStyle>;
+// }
 
 const Icon: React.FC<IconProps> = ({ family, name, size, colour, style }) => {
     switch (family) {

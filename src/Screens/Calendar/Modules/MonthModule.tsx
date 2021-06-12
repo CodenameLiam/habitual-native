@@ -7,7 +7,7 @@ import moment from 'moment';
 import { TabNavProps } from 'Navigation/Params';
 import React, { useCallback } from 'react';
 import { View, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { GradientColours, IColours } from 'Styles/Colours';
+import { Gradients, Colours } from 'Styles/Colours';
 import { MarginRight } from 'Styles/Globals';
 import { AllMonthContainer, MonthCalendarContainer, MonthText, MonthTextContainer } from './MonthModule.styles';
 
@@ -23,7 +23,7 @@ const MonthModule: React.FC<MonthModuleProps> = ({ monthIndex, setMonthIndex, na
     const month = moment().add(monthIndex, 'month');
 
     const handleHabitPress = useCallback(
-        (id: string, name: string, colour: IColours, prevIndex: number) => {
+        (id: string, name: string, colour: Colours, prevIndex: number) => {
             ReactNativeHapticFeedback.trigger('impactLight');
             navigation.navigate('View', { id, name, colour, prevIndex });
         },
@@ -43,7 +43,7 @@ const MonthModule: React.FC<MonthModuleProps> = ({ monthIndex, setMonthIndex, na
             <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
                 <AllMonthContainer>
                     {Object.values(habits).map(habit => {
-                        const habitColour = GradientColours[habit.colour].solid;
+                        const habitColour = Gradients[habit.colour].solid;
                         return (
                             <TouchableWithoutFeedback
                                 key={habit.id}

@@ -1,2 +1,3 @@
 export * from './AppNavigation/AppNavigation';
-export * from './SettingsNavigation/SettingsNavigation';
+export * from './RootNavigation/RootNavigation';
+export * from './TabNavigation/TabNavigation';

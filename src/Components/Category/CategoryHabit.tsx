@@ -13,7 +13,7 @@ import { IHabit } from 'Controllers/HabitController/HabitController';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { CategoryHabitContainer, CategoryHabitText } from './Category.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { HabitMaxTransformInterpolation } from 'Components/Habit/Habit';
@@ -27,7 +27,7 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
     const theme = useTheme();
     const { habits, updateHabit, deleteHabit } = useContext(AppContext);
 
-    const gradient = useMemo(() => GradientColours[habit.colour], [habit.colour]);
+    const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
     const getAnimationValue = useCallback(() => {
         return habits[habit.id] ? 1 : 0;
     }, [habit.id, habits]);

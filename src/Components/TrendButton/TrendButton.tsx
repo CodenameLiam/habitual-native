@@ -3,7 +3,7 @@ import { IHabit } from 'Controllers/HabitController/HabitController';
 import { TabNavProps } from 'Navigation/Params';
 import React from 'react';
 
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { getThreeMonthAverage, getWeeklyTotalArray, getYearAverage } from './TrendButton.functions';
 import {
     TrendAverageText,
@@ -22,7 +22,7 @@ interface TrendButtonProps {
 }
 
 const TrendButton: React.FC<TrendButtonProps> = ({ habit, navigation }) => {
-    const gradient = GradientColours[habit.colour];
+    const gradient = Gradients[habit.colour];
 
     const weeklyTotalArray = getWeeklyTotalArray(habit);
     const threeMonthAverage = getThreeMonthAverage(weeklyTotalArray.heights);

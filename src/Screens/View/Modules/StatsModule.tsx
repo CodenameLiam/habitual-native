@@ -5,7 +5,7 @@ import { IHabit, ScheduleType } from 'Controllers/HabitController/HabitControlle
 import moment from 'moment';
 import React, { useMemo } from 'react';
 import { View, Text } from 'react-native';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { getDisabledDays, today } from './CalendarModule';
 import {
     StatsBar,

@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 
-export const CircleDateContainer = styled.View`
+export const CircleDatesContainer = styled.View`
     justify-content: space-between;
     flex-direction: row;
     padding: 20px;

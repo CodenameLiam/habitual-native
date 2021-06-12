@@ -1,26 +1,27 @@
 import React from 'react';
 import { useDrawerStatus } from '@react-navigation/drawer';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { AppNavProps, AppParamList } from '../Params';
-import { Dimensions } from 'react-native';
-import TabNavigation from '../TabNavigation';
+import { Dimensions, Text, View } from 'react-native';
+import TabNavigation from '../TabNavigation/TabNavigation';
 import { useTheme } from '@emotion/react';
-import TabHeader from './Headers/TabHeader';
-import ViewHeader from './Headers/ViewHeader';
-import { headerTitle } from './AppNavigation.styles';
+import TabHeader from '../../Components/Headers/TabHeader';
+import ViewHeader from '../../Components/Headers/ViewHeader';
 import BuildScreen from 'Screens/BuildScreen/BuildScreen';
 import IconScreen from 'Screens/Icon/IconScreen';
-import IconHeader from './Headers/IconHeader';
+import IconHeader from '../../Components/Headers/IconHeader';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import IdeasHeader from './Headers/IdeasHeader';
+import IdeasHeader from '../../Components/Headers/IdeasHeader';
 import ViewScreen from 'Screens/View/ViewScreen';
-import CreateHeader from './Headers/CreateHeader';
+import CreateHeader from '../../Components/Headers/CreateHeader';
 import IdeasScreen from 'Screens/Ideas/IdeasScreen';
 import CategoryScreen from 'Screens/Category/CategoryScreen';
-import CategoryHeader from './Headers/CategoryHeader';
+import CategoryHeader from '../../Components/Headers/CategoryHeader';
 import { Categories } from 'Components/Category/Category.constants';
 import IndividualTrendScreen from 'Screens/IndividualTrend/IndividualTrendScreen';
-import TrendHeader from './Headers/TrendHeader';
+import TrendHeader from '../../Components/Headers/TrendHeader';
+import { headerFont } from 'Styles/Fonts';
+import { AppNavProps } from 'Navigation/RootNavigation/RootNavigation.params';
+import { AppParamList } from './AppNavigation.params';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -29,9 +30,11 @@ interface AppNavigationProps {
 }
 
 const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
+    // Icon colour
     const theme = useTheme();
     const colour = theme.text;
 
+    // Settings drawer
     const isDrawerOpen = useDrawerStatus();
     const active = isDrawerOpen === 'open';
 
@@ -48,7 +51,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 gestureEnabled: true,
                 cardOverlayEnabled: true,
                 gestureResponseDistance: Dimensions.get('screen').height,
-                headerTitleStyle: headerTitle,
+                headerTitleStyle: headerFont,
                 headerTitleAlign: 'center',
                 ...TransitionPresets.ModalPresentationIOS,
             }}
@@ -59,15 +62,16 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 options={({ navigation }) => TabHeader({ active, colour, navigation, handleSettings })}
             />
             <Stack.Screen
-                name="View"
-                component={ViewScreen}
-                options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
-            />
-            <Stack.Screen
                 name="Build"
                 component={BuildScreen}
                 options={({ navigation, route }) => CreateHeader({ colour, navigation, route })}
             />
+            <Stack.Screen
+                name="View"
+                component={ViewScreen}
+                options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
+            />
+            {/* 
             <Stack.Screen
                 name="Icon"
                 component={IconScreen}
@@ -89,7 +93,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 name="IndividualTrend"
                 component={IndividualTrendScreen}
                 options={({ navigation, route }) => TrendHeader({ colour, navigation, route })}
-            />
+            /> */}
         </Stack.Navigator>
     );
 };

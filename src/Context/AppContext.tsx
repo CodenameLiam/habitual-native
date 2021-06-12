@@ -1,21 +1,67 @@
-import { IAllHabits, IHabit } from 'Controllers/HabitController/HabitController';
-import { createContext } from 'react';
-import { IColours } from 'Styles/Colours';
+import { ThemeProvider } from '@emotion/react';
+import useStorage, { DEFAULT_COLOUR, DEFAULT_HABITS, DEFAULT_THEME } from 'Hooks/useStorage';
+import React, { createContext, Dispatch, FC, useContext, useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import { DarkTheme, LightTheme, NavDarkTheme, NavLightTheme } from 'Styles/Themes';
+import { NavigationContainer } from '@react-navigation/native';
+import { Colour } from 'Types/Colour.types';
+import { Habits } from 'Types/Habit.types';
+import { Theme } from 'Types/Theme.types';
+import { HabitAction } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
-interface IAppContext {
-    habits: IAllHabits;
-    updateHabit: (habit: IHabit) => Promise<void>;
-    deleteHabit: (id: string) => Promise<void>;
-    colour: IColours;
-    updateColour: (colour: IColours) => Promise<void>;
+interface AppContextState {
+    habits: [Habits, Dispatch<HabitAction>];
+    theme: [Theme, Dispatch<Theme>];
+    colour: [Colour, Dispatch<Colour>];
 }
 
-const DEFAULT_VALUE: IAppContext = {
-    habits: {},
-    updateHabit: async () => {},
-    deleteHabit: async () => {},
-    colour: 'GREEN',
-    updateColour: async () => {},
+const DEFAULT_APP_STATE: AppContextState = {
+    habits: [DEFAULT_HABITS, () => {}],
+    theme: [DEFAULT_THEME, () => {}],
+    colour: [DEFAULT_COLOUR, () => {}],
 };
 
-export const AppContext = createContext<IAppContext>(DEFAULT_VALUE);
+export const AppContext = createContext<AppContextState>(DEFAULT_APP_STATE);
+
+/* Provides context for the application */
+export const AppContextProvider: FC = ({ children }) => {
+    const { loading, habits, dispatchHabits, theme, dispatchTheme, colour, dispatchColours } = useStorage();
+    const dark = theme === 'DARK';
+
+    useEffect(() => {
+        if (!loading) {
+            SplashScreen.hide();
+        }
+    }, [loading]);
+
+    return (
+        <AppContext.Provider
+            value={{
+                theme: [theme, dispatchTheme],
+                colour: [colour, dispatchColours],
+                habits: [habits, dispatchHabits],
+            }}
+        >
+            <ThemeProvider theme={dark ? DarkTheme : LightTheme}>
+                <StatusBar barStyle={dark ? 'light-content' : 'dark-content'} />
+                <NavigationContainer theme={dark ? NavDarkTheme : NavLightTheme}>{children}</NavigationContainer>
+            </ThemeProvider>
+        </AppContext.Provider>
+    );
+};
+
+/* Obtains habits from the context */
+export const useHabits = (): [Habits, (action: HabitAction) => void] => {
+    return useContext(AppContext).habits;
+};
+
+/* Obtains habits from the context */
+export const useTheme = (): [Theme, (action: Theme) => void] => {
+    return useContext(AppContext).theme;
+};
+
+/* Obtains habits from the context */
+export const useColour = (): [Colour, (action: Colour) => void] => {
+    return useContext(AppContext).colour;
+};

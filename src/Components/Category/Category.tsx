@@ -3,7 +3,7 @@ import { IdeaNavProps } from 'Navigation/Params';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { ICategory } from './Category.constants';
 import { CategoryButton, CategoryIcon, CategoryText } from './Category.styles';
 
@@ -16,7 +16,7 @@ const Category: React.FC<CategoryProps> = ({ navigation, category }) => {
     const theme = useTheme();
 
     const { id, name, colour, icon } = category;
-    const solid = GradientColours[colour].solid;
+    const solid = Gradients[colour].solid;
 
     return (
         <CategoryButton colour={solid} onPress={() => navigation.navigate('Category', { category: id })}>
@@ -24,7 +24,7 @@ const Category: React.FC<CategoryProps> = ({ navigation, category }) => {
                 style={StyleSheet.absoluteFill}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
-                colors={[GradientColours[colour].start, GradientColours[colour].end]}
+                colors={[Gradients[colour].start, Gradients[colour].end]}
             />
             <CategoryText>{name}</CategoryText>
             <CategoryIcon family={icon.family} name={icon.name} size={120} colour={theme.background} />

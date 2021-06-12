@@ -15,7 +15,7 @@ import { View } from 'react-native';
 import { getMarkedDates, sortDates, today } from 'Screens/View/Modules/CalendarModule';
 import StatsModule from 'Screens/View/Modules/StatsModule';
 import { StatsBar } from 'Screens/View/Modules/StatsModule.style';
-import { GradientColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { getChartStats, trendMessages } from './IndividualTrendScreen.functions';
 import {
     TrendButtonCircleLarge,
@@ -35,7 +35,7 @@ const IndividualTrendScreen: React.FC<IndividualTrendScreenProps> = ({ navigatio
     const { habits } = useContext(AppContext);
     const { id, colour, weeklyTotalArray, threeMonthAverage, yearAverage } = route.params;
     const habit = habits[id];
-    const gradient = GradientColours[colour];
+    const gradient = Gradients[colour];
 
     const sortedDates = useMemo(() => sortDates(Object.keys(habit.dates)), [habit.dates]);
     const markedDates = useMemo(() => getMarkedDates(habit, today, sortedDates), [habit, sortedDates]);

@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { IHabit, mergeDates, ScheduleType } from 'Controllers/HabitController/HabitController';
+// import { IHabit, mergeDates, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import React, { useCallback } from 'react';
 import { CalendarList, DateObject } from 'react-native-calendars';
@@ -73,20 +73,20 @@ interface CalendarModuleProps {
 const CalendarModule: React.FC<CalendarModuleProps> = ({ habit, updateHabit, colour, markedDates, setMonth }) => {
     const theme = useTheme();
 
-    const handleCalendarPress = useCallback(
-        (day: DateObject) => {
-            const date = habit.dates[day.dateString];
-            const newProgress = date && date.progress >= date.progressTotal ? 0 : habit.total;
+    // const handleCalendarPress = useCallback(
+    //     (day: DateObject) => {
+    //         const date = habit.dates[day.dateString];
+    //         const newProgress = date && date.progress >= date.progressTotal ? 0 : habit.total;
 
-            updateHabit({
-                ...habit,
-                dates: mergeDates(habit, day.dateString, newProgress),
-            });
+    //         updateHabit({
+    //             ...habit,
+    //             dates: mergeDates(habit, day.dateString, newProgress),
+    //         });
 
-            ReactNativeHapticFeedback.trigger(newProgress === 0 ? 'impactLight' : 'notificationSuccess');
-        },
-        [habit, updateHabit],
-    );
+    //         ReactNativeHapticFeedback.trigger(newProgress === 0 ? 'impactLight' : 'notificationSuccess');
+    //     },
+    //     [habit, updateHabit],
+    // );
 
     return (
         <CalendarList
@@ -95,7 +95,7 @@ const CalendarModule: React.FC<CalendarModuleProps> = ({ habit, updateHabit, col
             pagingEnabled={true}
             maxDate={today}
             markedDates={markedDates}
-            onDayPress={handleCalendarPress}
+            // onDayPress={handleCalendarPress}
             markingType={'custom'}
             firstDay={1}
             onVisibleMonthsChange={(months: DateObject[]) => setMonth(months[0].dateString)}

@@ -1,10 +1,14 @@
+import { Colour } from 'Types/Colour.types';
+
+// ------------------------------------------------------------------------------------
+// Theme
+// ------------------------------------------------------------------------------------
 export interface ITheme {
     text: string;
     background: string;
     card: string;
     grey: string;
     disabled: string;
-    // category: string;
 }
 
 interface IThemeColours {
@@ -18,7 +22,7 @@ export const ThemeColours: IThemeColours = {
         background: '#0F2028',
         card: '#223843',
         grey: '#c5c5c5',
-        disabled: '#2c424d',
+        disabled: '#989898',
     },
     light: {
         text: '#0F2028',
@@ -39,27 +43,16 @@ export const GreyColours = {
     GREY6: '#222222',
 };
 
-export type IColours =
-    | 'MIDNIGHT'
-    | 'PURPLE'
-    | 'RED'
-    | 'ORANGE'
-    | 'TANGERINE'
-    | 'YELLOW'
-    | 'BLUE'
-    | 'SKY'
-    | 'AQUA'
-    | 'GREEN'
-    | 'LIME'
-    | 'PINK';
-
-export interface IGradient {
+// ------------------------------------------------------------------------------------
+// Gradient
+// ------------------------------------------------------------------------------------
+export interface Gradient {
     start: string;
     end: string;
     solid: string;
 }
 
-export const GradientColours: { [key in IColours]: IGradient } = {
+export const Gradients: { [key in Colour]: Gradient } = {
     MIDNIGHT: {
         start: '#8f79f8',
         end: '#bf7df3',
@@ -123,20 +116,13 @@ export const GradientColours: { [key in IColours]: IGradient } = {
     },
 };
 
+// ------------------------------------------------------------------------------------
+// Tab Navigation
+// ------------------------------------------------------------------------------------
+
 export const TabColours = {
-    HOME: GradientColours.TANGERINE.solid,
-    CALENDAR: GradientColours.RED.solid,
-    TRENDS: GradientColours.AQUA.solid,
-    AWARDS: GradientColours.PURPLE.solid,
-};
-
-const getRandomInt = (max: number): number => {
-    return Math.floor(Math.random() * max);
-};
-
-export const getRandomColour = (): IColours => {
-    const gradientKeys = Object.keys(GradientColours);
-    const randomGradientIndex = getRandomInt(gradientKeys.length);
-    const randomGradientResult = gradientKeys[randomGradientIndex];
-    return randomGradientResult as IColours;
+    HOME: Gradients.PURPLE.solid,
+    CALENDAR: Gradients.RED.solid,
+    TRENDS: Gradients.AQUA.solid,
+    AWARDS: Gradients.TANGERINE.solid,
 };
