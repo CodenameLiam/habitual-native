@@ -6,15 +6,16 @@ import React, { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 interface BuildIconProps {
-    navigation: BuildNavProps;
+    // navigation: BuildNavProps;
+    onPress: () => void;
     family: IconFamily;
     name: string;
     colour: string;
 }
 
-const BuildIcon: FC<BuildIconProps> = ({ navigation, family, name, colour }) => {
+const BuildIcon: FC<BuildIconProps> = ({ onPress, family, name, colour }) => {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Icon')}>
+        <TouchableOpacity onPress={onPress}>
             <Card>
                 <Icon family={family} name={name} size={28} colour={colour} />
             </Card>

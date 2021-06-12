@@ -29,3 +29,7 @@ export const MarginRight = css`
 export const Absolute = css`
     position: absolute;
 `;
+
+export const Relative = css`
+    position: relative;
+`;
