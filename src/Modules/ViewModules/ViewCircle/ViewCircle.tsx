@@ -1,7 +1,8 @@
-import { getAlpha } from 'Helpers/Habits';
+import { getAlpha, getTime } from 'Helpers/Habits';
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
+import { HabitType } from 'Types/Habit.types';
 import { CircleContainer, CircleText } from './ViewCircle.styles';
 
 // Constants
@@ -15,9 +16,10 @@ interface ViewCircleProps {
     colour: string;
     progress: number;
     total: number;
+    type: HabitType;
 }
 
-const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total }) => {
+const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total, type }) => {
     // Offset and animation values
     const alpha = useMemo(() => getAlpha(progress, total), [progress, total]);
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
@@ -38,9 +40,7 @@ const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total }) => {
 
     return (
         <CircleContainer height={circleDimensions}>
-            <CircleText>
-                {progress}/{total}
-            </CircleText>
+            <CircleText>{type === 'count' ? `${progress}/${total}` : getTime(progress).formatTime}</CircleText>
             <Svg width={circleDimensions} height={circleDimensions} style={{ position: 'absolute' }}>
                 <Circle stroke={colour + '50'} cx={cXcY} cy={cXcY} r={radius} strokeWidth={20} />
             </Svg>

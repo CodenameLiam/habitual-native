@@ -17,6 +17,31 @@ export const getAlpha = (progress: number, total: number): number => {
     return Math.min(progress / total, 1);
 };
 
+interface GetTime {
+    hours: number;
+    minutes: number;
+    formatTime: string;
+}
+
+// Gets the time string for a timed habit
+export const getTime = (progress: number): GetTime => {
+    const h = Math.floor(progress / 3600);
+    const m = Math.floor((progress % 3600) / 60);
+    const s = progress % 60;
+
+    const hString = h > 0 ? `${h} h ` : '';
+    const mString = m > 0 || (m === 0 && h === 0) ? `${m} m ` : '';
+    const sString = s > 0 || (s === 0 && m === 0 && h === 0) ? `${s}s` : '';
+
+    return { hours: h, minutes: m, formatTime: hString + mString + sString };
+};
+
+// Returns the interval for a time series habit
+export const getTimeInterval = (total: number): number => {
+    // If the habit is at least an hour, the time interval should be an hour too
+    return total >= 3600 ? 3600 : 60;
+};
+
 // ------------------------------------------------------------------------------------------------
 // Calendar
 // ------------------------------------------------------------------------------------------------

@@ -36,6 +36,8 @@ import {
 import BuildShadow from 'Modules/BuildModules/BuildShadow/BuildShadow';
 import BuildIconModal from 'Modules/BuildModules/BuildIconModal/BuildIconModal';
 import { CardContainerCircle } from 'Components/Card/Card.styles';
+import TimeModule from 'Modules/BuildModules/BuildTime/TimeModule';
+import BuildTimeModal from 'Modules/BuildModules/BuildTimeModal/BuildTimeModal';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -149,7 +151,18 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                 </Card>
                 {/* Total */}
                 <Card title={habit.type === 'count' ? 'Total' : 'Time'} style={{ flex: 2, marginLeft: 7.5 }}>
-                    <CountModule habit={habit} dispatchBuild={dispatchBuild} />
+                    {habit.type === 'count' ? (
+                        <CountModule habit={habit} dispatchBuild={dispatchBuild} />
+                    ) : (
+                        <TimeModule
+                            total={habit.total}
+                            colour={gradient.solid}
+                            onPress={() => {
+                                setModal('Time');
+                                handleOpen();
+                            }}
+                        />
+                    )}
                 </Card>
             </View>
             <BuildSave habit={habit} dispatchHabits={dispatchHabits} navigation={navigation} />
@@ -188,7 +201,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                                         />
                                     ),
                                     Reminder: <Text>This is reminder screen</Text>,
-                                    Time: <Text>This is time screen</Text>,
+                                    Time: <BuildTimeModal total={habit.total} dispatchBuild={dispatchBuild} />,
                                 }[modal]
                             }
                         </BuildModalContent>

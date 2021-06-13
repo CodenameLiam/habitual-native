@@ -97,7 +97,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                     rightDisabled={currentDateString === moment().format('YYYY-MM-DD')}
                     onTitlePress={() => setCurrentDateIndex(0)}
                 />
-                <ViewCircle progress={progress} total={habit.total} colour={gradient.solid} />
+                <ViewCircle progress={progress} total={habit.total} colour={gradient.solid} type={habit.type} />
                 <ViewProgressButton
                     habit={habit}
                     dispatchHabits={dispatchHabits}

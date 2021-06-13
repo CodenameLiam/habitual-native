@@ -22,6 +22,7 @@ const buildReducer = produce((state: HabitObject, action: BuildAction) => {
             break;
         case 'TYPE':
             state.type = action.payload;
+            state.total = action.payload === 'count' ? 1 : 60;
             ReactNativeHapticFeedback.trigger('impactLight');
             break;
         case 'DAY':

@@ -23,7 +23,7 @@ import { HabitMaxTransformInterpolation, handleView, normaliseProgress } from '.
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { HabitObject } from 'Types/Habit.types';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
-import { getProgress } from 'Helpers/Habits';
+import { getProgress, getTime, getTimeInterval } from 'Helpers/Habits';
 
 interface HabitProps {
     navigation: TabNavProps;
@@ -48,7 +48,11 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     const [progress, setProgress] = useState(getProgress(habit, date));
     const [dragProgress, setDragProgress] = useState(progress);
     const [isDragging, setIsDragging] = useState(false);
-    const progressOffset = useMemo(() => (habit.type === 'time' ? 0.5 : 0.5), [habit.type]);
+    const { formatTime } = useMemo(() => getTime(progress), [progress]);
+    const progressOffset = useMemo(() => (habit.type === 'time' ? getTimeInterval(habit.total) / 2 : 0.5), [
+        habit.type,
+        habit.total,
+    ]);
     const progressInterval = useMemo(() => progressOffset * 2, [progressOffset]);
 
     // Animations
@@ -81,7 +85,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
 
     // Habit add button handler
     const handlePress = (): void => {
-        const next = progress >= habit.total ? 0 : progress + 1;
+        const next = progress >= habit.total ? 0 : progress + progressInterval;
         setProgress(next);
         setDragProgress(next);
         dispatchHabits(habitActions.progress(habit, date, next, next >= habit.total));
@@ -183,7 +187,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
                             <Icon family="entypo" name="check" size={20} colour={theme.text} />
                         ) : progress > 0 ? (
                             <HabitProgressText>
-                                {progress}/{habit.total}
+                                {habit.type === 'count' ? `${progress}/${habit.total}` : formatTime}
                             </HabitProgressText>
                         ) : (
                             <Icon family="fontawesome" name="circle-o" size={12} colour={theme.text} />
