@@ -36,6 +36,7 @@ interface Progress {
     id: string;
     date: string;
     complete: boolean;
+    feedback?: boolean;
 }
 
 export type HabitAction = InitAction | AddAction | DeleteAction | NameAction | TotalAction | Progress;
@@ -52,12 +53,19 @@ export const habitActions = {
         type: 'ADD',
         payload: habit,
     }),
-    progress: (habit: HabitObject, date: string, progress: number, complete: boolean): HabitAction => ({
+    progress: (
+        habit: HabitObject,
+        date: string,
+        progress: number,
+        complete: boolean,
+        feedback: boolean = true,
+    ): HabitAction => ({
         type: 'PROGRESS',
         payload: { progress, total: habit.total },
         id: habit.id,
         date,
         complete,
+        feedback,
     }),
     delete: (id: string): HabitAction => ({ type: 'DELETE', payload: id }),
 };

@@ -65,6 +65,9 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
     const progress = useMemo(() => getProgress(habit, currentDateString), [habit, currentDateString]);
 
+    // Playing reference
+    const playingRef = useRef<boolean>(false);
+
     // Calendar
 
     // const [month, setMonth] = useState(today);
@@ -97,26 +100,28 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                     rightDisabled={currentDateString === moment().format('YYYY-MM-DD')}
                     onTitlePress={() => setCurrentDateIndex(0)}
                 />
-                <ViewCircle progress={progress} total={habit.total} colour={gradient.solid} type={habit.type} />
+                <ViewCircle
+                    progress={progress}
+                    total={habit.total}
+                    colour={gradient.solid}
+                    type={habit.type}
+                    playingRef={playingRef}
+                />
                 <ViewProgressButton
                     habit={habit}
                     dispatchHabits={dispatchHabits}
                     colour={gradient.solid}
                     progress={progress}
                     date={currentDateString}
+                    playingRef={playingRef}
+                    navigation={navigation}
                 />
                 <YearlyTitle>Yearly Progress</YearlyTitle>
                 <YearlyCalendar
                     habit={habit}
                     colour={gradient.solid}
-                    yearArray={getDateArray(moment().endOf('week').subtract(364, 'd'), moment().endOf('week'))}
+                    yearArray={getDateArray(moment().subtract(364, 'd'), moment())}
                 />
-                {/* <YearlyCalendar
-                    habit={habit}
-                    colour={gradient.solid}
-                    yearArray={Array.from(Array(365))}
-                    yearStart={moment().add(1, 'day').subtract(1, 'year')}
-                /> */}
 
                 {/* <StatsModule
                     habit={habit}

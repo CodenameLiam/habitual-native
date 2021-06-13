@@ -21,7 +21,8 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
             break;
         case 'PROGRESS':
             state[action.id].dates[action.date] = action.payload;
-            ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactMedium');
+            action.feedback &&
+                ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactMedium');
             break;
     }
     storeData(HABITS_KEY, state);

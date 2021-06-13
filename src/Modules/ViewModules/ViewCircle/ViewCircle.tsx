@@ -1,5 +1,5 @@
 import { getAlpha, getTime } from 'Helpers/Habits';
-import React, { FC, useEffect, useMemo, useRef } from 'react';
+import React, { FC, MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { HabitType } from 'Types/Habit.types';
@@ -17,9 +17,10 @@ interface ViewCircleProps {
     progress: number;
     total: number;
     type: HabitType;
+    playingRef: MutableRefObject<boolean>;
 }
 
-const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total, type }) => {
+const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total, type, playingRef }) => {
     // Offset and animation values
     const alpha = useMemo(() => getAlpha(progress, total), [progress, total]);
     const progressAnimation = useRef(new Animated.Value(alpha)).current;
@@ -32,11 +33,11 @@ const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total, type }) => {
     useEffect(() => {
         Animated.timing(progressAnimation, {
             toValue: alpha,
-            duration: 500,
+            duration: playingRef.current ? 1150 : 500,
             useNativeDriver: true,
-            easing: Easing.out(Easing.quad),
+            easing: playingRef.current ? Easing.linear : Easing.out(Easing.quad),
         }).start();
-    }, [alpha, progressAnimation]);
+    }, [alpha, playingRef, progressAnimation]);
 
     return (
         <CircleContainer height={circleDimensions}>
