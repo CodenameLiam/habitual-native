@@ -1,28 +1,20 @@
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import DismissableScrollView from 'Components/DismissableScrollView/DismissableScrollView';
 import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
-import { AppContext, useHabits } from 'Context/AppContext';
+import { useHabits } from 'Context/AppContext';
 import moment from 'moment';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { InteractionManager } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Gradients } from 'Styles/Colours';
-import CircleModule from './Modules/CircleModule';
-import ProgressButtonModule from './Modules/ProgressButtonModule';
 import { YearlyTitle } from './ViewScreen.styles';
 import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
-import StatsModule from './Modules/StatsModule';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { getCalendarDates, getProgress } from 'Helpers/Habits';
-import { getDateArray, today } from 'Helpers/Dates';
+import { getProgress } from 'Helpers/Habits';
+import { getDateArray } from 'Helpers/Dates';
 import ViewCircle from 'Modules/ViewModules/ViewCircle/ViewCircle';
 import ViewProgressButton from 'Modules/ViewModules/ViewProgressButton/ViewProgressButton';
 import ViewCalendar from 'Modules/ViewModules/ViewCalendar/ViewCalendar';
-// import { getProgress } from 'Controllers/HabitController/HabitController';
-// import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
-// import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
-// import { getProgress } from 'Components/Habit/Habit.functions';
-// import { today } from './Modules/CalendarModule';
 
 interface ViewScreenProps {
     navigation: ViewNavProps;
