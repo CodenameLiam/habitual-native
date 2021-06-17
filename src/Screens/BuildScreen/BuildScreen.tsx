@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-na
 import { useHabits } from 'Context/AppContext';
 import { useTheme } from '@emotion/react';
 import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
-import { v4 } from 'uuid';
 import { ColourButtonGroup } from 'Components/ColourButtonGroup/ColourButtonGroup';
 import { CountModule } from 'Modules/BuildModules/BuildCount/CountModule';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -17,16 +16,14 @@ import Card from 'Components/Card/Card';
 import Toast from 'react-native-toast-message';
 import { ToastConfig } from 'Components/Toast/CustomToast';
 import { BuildNavProps, BuildRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { DEFAULT_HABIT, EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE } from 'Types/Habit.constants';
-import { HabitObject } from 'Types/Habit.types';
-import { getRandomColour } from 'Helpers/RandomColour';
+import { EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE } from 'Types/Habit.constants';
 import { Gradients } from 'Styles/Colours';
 import BottomSheet from 'reanimated-bottom-sheet';
 import buildReducer from 'Reducers/BuildReducer/BuildReducer';
 import BuildIcon from 'Modules/BuildModules/BuildIcon/BuildIcon';
 import BuildInput from 'Modules/BuildModules/BuildInput/BuildInput';
 import BuildSave from 'Modules/BuildModules/BuildSave/BuildSave';
-import { BuildScreenSnapPoints, useBuildModal } from './BuildScreen.functions';
+import { BuildScreenSnapPoints, getInitialHabit, useBuildModal } from './BuildScreen.functions';
 import {
     BuildModalContainer,
     BuildModalContent,
@@ -51,8 +48,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
     const { id } = route.params;
 
     // Dispatch to update habit state
-    const initialHabit: HabitObject = id ? habits[id] : { ...DEFAULT_HABIT, id: v4(), colour: getRandomColour() };
-    const [habit, dispatchBuild] = useReducer(buildReducer, initialHabit);
+    const [habit, dispatchBuild] = useReducer(buildReducer, getInitialHabit(habits, id));
     const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
 
     // Updates the header to reflect the current gradient

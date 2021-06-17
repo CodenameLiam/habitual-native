@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { today } from 'Helpers/Dates';
 import { getCalendarDates } from 'Helpers/Habits';
-import React, { Dispatch, FC, MutableRefObject, useEffect, useState } from 'react';
+import React, { Dispatch, FC, MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { CalendarList, DateObject } from 'react-native-calendars';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { GreyColours } from 'Styles/Colours';
@@ -32,11 +32,22 @@ const ViewCalendar: FC<ViewCalendarProps> = ({ habit, dispatchHabits, colour, pl
         updateCalendarDates(habit, currentMonth);
     }, [habit, currentMonth, updateCalendarDates]);
 
-    const handleCalendarPress = (e: DateObject): void => {
-        console.log(e);
-        playingRef.current = false;
-        dispatchHabits(habitActions.toggle(habit, e.dateString));
-    };
+    // Update calendar if a date is pressed
+    const handleCalendarPress = useCallback(
+        (e: DateObject): void => {
+            playingRef.current = false;
+            setCalendarDates({
+                ...calendarDates,
+                [e.dateString]: {
+                    selected: !calendarDates[e.dateString]?.selected,
+                    marked: today === e.dateString,
+                    customStyles: { container: { borderRadius: 10 } },
+                },
+            });
+            dispatchHabits(habitActions.toggle(habit, e.dateString));
+        },
+        [calendarDates, dispatchHabits, habit, playingRef],
+    );
 
     return (
         <CalendarList

@@ -52,7 +52,7 @@ interface CalendarDate {
     customStyles?: Partial<MarkedDateCustomStyles>;
 }
 
-interface CalendarDates {
+export interface CalendarDates {
     [date: string]: CalendarDate;
 }
 

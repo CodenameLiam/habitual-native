@@ -1,9 +1,18 @@
 import { DEFAULT_GESTURE_RESPONSE } from 'Components/DismissableScrollView/DismissableScrollView';
+import { getRandomColour } from 'Helpers/RandomColour';
 import { BuildNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { useRef, useCallback, RefObject, useState, Dispatch, SetStateAction, useEffect } from 'react';
+import { useRef, useCallback, RefObject, useState, Dispatch, SetStateAction } from 'react';
 import { Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
+import { DEFAULT_HABIT } from 'Types/Habit.constants';
+import { Habits, HabitObject } from 'Types/Habit.types';
+import { v4 } from 'uuid';
+
+// Get the initial habit for the build reducer
+export const getInitialHabit = (habits: Habits, id?: string): HabitObject => {
+    return id ? habits[id] : { ...DEFAULT_HABIT, id: v4(), colour: getRandomColour() };
+};
 
 // Content options
 type BuildScreenModal = 'Mount' | 'Icon' | 'Time' | 'Reminder';
@@ -30,6 +39,7 @@ interface UseBuildModal {
     handleClose: () => void;
 }
 
+// Mondal hook
 export const useBuildModal = (navigation: BuildNavProps): UseBuildModal => {
     const [modal, setModal] = useState<BuildScreenModal>('Mount');
 

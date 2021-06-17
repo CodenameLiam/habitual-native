@@ -39,9 +39,9 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     // Mounting
     const mountRef = useRef(false);
-    const readyRef = useRef(false);
+    const [ready, setReady] = useState(false);
     InteractionManager.runAfterInteractions(() => {
-        readyRef.current = true;
+        setReady(true);
     });
 
     // Updating header information if habit is updated
@@ -66,27 +66,6 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     // Playing reference
     const playingRef = useRef<boolean>(false);
-
-    // Calendar
-
-    // const [month, setMonth] = useState(today);
-
-    // console.time('sort');
-    // const sortedDates = getSortedDates(habit.dates);
-    // console.log(calendarDates);
-    // const markedDates = getMarkedDates(habit);
-
-    // console.timeEnd('sort');
-    // const sortedDates = useMemo(() => sortDates(Object.keys(habit.dates)), [habit.dates]);
-    // const markedDates = useMemo(() => getMarkedDates(habit, month, sortedDates), [habit, month, sortedDates]);
-
-    // Progress and animations
-    // const [progress, setProgress] = useState(getProgress(habit, date));
-
-    // Updating progress if date is changed
-    // useEffect(() => {
-    //     setProgress(getProgress(habit, date));
-    // }, [habit, date]);
 
     return (
         <DismissableScrollView navigation={navigation}>
@@ -122,12 +101,14 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                     yearArray={getDateArray(moment().subtract(364, 'd'), moment())}
                 />
 
-                <ViewCalendar
-                    habit={habit}
-                    dispatchHabits={dispatchHabits}
-                    colour={gradient.solid}
-                    playingRef={playingRef}
-                />
+                {ready && (
+                    <ViewCalendar
+                        habit={habit}
+                        dispatchHabits={dispatchHabits}
+                        colour={gradient.solid}
+                        playingRef={playingRef}
+                    />
+                )}
 
                 {/* <StatsModule
                     habit={habit}
