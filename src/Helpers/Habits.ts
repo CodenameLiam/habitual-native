@@ -1,7 +1,6 @@
-import produce from 'immer';
 import moment from 'moment';
-import { CustomMarking, MarkedDateCustomStyles } from 'react-native-calendars';
-import { HabitDates, HabitObject, Schedule, ScheduleType } from 'Types/Habit.types';
+import { MarkedDateCustomStyles } from 'react-native-calendars';
+import { HabitObject, ScheduleType } from 'Types/Habit.types';
 import { getDateArray, today } from './Dates';
 
 // ------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ import { Categories } from 'Components/Category/Category.constants';
 import CategoryHabit from 'Components/Category/CategoryHabit';
 import DismissableScrollView from 'Components/DismissableScrollView/DismissableScrollView';
 import { HabitScroll } from 'Components/Habit/Habit.styles';
-import { CategoryNavProps, CategoryRouteProps } from 'Navigation/Params';
+import { CategoryNavProps, CategoryRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 
 interface CategoryScreenProps {

@@ -1,6 +1,6 @@
 import Category from 'Components/Category/Category';
 import { Categories } from 'Components/Category/Category.constants';
-import { IdeaNavProps } from 'Navigation/Params';
+import { IdeaNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 import { CategoryContainer } from './IdeasScreen.styles';
 

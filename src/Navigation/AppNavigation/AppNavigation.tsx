@@ -13,6 +13,11 @@ import CreateHeader from '../../Components/Headers/CreateHeader';
 import { headerFont } from 'Styles/Fonts';
 import { AppNavProps } from 'Navigation/RootNavigation/RootNavigation.params';
 import { AppParamList } from './AppNavigation.params';
+import IdeasScreen from 'Screens/Ideas/IdeasScreen';
+import IdeasHeader from 'Components/Headers/IdeasHeader';
+import CategoryScreen from 'Screens/Category/CategoryScreen';
+import { Categories } from 'Components/Category/Category.constants';
+import CategoryHeader from 'Components/Headers/CategoryHeader';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -62,13 +67,21 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 component={ViewScreen}
                 options={({ navigation, route }) => ViewHeader({ colour, navigation, route })}
             />
-            {/* 
-           
             <Stack.Screen
                 name="Ideas"
                 component={IdeasScreen}
                 options={({ navigation }) => IdeasHeader({ colour, navigation })}
             />
+            <Stack.Screen
+                name="Category"
+                component={CategoryScreen}
+                options={({ navigation, route }) =>
+                    CategoryHeader({ colour, navigation, title: Categories[route.params.category].name })
+                }
+            />
+            {/* 
+           
+           
             <Stack.Screen
                 name="Category"
                 component={CategoryScreen}

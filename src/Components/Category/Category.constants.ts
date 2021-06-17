@@ -1,14 +1,14 @@
-import { IconProps } from 'Components/Icon';
-import { EVERYDAY_SCHEDULE } from 'Controllers/HabitController/HabitConstants';
-import { IHabit } from 'Controllers/HabitController/HabitController';
-import { Colours } from 'Styles/Colours';
+import { HabitIcon } from 'Components/Icon/Icon.types';
+import { Colour } from 'Types/Colour.types';
+import { EVERYDAY_SCHEDULE } from 'Types/Habit.constants';
+import { HabitObject } from 'Types/Habit.types';
 
-export interface ICategory {
+export interface CategoryObject {
     id: CategoryType;
     name: string;
-    icon: Partial<IconProps>;
-    colour: Colours;
-    habits: IHabit[];
+    icon: HabitIcon;
+    colour: Colour;
+    habits: HabitObject[];
 }
 
 export type CategoryType =
@@ -24,7 +24,7 @@ export type CategoryType =
     | 'thankful';
 
 export type AllCategories = {
-    [category in CategoryType]: ICategory;
+    [category in CategoryType]: CategoryObject;
 };
 
 export const Categories: AllCategories = {

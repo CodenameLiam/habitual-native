@@ -8,24 +8,25 @@ import {
     HabitColourContainer,
 } from 'Components/Habit/Habit.styles';
 import Icon from 'Components/Icon';
-import { AppContext } from 'Context/AppContext';
-import { IHabit } from 'Controllers/HabitController/HabitController';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useHabits } from 'Context/AppContext';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradients } from 'Styles/Colours';
 import { CategoryHabitContainer, CategoryHabitText } from './Category.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { HabitMaxTransformInterpolation } from 'Components/Habit/Habit';
 import { deleteAlert } from 'Helpers/DeleteAlert';
+import { HabitObject } from 'Types/Habit.types';
+import { HabitMaxTransformInterpolation } from 'Components/Habit/Habit.functions';
+import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 
 interface CategoryHabitProps {
-    habit: IHabit;
+    habit: HabitObject;
 }
 
 const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
     const theme = useTheme();
-    const { habits, updateHabit, deleteHabit } = useContext(AppContext);
+    const [habits, dispatchHabits] = useHabits();
 
     const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
     const getAnimationValue = useCallback(() => {
@@ -52,7 +53,7 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
     }, [checked, progressAnimation]);
 
     const handleDelete = (): void => {
-        deleteHabit(habit.id);
+        dispatchHabits(habitActions.delete(habit.id));
         setChecked(0);
         ReactNativeHapticFeedback.trigger('notificationSuccess');
     };
@@ -61,7 +62,7 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
         if (habits[habit.id]) {
             deleteAlert(handleDelete);
         } else {
-            updateHabit(habit);
+            dispatchHabits(habitActions.create(habit));
             setChecked(1);
             ReactNativeHapticFeedback.trigger('notificationSuccess');
         }
