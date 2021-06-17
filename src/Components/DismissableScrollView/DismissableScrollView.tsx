@@ -43,7 +43,7 @@ const DismissableScrollView: React.FC<DismissableScrollViewProps> = ({
                     contentContainerStyle={contentContainerStyle}
                     waitFor={scrolledTop ? ref : undefined}
                     onScroll={onScroll}
-                    scrollEventThrottle={16}
+                    scrollEventThrottle={32}
                     showsVerticalScrollIndicator={false}
                 >
                     {children}

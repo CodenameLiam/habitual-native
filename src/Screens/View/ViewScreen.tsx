@@ -5,7 +5,6 @@ import { useHabits } from 'Context/AppContext';
 import moment from 'moment';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { InteractionManager } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { Gradients } from 'Styles/Colours';
 import { YearlyTitle } from './ViewScreen.styles';
 import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
@@ -15,6 +14,7 @@ import { getDateArray } from 'Helpers/Dates';
 import ViewCircle from 'Modules/ViewModules/ViewCircle/ViewCircle';
 import ViewProgressButton from 'Modules/ViewModules/ViewProgressButton/ViewProgressButton';
 import ViewCalendar from 'Modules/ViewModules/ViewCalendar/ViewCalendar';
+import ViewStats from 'Modules/ViewModules/ViewStats/ViewStats';
 
 interface ViewScreenProps {
     navigation: ViewNavProps;
@@ -44,6 +44,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                 headerBackground: () => <HeaderBackground colour={habit.colour} />,
                 headerTitle: habit.name,
             });
+
         mountRef.current = true;
     }, [navigation, habit.colour, habit.name]);
 
@@ -61,64 +62,52 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     return (
         <DismissableScrollView navigation={navigation}>
-            <ScrollView>
-                <ArrowControls
-                    title={currentDateMoment.format('MMM Do YYYY')}
-                    colour={gradient.solid}
-                    onLeftPress={() => setCurrentDateIndex(currentDateIndex - 1)}
-                    onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
-                    rightDisabled={currentDateString === moment().format('YYYY-MM-DD')}
-                    onTitlePress={() => setCurrentDateIndex(0)}
-                />
-                <ViewCircle
-                    progress={progress}
-                    total={habit.total}
-                    colour={gradient.solid}
-                    type={habit.type}
-                    playingRef={playingRef}
-                />
-                <ViewProgressButton
+            <ArrowControls
+                title={currentDateMoment.format('MMM Do YYYY')}
+                colour={gradient.solid}
+                onLeftPress={() => setCurrentDateIndex(currentDateIndex - 1)}
+                onRightPress={() => setCurrentDateIndex(currentDateIndex + 1)}
+                rightDisabled={currentDateString === moment().format('YYYY-MM-DD')}
+                onTitlePress={() => setCurrentDateIndex(0)}
+            />
+            <ViewCircle
+                progress={progress}
+                total={habit.total}
+                colour={gradient.solid}
+                type={habit.type}
+                playingRef={playingRef}
+            />
+            <ViewProgressButton
+                habit={habit}
+                dispatchHabits={dispatchHabits}
+                colour={gradient.solid}
+                progress={progress}
+                date={currentDateString}
+                playingRef={playingRef}
+                navigation={navigation}
+            />
+
+            {/* Yearly calendar */}
+            <YearlyTitle>Yearly Progress</YearlyTitle>
+            <YearlyCalendar
+                habit={habit}
+                colour={gradient.solid}
+                yearArray={getDateArray(moment().subtract(364, 'd'), moment())}
+            />
+
+            {/* Statistics */}
+            <ViewStats habit={habit} colour={gradient.solid} />
+
+            {/* Monthly calendar */}
+            {ready && (
+                <ViewCalendar
                     habit={habit}
                     dispatchHabits={dispatchHabits}
                     colour={gradient.solid}
-                    progress={progress}
-                    date={currentDateString}
                     playingRef={playingRef}
-                    navigation={navigation}
                 />
-                <YearlyTitle>Yearly Progress</YearlyTitle>
-                <YearlyCalendar
-                    habit={habit}
-                    colour={gradient.solid}
-                    yearArray={getDateArray(moment().subtract(364, 'd'), moment())}
-                />
-
-                {ready && (
-                    <ViewCalendar
-                        habit={habit}
-                        dispatchHabits={dispatchHabits}
-                        colour={gradient.solid}
-                        playingRef={playingRef}
-                    />
-                )}
-
-                {/* <StatsModule
-                    habit={habit}
-                    colour={gradient.solid}
-                    sortedDates={sortedDates}
-                    markedDates={markedDates}
-                /> */}
-
-                {/* {isReady && (
-                    <CalendarModule
-                        colour={gradient.solid}
-                        habit={habit}
-                        updateHabit={updateHabit}
-                        markedDates={markedDates}
-                        setMonth={setMonth}
-                    />
-                )} */}
-            </ScrollView>
+            )}
+            {/* </ScrollView> */}
         </DismissableScrollView>
     );
 };

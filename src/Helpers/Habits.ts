@@ -1,6 +1,6 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { MarkedDateCustomStyles } from 'react-native-calendars';
-import { HabitObject, ScheduleType } from 'Types/Habit.types';
+import { HabitDates, HabitObject, ScheduleType } from 'Types/Habit.types';
 import { getDateArray, today } from './Dates';
 
 // ------------------------------------------------------------------------------------------------
@@ -16,6 +16,11 @@ export const getAlpha = (progress: number, total: number): number => {
     return Math.min(progress / total, 1);
 };
 
+// Returns true if a given habit is complete on a given date
+export const isComplete = (habit: HabitObject, date: string): boolean => {
+    return habit.dates[date] && habit.dates[date].progress >= habit.dates[date].total;
+};
+
 interface GetTime {
     hours: number;
     minutes: number;
@@ -28,8 +33,8 @@ export const getTime = (progress: number): GetTime => {
     const m = Math.floor((progress % 3600) / 60);
     const s = progress % 60;
 
-    const hString = h > 0 ? `${h} h ` : '';
-    const mString = m > 0 || (m === 0 && h === 0) ? `${m} m ` : '';
+    const hString = h > 0 ? `${h}h ` : '';
+    const mString = m > 0 || (m === 0 && h === 0) ? `${m}m ` : '';
     const sString = s > 0 || (s === 0 && m === 0 && h === 0) ? `${s}s` : '';
 
     return { hours: h, minutes: m, formatTime: hString + mString + sString };
@@ -79,6 +84,65 @@ export const getCalendarDates = (habit: HabitObject, month: string): CalendarDat
     calendarDates[today] = { ...calendarDates[today], marked: true };
     getDisabledDates(habit, month).forEach(date => (calendarDates[date] = { ...calendarDates[date], disabled: true }));
     return calendarDates;
+};
+
+// ------------------------------------------------------------------------------------------------
+// Stats
+// ------------------------------------------------------------------------------------------------
+interface Streak {
+    streak: number;
+    date: Moment;
+}
+
+// Gets a habit streak total and end date from a given date
+export const getStreak = (habit: HabitObject, date: Moment): Streak => {
+    let streak = isComplete(habit, date.format('YYYY-MM-DD')) ? 1 : 0;
+    let isStreak = true;
+
+    while (isStreak) {
+        // Subtract 1 day from the current date
+        date.subtract(1, 'd');
+
+        // If the progress for this day is greater than the total, or the habit is not scheduled for today, increment the current streak
+        if (
+            isComplete(habit, date.format('YYYY-MM-DD')) ||
+            habit.schedule[date.format('ddd').toUpperCase() as ScheduleType] === false
+        ) {
+            streak++;
+        } else {
+            // Otherwise the streak has ended
+            isStreak = false;
+        }
+    }
+
+    return { streak, date };
+};
+
+// Gets the highest streak of a given habit
+export const getHighestStreak = (habit: HabitObject, sortedDates: string[]): number => {
+    let highestStreak = 0;
+    let currentDate = moment();
+
+    console.time('yeet');
+
+    // Loop through all dates until the final date has been reached
+    while (currentDate.isAfter(moment(sortedDates[0]))) {
+        // Get the streak total and end date
+        const { streak, date } = getStreak(habit, currentDate);
+        // Updte the highest streak if required
+        highestStreak = streak > highestStreak ? streak : highestStreak;
+        // Update the current date
+        currentDate = date;
+    }
+
+    console.timeEnd('yeet');
+
+    return highestStreak;
+};
+
+// Returns habit date entires sorted in ascending order
+export const getSortedDates = (dates: HabitDates): string[] => {
+    return Object.keys(dates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 };
 
 // // Returns habit date entires sorted in ascending order

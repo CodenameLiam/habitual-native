@@ -24,7 +24,7 @@ const ViewCalendar: FC<ViewCalendarProps> = ({ habit, dispatchHabits, colour, pl
     // Debounce calendar update function
     const updateCalendarDates = useDebouncedCallback(
         (habit: HabitObject, currentMonth: string) => setCalendarDates(getCalendarDates(habit, currentMonth)),
-        1000,
+        500,
     );
 
     // Update calendar if props change
