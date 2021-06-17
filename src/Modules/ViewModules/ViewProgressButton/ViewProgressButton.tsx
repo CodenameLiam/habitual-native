@@ -38,13 +38,7 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     useEffect(() => {
         if (playing) {
             if (progress < habit.total) {
-                interval = setTimeout(
-                    () =>
-                        dispatchHabits(
-                            habitActions.progress(habit, date, progress + 1, progress === habit.total, false),
-                        ),
-                    1000,
-                );
+                interval = setTimeout(() => dispatchHabits(habitActions.time(habit, date)), 1000);
             } else {
                 setPlaying(false);
             }
@@ -76,7 +70,7 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
                 />
             ),
         });
-    }, [colour, navigation, playing, playingRef]);
+    }, [navigation, playing, playingRef, theme.text]);
 
     return (
         <ProgressButtonContainer>

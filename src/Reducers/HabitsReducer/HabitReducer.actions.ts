@@ -8,8 +8,8 @@ interface InitAction {
     payload: Habits;
 }
 
-interface AddAction {
-    type: 'ADD';
+interface CreateAction {
+    type: 'CREATE';
     payload: HabitObject;
 }
 
@@ -18,16 +18,35 @@ interface DeleteAction {
     payload: string;
 }
 
-interface NameAction {
-    type: 'NAME';
-    payload: string;
+interface AddAction {
+    type: 'ADD';
     id: string;
+    date: string;
+    payload: HabitDate;
+    complete: boolean;
 }
 
-interface TotalAction {
-    type: 'TOTAL';
-    payload: number;
+interface SubtractAction {
+    type: 'SUBTRACT';
     id: string;
+    date: string;
+    payload: HabitDate;
+}
+
+interface ToggleAction {
+    type: 'TOGGLE';
+    id: string;
+    date: string;
+    payload: HabitDate;
+    complete: boolean;
+}
+
+interface TimeAction {
+    type: 'TIME';
+    id: string;
+    date: string;
+    payload: HabitDate;
+    complete: boolean;
 }
 
 interface Progress {
@@ -39,7 +58,15 @@ interface Progress {
     feedback?: boolean;
 }
 
-export type HabitAction = InitAction | AddAction | DeleteAction | NameAction | TotalAction | Progress;
+export type HabitAction =
+    | InitAction
+    | CreateAction
+    | DeleteAction
+    | Progress
+    | AddAction
+    | SubtractAction
+    | ToggleAction
+    | TimeAction;
 
 // ------------------------------------------------------------------------------------
 // Actions
@@ -49,23 +76,50 @@ export const habitActions = {
         type: 'INIT',
         payload: habits,
     }),
-    add: (habit: HabitObject): HabitAction => ({
-        type: 'ADD',
+    create: (habit: HabitObject): HabitAction => ({
+        type: 'CREATE',
         payload: habit,
     }),
-    progress: (
-        habit: HabitObject,
-        date: string,
-        progress: number,
-        complete: boolean,
-        feedback: boolean = true,
-    ): HabitAction => ({
+    add: (habit: HabitObject, date: string): HabitAction => ({
+        type: 'ADD',
+        id: habit.id,
+        date,
+        payload: { progress: habit.dates[date] ? habit.dates[date].progress + 1 : 1, total: habit.total },
+        complete: habit.dates[date] && habit.dates[date].progress + 1 >= habit.total,
+    }),
+    subtract: (habit: HabitObject, date: string): HabitAction => ({
+        type: 'SUBTRACT',
+        id: habit.id,
+        date,
+        payload: { progress: habit.dates[date] ? habit.dates[date].progress - 1 : 0, total: habit.total },
+    }),
+    toggle: (habit: HabitObject, date: string): HabitAction => ({
+        type: 'TOGGLE',
+        id: habit.id,
+        date,
+        payload: {
+            progress: habit.dates[date]
+                ? habit.dates[date].progress >= habit.dates[date].total
+                    ? 0
+                    : habit.total
+                : habit.total,
+            total: habit.total,
+        },
+        complete: habit.dates[date] ? habit.dates[date].progress < habit.total : true,
+    }),
+    time: (habit: HabitObject, date: string): HabitAction => ({
+        type: 'TIME',
+        id: habit.id,
+        date,
+        payload: { progress: habit.dates[date] ? habit.dates[date].progress + 1 : 1, total: habit.total },
+        complete: habit.dates[date] && habit.dates[date].progress + 1 >= habit.total,
+    }),
+    progress: (habit: HabitObject, date: string, progress: number, complete: boolean): HabitAction => ({
         type: 'PROGRESS',
         payload: { progress, total: habit.total },
         id: habit.id,
         date,
         complete,
-        feedback,
     }),
     delete: (id: string): HabitAction => ({ type: 'DELETE', payload: id }),
 };

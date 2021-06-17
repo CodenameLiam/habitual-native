@@ -28,8 +28,7 @@ const BuildSave: FC<BuildSaveProps> = ({ habit, dispatchHabits, navigation }) =>
             ReactNativeHapticFeedback.trigger('notificationError');
         } else {
             navigation.goBack();
-            ReactNativeHapticFeedback.trigger('notificationSuccess');
-            dispatchHabits(habitActions.add(habit));
+            dispatchHabits(habitActions.create(habit));
         }
     };
 

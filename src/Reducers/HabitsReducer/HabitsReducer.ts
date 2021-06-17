@@ -10,19 +10,24 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
         case 'INIT':
             state = action.payload;
             break;
-        case 'ADD':
+        case 'CREATE':
             state[action.payload.id] = action.payload;
+            ReactNativeHapticFeedback.trigger('notificationSuccess');
             break;
         case 'DELETE':
             delete state[action.payload];
             break;
-        case 'NAME':
-            state[action.id].name = action.payload;
+        case 'TOGGLE':
+            state[action.id].dates[action.date] = action.payload;
+            ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactLight');
+            break;
+        case 'TIME':
+            state[action.id].dates[action.date] = action.payload;
+            action.complete && ReactNativeHapticFeedback.trigger('notificationSuccess');
             break;
         case 'PROGRESS':
             state[action.id].dates[action.date] = action.payload;
-            action.feedback &&
-                ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactMedium');
+            ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactMedium');
             break;
     }
     storeData(HABITS_KEY, state);

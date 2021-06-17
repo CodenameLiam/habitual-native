@@ -17,6 +17,7 @@ import { getCalendarDates, getProgress } from 'Helpers/Habits';
 import { getDateArray, today } from 'Helpers/Dates';
 import ViewCircle from 'Modules/ViewModules/ViewCircle/ViewCircle';
 import ViewProgressButton from 'Modules/ViewModules/ViewProgressButton/ViewProgressButton';
+import ViewCalendar from 'Modules/ViewModules/ViewCalendar/ViewCalendar';
 // import { getProgress } from 'Controllers/HabitController/HabitController';
 // import { ViewNavProps, ViewRouteProps } from 'Navigation/Params';
 // import CalendarModule, { getMarkedDates, sortDates, today } from './Modules/CalendarModule';
@@ -56,12 +57,10 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     // State
     const [currentDateIndex, setCurrentDateIndex] = useState(dateIndex - 6);
-    const [currentMonth, setCurrentMonth] = useState(today);
 
     // Memoized values
     const currentDateMoment = useMemo(() => moment().add(currentDateIndex, 'd'), [currentDateIndex]);
     const currentDateString = useMemo(() => currentDateMoment.format('YYYY-MM-DD'), [currentDateMoment]);
-    const calendarDates = useMemo(() => getCalendarDates(habit, currentMonth), [currentMonth, habit]);
     const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
     const progress = useMemo(() => getProgress(habit, currentDateString), [habit, currentDateString]);
 
@@ -121,6 +120,13 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                     habit={habit}
                     colour={gradient.solid}
                     yearArray={getDateArray(moment().subtract(364, 'd'), moment())}
+                />
+
+                <ViewCalendar
+                    habit={habit}
+                    dispatchHabits={dispatchHabits}
+                    colour={gradient.solid}
+                    playingRef={playingRef}
                 />
 
                 {/* <StatsModule
