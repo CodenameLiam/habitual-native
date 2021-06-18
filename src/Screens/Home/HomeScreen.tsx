@@ -1,18 +1,17 @@
 import { useColour, useHabits } from 'Context/AppContext';
-import React, { useState, FC, useCallback, useMemo } from 'react';
-import { View } from 'react-native';
+import React, { useState, FC, useCallback } from 'react';
+import { LayoutAnimation, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { weekArray } from 'Helpers/Dates';
-import { emptyHabits, getDateHabits, getHomeScreenData, getHomeTitle } from './HomeScreen.functions';
+import { emptyHabits, getHomeScreenData, getHomeTitle } from './HomeScreen.functions';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { Full } from 'Styles/Globals';
+import { CircleDatesContainer } from './HomeScreen.styles';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import MemoizedHabit from 'Components/Habit/Habit';
 import EmptyPrompt from 'Components/EmptyPrompt/EmptyPrompt';
-import { CircleDatesContainer } from './HomeScreen.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { useFocusEffect } from '@react-navigation/native';
 import MemoizedCircleDate from 'Components/CircleDate/CircleDate';
-import moment from 'moment';
 
 interface HomeScreenProps {
     navigation: TabNavProps;
@@ -32,6 +31,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     );
 
     const handlePress = useCallback((index: number) => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setDateIndex(index);
         ReactNativeHapticFeedback.trigger('impactLight');
     }, []);
