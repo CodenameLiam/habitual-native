@@ -179,7 +179,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                             <BuildModalHeader
                                 style={{
                                     shadowColor: theme.card,
-                                    shadowRadius: 3,
+                                    shadowRadius: 2,
                                     shadowOpacity: 1,
                                     shadowOffset: { height: 5, width: 0 },
                                 }}

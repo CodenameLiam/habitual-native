@@ -55,7 +55,13 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     const currentDateMoment = useMemo(() => moment().add(currentDateIndex, 'd'), [currentDateIndex]);
     const currentDateString = useMemo(() => currentDateMoment.format('YYYY-MM-DD'), [currentDateMoment]);
     const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
-    const progress = useMemo(() => getProgress(habit, currentDateString), [habit, currentDateString]);
+    // const progress = useMemo(() => getProgress(habit, currentDateString), [habit, currentDateString]);
+
+    // Progress
+    const [progress, setProgress] = useState(getProgress(habit, currentDateString));
+    useEffect(() => {
+        setProgress(getProgress(habit, currentDateString));
+    }, [habit, currentDateString]);
 
     // Playing reference
     const playingRef = useRef<boolean>(false);
@@ -82,6 +88,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
                 dispatchHabits={dispatchHabits}
                 colour={gradient.solid}
                 progress={progress}
+                setProgress={setProgress}
                 date={currentDateString}
                 playingRef={playingRef}
                 navigation={navigation}

@@ -114,12 +114,19 @@ export const habitActions = {
         payload: { progress: habit.dates[date] ? habit.dates[date].progress + 1 : 1, total: habit.total },
         complete: habit.dates[date] && habit.dates[date].progress + 1 >= habit.total,
     }),
-    progress: (habit: HabitObject, date: string, progress: number, complete: boolean): HabitAction => ({
+    progress: (
+        habit: HabitObject,
+        date: string,
+        progress: number,
+        complete: boolean,
+        feedback: boolean = true,
+    ): HabitAction => ({
         type: 'PROGRESS',
         payload: { progress, total: habit.total },
         id: habit.id,
         date,
         complete,
+        feedback,
     }),
     delete: (id: string): HabitAction => ({ type: 'DELETE', payload: id }),
 };

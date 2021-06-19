@@ -1,5 +1,14 @@
 import Icon from 'Components/Icon';
-import React, { FC, Fragment, useEffect, useState, MutableRefObject, useCallback } from 'react';
+import React, {
+    FC,
+    Fragment,
+    useEffect,
+    useState,
+    MutableRefObject,
+    useCallback,
+    Dispatch,
+    SetStateAction,
+} from 'react';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { GreyColours } from 'Styles/Colours';
 import { HabitObject } from 'Types/Habit.types';
@@ -9,11 +18,13 @@ import { ViewNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { handleBack, handleTimeBack } from 'Components/Headers/ViewHeader';
 import BackIcon from 'Components/HeaderIcons/BackIcon';
 import { useTheme } from '@emotion/react';
+import { useDebouncedCallback } from 'use-debounce/lib';
 
 interface ProgressButtonModuleProps {
     date: string;
     colour: string;
     progress: number;
+    setProgress: Dispatch<SetStateAction<number>>;
     habit: HabitObject;
     dispatchHabits: (action: HabitAction) => void;
     playingRef: MutableRefObject<boolean>;
@@ -24,6 +35,7 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     date,
     colour,
     progress,
+    setProgress,
     habit,
     dispatchHabits,
     playingRef,
@@ -33,6 +45,11 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     // Interval and playing state
     let interval: NodeJS.Timeout;
     const [playing, setPlaying] = useState(false);
+
+    // Debounce progress to improve perceived performance
+    const debounceProgress = useDebouncedCallback(() => {
+        dispatchHabits(habitActions.progress(habit, date, progress, false, false));
+    }, 500);
 
     // If playing, add one second
     useEffect(() => {
@@ -72,6 +89,18 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
         });
     }, [navigation, playing, playingRef, theme.text]);
 
+    const handleSubtract = useCallback(() => {
+        ReactNativeHapticFeedback.trigger('impactMedium');
+        setProgress(progress - 1);
+        debounceProgress();
+    }, [debounceProgress, progress, setProgress]);
+
+    const handleAdd = useCallback(() => {
+        ReactNativeHapticFeedback.trigger(progress + 1 === habit.total ? 'notificationSuccess' : 'impactMedium');
+        setProgress(progress + 1);
+        debounceProgress();
+    }, [debounceProgress, habit.total, progress, setProgress]);
+
     return (
         <ProgressButtonContainer>
             {
@@ -81,7 +110,7 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
                             <ProgressButton
                                 colour={progress > 0 ? colour : GreyColours.GREY2}
                                 disabled={progress <= 0}
-                                onPress={() => dispatchHabits(habitActions.progress(habit, date, progress - 1, false))}
+                                onPress={handleSubtract}
                             >
                                 <Icon
                                     family="fontawesome"
@@ -90,29 +119,12 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
                                     colour={progress > 0 ? colour : GreyColours.GREY2}
                                 />
                             </ProgressButton>
-                            <ProgressButton
-                                colour={colour}
-                                onPress={() =>
-                                    dispatchHabits(
-                                        habitActions.progress(habit, date, progress + 1, progress + 1 === habit.total),
-                                    )
-                                }
-                            >
+                            <ProgressButton colour={colour} onPress={handleAdd}>
                                 <Icon family="fontawesome" name="plus" size={24} colour={colour} />
                             </ProgressButton>
-
                             <ProgressButton
                                 colour={colour}
-                                onPress={() =>
-                                    dispatchHabits(
-                                        habitActions.progress(
-                                            habit,
-                                            date,
-                                            progress >= habit.total ? 0 : habit.total,
-                                            progress < habit.total,
-                                        ),
-                                    )
-                                }
+                                onPress={() => dispatchHabits(habitActions.toggle(habit, date))}
                             >
                                 <Icon family="fontawesome" name="check" size={24} colour={colour} />
                             </ProgressButton>

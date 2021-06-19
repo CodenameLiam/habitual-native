@@ -25,4 +25,5 @@ export const GrowScrollContainer = styled.ScrollView`
 
 export const GrowScrollContent = css`
     padding-top: 15px;
+    padding-bottom: 15px;
 `;
