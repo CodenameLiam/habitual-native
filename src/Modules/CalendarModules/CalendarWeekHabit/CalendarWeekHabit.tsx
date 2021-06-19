@@ -4,12 +4,6 @@ import { getColour } from 'Helpers/Habits';
 import moment, { Moment } from 'moment';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { Dispatch, FC, memo, useCallback, useMemo } from 'react';
-import {
-    WeekCell,
-    WeekHabitButton,
-    WeekHabitContainer,
-    WeekHabitText,
-} from 'Screens/Calendar/Modules/WeekModule.styles';
 import { Gradients, GreyColours } from 'Styles/Colours';
 import { MarginRight } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
@@ -17,6 +11,7 @@ import { HabitObject, ScheduleType } from 'Types/Habit.types';
 import { renderDisabledIcon } from './CalendarWeekHabit.functions';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
+import { WeekHabitContainer, WeekHabitButton, WeekHabitText, WeekCell } from '../CalendarWeek/CalendarWeek.styles';
 
 interface CalendarWeekHabitProps {
     habit: HabitObject;
