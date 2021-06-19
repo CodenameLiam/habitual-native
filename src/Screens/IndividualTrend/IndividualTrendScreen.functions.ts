@@ -1,5 +1,7 @@
-import { IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
+// import { IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
+import { getSchedule } from 'Helpers/Habits';
 import moment from 'moment';
+import { HabitObject } from 'Types/Habit.types';
 
 // Messages that will display depending on the status of the trend
 export const trendMessages = {
@@ -20,7 +22,7 @@ interface ChartStats {
     yearPercentage: number;
 }
 
-export const getChartStats = (habit: IHabit): ChartStats => {
+export const getChartStats = (habit: HabitObject): ChartStats => {
     const threeMonthPoint = moment().subtract(90, 'day');
 
     let threeMonthAchieved = 0;
@@ -29,10 +31,10 @@ export const getChartStats = (habit: IHabit): ChartStats => {
     let yearTotal = 0;
 
     yearArray.forEach(date => {
-        if (habit.schedule[date.format('ddd').toUpperCase() as ScheduleType] === true) {
+        if (getSchedule(habit, date) === true) {
             const day = date.format('YYYY-MM-DD');
 
-            if (habit.dates[day] && habit.dates[day].progress >= habit.dates[day].progressTotal) {
+            if (habit.dates[day] && habit.dates[day].progress >= habit.dates[day].total) {
                 if (date.isSameOrAfter(threeMonthPoint)) {
                     threeMonthAchieved += 1;
                 }

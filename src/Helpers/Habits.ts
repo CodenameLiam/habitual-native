@@ -21,6 +21,11 @@ export const isComplete = (habit: HabitObject, date: string): boolean => {
     return habit.dates[date] && habit.dates[date].progress >= habit.dates[date].total;
 };
 
+// Returns a the schedule vakue of a given date
+export const getSchedule = (habit: HabitObject, date: Moment): boolean => {
+    return habit.schedule[date.format('ddd').toUpperCase() as ScheduleType];
+};
+
 interface GetTime {
     hours: number;
     minutes: number;
@@ -46,6 +51,11 @@ export const getTimeInterval = (total: number): number => {
     return total >= 3600 ? 3600 : 60;
 };
 
+// Returns habit date entires sorted in ascending order
+export const getSortedDates = (dates: HabitDates): string[] => {
+    return Object.keys(dates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+};
+
 // ------------------------------------------------------------------------------------------------
 // Calendar
 // ------------------------------------------------------------------------------------------------
@@ -66,7 +76,7 @@ const getDisabledDates = (habit: HabitObject, month: string): string[] => {
         const start = moment(month).subtract(1, 'month').startOf('month');
         const end = moment(month).add(1, 'month').endOf('month');
         return getDateArray(start, end)
-            .filter(date => habit.schedule[date.format('ddd').toUpperCase() as ScheduleType] === false)
+            .filter(date => !getSchedule(habit, date))
             .map(date => date.format('YYYY-MM-DD'));
     } else {
         return [];
@@ -115,10 +125,7 @@ export const getStreak = (habit: HabitObject, date: Moment): Streak => {
         date.subtract(1, 'd');
 
         // If the progress for this day is greater than the total, or the habit is not scheduled for today, increment the current streak
-        if (
-            isComplete(habit, date.format('YYYY-MM-DD')) ||
-            habit.schedule[date.format('ddd').toUpperCase() as ScheduleType] === false
-        ) {
+        if (isComplete(habit, date.format('YYYY-MM-DD')) || getSchedule(habit, date) === false) {
             streak++;
         } else {
             // Otherwise the streak has ended
@@ -130,12 +137,12 @@ export const getStreak = (habit: HabitObject, date: Moment): Streak => {
 };
 
 // Gets the highest streak of a given habit
-export const getHighestStreak = (habit: HabitObject, sortedDates: string[]): number => {
+export const getHighestStreak = (habit: HabitObject, startDate: Moment): number => {
     let highestStreak = 0;
     let currentDate = moment();
 
     // Loop through all dates until the final date has been reached
-    while (currentDate.isAfter(moment(sortedDates[0]))) {
+    while (currentDate.isAfter(startDate)) {
         // Get the streak total and end date
         const { streak, date } = getStreak(habit, currentDate);
         // Updte the highest streak if required
@@ -147,9 +154,26 @@ export const getHighestStreak = (habit: HabitObject, sortedDates: string[]): num
     return highestStreak;
 };
 
-// Returns habit date entires sorted in ascending order
-export const getSortedDates = (dates: HabitDates): string[] => {
-    return Object.keys(dates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+// Gets the total number of habits that have been completed
+export const getCompleted = (habit: HabitObject): number => {
+    return Object.keys(habit.dates).filter(date => isComplete(habit, date)).length;
+};
+
+// Gets the completion rate of a given habit
+export const getCompletedRate = (habit: HabitObject, startDate: Moment, completed: number): number => {
+    const currentDate = moment().add(1, 'd');
+    let unscheduledDays = 0;
+    const totalDays = currentDate.diff(startDate, 'd');
+
+    while (currentDate.isAfter(moment(startDate))) {
+        if (!getSchedule(habit, currentDate)) {
+            unscheduledDays++;
+        }
+
+        currentDate.subtract(1, 'd');
+    }
+
+    return Math.round(Math.min(100, (completed / (totalDays - unscheduledDays)) * 100) * 10) / 10;
 };
 
 // // Returns habit date entires sorted in ascending order

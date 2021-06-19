@@ -8,7 +8,7 @@ import { Text, View } from 'react-native';
 import { Gradients } from 'Styles/Colours';
 import { Full } from 'Styles/Globals';
 import { CalendarButtonGroupContainer } from './CalendarScreen.styles';
-import MonthModule from './Modules/MonthModule';
+// import MonthModule from './Modules/MonthModule';
 // import WeekModule from './Modules/WeekModule';
 import YearModule from './Modules/YearModule';
 
