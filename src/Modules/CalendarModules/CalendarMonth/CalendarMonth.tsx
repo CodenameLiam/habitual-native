@@ -26,14 +26,6 @@ const CalendarMonth: FC<CalendarMonthProps> = ({ navigation, habits, colour }) =
         [month],
     );
 
-    const handleHabitPress = useCallback(
-        (id: string, name: string, colour: Colour, prevIndex: number) => {
-            ReactNativeHapticFeedback.trigger('impactLight');
-            // navigation.navigate('View', { id, name, colour, prevIndex });
-        },
-        [navigation],
-    );
-
     return (
         <View style={Full}>
             <ArrowControls

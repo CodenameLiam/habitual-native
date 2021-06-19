@@ -60,9 +60,9 @@ const CalendarMonthHabit: FC<CalendarMonthHabitProps> = ({ habit, dates, navigat
                     </MonthText>
                 </MonthTextContainer>
                 <MonthContainer>
-                    {dates.map(day => (
+                    {dates.map((day, index) => (
                         <MonthCell
-                            key={day.format('l')}
+                            key={index + habit.id}
                             colour={getColour(habit, day.format('YYYY-MM-DD'), colour, theme.card)}
                         />
                     ))}

@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { fontFamily } from 'Styles/Fonts';
 
 interface YearTextProps {
     colour: string;
@@ -6,6 +7,6 @@ interface YearTextProps {
 
 export const YearHabitText = styled.Text<YearTextProps>`
     color: ${props => props.colour};
-    font-family: 'Montserrat';
+    font-family: ${fontFamily};
     font-weight: 600;
 `;

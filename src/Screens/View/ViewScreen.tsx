@@ -7,7 +7,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { InteractionManager } from 'react-native';
 import { Gradients } from 'Styles/Colours';
 import { YearlyTitle } from './ViewScreen.styles';
-import YearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
+import MemoizedYearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 import { ViewNavProps, ViewRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { getProgress } from 'Helpers/Habits';
 import { getDateArray } from 'Helpers/Dates';
@@ -96,7 +96,7 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
             {/* Yearly calendar */}
             <YearlyTitle>Yearly Progress</YearlyTitle>
-            <YearlyCalendar
+            <MemoizedYearlyCalendar
                 habit={habit}
                 colour={gradient.solid}
                 yearArray={getDateArray(moment().subtract(364, 'd'), moment())}

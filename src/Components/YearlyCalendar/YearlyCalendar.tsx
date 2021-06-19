@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { getColour } from 'Helpers/Habits';
 import { Moment } from 'moment';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { ViewStyle } from 'react-native';
 import { HabitObject } from 'Types/Habit.types';
 import { CalendarCell, CalendarContainer } from './YearlyCalendar.styles';
@@ -18,9 +18,9 @@ const YearlyCalendar: FC<YearlyCalendarProps> = ({ style, habit, colour, yearArr
 
     return (
         <CalendarContainer style={style}>
-            {yearArray.map(date => (
+            {yearArray.map((date, index) => (
                 <CalendarCell
-                    key={date.format('l')}
+                    key={index + habit.id}
                     colour={getColour(habit, date.format('YYYY-MM-DD'), colour, theme.card)}
                 />
             ))}
@@ -28,4 +28,6 @@ const YearlyCalendar: FC<YearlyCalendarProps> = ({ style, habit, colour, yearArr
     );
 };
 
-export default YearlyCalendar;
+const MemoizedYearlyCalendar = memo(YearlyCalendar);
+
+export default MemoizedYearlyCalendar;

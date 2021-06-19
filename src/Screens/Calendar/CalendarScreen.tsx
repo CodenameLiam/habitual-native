@@ -2,15 +2,13 @@ import { ColourButtonGroup } from 'Components/ColourButtonGroup/ColourButtonGrou
 import { AppContext, useColour, useHabits } from 'Context/AppContext';
 import CalendarMonth from 'Modules/CalendarModules/CalendarMonth/CalendarMonth';
 import CalendarWeek from 'Modules/CalendarModules/CalendarWeek/CalendarWeek';
+import CalendarYear from 'Modules/CalendarModules/CalendarYear/CalendarYear';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { Fragment, useContext, useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Gradients } from 'Styles/Colours';
 import { Full } from 'Styles/Globals';
 import { CalendarButtonGroupContainer } from './CalendarScreen.styles';
-// import MonthModule from './Modules/MonthModule';
-// import WeekModule from './Modules/WeekModule';
-import YearModule from './Modules/YearModule';
 
 type rangeType = 'Weekly' | 'Monthly' | 'Yearly';
 const rangeMap: rangeType[] = ['Weekly', 'Monthly', 'Yearly'];
@@ -23,8 +21,6 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
     const [habits, dispatchHabits] = useHabits();
     const [colour] = useColour();
     const gradient = useMemo(() => Gradients[colour], [colour]);
-
-    const [yearIndex, setYearIndex] = useState<number>(0);
 
     const [range, setRange] = useState<rangeType>('Weekly');
     const buttonFunctions = useMemo(() => rangeMap.map(range => () => setRange(range)), []);
@@ -92,7 +88,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
                             />
                         ),
                         Monthly: <CalendarMonth habits={habits} navigation={navigation} colour={gradient.solid} />,
-                        Yearly: <Text>Year</Text>,
+                        Yearly: <CalendarYear habits={habits} navigation={navigation} colour={gradient.solid} />,
                     }[range]
                 }
             </View>
