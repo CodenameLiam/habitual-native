@@ -1,7 +1,7 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
 import Icon from 'Components/Icon';
-import { TabNavProps } from 'Navigation/Params';
 import SettingsDrawerIcon from 'Components/SettingsDrawer/SettingsDrawerIcon';
+import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';

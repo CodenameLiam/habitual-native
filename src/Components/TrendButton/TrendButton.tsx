@@ -34,7 +34,7 @@ const TrendButton: FC<TrendButtonProps> = ({ habit, navigation }) => {
 
     const handlePress = useCallback((): void => {
         ReactNativeHapticFeedback.trigger('impactLight');
-        navigation.navigate('IndividualTrend', {
+        navigation.navigate('Stats', {
             id: habit.id,
             name: habit.name,
             colour: habit.colour,

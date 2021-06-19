@@ -1,6 +1,7 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native';
 import TextTicker from 'react-native-text-ticker';
+import { fontFamily } from 'Styles/Fonts';
 
 export const TrendButtonContainer = styled(TouchableOpacity)`
     margin-bottom: 15px;
@@ -39,6 +40,7 @@ export const TrendAverageTextContainer = styled.View`
 `;
 
 export const TrendAverageText = styled.Text<TrendAverageTextProps>`
+    font-family: ${fontFamily};
     font-weight: 700;
     font-size: 20px;
     color: ${props => props.colour};
@@ -50,7 +52,7 @@ export const TrendAverageWeekText = styled(TrendAverageText)`
 `;
 
 export const TrendHabitText = styled(TextTicker)`
-    font-family: 'Montserrat';
+    font-family: ${fontFamily};
     font-weight: 600;
     font-size: 12px;
     color: ${props => props.theme.text};

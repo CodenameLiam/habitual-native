@@ -1,17 +1,18 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
 import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import BackIcon from 'Components/HeaderIcons/BackIcon';
-import { IndividualTrendNavProps, IndividualTrendRouteProps } from 'Navigation/Params';
+import { StatsNavProps, StatsRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
+
 import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface TrendHeaderProps {
     colour: string;
-    navigation: IndividualTrendNavProps;
-    route: IndividualTrendRouteProps;
+    navigation: StatsNavProps;
+    route: StatsRouteProps;
 }
 
-const handleBack = (navigation: IndividualTrendNavProps): void => {
+const handleBack = (navigation: StatsNavProps): void => {
     navigation.goBack();
     ReactNativeHapticFeedback.trigger('impactLight');
 };

@@ -1,14 +1,5 @@
 import Icon from 'Components/Icon';
-import React, {
-    FC,
-    Fragment,
-    useEffect,
-    useState,
-    MutableRefObject,
-    useCallback,
-    Dispatch,
-    SetStateAction,
-} from 'react';
+import React, { FC, Fragment, useState, MutableRefObject, useCallback, Dispatch, SetStateAction } from 'react';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { GreyColours } from 'Styles/Colours';
 import { HabitObject } from 'Types/Habit.types';
@@ -19,6 +10,7 @@ import { handleBack, handleTimeBack } from 'Components/Headers/ViewHeader';
 import BackIcon from 'Components/HeaderIcons/BackIcon';
 import { useTheme } from '@emotion/react';
 import { useDebouncedCallback } from 'use-debounce/lib';
+import BackgroundTimer from 'react-native-background-timer';
 
 interface ProgressButtonModuleProps {
     date: string;
@@ -42,8 +34,6 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     navigation,
 }) => {
     const theme = useTheme();
-    // Interval and playing state
-    let interval: NodeJS.Timeout;
     const [playing, setPlaying] = useState(false);
 
     // Debounce progress to improve perceived performance
@@ -51,33 +41,8 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
         dispatchHabits(habitActions.progress(habit, date, progress, false, false));
     }, 500);
 
-    // If playing, add one second
-    useEffect(() => {
-        if (playing) {
-            if (progress < habit.total) {
-                interval = setTimeout(() => dispatchHabits(habitActions.time(habit, date)), 1000);
-            } else {
-                setPlaying(false);
-            }
-        }
-        return () => clearTimeout(interval);
-    }, [date, dispatchHabits, habit, playing, progress]);
-
-    // Pause the habit and complete it
-    const handleCheck = useCallback((): void => {
-        playingRef.current = false;
-        clearInterval(interval);
-        setPlaying(false);
-        dispatchHabits(
-            habitActions.progress(habit, date, progress >= habit.total ? 0 : habit.total, progress < habit.total),
-        );
-    }, [date, dispatchHabits, habit, playingRef, progress]);
-
-    // Toggle playing the habit
-    const handlePlay = useCallback((): void => {
-        setPlaying(!playing);
-        playingRef.current = !playing;
-        ReactNativeHapticFeedback.trigger('impactMedium');
+    // Update navigation options when the timer is started to prevent stray timers from being started
+    const handleNavigationOptions = useCallback(() => {
         navigation.setOptions({
             gestureEnabled: playing,
             headerLeft: () => (
@@ -87,7 +52,37 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
                 />
             ),
         });
-    }, [navigation, playing, playingRef, theme.text]);
+    }, [navigation, playing, theme.text]);
+
+    // Pause the habit and complete it
+    const handleCheck = useCallback((): void => {
+        BackgroundTimer.stopBackgroundTimer();
+        playingRef.current = false;
+        setPlaying(false);
+        dispatchHabits(
+            habitActions.progress(habit, date, progress >= habit.total ? 0 : habit.total, progress < habit.total),
+        );
+        handleNavigationOptions();
+    }, [date, dispatchHabits, habit, handleNavigationOptions, playingRef, progress]);
+
+    // Toggle playing the habit
+    const handlePlay = useCallback((): void => {
+        // Stop the timer if it is playing
+        if (playing) {
+            BackgroundTimer.stopBackgroundTimer();
+        } else {
+            // If the current progress is at or above the total, set the timer with no limit
+            BackgroundTimer.runBackgroundTimer(() => {
+                setProgress(progress => progress + 1);
+                debounceProgress();
+            }, 1000);
+        }
+
+        setPlaying(!playing);
+        playingRef.current = !playing;
+        ReactNativeHapticFeedback.trigger('impactMedium');
+        handleNavigationOptions();
+    }, [debounceProgress, handleNavigationOptions, playing, playingRef, setProgress]);
 
     const handleSubtract = useCallback(() => {
         ReactNativeHapticFeedback.trigger('impactMedium');

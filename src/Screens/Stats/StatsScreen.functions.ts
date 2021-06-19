@@ -1,6 +1,6 @@
 // import { IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
-import { getSchedule } from 'Helpers/Habits';
 import moment from 'moment';
+import { getSchedule } from 'Helpers/Habits';
 import { HabitObject } from 'Types/Habit.types';
 
 // Messages that will display depending on the status of the trend

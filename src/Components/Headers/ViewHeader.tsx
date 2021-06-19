@@ -5,6 +5,7 @@ import BackIcon from 'Components/HeaderIcons/BackIcon';
 import EditIcon from 'Components/HeaderIcons/EditIcon';
 import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import BackgroundTimer from 'react-native-background-timer';
 import { timeAlert } from 'Helpers/TimeAlert';
 interface ViewHeaderProps {
     colour: string;
@@ -19,7 +20,10 @@ export const handleBack = (navigation: ViewNavProps): void => {
 
 export const handleTimeBack = (navigation: ViewNavProps): void => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    timeAlert(() => navigation.navigate('Tabs'));
+    timeAlert(() => {
+        navigation.navigate('Tabs');
+        BackgroundTimer.stopBackgroundTimer();
+    });
 };
 
 const handleEdit = (navigation: ViewNavProps, route: ViewRouteProps): void => {

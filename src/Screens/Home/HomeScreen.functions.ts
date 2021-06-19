@@ -7,7 +7,7 @@ import { HabitObject, Habits } from 'Types/Habit.types';
 // Helpers
 // ------------------------------------------------------------------------------------------------
 // Returns true if no habits exist
-export const emptyHabits = (habits: Habits): boolean => Object.keys(habits).length < 1;
+export const emptyHabits = (habits: HabitObject[]): boolean => habits.length < 1;
 
 // Gets the habits for a specified date
 export const getDateHabits = (habits: Habits, date: Moment): HabitObject[] => {

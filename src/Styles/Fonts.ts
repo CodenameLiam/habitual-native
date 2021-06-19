@@ -3,7 +3,7 @@ import styled, { css } from '@emotion/native';
 export const fontFamily = 'Montserrat';
 
 export const headerFont = css`
-    font-family: 'Montserrat';
+    font-family: ${fontFamily};
     font-size: 22px;
     font-weight: 700;
 `;

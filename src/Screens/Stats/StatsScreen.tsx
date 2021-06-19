@@ -7,16 +7,21 @@ import {
     TrendAverageWeekText,
 } from 'Components/TrendButton/TrendButton.styles';
 import TrendChart from 'Components/TrendChart/TrendChart';
-import { AppContext } from 'Context/AppContext';
+import { AppContext, useHabits } from 'Context/AppContext';
+import { getSortedDates } from 'Helpers/Habits';
+import ViewStats from 'Modules/ViewModules/ViewStats/ViewStats';
+import { StatsBar } from 'Modules/ViewModules/ViewStats/ViewStats.styles';
 import moment from 'moment';
-import { IndividualTrendNavProps, IndividualTrendRouteProps } from 'Navigation/Params';
+import { StatsNavProps, StatsRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
+// import { IndividualTrendNavProps, IndividualTrendRouteProps } from 'Navigation/Params';
 import React, { useContext, useMemo } from 'react';
 import { View } from 'react-native';
-import { getMarkedDates, sortDates, today } from 'Screens/View/Modules/CalendarModule';
-import StatsModule from 'Screens/View/Modules/StatsModule';
-import { StatsBar } from 'Screens/View/Modules/StatsModule.style';
+// import { getMarkedDates, sortDates, today } from 'Screens/View/Modules/CalendarModule';
+// import StatsModule from 'Screens/View/Modules/StatsModule';
+// import { StatsBar } from 'Screens/View/Modules/StatsModule.style';
 import { Gradients } from 'Styles/Colours';
-import { getChartStats, trendMessages } from './IndividualTrendScreen.functions';
+import { Colour } from 'Types/Colour.types';
+import { getChartStats, trendMessages } from './StatsScreen.functions';
 import {
     TrendButtonCircleLarge,
     TrendGrowthContainer,
@@ -24,21 +29,23 @@ import {
     TrendMessageContainer,
     TrendMessageMargin,
     TrendStats,
-} from './IndividualTrendScreen.styles';
+} from './StatsScreen.styles';
 
-interface IndividualTrendScreenProps {
-    navigation: IndividualTrendNavProps;
-    route: IndividualTrendRouteProps;
+interface StatsScreenProps {
+    navigation: StatsNavProps;
+    route: StatsRouteProps;
 }
 
-const IndividualTrendScreen: React.FC<IndividualTrendScreenProps> = ({ navigation, route }) => {
-    const { habits } = useContext(AppContext);
+const StatsScreen: React.FC<StatsScreenProps> = ({ navigation, route }) => {
+    // Route params
     const { id, colour, weeklyTotalArray, threeMonthAverage, yearAverage } = route.params;
-    const habit = habits[id];
-    const gradient = Gradients[colour];
 
-    const sortedDates = useMemo(() => sortDates(Object.keys(habit.dates)), [habit.dates]);
-    const markedDates = useMemo(() => getMarkedDates(habit, today, sortedDates), [habit, sortedDates]);
+    // Habit
+    const [habits] = useHabits();
+    const habit = habits[id];
+
+    // Memoized values
+    const gradient = useMemo(() => Gradients[colour as Colour], [colour]);
     const chartStats = useMemo(() => getChartStats(habit), [habit]);
 
     return (
@@ -98,10 +105,9 @@ const IndividualTrendScreen: React.FC<IndividualTrendScreenProps> = ({ navigatio
                     {chartStats.yearAchieved}/{chartStats.yearTotal} days ({chartStats.yearPercentage}%)
                 </TrendStats>
             </Card>
-
-            <StatsModule habit={habit} colour={gradient.solid} sortedDates={sortedDates} markedDates={markedDates} />
+            <ViewStats colour={gradient.solid} habit={habit} />
         </DismissableScrollView>
     );
 };
 
-export default IndividualTrendScreen;
+export default StatsScreen;

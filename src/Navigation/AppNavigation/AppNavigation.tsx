@@ -18,6 +18,8 @@ import IdeasHeader from 'Components/Headers/IdeasHeader';
 import CategoryScreen from 'Screens/Category/CategoryScreen';
 import { Categories } from 'Components/Category/Category.constants';
 import CategoryHeader from 'Components/Headers/CategoryHeader';
+import StatsScreen from 'Screens/Stats/StatsScreen';
+import TrendHeader from 'Components/Headers/TrendHeader';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -79,21 +81,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                     CategoryHeader({ colour, navigation, title: Categories[route.params.category].name })
                 }
             />
-            {/* 
-           
-           
             <Stack.Screen
-                name="Category"
-                component={CategoryScreen}
-                options={({ navigation, route }) =>
-                    CategoryHeader({ colour, navigation, title: Categories[route.params.category].name })
-                }
-            />
-            <Stack.Screen
-                name="IndividualTrend"
-                component={IndividualTrendScreen}
+                name="Stats"
+                component={StatsScreen}
                 options={({ navigation, route }) => TrendHeader({ colour, navigation, route })}
-            /> */}
+            />
         </Stack.Navigator>
     );
 };

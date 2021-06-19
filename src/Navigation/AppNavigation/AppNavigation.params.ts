@@ -18,7 +18,7 @@ interface CategoryRoute {
     category: CategoryType;
 }
 
-interface IndividualTrendRoute {
+interface StatsRoute {
     id: string;
     name: string;
     colour: Colour;
@@ -33,8 +33,8 @@ export type AppParamList = {
     View: ViewRoute;
     Icon: undefined;
     Ideas: undefined;
+    Stats: StatsRoute;
     Category: CategoryRoute;
-    IndividualTrend: IndividualTrendRoute;
 };
 
 // App Navigation Types
@@ -42,9 +42,9 @@ export type TabNavProps = StackNavigationProp<AppParamList, 'Tabs'>;
 export type IdeaNavProps = StackNavigationProp<AppParamList, 'Ideas'>;
 export type ViewNavProps = StackNavigationProp<AppParamList, 'View'>;
 export type ViewRouteProps = RouteProp<AppParamList, 'View'>;
+export type StatsNavProps = StackNavigationProp<AppParamList, 'Stats'>;
+export type StatsRouteProps = RouteProp<AppParamList, 'Stats'>;
 export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
 export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
 export type CategoryNavProps = StackNavigationProp<AppParamList, 'Category'>;
 export type CategoryRouteProps = RouteProp<AppParamList, 'Category'>;
-export type IndividualTrendNavProps = StackNavigationProp<AppParamList, 'IndividualTrend'>;
-export type IndividualTrendRouteProps = RouteProp<AppParamList, 'IndividualTrend'>;

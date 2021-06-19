@@ -1,9 +1,8 @@
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import MemoizedTrendButton from 'Components/TrendButton/TrendButton';
-import { AppContext, useHabits } from 'Context/AppContext';
+import { useHabits } from 'Context/AppContext';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import React, { useContext } from 'react';
-import { ScrollView } from 'react-native';
+import React from 'react';
 import { AllTrendContainer } from './TrendsScreen.styles';
 
 interface TrendScreenProps {
