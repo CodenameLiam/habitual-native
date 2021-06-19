@@ -53,7 +53,7 @@ const CalendarWeekHabit: FC<CalendarWeekHabitProps> = ({ habit, dispatchHabits, 
                     key={day.format('l')}
                     colour={getColour(habit, day.format('YYYY-MM-DD'), colour, theme.card)}
                     onPress={() => dispatchHabits(habitActions.toggle(habit, day.format('YYYY-MM-DD')))}
-                    disabled={day.isAfter(moment().add(1, 'd'))}
+                    disabled={day.isAfter(moment())}
                 >
                     {renderDisabledIcon(
                         habit,

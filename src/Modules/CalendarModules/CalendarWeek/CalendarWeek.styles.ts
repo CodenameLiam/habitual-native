@@ -50,6 +50,7 @@ export const WeekHabitButton = styled.TouchableOpacity`
     height: ${weekCellContainer + 'px'};
     padding-right: 10px;
     padding-left: 15px;
+    overflow: hidden;
 `;
 
 export const WeekHabitText = styled(TextTicker)<WeekCellProps>`

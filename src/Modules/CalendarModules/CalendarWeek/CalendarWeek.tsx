@@ -1,40 +1,31 @@
 import { useTheme } from '@emotion/react';
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
-import { GrowScrollContainer } from 'Components/GrowScrollView/GrowScrollView.styles';
 import { getDateArray } from 'Helpers/Dates';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import React, { Dispatch, FC, SetStateAction, useMemo } from 'react';
-import { Text, View } from 'react-native';
+import React, { Dispatch, FC, useMemo, useState } from 'react';
+import { View } from 'react-native';
 import { HabitAction } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { Full } from 'Styles/Globals';
 import { Habits } from 'Types/Habit.types';
-import MemoizedCalendarWeekHabit from '../CalendarWeekHabit/CalendarWeekHabit';
 import { WeekCell, WeekDayContainer, WeekDayText } from './CalendarWeek.styles';
+import MemoizedCalendarWeekHabit from './CalendarWeekHabit';
 
 interface CalendarWeekProps {
-    weekIndex: number;
-    setWeekIndex: Dispatch<SetStateAction<number>>;
     habits: Habits;
     dispatchHabits: Dispatch<HabitAction>;
     colour: string;
     navigation: TabNavProps;
 }
 
-const CalendarWeek: FC<CalendarWeekProps> = ({
-    weekIndex,
-    setWeekIndex,
-    habits,
-    dispatchHabits,
-    colour,
-    navigation,
-}) => {
+const CalendarWeek: FC<CalendarWeekProps> = ({ habits, dispatchHabits, colour, navigation }) => {
     const theme = useTheme();
 
+    const [weekIndex, setWeekIndex] = useState<number>(0);
     const weekStart = useMemo(() => moment().add(weekIndex, 'w').startOf('isoWeek'), [weekIndex]);
     const weekEnd = useMemo(() => moment().add(weekIndex, 'w').endOf('isoWeek'), [weekIndex]);
-    const dates = useMemo(() => getDateArray(weekStart, weekEnd), [weekEnd, weekStart]);
+    const dates = useMemo(() => getDateArray(weekStart.clone(), weekEnd.clone()), [weekEnd, weekStart]);
 
     return (
         <View style={Full}>
