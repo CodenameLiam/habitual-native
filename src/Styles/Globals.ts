@@ -4,6 +4,10 @@ export const Full = css`
     flex: 1;
 `;
 
+export const Padding = css`
+    padding: 10px;
+`;
+
 export const Row = css`
     flex-direction: row;
 `;

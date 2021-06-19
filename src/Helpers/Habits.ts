@@ -86,6 +86,17 @@ export const getCalendarDates = (habit: HabitObject, month: string): CalendarDat
     return calendarDates;
 };
 
+// Gets the colour for a particular date cell
+export const getColour = (habit: HabitObject, date: string, colour: string, theme: string): string => {
+    if (habit.dates[date]) {
+        const { progress, total } = habit.dates[date];
+        const alpha = (Math.round(Math.min(progress / total, 1) * 10) / 10) * 100;
+        return alpha >= 100 ? colour : alpha > 0 ? colour + Math.max(alpha, 20) : theme;
+    } else {
+        return theme;
+    }
+};
+
 // ------------------------------------------------------------------------------------------------
 // Stats
 // ------------------------------------------------------------------------------------------------
@@ -123,8 +134,6 @@ export const getHighestStreak = (habit: HabitObject, sortedDates: string[]): num
     let highestStreak = 0;
     let currentDate = moment();
 
-    console.time('yeet');
-
     // Loop through all dates until the final date has been reached
     while (currentDate.isAfter(moment(sortedDates[0]))) {
         // Get the streak total and end date
@@ -134,8 +143,6 @@ export const getHighestStreak = (habit: HabitObject, sortedDates: string[]): num
         // Update the current date
         currentDate = date;
     }
-
-    console.timeEnd('yeet');
 
     return highestStreak;
 };

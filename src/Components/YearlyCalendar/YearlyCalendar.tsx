@@ -1,9 +1,9 @@
 import { useTheme } from '@emotion/react';
+import { getColour } from 'Helpers/Habits';
 import { Moment } from 'moment';
 import React, { FC } from 'react';
 import { ViewStyle } from 'react-native';
 import { HabitObject } from 'Types/Habit.types';
-import { getColour } from './YearlyCalendar.functions';
 import { CalendarCell, CalendarContainer } from './YearlyCalendar.styles';
 
 interface YearlyCalendarProps {

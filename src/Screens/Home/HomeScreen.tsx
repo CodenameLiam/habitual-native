@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { weekArray } from 'Helpers/Dates';
 import { emptyHabits, getHomeScreenData, getHomeTitle } from './HomeScreen.functions';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { Full } from 'Styles/Globals';
+import { Full, Padding } from 'Styles/Globals';
 import { CircleDatesContainer } from './HomeScreen.styles';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import MemoizedHabit from 'Components/Habit/Habit';
@@ -53,7 +53,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             {emptyHabits(habits) ? (
                 <EmptyPrompt text="No habits have been added for today" />
             ) : (
-                <GrowScrollView>
+                <GrowScrollView contentContainerStyle={Padding}>
                     {todaysHabits.map(habit => (
                         <MemoizedHabit
                             key={habit.id}

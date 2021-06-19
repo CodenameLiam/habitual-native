@@ -1,9 +1,11 @@
 import { ColourButtonGroup } from 'Components/ColourButtonGroup/ColourButtonGroup';
-import { AppContext } from 'Context/AppContext';
-import { TabNavProps } from 'Navigation/Params';
-import React, { useContext, useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { AppContext, useColour, useHabits } from 'Context/AppContext';
+import CalendarWeek from 'Modules/CalendarModules/CalendarWeek/CalendarWeek';
+import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
+import React, { Fragment, useContext, useMemo, useState } from 'react';
+import { Text, View } from 'react-native';
 import { Gradients } from 'Styles/Colours';
+import { Full } from 'Styles/Globals';
 import { CalendarButtonGroupContainer } from './CalendarScreen.styles';
 import MonthModule from './Modules/MonthModule';
 import WeekModule from './Modules/WeekModule';
@@ -17,7 +19,9 @@ interface CalendarScreenProps {
 }
 
 const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
-    const { habits, updateHabit, colour } = useContext(AppContext);
+    const [habits, dispatchHabits] = useHabits();
+    const [colour] = useColour();
+    const gradient = useMemo(() => Gradients[colour], [colour]);
 
     const [weekIndex, setWeekIndex] = useState<number>(0);
     const [monthIndex, setMonthIndex] = useState<number>(0);
@@ -26,57 +30,76 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
     const [range, setRange] = useState<rangeType>('Weekly');
     const buttonFunctions = useMemo(() => rangeMap.map(range => () => setRange(range)), []);
 
-    const renderRange = (): React.ReactNode => {
-        switch (range) {
-            case 'Weekly':
-                return (
-                    <WeekModule
-                        weekIndex={weekIndex}
-                        setWeekIndex={setWeekIndex}
-                        navigation={navigation}
-                        habits={habits}
-                        updateHabit={updateHabit}
-                        colour={Gradients[colour].solid}
-                    />
-                );
-            case 'Monthly':
-                return (
-                    <MonthModule
-                        monthIndex={monthIndex}
-                        setMonthIndex={setMonthIndex}
-                        navigation={navigation}
-                        habits={habits}
-                        colour={Gradients[colour].solid}
-                    />
-                );
-            case 'Yearly':
-                return (
-                    <YearModule
-                        yearIndex={yearIndex}
-                        setYearIndex={setYearIndex}
-                        navigation={navigation}
-                        habits={habits}
-                        colour={Gradients[colour].solid}
-                    />
-                );
-            default:
-                return undefined;
-        }
-    };
+    // console.log('Calendar');
+
+    // const renderRange = (): React.ReactNode => {
+    //     switch (range) {
+    //         case 'Weekly':
+    //             return (
+    //                 <WeekModule
+    //                     weekIndex={weekIndex}
+    //                     setWeekIndex={setWeekIndex}
+    //                     navigation={navigation}
+    //                     habits={habits}
+    //                     updateHabit={updateHabit}
+    //                     colour={Gradients[colour].solid}
+    //                 />
+    //             );
+    //         case 'Monthly':
+    //             return (
+    //                 <MonthModule
+    //                     monthIndex={monthIndex}
+    //                     setMonthIndex={setMonthIndex}
+    //                     navigation={navigation}
+    //                     habits={habits}
+    //                     colour={Gradients[colour].solid}
+    //                 />
+    //             );
+    //         case 'Yearly':
+    //             return (
+    //                 <YearModule
+    //                     yearIndex={yearIndex}
+    //                     setYearIndex={setYearIndex}
+    //                     navigation={navigation}
+    //                     habits={habits}
+    //                     colour={Gradients[colour].solid}
+    //                 />
+    //             );
+    //         default:
+    //             return undefined;
+    //     }
+    // };
 
     return (
-        <>
+        <Fragment>
             <CalendarButtonGroupContainer>
                 <ColourButtonGroup
                     buttons={['Weekly', 'Monthly', 'Yearly']}
                     buttonFunctions={buttonFunctions}
-                    colour={Gradients[colour].solid}
+                    colour={gradient.solid}
                     activeTitle={range}
                 />
             </CalendarButtonGroupContainer>
 
-            <View style={{ flex: 1 }}>{renderRange()}</View>
-        </>
+            <View style={Full}>
+                {
+                    {
+                        Weekly: (
+                            <CalendarWeek
+                                weekIndex={weekIndex}
+                                setWeekIndex={setWeekIndex}
+                                habits={habits}
+                                dispatchHabits={dispatchHabits}
+                                colour={gradient.solid}
+                                navigation={navigation}
+                            />
+                        ),
+                        Monthly: <Text>Month</Text>,
+                        Yearly: <Text>Year</Text>,
+                    }[range]
+                }
+            </View>
+        </Fragment>
     );
 };
 
