@@ -1,8 +1,5 @@
 import Icon from 'Components/Icon';
-import { IHabit } from 'Controllers/HabitController/HabitController';
-import { TabNavProps } from 'Navigation/Params';
-import React from 'react';
-
+import React, { FC, useCallback, useMemo, memo } from 'react';
 import { Gradients } from 'Styles/Colours';
 import { getThreeMonthAverage, getWeeklyTotalArray, getYearAverage } from './TrendButton.functions';
 import {
@@ -15,20 +12,27 @@ import {
     TrendTextContainer,
 } from './TrendButton.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { HabitObject } from 'Types/Habit.types';
+import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
+import { getSortedDates } from 'Helpers/Habits';
 
 interface TrendButtonProps {
-    habit: IHabit;
+    habit: HabitObject;
     navigation: TabNavProps;
 }
 
-const TrendButton: React.FC<TrendButtonProps> = ({ habit, navigation }) => {
-    const gradient = Gradients[habit.colour];
+const TrendButton: FC<TrendButtonProps> = ({ habit, navigation }) => {
+    const gradient = useMemo(() => Gradients[habit.colour], [habit.colour]);
+    const sortedDates = useMemo(() => getSortedDates(habit.dates), [habit.dates]);
 
-    const weeklyTotalArray = getWeeklyTotalArray(habit);
-    const threeMonthAverage = getThreeMonthAverage(weeklyTotalArray.heights);
-    const yearAverage = getYearAverage(habit, weeklyTotalArray.heights);
+    const weeklyTotalArray = useMemo(() => getWeeklyTotalArray(habit, sortedDates), [habit, sortedDates]);
+    const threeMonthAverage = useMemo(() => getThreeMonthAverage(weeklyTotalArray.heights), [weeklyTotalArray.heights]);
+    const yearAverage = useMemo(() => getYearAverage(weeklyTotalArray.heights, sortedDates), [
+        sortedDates,
+        weeklyTotalArray.heights,
+    ]);
 
-    const handlePress = (): void => {
+    const handlePress = useCallback((): void => {
         ReactNativeHapticFeedback.trigger('impactLight');
         navigation.navigate('IndividualTrend', {
             id: habit.id,
@@ -38,7 +42,7 @@ const TrendButton: React.FC<TrendButtonProps> = ({ habit, navigation }) => {
             threeMonthAverage,
             yearAverage,
         });
-    };
+    }, [habit.colour, habit.id, habit.name, navigation, threeMonthAverage, weeklyTotalArray, yearAverage]);
 
     return (
         <TrendButtonContainer onPress={handlePress}>
@@ -78,4 +82,6 @@ const TrendButton: React.FC<TrendButtonProps> = ({ habit, navigation }) => {
     );
 };
 
-export default TrendButton;
+const MemoizedTrendButton = memo(TrendButton);
+
+export default MemoizedTrendButton;

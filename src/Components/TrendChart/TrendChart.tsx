@@ -1,6 +1,5 @@
 import { useTheme } from '@emotion/react';
 import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
-import { IHabit } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
 import React from 'react';
 import { Dimensions } from 'react-native';

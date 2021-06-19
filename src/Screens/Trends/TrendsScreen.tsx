@@ -1,6 +1,7 @@
-import TrendButton from 'Components/TrendButton/TrendButton';
-import { AppContext } from 'Context/AppContext';
-import { TabNavProps } from 'Navigation/Params';
+import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
+import MemoizedTrendButton from 'Components/TrendButton/TrendButton';
+import { AppContext, useHabits } from 'Context/AppContext';
+import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { useContext } from 'react';
 import { ScrollView } from 'react-native';
 import { AllTrendContainer } from './TrendsScreen.styles';
@@ -10,15 +11,16 @@ interface TrendScreenProps {
 }
 
 const TrendsScreen: React.FC<TrendScreenProps> = ({ navigation }) => {
-    const { habits } = useContext(AppContext);
+    const [habits] = useHabits();
+
     return (
-        <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
+        <GrowScrollView>
             <AllTrendContainer>
                 {Object.values(habits).map(habit => (
-                    <TrendButton key={habit.id} navigation={navigation} habit={habit} />
+                    <MemoizedTrendButton key={habit.id} navigation={navigation} habit={habit} />
                 ))}
             </AllTrendContainer>
-        </ScrollView>
+        </GrowScrollView>
     );
 };
 

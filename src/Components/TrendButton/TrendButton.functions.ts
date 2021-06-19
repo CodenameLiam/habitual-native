@@ -1,10 +1,10 @@
 import { weekArray } from 'Components/TrendChart/TrendChart';
-import { IHabit } from 'Controllers/HabitController/HabitController';
+
 import moment, { Moment } from 'moment';
-import { sortDates } from 'Screens/View/Modules/CalendarModule';
+import { HabitObject } from 'Types/Habit.types';
 
 // Gets the total number of times the habit was completed for the week
-export const getWeeklyTotal = (habit: IHabit, weekStart: Moment): number => {
+export const getWeeklyTotal = (habit: HabitObject, weekStart: Moment): number => {
     let height = 0;
     for (let i = 0; i < 7; i++) {
         const day = weekStart.clone().add(i, 'day');
@@ -22,22 +22,16 @@ export interface IWeeklyTotalArray {
     enoughData: boolean;
 }
 
-// Gets the first date ever recorder for the habit
-const getStartDate = (habit: IHabit): Moment => {
-    const allDates = sortDates(Object.keys(habit.dates));
-    return moment(allDates[0]);
-};
-
 // Gets the difference between now and the first date recorded in weeks
-const getStartDifferential = (habit: IHabit): number => {
-    return moment().diff(getStartDate(habit), 'weeks');
+const getStartDifferential = (sortedDates: string[]): number => {
+    return moment().diff(moment(sortedDates[0]), 'weeks');
 };
 
 // Gets an array of weekly totals for the year
-export const getWeeklyTotalArray = (habit: IHabit): IWeeklyTotalArray => {
+export const getWeeklyTotalArray = (habit: HabitObject, sortedDates: string[]): IWeeklyTotalArray => {
     const heights = weekArray.map(week => getWeeklyTotal(habit, week));
     const maxHeight = Math.max(...heights);
-    const enoughData = getStartDifferential(habit) >= 12;
+    const enoughData = getStartDifferential(sortedDates) >= 12;
     return { heights, maxHeight, enoughData };
 };
 
@@ -46,7 +40,7 @@ export const getThreeMonthAverage = (weeklyTotalArray: number[]): number => {
     return threeMonthAverage.length > 0 ? threeMonthAverage.reduce((a, b) => a + b) / threeMonthAverage.length : 0;
 };
 
-export const getYearAverage = (habit: IHabit, weeklyTotalArray: number[]): number => {
-    const yearAverage = weeklyTotalArray.slice(52 - getStartDifferential(habit), 52);
+export const getYearAverage = (weeklyTotalArray: number[], sortedDates: string[]): number => {
+    const yearAverage = weeklyTotalArray.slice(52 - getStartDifferential(sortedDates), 52);
     return yearAverage.length > 0 ? yearAverage.reduce((a, b) => a + b) / yearAverage.length : 0;
 };
