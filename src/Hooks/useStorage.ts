@@ -24,7 +24,7 @@ interface UseStorage {
     theme: Theme;
     dispatchTheme: Dispatch<Theme>;
     colour: Colour;
-    dispatchColours: Dispatch<Colour>;
+    dispatchColour: Dispatch<Colour>;
     habits: Habits;
     dispatchHabits: Dispatch<HabitAction>;
 }
@@ -36,7 +36,7 @@ const useStorage = (): UseStorage => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const [theme, dispatchTheme] = useReducer(themeReducer, DEFAULT_THEME);
-    const [colour, dispatchColours] = useReducer(colourReducer, DEFAULT_COLOUR);
+    const [colour, dispatchColour] = useReducer(colourReducer, DEFAULT_COLOUR);
     const [habits, dispatchHabits] = useReducer(habitsReducer, DEFAULT_HABITS);
 
     useEffect(() => {
@@ -46,14 +46,14 @@ const useStorage = (): UseStorage => {
             const habits = (await getData(HABITS_KEY)) as Habits;
 
             theme && dispatchTheme(theme);
-            colour && dispatchColours(colour);
+            colour && dispatchColour(colour);
             habits && dispatchHabits(habitActions.init(habits));
 
             setLoading(false);
         })();
     }, []);
 
-    return { loading, theme, dispatchTheme, colour, dispatchColours, habits, dispatchHabits };
+    return { loading, theme, dispatchTheme, colour, dispatchColour, habits, dispatchHabits };
 };
 
 export default useStorage;

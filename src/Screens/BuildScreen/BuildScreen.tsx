@@ -35,6 +35,7 @@ import BuildIconModal from 'Modules/BuildModules/BuildIconModal/BuildIconModal';
 import { CardContainerCircle } from 'Components/Card/Card.styles';
 import TimeModule from 'Modules/BuildModules/BuildTime/TimeModule';
 import BuildTimeModal from 'Modules/BuildModules/BuildTimeModal/BuildTimeModal';
+import PushNotification from 'react-native-push-notification';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -93,6 +94,13 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                     onPress={() => {
                         setModal('Reminder');
                         handleOpen();
+                        PushNotification.getScheduledLocalNotifications(n => console.log(n));
+                        // PushNotification.localNotificationSchedule({
+                        //     message: 'My Notification Message', // (required)
+                        //     date: new Date(Date.now() + 5000), // in 60 secs
+                        //     repeatType: 'day',
+                        //     allowWhileIdle: true, // (optional) set notification to work while on doze, default: false
+                        // });
                     }}
                 >
                     <CardContainerCircle>

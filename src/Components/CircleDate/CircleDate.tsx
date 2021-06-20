@@ -78,6 +78,6 @@ const CircleDate: FC<CircleDateProps> = ({ active, alpha, colour, date, handlePr
 
 const MemoizedCircleDate = React.memo(
     CircleDate,
-    (prev, next) => prev.alpha === next.alpha && prev.active === next.active,
+    (prev, next) => prev.alpha === next.alpha && prev.active === next.active && prev.colour === next.colour,
 );
 export default MemoizedCircleDate;

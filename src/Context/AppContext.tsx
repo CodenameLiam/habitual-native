@@ -26,7 +26,7 @@ export const AppContext = createContext<AppContextState>(DEFAULT_APP_STATE);
 
 /* Provides context for the application */
 export const AppContextProvider: FC = ({ children }) => {
-    const { loading, habits, dispatchHabits, theme, dispatchTheme, colour, dispatchColours } = useStorage();
+    const { loading, habits, dispatchHabits, theme, dispatchTheme, colour, dispatchColour } = useStorage();
     const dark = theme === 'DARK';
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export const AppContextProvider: FC = ({ children }) => {
         <AppContext.Provider
             value={{
                 theme: [theme, dispatchTheme],
-                colour: [colour, dispatchColours],
+                colour: [colour, dispatchColour],
                 habits: [habits, dispatchHabits],
             }}
         >

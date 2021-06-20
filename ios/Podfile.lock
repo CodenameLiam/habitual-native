@@ -343,6 +343,8 @@ PODS:
     - React
   - RNCPicker (1.16.1):
     - React-Core
+  - RNCPushNotificationIOS (1.8.0):
+    - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNReactNativeHapticFeedback (1.11.0):
@@ -443,6 +445,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -537,6 +540,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReactNativeHapticFeedback:
@@ -599,6 +604,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: fe58eec522885718d6b297b7b658bf87d7ca557b
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPicker: 61c7a0645b9e4ac67960aa7f22a3effcecfdfb8d
+  RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: 64f6c5789f82818c07ba3c71864b73619cb23c76

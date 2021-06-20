@@ -41,7 +41,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             <CircleDatesContainer>
                 {weekArray.map((date, index) => (
                     <MemoizedCircleDate
-                        key={date.format('l')}
+                        key={index}
                         date={date}
                         colour={colour}
                         active={dateIndex === index}

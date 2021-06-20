@@ -36,8 +36,8 @@ const GraphBackgroundGradient: FC<GraphGradientProps> = ({ gradient, theme }) =>
 const GraphLineGradient: FC<GraphGradientProps> = ({ gradient }) => (
     <Defs key={'line-gradient'}>
         <LinearGradient id={'line-gradient'} x1={'0%'} y1={'0%'} x2={'100%'} y2={'0%'}>
-            <Stop offset={'0%'} stopColor={gradient.start} />
-            <Stop offset={'100%'} stopColor={gradient.end} />
+            <Stop offset={'0%'} stopColor={gradient.end} />
+            <Stop offset={'100%'} stopColor={gradient.start} />
         </LinearGradient>
     </Defs>
 );
