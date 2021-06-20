@@ -1,7 +1,7 @@
 // import { IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-import { isScheduled } from 'Helpers/Habits';
-import { HabitObject } from 'Types/Habit.types';
+import { getTime, isScheduled } from 'Helpers/Habits';
+import { HabitObject, HabitType } from 'Types/Habit.types';
 
 // Messages that will display depending on the status of the trend
 export const trendMessages = {
@@ -52,4 +52,12 @@ export const getChartStats = (habit: HabitObject): ChartStats => {
     const yearPercentage = Math.round((yearAchieved / yearTotal) * 10000) / 100;
 
     return { threeMonthAchieved, threeMonthTotal, threeMonthPercentage, yearAchieved, yearTotal, yearPercentage };
+};
+
+export const getChartString = (total: number, type: HabitType): string => {
+    if (type === 'count') {
+        return String(Math.round(total * 100) / 100);
+    } else {
+        return getTime(Math.round(total)).formatTime.slice(0, 6);
+    }
 };

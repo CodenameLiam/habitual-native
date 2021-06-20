@@ -106,14 +106,14 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
             <ViewStats habit={habit} colour={gradient.solid} />
 
             {/* Monthly calendar */}
-            {ready && (
-                <ViewCalendar
-                    habit={habit}
-                    dispatchHabits={dispatchHabits}
-                    colour={gradient.solid}
-                    playingRef={playingRef}
-                />
-            )}
+            {/* {ready && ( */}
+            <ViewCalendar
+                habit={habit}
+                dispatchHabits={dispatchHabits}
+                colour={gradient.solid}
+                playingRef={playingRef}
+            />
+            {/* )} */}
             {/* </ScrollView> */}
         </DismissableScrollView>
     );

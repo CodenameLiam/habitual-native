@@ -46,7 +46,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ navigation, route }) => {
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Calendar" component={CalendarScreen} />
             <Tab.Screen name="Trends" component={TrendsScreen} />
-            <Tab.Screen name="Awards" component={AwardsScreen} />
+            {/* <Tab.Screen name="Awards" component={AwardsScreen} /> */}
         </Tab.Navigator>
     );
 };

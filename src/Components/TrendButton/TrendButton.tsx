@@ -15,6 +15,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { HabitObject } from 'Types/Habit.types';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { getSortedDates } from 'Helpers/Habits';
+import { getChartString } from 'Screens/Stats/StatsScreen.functions';
 
 interface TrendButtonProps {
     habit: HabitObject;
@@ -73,7 +74,7 @@ const TrendButton: FC<TrendButtonProps> = ({ habit, navigation }) => {
                 </TrendHabitText>
                 <TrendAverageTextContainer>
                     <TrendAverageText colour={gradient.solid}>
-                        {weeklyTotalArray.enoughData ? Math.round(threeMonthAverage * 100) / 100 : '-'}
+                        {weeklyTotalArray.enoughData ? getChartString(threeMonthAverage, habit.type) : '-'}
                     </TrendAverageText>
                     <TrendAverageWeekText colour={gradient.solid}>/week</TrendAverageWeekText>
                 </TrendAverageTextContainer>

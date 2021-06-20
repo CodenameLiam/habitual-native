@@ -8,7 +8,7 @@ import { getDateArray, weekArray } from 'Helpers/Dates';
 import { isPerfectWeek } from 'Helpers/Habits';
 // import { IAllHabits } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-import React, { useContext, useMemo } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradients } from 'Styles/Colours';
@@ -22,6 +22,62 @@ import { Gradients } from 'Styles/Colours';
 //         console.log(sortedDates);
 //     });
 // };
+
+interface AwardStarsProps {
+    colour: string;
+}
+
+const AwardStars: FC<AwardStarsProps> = ({ colour }) => {
+    const theme = useTheme();
+
+    return (
+        <View style={{ position: 'relative', width: 40, alignItems: 'center', justifyContent: 'center' }}>
+            {/* <Icon
+                style={{ position: 'absolute', bottom: -5, left: 20 }}
+                family="material"
+                name="star"
+                size={30}
+                colour={colour}
+            />
+            <Icon
+                style={{ position: 'absolute', bottom: 2.5, left: 27.5 }}
+                family="material"
+                name="star"
+                size={15}
+                colour={theme.background}
+            />
+            <Icon
+                style={{ position: 'absolute', bottom: -5, right: 20 }}
+                family="material"
+                name="star"
+                size={30}
+                colour={colour}
+            />
+            <Icon
+                style={{ position: 'absolute', bottom: 2.5, right: 27.5 }}
+                family="material"
+                name="star"
+                size={15}
+                colour={theme.background}
+            /> */}
+            {/* front */}
+            <Icon
+                style={{ position: 'absolute', bottom: -5 }}
+                family="material"
+                name="star"
+                size={40}
+                colour={colour}
+            />
+            <Icon
+                style={{ position: 'absolute', bottom: 5 }}
+                family="material"
+                name="star"
+                size={20}
+                colour={theme.background}
+            />
+        </View>
+    );
+};
 
 const AwardsScreen: React.FC = () => {
     // console.log(moment().format('YYYY-MM'));
@@ -59,7 +115,24 @@ const AwardsScreen: React.FC = () => {
                     // overflow: 'hidden',
                 }}
             >
-                <View
+                <Icon
+                    style={{ position: 'absolute' }}
+                    family="materialcommunity"
+                    name="hexagon"
+                    size={100}
+                    colour={Gradients.PURPLE.solid}
+                />
+                <Icon
+                    style={{ position: 'absolute' }}
+                    family="materialcommunity"
+                    name="hexagon"
+                    size={85}
+                    colour={theme.background}
+                />
+                {/* <View style={{ position: 'absolute', bottom: 0 }}>
+                    <AwardStars colour={Gradients.PURPLE.solid} />
+                </View> */}
+                {/* <View
                     // key={habit.id}
                     style={{
                         position: 'absolute',
@@ -70,21 +143,67 @@ const AwardsScreen: React.FC = () => {
                         backgroundColor: Gradients.PURPLE.solid,
                         overflow: 'hidden',
                     }}
-                />
-                <Icon
+                /> */}
+                {/* <Icon
                     style={{ position: 'absolute' }}
-                    family="material"
-                    name="star"
+                    family="materialcommunity"
+                    name="hexagon"
                     size={100}
                     colour={Gradients.PURPLE.solid}
                 />
                 <Icon
                     style={{ position: 'absolute' }}
-                    family="material"
-                    name="star"
-                    size={75}
+                    family="materialcommunity"
+                    name="hexagon"
+                    size={85}
                     colour={theme.background}
                 />
+
+                <Icon
+                    style={{ position: 'absolute', bottom: -5, left: 20 }}
+                    family="material"
+                    name="star"
+                    size={30}
+                    colour={Gradients.PURPLE.solid}
+                />
+                <Icon
+                    style={{ position: 'absolute', bottom: 2.5, left: 27.5 }}
+                    family="material"
+                    name="star"
+                    size={15}
+                    colour={theme.background}
+                />
+                <Icon
+                    style={{ position: 'absolute', bottom: -5, right: 20 }}
+                    family="material"
+                    name="star"
+                    size={30}
+                    colour={Gradients.PURPLE.solid}
+                />
+                <Icon
+                    style={{ position: 'absolute', bottom: 2.5, right: 27.5 }}
+                    family="material"
+                    name="star"
+                    size={15}
+                    colour={theme.background}
+                /> */}
+
+                {/* front */}
+                {/* <Icon
+                    style={{ position: 'absolute', bottom: -5 }}
+                    family="material"
+                    name="star"
+                    size={40}
+                    colour={Gradients.PURPLE.solid}
+                />
+                <Icon
+                    style={{ position: 'absolute', bottom: 5 }}
+                    family="material"
+                    name="star"
+                    size={20}
+                    colour={theme.background}
+                /> */}
+
                 {/* <Text>JUN</Text>
                 <Text>2021</Text> */}
             </View>
@@ -122,7 +241,10 @@ const AwardsScreen: React.FC = () => {
                                 size={40}
                                 colour={Gradients[habit.colour].solid}
                             />
-                            <Icon
+                            {/* <View style={{ position: 'absolute', bottom: -5 }}>
+                                <AwardStars colour={Gradients[habit.colour].solid} />
+                            </View> */}
+                            {/* <Icon
                                 style={{ position: 'absolute', bottom: -10 }}
                                 family="material"
                                 name="star"
@@ -135,7 +257,7 @@ const AwardsScreen: React.FC = () => {
                                 name="star"
                                 size={20}
                                 colour={theme.background}
-                            />
+                            /> */}
                         </View>
                     );
                 })}

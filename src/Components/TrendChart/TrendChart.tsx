@@ -1,9 +1,11 @@
 import { useTheme } from '@emotion/react';
 import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
 import moment from 'moment';
-import React from 'react';
-import { Dimensions } from 'react-native';
+import React, { Fragment, useMemo } from 'react';
+import { Dimensions, Text } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
+import { getChartString } from 'Screens/Stats/StatsScreen.functions';
+import { HabitType } from 'Types/Habit.types';
 import { getAlignment, getHeight } from './TrendChart.functions';
 import {
     TrendLine,
@@ -13,6 +15,9 @@ import {
     TrendLinesContainer,
     TrendMonthContainer,
     TrendLineContainer,
+    TrendDot,
+    TrendLabel,
+    TrendLabelContainer,
 } from './TrendChart.styles';
 
 // Array of the past years weeks
@@ -24,45 +29,26 @@ const monthArray = Array.from(Array(12))
     .map((value, index) => moment().subtract(index, 'month').startOf('month'))
     .reverse();
 
-const lineEnd = Dimensions.get('screen').width - 35;
-const lineMid = (lineEnd / 4) * 3 + 15;
-
 interface TrendChartProps {
     colour: string;
+    type: HabitType;
     weeklyTotalArray: IWeeklyTotalArray;
     threeMonthAverage: number;
     yearAverage: number;
 }
 
-const TrendChart: React.FC<TrendChartProps> = ({ colour, weeklyTotalArray, threeMonthAverage, yearAverage }) => {
+const TrendChart: React.FC<TrendChartProps> = ({ colour, type, weeklyTotalArray, threeMonthAverage, yearAverage }) => {
     const theme = useTheme();
     const { enoughData, heights, maxHeight } = weeklyTotalArray;
 
+    const threeMonthAverageHeight = useMemo(() => 160 - getHeight(maxHeight, threeMonthAverage), [
+        maxHeight,
+        threeMonthAverage,
+    ]);
+    const yearAverageHeight = useMemo(() => 160 - getHeight(maxHeight, yearAverage), [maxHeight, yearAverage]);
+
     return (
         <TrendContainer>
-            <Svg style={{ position: 'absolute', zIndex: 4 }}>
-                <Line
-                    stroke={colour}
-                    strokeWidth={3}
-                    strokeDasharray={4}
-                    x1={lineMid}
-                    x2={lineEnd}
-                    y={160 - getHeight(maxHeight, threeMonthAverage)}
-                />
-            </Svg>
-            {enoughData && (
-                <Svg style={{ position: 'absolute', zIndex: 3 }}>
-                    <Line
-                        stroke={theme.grey}
-                        strokeWidth={3}
-                        strokeDasharray={4}
-                        x1={5}
-                        x2={lineEnd}
-                        y={160 - getHeight(maxHeight, yearAverage)}
-                    />
-                </Svg>
-            )}
-
             <TrendLinesContainer>
                 {weekArray.map((day, index) => {
                     return (
@@ -71,6 +57,29 @@ const TrendChart: React.FC<TrendChartProps> = ({ colour, weeklyTotalArray, three
                                 height={getHeight(maxHeight, heights[index])}
                                 colour={index > 40 ? colour : theme.grey}
                             />
+                            <TrendDot
+                                display={(enoughData && index <= 40) || index > 40}
+                                colour={index > 40 ? colour : theme.grey}
+                                height={index > 40 ? threeMonthAverageHeight : yearAverageHeight}
+                            />
+                            {enoughData && index === 25 && (
+                                <TrendLabelContainer
+                                    colour={theme.grey}
+                                    height={yearAverageHeight - 5}
+                                    time={type === 'time'}
+                                >
+                                    <TrendLabel>{getChartString(yearAverage, type)}</TrendLabel>
+                                </TrendLabelContainer>
+                            )}
+                            {index === 50 && (
+                                <TrendLabelContainer
+                                    colour={colour}
+                                    height={threeMonthAverageHeight - 5}
+                                    time={type === 'time'}
+                                >
+                                    <TrendLabel>{getChartString(threeMonthAverage, type)}</TrendLabel>
+                                </TrendLabelContainer>
+                            )}
                         </TrendLineContainer>
                     );
                 })}

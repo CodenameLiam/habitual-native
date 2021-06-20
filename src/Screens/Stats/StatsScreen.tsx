@@ -21,7 +21,7 @@ import { View } from 'react-native';
 // import { StatsBar } from 'Screens/View/Modules/StatsModule.style';
 import { Gradients } from 'Styles/Colours';
 import { Colour } from 'Types/Colour.types';
-import { getChartStats, trendMessages } from './StatsScreen.functions';
+import { getChartStats, getChartString, trendMessages } from './StatsScreen.functions';
 import {
     TrendButtonCircleLarge,
     TrendGrowthContainer,
@@ -69,7 +69,7 @@ const StatsScreen: React.FC<StatsScreenProps> = ({ navigation, route }) => {
                     <TrendAverageTextContainer>
                         <TrendAverageText colour={gradient.solid}>
                             {weeklyTotalArray.enoughData
-                                ? Math.round(threeMonthAverage * 100) / 100
+                                ? getChartString(threeMonthAverage, habit.type)
                                 : 'Not Enough Data'}
                         </TrendAverageText>
                         {weeklyTotalArray.enoughData && (
@@ -90,6 +90,7 @@ const StatsScreen: React.FC<StatsScreenProps> = ({ navigation, route }) => {
             </TrendMessage>
             <TrendChart
                 colour={gradient.solid}
+                type={habit.type}
                 weeklyTotalArray={weeklyTotalArray}
                 threeMonthAverage={threeMonthAverage}
                 yearAverage={yearAverage}

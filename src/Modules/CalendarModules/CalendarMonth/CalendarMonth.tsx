@@ -1,12 +1,10 @@
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import moment from 'moment';
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Full } from 'Styles/Globals';
 import { Habits } from 'Types/Habit.types';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { Colour } from 'Types/Colour.types';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import { getDateArray } from 'Helpers/Dates';
 import { AllMonthContainer } from './CalendarMonth.styles';
@@ -46,44 +44,6 @@ const CalendarMonth: FC<CalendarMonthProps> = ({ navigation, habits, colour }) =
                     ))}
                 </AllMonthContainer>
             </GrowScrollView>
-            {/* <ScrollView style={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-                <AllMonthContainer>
-                    {Object.values(habits).map(habit => {
-                        const habitColour = Gradients[habit.colour].solid;
-                        return (
-                            <TouchableWithoutFeedback
-                                key={habit.id}
-                                onPress={() => handleHabitPress(habit.id, habit.name, habit.colour, 6)}
-                            >
-                                <MonthCalendarContainer>
-                                    <MonthTextContainer>
-                                        <Icon
-                                            style={MarginRight}
-                                            family={habit.icon.family}
-                                            name={habit.icon.name}
-                                            size={14}
-                                            colour={habitColour}
-                                        />
-                                        <MonthText
-                                            colour={habitColour}
-                                            scroll={false}
-                                            animationType="bounce"
-                                            duration={5000}
-                                            bounceDelay={1500}
-                                            marqueeDelay={1000}
-                                            bouncePadding={{ left: 0, right: 0 }}
-                                        >
-                                            {habit.name}
-                                        </MonthText>
-                                    </MonthTextContainer>
-
-                                    <MonthlyCalendar habit={habit} colour={habitColour} monthIndex={monthIndex} />
-                                </MonthCalendarContainer>
-                            </TouchableWithoutFeedback>
-                        );
-                    })}
-                </AllMonthContainer>
-            </ScrollView> */}
         </View>
     );
 };

@@ -1,5 +1,6 @@
 import styled, { css } from '@emotion/native';
 import { TrendButtonCircle } from 'Components/TrendButton/TrendButton.styles';
+import { fontFamily } from 'Styles/Fonts';
 
 export const TrendGrowthContainer = styled.View`
     padding: 15px;
@@ -13,7 +14,7 @@ export const TrendMessageContainer = styled.View`
 `;
 
 export const TrendMessage = styled.Text`
-    font-family: 'Montserrat';
+    font-family: ${fontFamily};
     font-weight: 600;
     font-size: 12px;
     color: ${props => props.theme.text};

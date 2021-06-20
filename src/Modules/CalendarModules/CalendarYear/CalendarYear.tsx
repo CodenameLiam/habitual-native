@@ -5,14 +5,14 @@ import MemoizedYearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 import { getDateArray } from 'Helpers/Dates';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import React, { FC, Suspense, useCallback, useMemo, useState } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Gradients } from 'Styles/Colours';
 import { Full, MarginBottom, MarginRight, RowCenter } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
 import { Habits } from 'Types/Habit.types';
-import { MonthTextContainer, MonthText } from '../CalendarMonth/CalendarMonth.styles';
+import { useDebouncedCallback } from 'use-debounce/lib';
 import { YearHabitText } from './CalendarYear.styles';
 
 interface CalendarYearProps {
@@ -22,6 +22,13 @@ interface CalendarYearProps {
 }
 
 const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => {
+    // Debounce progress to improve perceived performance
+    const [yearHabits, setYearHabits] = useState(habits);
+    const updateStatHabit = useDebouncedCallback((habits: Habits) => setYearHabits(habits), 500);
+    useEffect(() => {
+        updateStatHabit(habits);
+    }, [habits, updateStatHabit]);
+
     const [yearIndex, setYearIndex] = useState<number>(0);
     const year = useMemo(() => moment().add(yearIndex, 'year'), [yearIndex]);
     const dates = useMemo(() => getDateArray(year.clone().startOf('y'), year.clone().endOf('y')), [year]);
@@ -45,7 +52,7 @@ const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => 
                 rightDisabled={yearIndex === 0}
             />
             <GrowScrollView>
-                {Object.values(habits).map((habit, index) => {
+                {Object.values(yearHabits).map((habit, index) => {
                     const colour = Gradients[habit.colour].solid;
                     return (
                         <TouchableWithoutFeedback
