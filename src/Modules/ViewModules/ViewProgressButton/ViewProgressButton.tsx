@@ -33,7 +33,10 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     playingRef,
     navigation,
 }) => {
+    // Theme
     const theme = useTheme();
+
+    // Playing state
     const [playing, setPlaying] = useState(false);
 
     // Debounce progress to improve perceived performance
@@ -56,40 +59,39 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
 
     // Pause the habit and complete it
     const handleCheck = useCallback((): void => {
-        BackgroundTimer.stopBackgroundTimer();
         playingRef.current = false;
         setPlaying(false);
+        handleNavigationOptions();
+        BackgroundTimer.stopBackgroundTimer();
         dispatchHabits(
             habitActions.progress(habit, date, progress >= habit.total ? 0 : habit.total, progress < habit.total),
         );
-        handleNavigationOptions();
     }, [date, dispatchHabits, habit, handleNavigationOptions, playingRef, progress]);
 
     // Toggle playing the habit
     const handlePlay = useCallback((): void => {
-        // Stop the timer if it is playing
         if (playing) {
             BackgroundTimer.stopBackgroundTimer();
         } else {
-            // If the current progress is at or above the total, set the timer with no limit
             BackgroundTimer.runBackgroundTimer(() => {
-                setProgress(progress => progress + 1);
-                debounceProgress();
+                dispatchHabits(habitActions.time(habit, date));
             }, 1000);
         }
 
         setPlaying(!playing);
+        handleNavigationOptions();
         playingRef.current = !playing;
         ReactNativeHapticFeedback.trigger('impactMedium');
-        handleNavigationOptions();
-    }, [debounceProgress, handleNavigationOptions, playing, playingRef, setProgress]);
+    }, [date, dispatchHabits, habit, handleNavigationOptions, playing, playingRef]);
 
+    // Substract one from the habit (debounced)
     const handleSubtract = useCallback(() => {
         ReactNativeHapticFeedback.trigger('impactMedium');
         setProgress(progress - 1);
         debounceProgress();
     }, [debounceProgress, progress, setProgress]);
 
+    // Add one to the habit (debounced)
     const handleAdd = useCallback(() => {
         ReactNativeHapticFeedback.trigger(progress + 1 === habit.total ? 'notificationSuccess' : 'impactMedium');
         setProgress(progress + 1);

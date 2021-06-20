@@ -22,7 +22,12 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
             ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactLight');
             break;
         case 'TIME':
-            state[action.id].dates[action.date] = action.payload;
+            if (state[action.id].dates[action.date]) {
+                state[action.id].dates[action.date].progress += 1;
+                state[action.id].dates[action.date].total = action.payload.total;
+            } else {
+                state[action.id].dates[action.date] = action.payload;
+            }
             action.complete && ReactNativeHapticFeedback.trigger('notificationSuccess');
             break;
         case 'PROGRESS':

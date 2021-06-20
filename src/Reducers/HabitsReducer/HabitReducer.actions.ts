@@ -111,7 +111,7 @@ export const habitActions = {
         type: 'TIME',
         id: habit.id,
         date,
-        payload: { progress: habit.dates[date] ? habit.dates[date].progress + 1 : 1, total: habit.total },
+        payload: { progress: 1, total: habit.total },
         complete: habit.dates[date] && habit.dates[date].progress + 1 >= habit.total,
     }),
     progress: (
