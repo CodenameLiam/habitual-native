@@ -61,12 +61,12 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     const handleCheck = useCallback((): void => {
         playingRef.current = false;
         setPlaying(false);
-        handleNavigationOptions();
+        playing && handleNavigationOptions();
         BackgroundTimer.stopBackgroundTimer();
         dispatchHabits(
             habitActions.progress(habit, date, progress >= habit.total ? 0 : habit.total, progress < habit.total),
         );
-    }, [date, dispatchHabits, habit, handleNavigationOptions, playingRef, progress]);
+    }, [date, dispatchHabits, habit, handleNavigationOptions, playing, playingRef, progress]);
 
     // Toggle playing the habit
     const handlePlay = useCallback((): void => {

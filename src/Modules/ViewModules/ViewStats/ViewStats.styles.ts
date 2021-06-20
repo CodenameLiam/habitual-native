@@ -1,6 +1,10 @@
 import styled, { css } from '@emotion/native';
 import { fontFamily } from 'Styles/Fonts';
 
+export const AllStatsContainer = styled.View`
+    padding-bottom: 20px;
+`;
+
 // Container for a statistic
 export const StatsContainer = styled.View`
     flex-direction: row;

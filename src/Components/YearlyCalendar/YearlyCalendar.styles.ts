@@ -18,5 +18,6 @@ export const CalendarCell = styled.View<CalendarCellProps>`
 export const CalendarContainer = styled.View`
     flex-wrap: wrap;
     height: ${cellDimensions * 10 + 'px'};
-    margin: 18px;
+
+    margin: 10px 18px;
 `;

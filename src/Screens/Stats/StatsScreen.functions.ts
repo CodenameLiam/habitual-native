@@ -1,6 +1,6 @@
 // import { IHabit, ScheduleType } from 'Controllers/HabitController/HabitController';
 import moment from 'moment';
-import { getSchedule } from 'Helpers/Habits';
+import { isScheduled } from 'Helpers/Habits';
 import { HabitObject } from 'Types/Habit.types';
 
 // Messages that will display depending on the status of the trend
@@ -31,7 +31,7 @@ export const getChartStats = (habit: HabitObject): ChartStats => {
     let yearTotal = 0;
 
     yearArray.forEach(date => {
-        if (getSchedule(habit, date) === true) {
+        if (isScheduled(habit, date) === true) {
             const day = date.format('YYYY-MM-DD');
 
             if (habit.dates[day] && habit.dates[day].progress >= habit.dates[day].total) {

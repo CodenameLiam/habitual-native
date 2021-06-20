@@ -22,7 +22,7 @@ export const isComplete = (habit: HabitObject, date: string): boolean => {
 };
 
 // Returns a the schedule vakue of a given date
-export const getSchedule = (habit: HabitObject, date: Moment): boolean => {
+export const isScheduled = (habit: HabitObject, date: Moment): boolean => {
     return habit.schedule[date.format('ddd').toUpperCase() as ScheduleType];
 };
 
@@ -76,7 +76,7 @@ const getDisabledDates = (habit: HabitObject, month: string): string[] => {
         const start = moment(month).subtract(1, 'month').startOf('month');
         const end = moment(month).add(1, 'month').endOf('month');
         return getDateArray(start, end)
-            .filter(date => !getSchedule(habit, date))
+            .filter(date => !isScheduled(habit, date))
             .map(date => date.format('YYYY-MM-DD'));
     } else {
         return [];
@@ -125,7 +125,7 @@ export const getStreak = (habit: HabitObject, date: Moment): Streak => {
         date.subtract(1, 'd');
 
         // If the progress for this day is greater than the total, or the habit is not scheduled for today, increment the current streak
-        if (isComplete(habit, date.format('YYYY-MM-DD')) || getSchedule(habit, date) === false) {
+        if (isComplete(habit, date.format('YYYY-MM-DD')) || isScheduled(habit, date) === false) {
             streak++;
         } else {
             // Otherwise the streak has ended
@@ -166,7 +166,7 @@ export const getCompletedRate = (habit: HabitObject, startDate: Moment, complete
     const totalDays = currentDate.diff(startDate, 'd');
 
     while (currentDate.isAfter(moment(startDate))) {
-        if (!getSchedule(habit, currentDate)) {
+        if (!isScheduled(habit, currentDate)) {
             unscheduledDays++;
         }
 
@@ -174,6 +174,19 @@ export const getCompletedRate = (habit: HabitObject, startDate: Moment, complete
     }
 
     return Math.round(Math.min(100, (completed / (totalDays - unscheduledDays)) * 100) * 10) / 10;
+};
+
+// ------------------------------------------------------------------------------------------------
+// Awards
+// ------------------------------------------------------------------------------------------------
+export const isPerfectWeek = (habit: HabitObject, dates: Moment[]): boolean => {
+    return dates
+        .map(date => {
+            return (
+                !isScheduled(habit, date) || (isScheduled(habit, date) && isComplete(habit, date.format('YYYY-MM-DD')))
+            );
+        })
+        .every(date => date);
 };
 
 // // Returns habit date entires sorted in ascending order

@@ -1,5 +1,5 @@
 import { weekArray } from 'Helpers/Dates';
-import { getSchedule } from 'Helpers/Habits';
+import { isScheduled } from 'Helpers/Habits';
 import moment, { Moment } from 'moment';
 import { HabitObject, Habits } from 'Types/Habit.types';
 
@@ -11,7 +11,7 @@ export const emptyHabits = (habits: HabitObject[]): boolean => habits.length < 1
 
 // Gets the habits for a specified date
 export const getDateHabits = (habits: Habits, date: Moment): HabitObject[] => {
-    return Object.values(habits).filter(habit => getSchedule(habit, date) === true);
+    return Object.values(habits).filter(habit => isScheduled(habit, date) === true);
 };
 
 // Gets the ratio of habits completed for a specified date

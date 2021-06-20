@@ -21,10 +21,7 @@ interface CalendarMonthProps {
 const CalendarMonth: FC<CalendarMonthProps> = ({ navigation, habits, colour }) => {
     const [monthIndex, setMonthIndex] = useState<number>(0);
     const month = useMemo(() => moment().add(monthIndex, 'month'), [monthIndex]);
-    const dates = useMemo(
-        () => getDateArray(month.clone().startOf('month').add(1, 'd'), month.clone().endOf('month').add(1, 'd')),
-        [month],
-    );
+    const dates = useMemo(() => getDateArray(month.clone().startOf('month'), month.clone().endOf('month')), [month]);
 
     return (
         <View style={Full}>

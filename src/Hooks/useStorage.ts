@@ -12,6 +12,7 @@ import { Theme } from 'Types/Theme.types';
 export const THEME_KEY = '@Theme';
 export const COLOUR_KEY = '@Colour';
 export const HABITS_KEY = '@Habits';
+export const DATES_KEY = '@Dates';
 
 /* Default local storage values */
 export const DEFAULT_THEME: Theme = 'LIGHT';

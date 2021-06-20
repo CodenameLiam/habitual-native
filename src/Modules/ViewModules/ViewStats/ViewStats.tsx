@@ -7,6 +7,7 @@ import React, { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import { HabitObject } from 'Types/Habit.types';
 import { useDebouncedCallback } from 'use-debounce/lib';
 import {
+    AllStatsContainer,
     StatsBar,
     StatsCard,
     StatsCardLeft,
@@ -44,7 +45,7 @@ const ViewStats: FC<ViewStatsProps> = ({ colour, habit }) => {
     }, [habit, updateStatHabit]);
 
     return (
-        <Fragment>
+        <AllStatsContainer>
             <StatsContainer>
                 <Card style={StatsCardLeft} textStyle={{ fontSize: 17, color: theme.text }} title="Current Streak">
                     <StatsBar colour={colour} />
@@ -77,7 +78,7 @@ const ViewStats: FC<ViewStatsProps> = ({ colour, habit }) => {
                     </StatsContentContainer>
                 </Card>
             </StatsContainer>
-        </Fragment>
+        </AllStatsContainer>
     );
 };
 

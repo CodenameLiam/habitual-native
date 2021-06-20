@@ -1,5 +1,6 @@
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
+import Icon from 'Components/Icon';
 import MemoizedYearlyCalendar from 'Components/YearlyCalendar/YearlyCalendar';
 import { getDateArray } from 'Helpers/Dates';
 import moment from 'moment';
@@ -8,9 +9,11 @@ import React, { FC, Suspense, useCallback, useMemo, useState } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Gradients } from 'Styles/Colours';
-import { Full } from 'Styles/Globals';
+import { Full, MarginBottom, MarginRight, RowCenter } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
 import { Habits } from 'Types/Habit.types';
+import { MonthTextContainer, MonthText } from '../CalendarMonth/CalendarMonth.styles';
+import { YearHabitText } from './CalendarYear.styles';
 
 interface CalendarYearProps {
     habits: Habits;
@@ -21,10 +24,7 @@ interface CalendarYearProps {
 const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => {
     const [yearIndex, setYearIndex] = useState<number>(0);
     const year = useMemo(() => moment().add(yearIndex, 'year'), [yearIndex]);
-    const dates = useMemo(
-        () => getDateArray(year.clone().startOf('y').add(1, 'd'), year.clone().endOf('y').add(1, 'd')),
-        [year],
-    );
+    const dates = useMemo(() => getDateArray(year.clone().startOf('y'), year.clone().endOf('y')), [year]);
 
     const handleHabitPress = useCallback(
         (id: string, name: string, colour: Colour) => {
@@ -52,7 +52,19 @@ const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => 
                             key={habit.id}
                             onPress={() => handleHabitPress(habit.id, habit.name, habit.colour)}
                         >
-                            <MemoizedYearlyCalendar habit={habit} colour={colour} yearArray={dates} />
+                            <View style={MarginBottom}>
+                                <View style={RowCenter}>
+                                    <Icon
+                                        style={MarginRight}
+                                        family={habit.icon.family}
+                                        name={habit.icon.name}
+                                        size={14}
+                                        colour={colour}
+                                    />
+                                    <YearHabitText colour={colour}>{habit.name}</YearHabitText>
+                                </View>
+                                <MemoizedYearlyCalendar habit={habit} colour={colour} yearArray={dates} />
+                            </View>
                         </TouchableWithoutFeedback>
                     );
                 })}

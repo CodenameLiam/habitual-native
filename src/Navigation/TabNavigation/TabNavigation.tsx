@@ -22,12 +22,6 @@ interface TabNavigationProps {
     route: HomeRouteProps;
 }
 
-const Test: FC = () => (
-    <View>
-        <Text>YOOOO</Text>
-    </View>
-);
-
 const TabNavigation: React.FC<TabNavigationProps> = ({ navigation, route }) => {
     const theme = useTheme();
 
@@ -52,11 +46,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ navigation, route }) => {
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Calendar" component={CalendarScreen} />
             <Tab.Screen name="Trends" component={TrendsScreen} />
-            <Tab.Screen name="Awards" component={Test} />
-            {/* <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Calendar" component={CalendarScreen} />
-            <Tab.Screen name="Trends" component={TrendsScreen} />
-            <Tab.Screen name="Awards" component={AwardsScreen} /> */}
+            <Tab.Screen name="Awards" component={AwardsScreen} />
         </Tab.Navigator>
     );
 };
