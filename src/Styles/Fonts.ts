@@ -14,3 +14,10 @@ export const BodyFont = styled.Text`
     font-weight: 600;
     color: ${props => props.theme.text};
 `;
+
+export const GraphFont = styled.Text`
+    font-family: ${fontFamily};
+    font-size: 14px;
+    font-weight: 600;
+    color: ${props => props.theme.grey};
+`;

@@ -6,7 +6,7 @@ import moment from 'moment';
 import React, { FC, Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View, Animated, Dimensions, Easing } from 'react-native';
 import { ClipPath, Defs, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
-import { YAxis, LineChart, XAxis, AreaChart, Grid } from 'react-native-svg-charts';
+import { YAxis, XAxis, AreaChart } from 'react-native-svg-charts';
 import { CalendarButtonGroupContainer } from 'Screens/Calendar/CalendarScreen.styles';
 import { Gradient, Gradients } from 'Styles/Colours';
 import { fontFamily } from 'Styles/Fonts';
@@ -27,8 +27,8 @@ interface GraphGradientProps {
 const GraphBackgroundGradient: FC<GraphGradientProps> = ({ gradient, theme }) => (
     <Defs key={'background-gradient'}>
         <LinearGradient id={'background-gradient'} x1={'0%'} y1={'0%'} x2={'0%'} y2={'100%'}>
-            <Stop offset={'0%'} stopColor={gradient.solid} stopOpacity={1} />
-            <Stop offset={'100%'} stopColor={theme} stopOpacity={0} />
+            <Stop offset={'0%'} stopColor={gradient.solid} stopOpacity={0.8} />
+            <Stop offset={'100%'} stopColor={theme} stopOpacity={0.2} />
         </LinearGradient>
     </Defs>
 );
@@ -121,6 +121,7 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
                     activeTitle={activeMonthRange[monthRange]}
                 />
             </CalendarButtonGroupContainer>
+
             <View style={{ height: 180, flexDirection: 'row', marginLeft: 15, marginRight: 15 }}>
                 <YAxis
                     data={data}
@@ -139,7 +140,7 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
                     style={{ flex: 1, marginLeft: 5 }}
                     data={data}
                     contentInset={contentInset}
-                    curve={shape.curveNatural}
+                    curve={shape.curveBasis}
                     svg={{
                         strokeLinecap: 'round',
                         clipPath: 'url(#clip-path-1)',
