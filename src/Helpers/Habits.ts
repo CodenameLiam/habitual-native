@@ -1,6 +1,7 @@
 import moment, { Moment } from 'moment';
 import { MarkedDateCustomStyles } from 'react-native-calendars';
-import { HabitDates, HabitObject, ScheduleType } from 'Types/Habit.types';
+import PushNotification from 'react-native-push-notification';
+import { HabitDates, HabitObject, Habits, ScheduleType } from 'Types/Habit.types';
 import { getDateArray, today } from './Dates';
 
 // ------------------------------------------------------------------------------------------------
@@ -177,6 +178,38 @@ export const getCompletedRate = (habit: HabitObject, startDate: Moment, complete
 };
 
 // ------------------------------------------------------------------------------------------------
+// Notifications
+// ------------------------------------------------------------------------------------------------
+const getHour = (hour: number, time: 'am' | 'pm'): number => {
+    if (hour < 12 && time === 'am') return hour;
+    if (hour < 12 && time === 'pm') return hour + 12;
+    return hour - 12;
+};
+
+export const scheduleNotifications = (habits: Habits): void => {
+    PushNotification.cancelAllLocalNotifications();
+    Object.values(habits).forEach(habit => {
+        habit.reminders.forEach(reminder => {
+            const date = moment().set({
+                hour: getHour(reminder.hour, reminder.time),
+                minute: reminder.minute,
+            });
+
+            if (date.isBefore(moment())) {
+                date.add(1, 'day');
+            }
+
+            PushNotification.localNotificationSchedule({
+                date: date.toDate(),
+                repeatType: 'day',
+                title: habit.name,
+                message: 'Make sure you are checking this habit off!',
+            });
+        });
+    });
+};
+
+// ------------------------------------------------------------------------------------------------
 // Awards
 // ------------------------------------------------------------------------------------------------
 export const isPerfectWeek = (habit: HabitObject, dates: Moment[]): boolean => {
@@ -188,30 +221,3 @@ export const isPerfectWeek = (habit: HabitObject, dates: Moment[]): boolean => {
         })
         .every(date => date);
 };
-
-// // Returns habit date entires sorted in ascending order
-// export const getSortedDates = (dates: HabitDates): HabitDates => {
-//     return Object.keys(dates)
-//         .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
-//         .reduce((obj: HabitDates, key) => {
-//             obj[key] = dates[key];
-//             return obj;
-//         }, {});
-// };
-
-// interface MarkedDate {
-//     selected: boolean;
-//     customStyles: MarkedDateCustomStyles;
-//     marked?: boolean;
-// }
-
-// interface MarkedDates {
-//     [date: string]: MarkedDate;
-// }
-
-// // Gets
-// export const getMarkedDates = (habit: HabitObject): void => {
-//     console.log(Object.values(getSortedDates(habit.dates)));
-
-//     // return {...getSortedDates(habit.dates)}
-// };

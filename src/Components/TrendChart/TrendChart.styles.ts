@@ -83,7 +83,7 @@ export const TrendLabelContainer = styled.View<TrendLineProps>`
     background-color: ${props => props.colour};
     border-radius: 100px;
     width: ${props => (props.time ? 55 : 40) + 'px'};
-    height: 15px;
+    height: 18px;
     justify-content: center;
     align-items: center;
     left: ${props => (props.time ? -50 : -45) + 'px'};

@@ -27,21 +27,3 @@ export const getMinutesItems = (colour: string): JSX.Element[] => {
     }
     return items;
 };
-
-// export const handleChangeHours = (hours: number): void => {
-//     // setInternalHours(hours);
-//     // const newValue = {
-//     //     minutes: internalMinutes,
-//     //     hours,
-//     // };
-//     // onChange?.(newValue);
-// };
-
-// export const handleChangeMinutes = (minutes: number): void => {
-//     // setInternalMinutes(minutes);
-//     // const newValue = {
-//     //     minutes,
-//     //     hours: internalHours,
-//     // };
-//     // onChange?.(newValue);
-// };

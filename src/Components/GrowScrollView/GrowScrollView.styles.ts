@@ -7,10 +7,11 @@ export const GrowContainer = styled.View`
 
 interface GrowShadowProps {
     top?: boolean;
+    colour?: string;
 }
 
 export const GrowShadow = styled.View<GrowShadowProps>`
-    background-color: ${props => props.theme.background};
+    background-color: ${props => props.colour ?? props.theme.background};
     ${props => (props.top ? 'top: 0' : 'bottom: 0')};
     position: absolute;
     left: 0;

@@ -1,6 +1,6 @@
 import { HabitIcon } from 'Components/Icon/Icon.types';
 import { Colour } from 'Types/Colour.types';
-import { HabitType, Schedule, ScheduleType } from 'Types/Habit.types';
+import { HabitReminder, HabitType, Schedule, ScheduleType } from 'Types/Habit.types';
 
 // ------------------------------------------------------------------------------------
 // Types
@@ -41,6 +41,21 @@ interface TypeAction {
     payload: HabitType;
 }
 
+interface AddReminderAction {
+    type: 'ADD_REMINDER';
+    payload: HabitReminder;
+}
+
+interface DeleteReminderAction {
+    type: 'DELETE_REMINDER';
+    payload: number;
+}
+
+interface EditReminderAction {
+    type: 'EDIT_REMINDER';
+    payload: { index: number; reminder: HabitReminder };
+}
+
 export type BuildAction =
     | NameAction
     | TotalAction
@@ -48,7 +63,10 @@ export type BuildAction =
     | ScheduleAction
     | DayAction
     | IconAction
-    | TypeAction;
+    | TypeAction
+    | AddReminderAction
+    | DeleteReminderAction
+    | EditReminderAction;
 
 // ------------------------------------------------------------------------------------
 // Actions
@@ -82,5 +100,17 @@ export const buildActions = {
     type: (type: HabitType): BuildAction => ({
         type: 'TYPE',
         payload: type,
+    }),
+    addReminder: (reminder: HabitReminder): BuildAction => ({
+        type: 'ADD_REMINDER',
+        payload: reminder,
+    }),
+    deleteReminder: (index: number): BuildAction => ({
+        type: 'DELETE_REMINDER',
+        payload: index,
+    }),
+    editReminder: (index: number, reminder: HabitReminder): BuildAction => ({
+        type: 'EDIT_REMINDER',
+        payload: { index, reminder },
     }),
 };

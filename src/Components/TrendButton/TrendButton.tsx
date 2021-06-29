@@ -74,7 +74,9 @@ const TrendButton: FC<TrendButtonProps> = ({ habit, navigation }) => {
                 </TrendHabitText>
                 <TrendAverageTextContainer>
                     <TrendAverageText colour={gradient.solid}>
-                        {weeklyTotalArray.enoughData ? getChartString(threeMonthAverage, habit.type) : '-'}
+                        {weeklyTotalArray.enoughData
+                            ? getChartString(threeMonthAverage, habit.type).split(' ')[0]
+                            : '-'}
                     </TrendAverageText>
                     <TrendAverageWeekText colour={gradient.solid}>/week</TrendAverageWeekText>
                 </TrendAverageTextContainer>

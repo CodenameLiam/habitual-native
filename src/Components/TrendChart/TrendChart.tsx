@@ -65,19 +65,19 @@ const TrendChart: React.FC<TrendChartProps> = ({ colour, type, weeklyTotalArray,
                             {enoughData && index === 25 && (
                                 <TrendLabelContainer
                                     colour={theme.grey}
-                                    height={yearAverageHeight - 5}
+                                    height={yearAverageHeight - 8}
                                     time={type === 'time'}
                                 >
-                                    <TrendLabel>{getChartString(yearAverage, type)}</TrendLabel>
+                                    <TrendLabel>{getChartString(yearAverage, type).split(' ')[0]}</TrendLabel>
                                 </TrendLabelContainer>
                             )}
                             {index === 50 && (
                                 <TrendLabelContainer
                                     colour={colour}
-                                    height={threeMonthAverageHeight - 5}
+                                    height={threeMonthAverageHeight - 8}
                                     time={type === 'time'}
                                 >
-                                    <TrendLabel>{getChartString(threeMonthAverage, type)}</TrendLabel>
+                                    <TrendLabel>{getChartString(threeMonthAverage, type).split(' ')[0]}</TrendLabel>
                                 </TrendLabelContainer>
                             )}
                         </TrendLineContainer>

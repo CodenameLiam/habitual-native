@@ -28,6 +28,15 @@ const buildReducer = produce((state: HabitObject, action: BuildAction) => {
         case 'DAY':
             state.schedule[action.day] = action.payload;
             break;
+        case 'ADD_REMINDER':
+            state.reminders.push(action.payload);
+            break;
+        case 'DELETE_REMINDER':
+            state.reminders.splice(action.payload, 1);
+            break;
+        case 'EDIT_REMINDER':
+            state.reminders[action.payload.index] = { ...action.payload.reminder };
+            break;
     }
     return state;
 });

@@ -4,6 +4,7 @@ import { HABITS_KEY } from 'Hooks/useStorage';
 import { storeData } from 'Controllers/StorageController';
 import produce from 'immer';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { scheduleNotifications } from 'Helpers/Habits';
 
 const habitsReducer = produce((state: Habits, action: HabitAction) => {
     switch (action.type) {
@@ -13,6 +14,7 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
         case 'CREATE':
             state[action.payload.id] = action.payload;
             ReactNativeHapticFeedback.trigger('notificationSuccess');
+            scheduleNotifications(state);
             break;
         case 'DELETE':
             delete state[action.payload];

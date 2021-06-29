@@ -58,6 +58,6 @@ export const getChartString = (total: number, type: HabitType): string => {
     if (type === 'count') {
         return String(Math.round(total * 100) / 100);
     } else {
-        return getTime(Math.round(total)).formatTime.slice(0, 6);
+        return getTime(Math.round(total)).formatTime;
     }
 };

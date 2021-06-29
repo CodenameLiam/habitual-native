@@ -14,6 +14,15 @@ PushNotification.configure({
     onRegister: function (token) {
         console.log('TOKEN:', token);
     },
+    onNotification: function (notification) {
+        console.log('NOTIFICATION:', notification);
+
+        // process the notification
+        PushNotification.removeAllDeliveredNotifications();
+
+        // (required) Called when a remote is received or opened, or local notification is opened
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
+    },
 });
 
 AppRegistry.registerComponent(appName, () => App);

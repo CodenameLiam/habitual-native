@@ -16,6 +16,7 @@ export interface HabitObject {
     type: HabitType;
     dates: HabitDates;
     schedule: Schedule;
+    reminders: HabitReminder[];
 }
 
 /* The type of habit */
@@ -30,6 +31,13 @@ export interface HabitDates {
 export interface HabitDate {
     progress: number;
     total: number;
+}
+
+/* Reminders for a given habit */
+export interface HabitReminder {
+    hour: number;
+    minute: number;
+    time: 'am' | 'pm';
 }
 
 /* A schedule for a habit */

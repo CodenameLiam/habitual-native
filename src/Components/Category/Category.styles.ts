@@ -26,8 +26,8 @@ export const CategoryText = styled.Text`
 
 export const CategoryIcon = styled(Icon)`
     position: absolute;
-    right: -42px;
-    bottom: -32px;
+    right: -35px;
+    bottom: -25px;
 `;
 
 export const CategoryHabitContainer = styled.View`

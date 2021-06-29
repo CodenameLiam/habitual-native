@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getValue, getData } from 'Controllers/StorageController';
 import { useState, useEffect, useReducer, Dispatch } from 'react';
 import colourReducer from 'Reducers/ColourReducer/ColourReducer';
@@ -33,6 +34,8 @@ interface UseStorage {
  * Returns all values from local storage, using default values if they have not been set
  */
 const useStorage = (): UseStorage => {
+    // AsyncStorage.clear();
+
     const [loading, setLoading] = useState<boolean>(true);
 
     const [theme, dispatchTheme] = useReducer(themeReducer, DEFAULT_THEME);

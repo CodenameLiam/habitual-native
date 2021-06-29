@@ -114,6 +114,11 @@ export const IconOptions: IconGroup[] = [
             { family: 'materialcommunity', name: 'leaf-maple' },
             { family: 'materialcommunity', name: 'pine-tree' },
             { family: 'materialcommunity', name: 'image-filter-hdr' },
+            { family: 'materialcommunity', name: 'weather-hazy' },
+            { family: 'materialcommunity', name: 'weather-sunset' },
+            { family: 'materialcommunity', name: 'weather-partly-cloudy' },
+            { family: 'materialcommunity', name: 'weather-night-partly-cloudy' },
+            { family: 'materialcommunity', name: 'weather-windy' },
         ],
     },
     {

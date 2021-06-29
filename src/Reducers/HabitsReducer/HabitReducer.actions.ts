@@ -1,4 +1,4 @@
-import { HabitObject, Habits, HabitDate } from 'Types/Habit.types';
+import { HabitObject, Habits, HabitDate, HabitReminder } from 'Types/Habit.types';
 
 // ------------------------------------------------------------------------------------
 // Types
@@ -49,7 +49,7 @@ interface TimeAction {
     complete: boolean;
 }
 
-interface Progress {
+interface ProgressAction {
     type: 'PROGRESS';
     payload: HabitDate;
     id: string;
@@ -62,7 +62,7 @@ export type HabitAction =
     | InitAction
     | CreateAction
     | DeleteAction
-    | Progress
+    | ProgressAction
     | AddAction
     | SubtractAction
     | ToggleAction

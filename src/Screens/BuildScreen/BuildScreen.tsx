@@ -36,6 +36,7 @@ import { CardContainerCircle } from 'Components/Card/Card.styles';
 import TimeModule from 'Modules/BuildModules/BuildTime/TimeModule';
 import BuildTimeModal from 'Modules/BuildModules/BuildTimeModal/BuildTimeModal';
 import PushNotification from 'react-native-push-notification';
+import BuildReminderModal from 'Modules/BuildModules/BuildReminderModal/BuildReminderModal';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -94,7 +95,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                     onPress={() => {
                         setModal('Reminder');
                         handleOpen();
-                        PushNotification.getScheduledLocalNotifications(n => console.log(n));
+                        // PushNotification.getScheduledLocalNotifications(n => console.log(n));
                         // PushNotification.localNotificationSchedule({
                         //     message: 'My Notification Message', // (required)
                         //     date: new Date(Date.now() + 5000), // in 60 secs
@@ -204,7 +205,14 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                                             handleClose={handleClose}
                                         />
                                     ),
-                                    Reminder: <Text>This is reminder screen</Text>,
+                                    Reminder: (
+                                        <BuildReminderModal
+                                            colour={gradient.solid}
+                                            reminders={habit.reminders}
+                                            dispatchBuild={dispatchBuild}
+                                            sheetRef={sheetRef}
+                                        />
+                                    ),
                                     Time: <BuildTimeModal total={habit.total} dispatchBuild={dispatchBuild} />,
                                 }[modal]
                             }

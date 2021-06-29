@@ -42,4 +42,5 @@ export const DEFAULT_HABIT: HabitObject = {
     type: 'count',
     dates: {},
     schedule: EVERYDAY_SCHEDULE,
+    reminders: [],
 };
