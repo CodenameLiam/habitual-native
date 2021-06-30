@@ -16,24 +16,28 @@ export const SettingsDrawerShadow = styled.View`
     margin-right: -15px;
     background-color: rgb(48, 47, 60);
     align-self: center;
+    z-index: 100;
 `;
 
 export const SettingsHeader = styled.View`
     padding: 10px;
+    padding-bottom: 0px;
 `;
 
 export const SettingsRow = styled.View`
+    min-height: 55px;
     background-color: ${props => props.theme.card};
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin: 10px;
-    padding: 10px;
+    margin-bottom: 0px;
+    padding: 10px 15px;
     border-radius: 10px;
 `;
 
 export const SettingsCard = styled(Card)`
     margin: 10px;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 10px;
 `;

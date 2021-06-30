@@ -10,14 +10,15 @@ import {
 import { useTheme } from '@emotion/react';
 
 interface GrowScrollViewProps {
+    style?: StyleProp<ViewStyle>;
     contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
-const GrowScrollView: FC<GrowScrollViewProps> = ({ children, contentContainerStyle }) => {
+const GrowScrollView: FC<GrowScrollViewProps> = ({ children, style, contentContainerStyle }) => {
     const theme = useTheme();
 
     return (
-        <GrowContainer>
+        <GrowContainer style={style}>
             <GrowShadow
                 top
                 style={{
