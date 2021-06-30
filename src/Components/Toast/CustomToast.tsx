@@ -1,8 +1,8 @@
 import styled from '@emotion/native';
 import React from 'react';
-import { View, Text } from 'react-native';
 import { BaseToastProps } from 'react-native-toast-message';
 import { Gradients } from 'Styles/Colours';
+import { fontFamily } from 'Styles/Fonts';
 
 interface ToastContainerProps {
     background: string;
@@ -19,7 +19,7 @@ const ToastContainer = styled.View<ToastContainerProps>`
 `;
 
 const ToastText = styled.Text`
-    font-family: 'Montserrat';
+    font-family: ${fontFamily};
     font-weight: 600;
     color: ${props => props.theme.text};
 `;

@@ -1,11 +1,11 @@
 import { useTheme } from '@emotion/react';
 import { IdeaNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradients } from 'Styles/Colours';
 import { CategoryObject } from './Category.constants';
-import { CategoryButton, CategoryIcon, CategoryText } from './Category.styles';
+import { CategoryButton, CategoryIcon, CategorySubText, CategoryText } from './Category.styles';
 
 interface CategoryProps {
     category: CategoryObject;

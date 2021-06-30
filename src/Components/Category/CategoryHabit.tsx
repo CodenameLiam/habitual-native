@@ -13,12 +13,13 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Easing, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradients } from 'Styles/Colours';
-import { CategoryHabitContainer, CategoryHabitText } from './Category.styles';
+import { CategoryHabitContainer, CategoryHabitText, CategorySubText } from './Category.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { deleteAlert } from 'Helpers/DeleteAlert';
 import { HabitObject } from 'Types/Habit.types';
 import { HabitMaxTransformInterpolation } from 'Components/Habit/Habit.functions';
 import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
+import { getTime } from 'Helpers/Habits';
 
 interface CategoryHabitProps {
     habit: HabitObject;
@@ -95,6 +96,14 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
 
                 <HabitTextContainer>
                     <CategoryHabitText>{habit.name}</CategoryHabitText>
+                    <CategorySubText colour={Object.keys(habits).includes(habit.id) ? theme.text : gradient.solid}>
+                        {habit.type === 'time'
+                            ? getTime(habit.total).formatTime
+                            : habit.total > 1
+                            ? `${habit.total} times `
+                            : 'Once '}
+                        per day
+                    </CategorySubText>
                 </HabitTextContainer>
             </HabitContentContainer>
             <TouchableOpacity onPress={handlePress} style={HabitProgressButton}>

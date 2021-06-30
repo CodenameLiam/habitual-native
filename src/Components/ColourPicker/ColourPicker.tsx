@@ -1,16 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Gradients } from 'Styles/Colours';
+import { Gradient, Gradients } from 'Styles/Colours';
 import { PickerContainer, Swatch } from './ColourPicker.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Colour } from 'Types/Colour.types';
 
 interface ColourPickerProps {
+    customOrder?: Colour[];
     updateGradient: (gradient: Colour) => void;
 }
 
-const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient }) => {
+const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient, customOrder }) => {
     const handlePress = useCallback(
         (colour: Colour) => {
             ReactNativeHapticFeedback.trigger('impactLight');
@@ -19,9 +20,11 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient }) => {
         [updateGradient],
     );
 
+    const gradients: Colour[] = useMemo(() => customOrder ?? (Object.keys(Gradients) as Colour[]), [customOrder]);
+
     return (
         <PickerContainer>
-            {Object.keys(Gradients).map((colour, index) => (
+            {gradients.map((colour, index) => (
                 <Swatch
                     key={colour}
                     onPress={() => handlePress(colour as Colour)}

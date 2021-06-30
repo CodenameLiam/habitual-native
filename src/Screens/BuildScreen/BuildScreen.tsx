@@ -95,13 +95,6 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                     onPress={() => {
                         setModal('Reminder');
                         handleOpen();
-                        // PushNotification.getScheduledLocalNotifications(n => console.log(n));
-                        // PushNotification.localNotificationSchedule({
-                        //     message: 'My Notification Message', // (required)
-                        //     date: new Date(Date.now() + 5000), // in 60 secs
-                        //     repeatType: 'day',
-                        //     allowWhileIdle: true, // (optional) set notification to work while on doze, default: false
-                        // });
                     }}
                 >
                     <CardContainerCircle>
