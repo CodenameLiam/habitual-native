@@ -5,6 +5,7 @@ import { storeData } from 'Controllers/StorageController';
 import produce from 'immer';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { scheduleNotifications } from 'Helpers/Habits';
+import PushNotification from 'react-native-push-notification';
 
 const habitsReducer = produce((state: Habits, action: HabitAction) => {
     switch (action.type) {
@@ -27,10 +28,16 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
             if (state[action.id].dates[action.date]) {
                 state[action.id].dates[action.date].progress += 1;
                 state[action.id].dates[action.date].total = action.payload.total;
+                if (state[action.id].dates[action.date].progress === action.payload.total) {
+                    ReactNativeHapticFeedback.trigger('notificationSuccess');
+                    PushNotification.localNotification({
+                        title: state[action.id].name,
+                        message: "You've met your goal for this timed habit!",
+                    });
+                }
             } else {
                 state[action.id].dates[action.date] = action.payload;
             }
-            action.complete && ReactNativeHapticFeedback.trigger('notificationSuccess');
             break;
         case 'PROGRESS':
             state[action.id].dates[action.date] = action.payload;

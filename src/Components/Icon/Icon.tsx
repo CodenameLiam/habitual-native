@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleProp, TextStyle } from 'react-native';
+import { View } from 'react-native';
 
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -10,22 +10,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { IconProps } from './Icon.types';
-
-// export interface IconProps {
-//     family?:
-//         | 'fontawesome'
-//         | 'fontawesome5'
-//         | 'entypo'
-//         | 'material'
-//         | 'materialcommunity'
-//         | 'feather'
-//         | 'antdesign'
-//         | 'ion';
-//     name: any;
-//     size: number;
-//     colour: string;
-//     style?: StyleProp<TextStyle>;
-// }
 
 const Icon: React.FC<IconProps> = ({ family, name, size, colour, style }) => {
     switch (family) {

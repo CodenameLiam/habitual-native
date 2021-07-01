@@ -45,42 +45,45 @@ const ProgressButtonModule: FC<ProgressButtonModuleProps> = ({
     }, 500);
 
     // Update navigation options when the timer is started to prevent stray timers from being started
-    const handleNavigationOptions = useCallback(() => {
-        navigation.setOptions({
-            gestureEnabled: playing,
-            headerLeft: () => (
-                <BackIcon
-                    colour={theme.text}
-                    handlePress={!playing ? () => handleTimeBack(navigation) : () => handleBack(navigation)}
-                />
-            ),
-        });
-    }, [navigation, playing, theme.text]);
+    const handleNavigationOptions = useCallback(
+        (enabled: boolean) => {
+            navigation.setOptions({
+                gestureEnabled: enabled,
+                headerLeft: () => (
+                    <BackIcon
+                        colour={theme.text}
+                        handlePress={enabled ? () => handleBack(navigation) : () => handleTimeBack(navigation)}
+                    />
+                ),
+            });
+        },
+        [navigation, theme.text],
+    );
 
     // Pause the habit and complete it
     const handleCheck = useCallback((): void => {
         playingRef.current = false;
         setPlaying(false);
-        playing && handleNavigationOptions();
+        handleNavigationOptions(true);
         BackgroundTimer.stopBackgroundTimer();
         dispatchHabits(
             habitActions.progress(habit, date, progress >= habit.total ? 0 : habit.total, progress < habit.total),
         );
-    }, [date, dispatchHabits, habit, handleNavigationOptions, playing, playingRef, progress]);
+    }, [date, dispatchHabits, habit, handleNavigationOptions, playingRef, progress]);
 
     // Toggle playing the habit
     const handlePlay = useCallback((): void => {
         if (playing) {
             BackgroundTimer.stopBackgroundTimer();
+            playingRef.current = false;
+            setPlaying(false);
+            handleNavigationOptions(true);
         } else {
-            BackgroundTimer.runBackgroundTimer(() => {
-                dispatchHabits(habitActions.time(habit, date));
-            }, 1000);
+            BackgroundTimer.runBackgroundTimer(() => dispatchHabits(habitActions.time(habit, date)), 1000);
+            playingRef.current = true;
+            setPlaying(true);
+            handleNavigationOptions(false);
         }
-
-        setPlaying(!playing);
-        handleNavigationOptions();
-        playingRef.current = !playing;
         ReactNativeHapticFeedback.trigger('impactMedium');
     }, [date, dispatchHabits, habit, handleNavigationOptions, playing, playingRef]);
 

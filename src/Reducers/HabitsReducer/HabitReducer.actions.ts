@@ -46,7 +46,6 @@ interface TimeAction {
     id: string;
     date: string;
     payload: HabitDate;
-    complete: boolean;
 }
 
 interface ProgressAction {
@@ -112,7 +111,6 @@ export const habitActions = {
         id: habit.id,
         date,
         payload: { progress: 1, total: habit.total },
-        complete: habit.dates[date] && habit.dates[date].progress + 1 >= habit.total,
     }),
     progress: (
         habit: HabitObject,

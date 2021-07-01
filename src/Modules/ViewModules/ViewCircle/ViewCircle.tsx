@@ -33,7 +33,7 @@ const ViewCircle: FC<ViewCircleProps> = ({ colour, progress, total, type, playin
     useEffect(() => {
         Animated.timing(progressAnimation, {
             toValue: alpha,
-            duration: playingRef.current ? 1150 : 500,
+            duration: playingRef.current ? 1300 : 500,
             useNativeDriver: true,
             easing: playingRef.current ? Easing.linear : Easing.out(Easing.quad),
         }).start();
