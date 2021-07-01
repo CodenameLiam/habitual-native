@@ -62,12 +62,12 @@ const SettingsDrawer: FC = () => {
                         <BodyFont>Dark Theme</BodyFont>
                         <Switch value={dark} onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')} />
                     </SettingsRow>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <SettingsRow>
                             <BodyFont>Manage Habits</BodyFont>
                             <Icon family="fontawesome" name="cog" size={24} colour={emotion.text} />
                         </SettingsRow>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <SettingsCard title="Favourite Colour" textStyle={{ color: emotion.text, fontSize: 18 }}>
                         <ColourPicker
                             updateGradient={gradient => dispatchColour(gradient)}
@@ -92,12 +92,12 @@ const SettingsDrawer: FC = () => {
                             <Icon family="fontawesome" name="support" size={24} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <SettingsRow>
                             <BodyFont>Legal</BodyFont>
                             <Icon family="fontawesome" name="legal" size={24} colour={emotion.text} />
                         </SettingsRow>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </GrowScrollView>
             </SafeAreaView>
         </SettingsDrawerContainer>
