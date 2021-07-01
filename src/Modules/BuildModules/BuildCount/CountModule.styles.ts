@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import { TextInput } from 'react-native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GreyColours } from 'Styles/Colours';
-import { fontFamilyExtraBold } from 'Styles/Fonts';
+import { fontFamily, fontFamilyExtraBold } from 'Styles/Fonts';
 
 interface ButtonProps {
     colour: string;

@@ -36,6 +36,7 @@ import { CardContainerCircle } from 'Components/Card/Card.styles';
 import TimeModule from 'Modules/BuildModules/BuildTime/TimeModule';
 import BuildTimeModal from 'Modules/BuildModules/BuildTimeModal/BuildTimeModal';
 import BuildReminderModal from 'Modules/BuildModules/BuildReminderModal/BuildReminderModal';
+import PushNotification from 'react-native-push-notification';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {

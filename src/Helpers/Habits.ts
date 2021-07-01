@@ -204,6 +204,7 @@ export const scheduleNotifications = (habits: Habits): void => {
                 repeatType: 'day',
                 title: habit.name,
                 message: 'Make sure you are checking this habit off!',
+                channelId: 'habitual',
             });
         });
     });

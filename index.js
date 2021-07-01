@@ -26,4 +26,12 @@ PushNotification.configure({
     },
 });
 
+PushNotification.createChannel(
+    {
+        channelId: 'habitual', // (required)
+        channelName: 'Habitual', // (required)
+    },
+    created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+);
+
 AppRegistry.registerComponent(appName, () => App);
