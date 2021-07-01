@@ -2,13 +2,14 @@ import { TabsConfig, FlashyTabBarItemConfig } from '@gorhom/animated-tabbar';
 import Icon from 'Components/Icon';
 import React from 'react';
 import { TabColours } from 'Styles/Colours';
+import { fontFamilyBold } from 'Styles/Fonts';
 
 export const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig> => {
     return {
         Home: {
             labelStyle: {
                 color: TabColours.HOME,
-                fontFamily: 'Montserrat-Bold',
+                fontFamily: fontFamilyBold,
             },
             icon: {
                 component: () => <Icon family="feather" name="home" size={20} colour={colour} />,
@@ -18,7 +19,7 @@ export const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig
         Calendar: {
             labelStyle: {
                 color: TabColours.CALENDAR,
-                fontFamily: 'Montserrat-Bold',
+                fontFamily: fontFamilyBold,
             },
             icon: {
                 component: () => <Icon family="feather" name="calendar" size={20} colour={colour} />,
@@ -28,7 +29,7 @@ export const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig
         Trends: {
             labelStyle: {
                 color: TabColours.TRENDS,
-                fontFamily: 'Montserrat-Bold',
+                fontFamily: fontFamilyBold,
             },
             icon: {
                 component: () => <Icon family="entypo" name="line-graph" size={20} colour={colour} />,
@@ -38,7 +39,7 @@ export const getCustomTabs = (colour: string): TabsConfig<FlashyTabBarItemConfig
         Awards: {
             labelStyle: {
                 color: TabColours.AWARDS,
-                fontFamily: 'Montserrat-Bold',
+                fontFamily: fontFamilyBold,
             },
             icon: {
                 component: () => <Icon family="feather" name="award" size={20} colour={colour} />,

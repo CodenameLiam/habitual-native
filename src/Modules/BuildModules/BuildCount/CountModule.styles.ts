@@ -2,6 +2,7 @@ import styled from '@emotion/native';
 import { TextInput } from 'react-native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GreyColours } from 'Styles/Colours';
+import { fontFamilyExtraBold } from 'Styles/Fonts';
 
 interface ButtonProps {
     colour: string;
@@ -29,13 +30,13 @@ export const ProgressTextInput = styled(TextInput)<ProgressInputProps>`
     flex: 1;
     border-radius: 5px;
     text-align: center;
-    font-family: 'Montserrat-ExtraBold';
+    font-family: ${fontFamilyExtraBold};
     font-size: 20px;
 `;
 
 export const ProgressText = styled.Text<ProgressInputProps>`
     color: ${props => props.colour};
     text-align: center;
-    font-family: 'Montserrat-ExtraBold';
+    font-family: ${fontFamilyExtraBold};
     font-size: 20px;
 `;

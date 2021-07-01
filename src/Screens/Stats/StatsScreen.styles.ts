@@ -15,7 +15,6 @@ export const TrendMessageContainer = styled.View`
 
 export const TrendMessage = styled.Text`
     font-family: ${fontFamily};
-    font-weight: 600;
     font-size: 12px;
     color: ${props => props.theme.text};
 `;
@@ -38,8 +37,7 @@ interface TrendStatsProps {
 export const TrendStats = styled.Text<TrendStatsProps>`
     margin-left: 15px;
     margin-bottom: ${props => (!props.colour ? 0 : 5) + 'px'};
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     font-size: 18px;
     color: ${props => props.colour ?? props.theme.grey};
 `;

@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native';
+import { fontFamily } from 'Styles/Fonts';
 
 export const ColourButtonContainer = styled.View`
     flex-direction: row;
@@ -28,6 +29,6 @@ interface TextContentProps {
 
 export const TextContent = styled.Text<TextContentProps>`
     text-align: center;
-    font-family: 'Montserrat-SemiBold';
+    font-family: ${fontFamily};
     color: ${props => props.colour};
 `;

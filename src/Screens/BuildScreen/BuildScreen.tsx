@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer, Fragment, FC } from 'react';
-import { Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { useHabits } from 'Context/AppContext';
 import { useTheme } from '@emotion/react';
 import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
@@ -35,7 +35,6 @@ import BuildIconModal from 'Modules/BuildModules/BuildIconModal/BuildIconModal';
 import { CardContainerCircle } from 'Components/Card/Card.styles';
 import TimeModule from 'Modules/BuildModules/BuildTime/TimeModule';
 import BuildTimeModal from 'Modules/BuildModules/BuildTimeModal/BuildTimeModal';
-import PushNotification from 'react-native-push-notification';
 import BuildReminderModal from 'Modules/BuildModules/BuildReminderModal/BuildReminderModal';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];

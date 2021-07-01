@@ -1,6 +1,7 @@
 import styled, { css } from '@emotion/native';
 import { Animated, TouchableOpacity } from 'react-native';
 import TextTicker from 'react-native-text-ticker';
+import { fontFamily } from 'Styles/Fonts';
 
 export const HabitContainer = styled(Animated.View)`
     background-color: ${props => props.theme.card};
@@ -44,8 +45,7 @@ export const HabitTextContainer = styled.View`
 `;
 
 export const HabitText = styled(TextTicker)`
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     font-size: 18px;
     color: ${props => props.theme.text};
 `;
@@ -77,7 +77,6 @@ export const HabitProgressButton = css`
 `;
 
 export const HabitProgressText = styled.Text`
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     color: ${props => props.theme.text};
 `;

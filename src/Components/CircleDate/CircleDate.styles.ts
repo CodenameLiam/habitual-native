@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { fontFamily, fontFamilyBold } from 'Styles/Fonts';
 
 interface CircleButtonProps {
     circleDimensions: number;
@@ -18,15 +19,13 @@ interface CircleTextProps {
 }
 
 export const DayNumber = styled.Text<CircleTextProps>`
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     color: ${props => (props.active ? props.theme.text : props.theme.grey)};
 `;
 
 export const DayText = styled.Text<CircleTextProps>`
     font-size: 8px;
-    font-weight: 700;
-    font-family: 'Montserrat';
+    font-family: ${fontFamilyBold};
     color: ${props => (props.active ? props.theme.text : props.theme.grey)};
 `;
 

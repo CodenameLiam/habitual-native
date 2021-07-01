@@ -1,8 +1,8 @@
 import ColourPicker from 'Components/ColourPicker/ColourPicker';
 import { useColour, useTheme } from 'Context/AppContext';
 import { useTheme as useEmotion } from '@emotion/react';
-import React, { FC, useRef } from 'react';
-import { Linking, SafeAreaView, Switch, Text, TouchableOpacity, View } from 'react-native';
+import React, { FC } from 'react';
+import { Linking, SafeAreaView, Switch, Text, TouchableOpacity } from 'react-native';
 import { BodyFont, headerFont } from 'Styles/Fonts';
 import {
     SettingsCard,
@@ -11,8 +11,6 @@ import {
     SettingsHeader,
     SettingsRow,
 } from './SettingsDrawer.styles';
-import BottomSheet from 'reanimated-bottom-sheet';
-import Card from 'Components/Card/Card';
 import { Colour } from 'Types/Colour.types';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import Icon from 'Components/Icon';

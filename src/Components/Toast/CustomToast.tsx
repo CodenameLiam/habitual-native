@@ -20,7 +20,6 @@ const ToastContainer = styled.View<ToastContainerProps>`
 
 const ToastText = styled.Text`
     font-family: ${fontFamily};
-    font-weight: 600;
     color: ${props => props.theme.text};
 `;
 

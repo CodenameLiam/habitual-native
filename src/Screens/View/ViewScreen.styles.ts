@@ -1,9 +1,8 @@
 import styled from '@emotion/native';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { fontFamily } from 'Styles/Fonts';
 
 export const YearlyTitle = styled.Text`
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     font-size: 18px;
     margin-top: 10px;
     text-align: center;
