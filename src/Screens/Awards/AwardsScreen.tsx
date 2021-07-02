@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import { HabitScroll } from 'Components/Habit/Habit.styles';
-import Habitual from 'Components/Habitual/Habitual';
+// import Habitual from 'Components/Habitual/Habitual';
 import Icon from 'Components/Icon';
 import { AppContext, useHabits } from 'Context/AppContext';
 import { getDateArray, weekArray } from 'Helpers/Dates';
