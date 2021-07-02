@@ -1,7 +1,7 @@
 import styled from '@emotion/native';
 import Icon from 'Components/Icon';
 import { TouchableOpacity } from 'react-native';
-import { fontFamily } from 'Styles/Fonts';
+import { fontFamily, fontFamilyBold } from 'Styles/Fonts';
 
 interface CategoryProps {
     colour: string;
@@ -20,14 +20,12 @@ export const CategoryButton = styled(TouchableOpacity)<CategoryProps>`
 
 export const CategoryText = styled.Text`
     font-size: 16px;
-    font-weight: 600;
     font-family: ${fontFamily};
     color: ${props => props.theme.background};
 `;
 
 export const CategorySubText = styled.Text<CategoryProps>`
     font-size: 12px;
-    font-weight: 600;
     font-family: ${fontFamily};
     color: ${props => props.colour};
 `;
@@ -50,8 +48,7 @@ export const CategoryHabitContainer = styled.View`
 `;
 
 export const CategoryHabitText = styled.Text`
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     font-size: 16px;
     color: ${props => props.theme.text};
 `;

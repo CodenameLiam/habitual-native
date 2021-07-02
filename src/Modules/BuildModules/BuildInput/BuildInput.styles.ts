@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { TextInput } from 'react-native';
+import { fontFamily } from 'Styles/Fonts';
 
 interface InputProps {
     colour: string;
@@ -8,6 +9,7 @@ interface InputProps {
 export const StyledBuildInput = styled(TextInput)<InputProps>`
     flex: 1;
     color: ${props => props.colour};
-    font-family: 'Montserrat-SemiBold';
+    font-family: ${fontFamily};
     font-size: 18px;
+    padding: 0px;
 `;

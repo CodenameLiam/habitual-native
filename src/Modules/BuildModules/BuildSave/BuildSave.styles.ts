@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native';
+import { fontFamily, fontFamilyBold } from 'Styles/Fonts';
 
 export const SaveContainer = styled.View`
     flex: 1;
@@ -18,7 +19,7 @@ export const SaveButton = styled(TouchableOpacity)`
 `;
 
 export const SaveText = styled.Text`
-    font-family: 'Montserrat-SemiBold';
+    font-family: ${fontFamily};
     font-size: 20px;
     color: ${props => props.theme.text};
 `;

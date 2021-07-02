@@ -38,7 +38,6 @@ interface MonthProps {
 export const MonthText = styled(TextTicker)<MonthProps>`
     color: ${props => props.colour};
     font-family: ${fontFamily};
-    font-weight: 600;
 `;
 
 export const MonthContainer = styled.View`

@@ -19,6 +19,8 @@ target 'Habitual' do
 
   pod 'RNReactNativeHapticFeedback', :path => '../node_modules/react-native-haptic-feedback'
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-picker/picker'
+
   target 'HabitualTests' do
     inherit! :complete
     # Pods for testing

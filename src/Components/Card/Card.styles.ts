@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import TextTicker from 'react-native-text-ticker';
+import { fontFamily } from 'Styles/Fonts';
 
 export const CardContainer = styled.View`
     margin: 15px;
@@ -16,9 +17,18 @@ export const CardContainerCircle = styled(CardContainer)`
 `;
 
 export const CardText = styled(TextTicker)`
+    width: 100%;
     padding-bottom: 10px;
     color: ${props => props.theme.grey};
     font-size: 18px;
-    font-family: Montserrat;
-    font-weight: 600;
+    font-family: ${fontFamily};
+`;
+
+export const CardTextAndroid = styled.Text`
+    width: 100%;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    color: ${props => props.theme.grey};
+    font-size: 18px;
+    font-family: ${fontFamily};
 `;

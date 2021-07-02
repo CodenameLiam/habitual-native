@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { fontFamilyExtraBold } from 'Styles/Fonts';
 
 interface CircleContainerProps {
     height: number;
@@ -11,8 +12,7 @@ export const CircleContainer = styled.View<CircleContainerProps>`
 `;
 
 export const CircleText = styled.Text`
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: ${fontFamilyExtraBold};
     font-size: 30px;
     color: ${props => props.theme.text};
 `;

@@ -34,7 +34,6 @@ export const TrendMonth = styled.View<TrendMonthProps>`
 export const TrendMonthText = styled.Text`
     font-family: ${fontFamily};
     font-size: 12px;
-    font-weight: 700;
     color: ${props => props.theme.text};
     position: absolute;
     bottom: 0;
@@ -92,5 +91,4 @@ export const TrendLabelContainer = styled.View<TrendLineProps>`
 export const TrendLabel = styled.Text`
     color: ${props => props.theme.text};
     font-family: ${fontFamily};
-    font-weight: 600;
 `;

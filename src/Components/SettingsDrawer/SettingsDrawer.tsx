@@ -1,8 +1,8 @@
 import ColourPicker from 'Components/ColourPicker/ColourPicker';
 import { useColour, useTheme } from 'Context/AppContext';
 import { useTheme as useEmotion } from '@emotion/react';
-import React, { FC, useRef } from 'react';
-import { Linking, SafeAreaView, Switch, Text, TouchableOpacity, View } from 'react-native';
+import React, { FC } from 'react';
+import { Linking, SafeAreaView, Switch, Text, TouchableOpacity } from 'react-native';
 import { BodyFont, headerFont } from 'Styles/Fonts';
 import {
     SettingsCard,
@@ -11,11 +11,10 @@ import {
     SettingsHeader,
     SettingsRow,
 } from './SettingsDrawer.styles';
-import BottomSheet from 'reanimated-bottom-sheet';
-import Card from 'Components/Card/Card';
 import { Colour } from 'Types/Colour.types';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import Icon from 'Components/Icon';
+import { Gradients, GreyColours } from 'Styles/Colours';
 
 const CustomColourOrder: Colour[] = [
     'MIDNIGHT',
@@ -38,7 +37,7 @@ const SettingsDrawer: FC = () => {
 
     // State dispatch
     const [theme, dispatchTheme] = useTheme();
-    const [, dispatchColour] = useColour();
+    const [colour, dispatchColour] = useColour();
     const dark = theme === 'DARK';
 
     const handleOpen = async (url: string): Promise<void> => {
@@ -60,7 +59,12 @@ const SettingsDrawer: FC = () => {
                 <GrowScrollView>
                     <SettingsRow>
                         <BodyFont>Dark Theme</BodyFont>
-                        <Switch value={dark} onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')} />
+                        <Switch
+                            trackColor={{ false: GreyColours.GREY1, true: Gradients[colour].solid }}
+                            thumbColor={GreyColours.GREY0}
+                            value={dark}
+                            onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')}
+                        />
                     </SettingsRow>
                     {/* <TouchableOpacity>
                         <SettingsRow>

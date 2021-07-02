@@ -2,7 +2,7 @@
  * @format
  */
 
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Platform } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
 
@@ -11,6 +11,7 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
+    requestPermissions: Platform.OS === 'ios',
     onRegister: function (token) {
         console.log('TOKEN:', token);
     },
@@ -24,5 +25,13 @@ PushNotification.configure({
         notification.finish(PushNotificationIOS.FetchResult.NoData);
     },
 });
+
+PushNotification.createChannel(
+    {
+        channelId: 'habitual', // (required)
+        channelName: 'Habitual', // (required)
+    },
+    created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+);
 
 AppRegistry.registerComponent(appName, () => App);

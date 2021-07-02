@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { fontFamily } from 'Styles/Fonts';
+import { fontFamily, fontFamilyExtraBold } from 'Styles/Fonts';
 
 interface ProgressInputProps {
     colour: string;
@@ -8,8 +8,7 @@ interface ProgressInputProps {
 export const ProgressText = styled.Text<ProgressInputProps>`
     color: ${props => props.colour};
     text-align: center;
-    font-family: ${fontFamily};
-    font-weight: 800;
+    font-family: ${fontFamilyExtraBold};
     font-size: 20px;
 `;
 

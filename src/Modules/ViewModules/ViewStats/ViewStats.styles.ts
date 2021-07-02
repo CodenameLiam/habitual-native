@@ -21,7 +21,6 @@ export const StatsContentContainer = styled.View`
 export const StatsText = styled.Text`
     font-size: 30px;
     font-family: ${fontFamily};
-    font-weight: 600;
     text-align: center;
     padding-left: 15px;
     color: ${props => props.theme.text};

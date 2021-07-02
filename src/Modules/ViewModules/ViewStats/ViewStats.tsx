@@ -47,14 +47,22 @@ const ViewStats: FC<ViewStatsProps> = ({ colour, habit }) => {
     return (
         <AllStatsContainer>
             <StatsContainer>
-                <Card style={StatsCardLeft} textStyle={{ fontSize: 17, color: theme.text }} title="Current Streak">
+                <Card
+                    style={StatsCardLeft}
+                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    title="Current Streak"
+                >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
                         <Icon family="fontawesome5" name="fire" colour={theme.text} size={30} />
                         <StatsText>{streak}</StatsText>
                     </StatsContentContainer>
                 </Card>
-                <Card style={StatsCard} textStyle={{ fontSize: 17, color: theme.text }} title="Highest Streak">
+                <Card
+                    style={StatsCard}
+                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    title="Highest Streak"
+                >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
                         <Icon family="fontawesome5" name="crown" colour={theme.text} size={30} />
@@ -63,14 +71,22 @@ const ViewStats: FC<ViewStatsProps> = ({ colour, habit }) => {
                 </Card>
             </StatsContainer>
             <StatsContainer>
-                <Card style={StatsCardLeft} textStyle={{ fontSize: 17, color: theme.text }} title="Total Completed">
+                <Card
+                    style={StatsCardLeft}
+                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    title="Total Completed"
+                >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
                         <Icon family="fontawesome5" name="check" colour={theme.text} size={30} />
                         <StatsText>{completed}</StatsText>
                     </StatsContentContainer>
                 </Card>
-                <Card style={StatsCard} textStyle={{ fontSize: 17, color: theme.text }} title="Completion Rate">
+                <Card
+                    style={StatsCard}
+                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    title="Completion Rate"
+                >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
                         <Icon family="fontawesome5" name="percentage" colour={theme.text} size={30} />

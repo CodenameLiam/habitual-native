@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native';
+import { fontFamily } from 'Styles/Fonts';
 
 export const ArrowContainer = styled.View`
     justify-content: space-between;
@@ -8,8 +9,7 @@ export const ArrowContainer = styled.View`
 `;
 
 export const ArrowTitle = styled.Text`
-    font-family: 'Montserrat';
-    font-weight: 600;
+    font-family: ${fontFamily};
     font-size: 18px;
     padding: 25px 0px;
     text-align: center;

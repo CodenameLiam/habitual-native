@@ -2,6 +2,7 @@ import styled from '@emotion/native';
 import { Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GreyColours } from 'Styles/Colours';
+import { fontFamilyBold } from 'Styles/Fonts';
 
 const scheduleDimensions = Dimensions.get('screen').width / 10 + 'px';
 
@@ -29,7 +30,7 @@ interface ScheduleTextProps {
 }
 
 export const ScheduleText = styled.Text<ScheduleTextProps>`
-    font-family: 'Montserrat-Bold';
+    font-family: ${fontFamilyBold};
     font-size: 16px;
     color: ${props => (props.grey ? GreyColours.GREY2 : '#ffffff')};
 `;

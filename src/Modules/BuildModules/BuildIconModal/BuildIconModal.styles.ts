@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { fontFamilyBold } from 'Styles/Fonts';
 
 export const IconGroupContainer = styled.View`
     width: 100%;
@@ -16,7 +17,7 @@ export const Label = styled.Text`
     background-color: ${props => props.theme.background};
     color: ${props => props.theme.text};
     font-size: 16px;
-    font-family: 'Montserrat-Bold';
+    font-family: ${fontFamilyBold};
     overflow: hidden;
 `;
 

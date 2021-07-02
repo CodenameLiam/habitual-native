@@ -13,7 +13,7 @@ const zeroPad = (num: number): string => {
 export const getReminderHoursItems = (colour: string): JSX.Element[] => {
     const items = [];
     for (let i = 1; i <= MAX_HOURS; i++) {
-        items.push(<Picker.Item key={i} value={i} label={String(i)} color={colour} />);
+        items.push(<Picker.Item key={i} value={i} label={String(i) ?? ''} color={colour} />);
     }
     return items;
 };
@@ -21,7 +21,7 @@ export const getReminderHoursItems = (colour: string): JSX.Element[] => {
 export const getReminderMinutesItems = (colour: string): JSX.Element[] => {
     const items = [];
     for (let i = 0; i <= MAX_MINUTES; i++) {
-        items.push(<Picker.Item key={i} value={i} label={zeroPad(i)} color={colour} />);
+        items.push(<Picker.Item key={i} value={i} label={zeroPad(i) ?? ''} color={colour} />);
     }
     return items;
 };

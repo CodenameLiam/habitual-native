@@ -1,7 +1,7 @@
 import styled from '@emotion/native';
 import { Dimensions } from 'react-native';
 import TextTicker from 'react-native-text-ticker';
-import { fontFamily } from 'Styles/Fonts';
+import { fontFamily, fontFamilyBold } from 'Styles/Fonts';
 
 // ------------------------------------------------------------------------------------
 // Cells
@@ -16,8 +16,7 @@ export const WeekDayContainer = styled.View`
 
 export const WeekDayText = styled.Text`
     color: ${props => props.theme.text};
-    font-family: ${fontFamily};
-    font-weight: 800;
+    font-family: ${fontFamilyBold};
 `;
 
 interface WeekCellProps {
@@ -56,5 +55,4 @@ export const WeekHabitButton = styled.TouchableOpacity`
 export const WeekHabitText = styled(TextTicker)<WeekCellProps>`
     color: ${props => props.colour};
     font-family: ${fontFamily};
-    font-weight: 600;
 `;
