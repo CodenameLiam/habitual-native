@@ -7,18 +7,12 @@ import {
     TrendAverageWeekText,
 } from 'Components/TrendButton/TrendButton.styles';
 import TrendChart from 'Components/TrendChart/TrendChart';
-import { AppContext, useHabits } from 'Context/AppContext';
-import { getSortedDates } from 'Helpers/Habits';
+import { useHabits } from 'Context/AppContext';
 import ViewStats from 'Modules/ViewModules/ViewStats/ViewStats';
 import { StatsBar } from 'Modules/ViewModules/ViewStats/ViewStats.styles';
 import moment from 'moment';
 import { StatsNavProps, StatsRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
-// import { IndividualTrendNavProps, IndividualTrendRouteProps } from 'Navigation/Params';
-import React, { useContext, useMemo } from 'react';
-import { View } from 'react-native';
-// import { getMarkedDates, sortDates, today } from 'Screens/View/Modules/CalendarModule';
-// import StatsModule from 'Screens/View/Modules/StatsModule';
-// import { StatsBar } from 'Screens/View/Modules/StatsModule.style';
+import React, { useMemo } from 'react';
 import { Gradients } from 'Styles/Colours';
 import { Colour } from 'Types/Colour.types';
 import { getChartStats, getChartString, trendMessages } from './StatsScreen.functions';

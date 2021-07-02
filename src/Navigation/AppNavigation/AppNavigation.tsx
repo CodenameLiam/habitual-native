@@ -22,6 +22,8 @@ import StatsScreen from 'Screens/Stats/StatsScreen';
 import TrendHeader from 'Components/Headers/TrendHeader';
 import { useOnboarded } from 'Context/AppContext';
 import Onboarding from 'Screens/Onboarding/Onboarding';
+import ManageScreen from 'Screens/Manage/ManageScreen';
+import ManageHeader from 'Components/Headers/ManageHeader';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -90,6 +92,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 name="Stats"
                 component={StatsScreen}
                 options={({ navigation, route }) => TrendHeader({ colour, navigation, route })}
+            />
+            <Stack.Screen
+                name="Manage"
+                component={ManageScreen}
+                options={({ navigation }) => ManageHeader({ colour, navigation })}
             />
             <Stack.Screen name="Onboarding" options={{ headerShown: false }} component={Onboarding} />
         </Stack.Navigator>

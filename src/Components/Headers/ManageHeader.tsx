@@ -1,25 +1,25 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
 import BackIcon from 'Components/HeaderIcons/BackIcon';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { ManageNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 import { View } from 'react-native';
-import { IdeaNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-interface IdeasHeaderProps {
+interface ManageHeaderProps {
     colour: string;
-    navigation: IdeaNavProps;
+    navigation: ManageNavProps;
 }
 
-const handleBack = (navigation: IdeaNavProps): void => {
+const handleBack = (navigation: ManageNavProps): void => {
     navigation.goBack();
     ReactNativeHapticFeedback.trigger('impactLight');
 };
 
-const IdeasHeader = ({ colour, navigation }: IdeasHeaderProps): StackNavigationOptions => ({
+const ManageHeader = ({ colour, navigation }: ManageHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <View></View>,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
     headerStyle: { height: 60 },
-    headerTitle: 'Habit Ideas',
+    headerTitle: 'Manage Habits',
 });
 
-export default IdeasHeader;
+export default ManageHeader;

@@ -15,6 +15,10 @@ import { Colour } from 'Types/Colour.types';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import Icon from 'Components/Icon';
 import { Gradients, GreyColours } from 'Styles/Colours';
+import { useNavigation } from '@react-navigation/native';
+import { SettingsNavProps } from 'Navigation/RootNavigation/RootNavigation.params';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 
 const CustomColourOrder: Colour[] = [
     'MIDNIGHT',
@@ -31,7 +35,11 @@ const CustomColourOrder: Colour[] = [
     'BLUE',
 ];
 
-const SettingsDrawer: FC = () => {
+interface SettingsDrawerProps {
+    navigation: DrawerNavigationHelpers;
+}
+
+const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
     // Current theme
     const emotion = useEmotion();
 
@@ -47,6 +55,11 @@ const SettingsDrawer: FC = () => {
         } else {
             console.error("Don't know how to open URI: " + url);
         }
+    };
+
+    const handleManage = (): void => {
+        ReactNativeHapticFeedback.trigger('impactLight');
+        navigation.navigate('App', { screen: 'Manage' });
     };
 
     return (
@@ -66,12 +79,12 @@ const SettingsDrawer: FC = () => {
                             onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')}
                         />
                     </SettingsRow>
-                    {/* <TouchableOpacity>
+                    <TouchableOpacity onPress={handleManage}>
                         <SettingsRow>
                             <BodyFont>Manage Habits</BodyFont>
                             <Icon family="fontawesome" name="cog" size={24} colour={emotion.text} />
                         </SettingsRow>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                     <SettingsCard title="Favourite Colour" textStyle={{ color: emotion.text, fontSize: 18 }}>
                         <ColourPicker
                             updateGradient={gradient => dispatchColour(gradient)}

@@ -10,7 +10,7 @@ const RootNavigation: FC = () => {
     return (
         <Drawer.Navigator
             screenOptions={{ drawerType: 'slide', overlayColor: 'none', headerShown: false }}
-            drawerContent={() => <SettingsDrawer />}
+            drawerContent={({ navigation }) => <SettingsDrawer navigation={navigation} />}
         >
             <Drawer.Screen name="App" component={AppNavigation} />
         </Drawer.Navigator>
