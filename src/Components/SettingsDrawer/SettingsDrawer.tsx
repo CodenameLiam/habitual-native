@@ -14,6 +14,7 @@ import {
 import { Colour } from 'Types/Colour.types';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import Icon from 'Components/Icon';
+import { Gradients, GreyColours } from 'Styles/Colours';
 
 const CustomColourOrder: Colour[] = [
     'MIDNIGHT',
@@ -36,7 +37,7 @@ const SettingsDrawer: FC = () => {
 
     // State dispatch
     const [theme, dispatchTheme] = useTheme();
-    const [, dispatchColour] = useColour();
+    const [colour, dispatchColour] = useColour();
     const dark = theme === 'DARK';
 
     const handleOpen = async (url: string): Promise<void> => {
@@ -58,7 +59,12 @@ const SettingsDrawer: FC = () => {
                 <GrowScrollView>
                     <SettingsRow>
                         <BodyFont>Dark Theme</BodyFont>
-                        <Switch value={dark} onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')} />
+                        <Switch
+                            trackColor={{ false: GreyColours.GREY1, true: Gradients[colour].solid }}
+                            thumbColor={GreyColours.GREY0}
+                            value={dark}
+                            onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')}
+                        />
                     </SettingsRow>
                     {/* <TouchableOpacity>
                         <SettingsRow>

@@ -20,7 +20,7 @@ export const SettingsDrawerShadow = styled.View`
 `;
 
 export const SettingsHeader = styled.View`
-    padding: 10px;
+    padding: 15px;
     padding-bottom: 0px;
 `;
 
