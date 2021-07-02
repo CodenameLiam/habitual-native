@@ -3,8 +3,12 @@ import { Animated, TouchableOpacity } from 'react-native';
 import TextTicker from 'react-native-text-ticker';
 import { fontFamily } from 'Styles/Fonts';
 
-export const HabitContainer = styled(Animated.View)`
-    background-color: ${props => props.theme.card};
+interface HabitProps {
+    colour?: string;
+}
+
+export const HabitContainer = styled(Animated.View)<HabitProps>`
+    background-color: ${props => props.colour ?? props.theme.card};
     height: 70px;
     border-radius: 10px;
     overflow: hidden;
@@ -44,10 +48,10 @@ export const HabitTextContainer = styled.View`
     flex: 1;
 `;
 
-export const HabitText = styled(TextTicker)`
+export const HabitText = styled(TextTicker)<HabitProps>`
     font-family: ${fontFamily};
     font-size: 18px;
-    color: ${props => props.theme.text};
+    color: ${props => props.colour ?? props.theme.text};
 `;
 
 export const RightAction = styled(TouchableOpacity)`
@@ -76,7 +80,7 @@ export const HabitProgressButton = css`
     align-items: center;
 `;
 
-export const HabitProgressText = styled.Text`
+export const HabitProgressText = styled.Text<HabitProps>`
     font-family: ${fontFamily};
-    color: ${props => props.theme.text};
+    color: ${props => props.colour ?? props.theme.text};
 `;

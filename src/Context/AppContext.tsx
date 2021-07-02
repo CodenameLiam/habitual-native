@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@emotion/react';
 import useStorage, { DEFAULT_COLOUR, DEFAULT_HABITS, DEFAULT_ONBOARDED, DEFAULT_THEME } from 'Hooks/useStorage';
-import React, { createContext, Dispatch, FC, useContext, useEffect } from 'react';
+import React, { createContext, Dispatch, FC, useContext, useEffect, Fragment } from 'react';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { DarkTheme, LightTheme, NavDarkTheme, NavLightTheme } from 'Styles/Themes';
@@ -47,6 +47,8 @@ export const AppContextProvider: FC = ({ children }) => {
         }
     }, [loading]);
 
+    if (loading) return <Fragment></Fragment>;
+
     return (
         <AppContext.Provider
             value={{
@@ -57,7 +59,7 @@ export const AppContextProvider: FC = ({ children }) => {
             }}
         >
             <ThemeProvider theme={dark ? DarkTheme : LightTheme}>
-                <StatusBar barStyle={dark ? 'light-content' : 'dark-content'} />
+                <StatusBar barStyle={dark || !onboarded ? 'light-content' : 'dark-content'} />
                 <NavigationContainer theme={dark ? NavDarkTheme : NavLightTheme}>{children}</NavigationContainer>
             </ThemeProvider>
         </AppContext.Provider>

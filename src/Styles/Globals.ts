@@ -4,6 +4,12 @@ export const Full = css`
     flex: 1;
 `;
 
+export const FullCenter = css`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+`;
+
 export const Padding = css`
     padding: 10px;
 `;

@@ -1,4 +1,5 @@
 import { ColourButtonGroup } from 'Components/ColourButtonGroup/ColourButtonGroup';
+import EmptyPrompt from 'Components/EmptyPrompt/EmptyPrompt';
 import { AppContext, useColour, useHabits } from 'Context/AppContext';
 import CalendarMonth from 'Modules/CalendarModules/CalendarMonth/CalendarMonth';
 import CalendarWeek from 'Modules/CalendarModules/CalendarWeek/CalendarWeek';

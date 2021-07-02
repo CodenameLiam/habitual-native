@@ -35,6 +35,7 @@ export type AppParamList = {
     Ideas: undefined;
     Stats: StatsRoute;
     Category: CategoryRoute;
+    Onboarding: undefined;
 };
 
 // App Navigation Types
@@ -48,3 +49,4 @@ export type BuildNavProps = StackNavigationProp<AppParamList, 'Build'>;
 export type BuildRouteProps = RouteProp<AppParamList, 'Build'>;
 export type CategoryNavProps = StackNavigationProp<AppParamList, 'Category'>;
 export type CategoryRouteProps = RouteProp<AppParamList, 'Category'>;
+export type OnboardingNavProps = StackNavigationProp<AppParamList, 'Onboarding'>;

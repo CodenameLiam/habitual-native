@@ -20,6 +20,8 @@ import { Categories } from 'Components/Category/Category.constants';
 import CategoryHeader from 'Components/Headers/CategoryHeader';
 import StatsScreen from 'Screens/Stats/StatsScreen';
 import TrendHeader from 'Components/Headers/TrendHeader';
+import { useOnboarded } from 'Context/AppContext';
+import Onboarding from 'Screens/Onboarding/Onboarding';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -36,6 +38,9 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
     const isDrawerOpen = useDrawerStatus();
     const active = isDrawerOpen === 'open';
 
+    // Onboarding
+    const [onboarded] = useOnboarded();
+
     const handleSettings = (): void => {
         navigation.toggleDrawer();
         ReactNativeHapticFeedback.trigger('impactLight');
@@ -44,7 +49,6 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
     return (
         <Stack.Navigator
             mode="modal"
-            initialRouteName="Tabs"
             screenOptions={{
                 gestureEnabled: true,
                 cardOverlayEnabled: true,
@@ -53,6 +57,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 headerTitleAlign: 'center',
                 ...TransitionPresets.ModalPresentationIOS,
             }}
+            initialRouteName={onboarded ? 'Tabs' : 'Onboarding'}
         >
             <Stack.Screen
                 name="Tabs"
@@ -86,6 +91,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 component={StatsScreen}
                 options={({ navigation, route }) => TrendHeader({ colour, navigation, route })}
             />
+            <Stack.Screen name="Onboarding" options={{ headerShown: false }} component={Onboarding} />
         </Stack.Navigator>
     );
 };

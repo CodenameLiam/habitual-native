@@ -13,6 +13,7 @@ export const BodyFont = styled.Text`
     font-family: ${fontFamily};
     font-size: 18px;
     color: ${props => props.theme.text};
+    text-align: center;
 `;
 
 export const GraphFont = styled.Text`

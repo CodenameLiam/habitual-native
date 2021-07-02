@@ -51,7 +51,9 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 ))}
             </CircleDatesContainer>
 
-            {emptyHabits(todaysHabits) ? (
+            {Object.keys(habits).length <= 0 ? (
+                <EmptyPrompt text="Add your first habit by pressing the plus button above" />
+            ) : emptyHabits(todaysHabits) ? (
                 <EmptyPrompt text="No habits have been added for today" />
             ) : (
                 <GrowScrollView contentContainerStyle={Padding}>

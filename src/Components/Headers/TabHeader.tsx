@@ -1,4 +1,4 @@
-import { StackNavigationOptions } from '@react-navigation/stack';
+import { StackNavigationOptions, TransitionPresets } from '@react-navigation/stack';
 import Icon from 'Components/Icon';
 import SettingsDrawerIcon from 'Components/SettingsDrawer/SettingsDrawerIcon';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
@@ -31,6 +31,7 @@ const TabHeader = ({ active, colour, navigation, handleSettings }: TabHeaderProp
             <Icon family="entypo" name="plus" size={38} colour={colour} />
         </TouchableOpacity>
     ),
+    ...TransitionPresets.ModalSlideFromBottomIOS,
 });
 
 export default TabHeader;
