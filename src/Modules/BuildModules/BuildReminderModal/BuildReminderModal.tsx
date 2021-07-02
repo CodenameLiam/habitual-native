@@ -80,7 +80,6 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
     };
 
     const handleConfirmEditReminder = (): void => {
-        console.log('Confirm edit');
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         editIndex !== undefined && dispatchBuild(buildActions.editReminder(editIndex, { hour, minute, time }));
         setEditIndex(undefined);
