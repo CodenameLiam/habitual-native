@@ -1,9 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
 import moment from 'moment';
-import React, { Fragment, useMemo } from 'react';
-import { Dimensions, Text } from 'react-native';
-import Svg, { Line } from 'react-native-svg';
+import React, { useMemo } from 'react';
 import { getChartString } from 'Screens/Stats/StatsScreen.functions';
 import { HabitType } from 'Types/Habit.types';
 import { getAlignment, getHeight } from './TrendChart.functions';
