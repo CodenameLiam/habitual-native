@@ -25,46 +25,6 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ navigation }) => {
     const [range, setRange] = useState<rangeType>('Weekly');
     const buttonFunctions = useMemo(() => rangeMap.map(range => () => setRange(range)), []);
 
-    // console.log('Calendar');
-
-    // const renderRange = (): React.ReactNode => {
-    //     switch (range) {
-    //         case 'Weekly':
-    //             return (
-    //                 <WeekModule
-    //                     weekIndex={weekIndex}
-    //                     setWeekIndex={setWeekIndex}
-    //                     navigation={navigation}
-    //                     habits={habits}
-    //                     updateHabit={updateHabit}
-    //                     colour={Gradients[colour].solid}
-    //                 />
-    //             );
-    //         case 'Monthly':
-    //             return (
-    //                 <MonthModule
-    //                     monthIndex={monthIndex}
-    //                     setMonthIndex={setMonthIndex}
-    //                     navigation={navigation}
-    //                     habits={habits}
-    //                     colour={Gradients[colour].solid}
-    //                 />
-    //             );
-    //         case 'Yearly':
-    //             return (
-    //                 <YearModule
-    //                     yearIndex={yearIndex}
-    //                     setYearIndex={setYearIndex}
-    //                     navigation={navigation}
-    //                     habits={habits}
-    //                     colour={Gradients[colour].solid}
-    //                 />
-    //             );
-    //         default:
-    //             return undefined;
-    //     }
-    // };
-
     return (
         <Fragment>
             <CalendarButtonGroupContainer>
