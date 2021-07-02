@@ -66,7 +66,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
         dispatchBuild(buildActions.deleteReminder(index));
         editIndex !== undefined && setShowTimePicker(false);
         setEditIndex(undefined);
-        ReactNativeHapticFeedback.trigger('notificationError');
+        ReactNativeHapticFeedback.trigger('impactMedium');
     };
 
     const handleEditReminder = (index: number, reminder: HabitReminder): void => {
@@ -106,7 +106,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                                 <BodyFont>{reminderString}</BodyFont>
                                 <TouchableOpacity
                                     onPress={() => handleDeleteReminder(index)}
-                                    hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
+                                    hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
                                 >
                                     <Icon family="feather" name="trash-2" size={24} colour={theme.text} />
                                 </TouchableOpacity>

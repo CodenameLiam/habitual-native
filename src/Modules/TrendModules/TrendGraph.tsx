@@ -146,6 +146,7 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
                         clipPath: 'url(#clip-path-1)',
                         fill: 'url(#background-gradient)',
                     }}
+                    gridMin={0}
                 >
                     <GraphBackgroundGradient gradient={gradient} theme={theme.background} />
                     <GraphLineGradient gradient={gradient} />

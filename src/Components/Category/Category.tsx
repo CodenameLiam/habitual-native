@@ -1,11 +1,12 @@
 import { useTheme } from '@emotion/react';
 import { IdeaNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradients } from 'Styles/Colours';
 import { CategoryObject } from './Category.constants';
-import { CategoryButton, CategoryIcon, CategorySubText, CategoryText } from './Category.styles';
+import { CategoryButton, CategoryIcon, CategoryText } from './Category.styles';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 interface CategoryProps {
     category: CategoryObject;
@@ -18,8 +19,13 @@ const Category: React.FC<CategoryProps> = ({ navigation, category }) => {
     const { id, name, colour, icon } = category;
     const solid = Gradients[colour].solid;
 
+    const handlePress = (): void => {
+        navigation.navigate('Category', { category: id });
+        ReactNativeHapticFeedback.trigger('impactLight');
+    };
+
     return (
-        <CategoryButton colour={solid} onPress={() => navigation.navigate('Category', { category: id })}>
+        <CategoryButton colour={solid} onPress={handlePress}>
             <LinearGradient
                 style={StyleSheet.absoluteFill}
                 start={{ x: 0, y: 0 }}
