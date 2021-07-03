@@ -7,7 +7,7 @@ export const fontFamily = 'Montserrat-SemiBold';
 export const headerFont = css`
     font-family: ${fontFamilyBold};
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
 `;
 
 export const BodyFont = styled.Text`
