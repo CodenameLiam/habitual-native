@@ -51,7 +51,7 @@ const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => 
                 onTitlePress={() => setYearIndex(0)}
                 rightDisabled={yearIndex === 0}
             />
-            <GrowScrollView>
+            <GrowScrollView style={{ paddingTop: 2 }}>
                 {yearHabits.map((habit, index) => {
                     const colour = Gradients[habit.colour].solid;
                     return (
