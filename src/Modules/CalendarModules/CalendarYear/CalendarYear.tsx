@@ -11,12 +11,12 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Gradients } from 'Styles/Colours';
 import { Full, MarginBottom, MarginRight, RowCenter } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
-import { Habits } from 'Types/Habit.types';
+import { HabitObject } from 'Types/Habit.types';
 import { useDebouncedCallback } from 'use-debounce/lib';
 import { YearHabitText } from './CalendarYear.styles';
 
 interface CalendarYearProps {
-    habits: Habits;
+    habits: HabitObject[];
     colour: string;
     navigation: TabNavProps;
 }
@@ -24,7 +24,7 @@ interface CalendarYearProps {
 const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => {
     // Debounce progress to improve perceived performance
     const [yearHabits, setYearHabits] = useState(habits);
-    const updateStatHabit = useDebouncedCallback((habits: Habits) => setYearHabits(habits), 500);
+    const updateStatHabit = useDebouncedCallback((habits: HabitObject[]) => setYearHabits(habits), 500);
     useEffect(() => {
         updateStatHabit(habits);
     }, [habits, updateStatHabit]);
@@ -52,7 +52,7 @@ const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => 
                 rightDisabled={yearIndex === 0}
             />
             <GrowScrollView>
-                {Object.values(yearHabits).map((habit, index) => {
+                {yearHabits.map((habit, index) => {
                     const colour = Gradients[habit.colour].solid;
                     return (
                         <TouchableWithoutFeedback

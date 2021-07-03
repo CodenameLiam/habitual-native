@@ -57,6 +57,16 @@ interface ProgressAction {
     feedback?: boolean;
 }
 
+export interface OrderArray {
+    id: string;
+    order: number;
+}
+
+interface OrderAction {
+    type: 'ORDER';
+    payload: OrderArray[];
+}
+
 export type HabitAction =
     | InitAction
     | CreateAction
@@ -65,7 +75,8 @@ export type HabitAction =
     | AddAction
     | SubtractAction
     | ToggleAction
-    | TimeAction;
+    | TimeAction
+    | OrderAction;
 
 // ------------------------------------------------------------------------------------
 // Actions
@@ -125,6 +136,10 @@ export const habitActions = {
         date,
         complete,
         feedback,
+    }),
+    order: (order: OrderArray[]): HabitAction => ({
+        type: 'ORDER',
+        payload: order,
     }),
     delete: (id: string): HabitAction => ({ type: 'DELETE', payload: id }),
 };

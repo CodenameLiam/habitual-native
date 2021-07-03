@@ -16,6 +16,7 @@ export interface HabitObject {
     type: HabitType;
     dates: HabitDates;
     schedule: Schedule;
+    order: number;
     reminders: HabitReminder[];
 }
 

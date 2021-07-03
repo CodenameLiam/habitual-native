@@ -2,18 +2,19 @@ import { useTheme } from '@emotion/react';
 import ArrowControls from 'Components/ArrowControls/ArrowControls';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import { getDateArray } from 'Helpers/Dates';
+import { getSortedHabits } from 'Helpers/Habits';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { Dispatch, FC, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { HabitAction } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { Full } from 'Styles/Globals';
-import { Habits } from 'Types/Habit.types';
+import { HabitObject, Habits } from 'Types/Habit.types';
 import { WeekCell, WeekDayContainer, WeekDayText } from './CalendarWeek.styles';
 import MemoizedCalendarWeekHabit from './CalendarWeekHabit';
 
 interface CalendarWeekProps {
-    habits: Habits;
+    habits: HabitObject[];
     dispatchHabits: Dispatch<HabitAction>;
     colour: string;
     navigation: TabNavProps;
@@ -45,7 +46,7 @@ const CalendarWeek: FC<CalendarWeekProps> = ({ habits, dispatchHabits, colour, n
                 ))}
             </WeekDayContainer>
             <GrowScrollView>
-                {Object.values(habits).map(habit => (
+                {habits.map(habit => (
                     <MemoizedCalendarWeekHabit
                         key={habit.id}
                         habit={habit}

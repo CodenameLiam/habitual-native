@@ -14,14 +14,14 @@ interface ViewHeaderProps {
 }
 
 export const handleBack = (navigation: ViewNavProps): void => {
-    navigation.navigate('Tabs');
+    navigation.goBack();
     ReactNativeHapticFeedback.trigger('impactLight');
 };
 
 export const handleTimeBack = (navigation: ViewNavProps): void => {
     ReactNativeHapticFeedback.trigger('impactLight');
     timeAlert(() => {
-        navigation.navigate('Tabs');
+        navigation.goBack();
         BackgroundTimer.stopBackgroundTimer();
     });
 };

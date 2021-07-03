@@ -156,7 +156,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                             <BodyFont>Cancel</BodyFont>
                         </ReminderButton>
                         <ReminderButton
-                            colour={Gradients.GREEN.solid}
+                            colour={Gradients.GREEN.start}
                             onPress={() =>
                                 editIndex !== undefined ? handleConfirmEditReminder() : handleAddReminder()
                             }

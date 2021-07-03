@@ -35,6 +35,7 @@ export const WEEKEND_SCHEDULE: Schedule = {
 
 export const DEFAULT_HABIT: HabitObject = {
     id: v4(),
+    order: 0,
     name: '',
     icon: { family: 'fontawesome5', name: 'icons' },
     colour: getRandomColour(),

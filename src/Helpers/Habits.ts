@@ -7,6 +7,11 @@ import { getDateArray, today } from './Dates';
 // ------------------------------------------------------------------------------------------------
 // Basic
 // ------------------------------------------------------------------------------------------------
+// Returns an array of sorted habits
+export const getSortedHabits = (habits: Habits): HabitObject[] => {
+    return Object.values(habits).sort((a, b) => a.order - b.order);
+};
+
 // Returns the progress of the habit for a given date
 export const getProgress = (habit: HabitObject, date: string): number => {
     return habit.dates[date]?.progress ?? 0;

@@ -44,6 +44,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Go for a walk',
@@ -55,6 +56,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Eat fruit & vegetables',
@@ -66,6 +68,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Drink water',
@@ -77,6 +80,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Lift weights',
@@ -88,6 +92,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Stretch',
@@ -99,6 +104,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'time',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Walk the dog',
@@ -110,6 +116,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -129,6 +136,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'time',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Clean',
@@ -140,6 +148,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Reflect on my day',
@@ -151,6 +160,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Take a deep breath',
@@ -162,6 +172,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Go outside',
@@ -173,6 +184,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Garden',
@@ -184,6 +196,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Watch the sunset',
@@ -195,6 +208,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -214,6 +228,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'time',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Practice a language',
@@ -225,6 +240,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Practice an instrument',
@@ -236,6 +252,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Read a research paper',
@@ -247,6 +264,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'time',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Sleep early',
@@ -258,6 +276,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Reflect on my day',
@@ -269,6 +288,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -288,6 +308,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Reflect on my day',
@@ -299,6 +320,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Clean',
@@ -310,6 +332,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Do the dishes',
@@ -321,6 +344,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Work towards my goals',
@@ -332,6 +356,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -351,6 +376,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Listen to others',
@@ -362,6 +388,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Encourage others',
@@ -373,6 +400,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Catch up with a friend',
@@ -384,6 +412,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Play a social sport',
@@ -395,6 +424,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Wish someone well',
@@ -406,6 +436,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -425,6 +456,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Drink water',
@@ -436,6 +468,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Reduce snacking',
@@ -447,6 +480,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Eat less meat',
@@ -458,6 +492,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Drink less alcohol',
@@ -469,6 +504,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Reduce salt intake',
@@ -480,6 +516,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -499,6 +536,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Practice painting',
@@ -510,6 +548,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Practice drawing',
@@ -521,6 +560,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Review a movie',
@@ -532,6 +572,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Take a photo',
@@ -543,6 +584,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Film a video',
@@ -554,6 +596,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Write a short story',
@@ -565,6 +608,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -584,6 +628,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Deposit savings',
@@ -595,6 +640,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Reduce spending',
@@ -606,6 +652,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Research investments',
@@ -617,6 +664,19 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
+            },
+            {
+                id: 'Apply for a job',
+                icon: { family: 'materialcommunity', name: 'briefcase' },
+                name: 'Apply for a job',
+                colour: 'SKY',
+                total: 1,
+                schedule: { ...EVERYDAY_SCHEDULE },
+                dates: {},
+                type: 'count',
+                reminders: [],
+                order: 0,
             },
             {
                 id: 'Work towards my goals',
@@ -628,6 +688,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -647,6 +708,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Listen to others',
@@ -658,6 +720,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Encourage others',
@@ -669,6 +732,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Wish someone well',
@@ -680,6 +744,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Show up on time',
@@ -691,6 +756,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },
@@ -710,6 +776,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Watch the sunset',
@@ -721,6 +788,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Wish someone well',
@@ -732,6 +800,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Smile',
@@ -743,6 +812,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
             {
                 id: 'Express gratitude',
@@ -754,6 +824,7 @@ export const Categories: AllCategories = {
                 dates: {},
                 type: 'count',
                 reminders: [],
+                order: 0,
             },
         ],
     },

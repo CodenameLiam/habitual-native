@@ -52,5 +52,7 @@ export const getHomeScreenData = (habits: Habits, dateIndex: number): HomeScreen
         return getHabitsAlpha(dateHabits, date.format('YYYY-MM-DD'));
     });
 
+    todaysHabits = todaysHabits.sort((a, b) => a.order - b.order);
+
     return { todaysHabits, alphaWeekArray };
 };

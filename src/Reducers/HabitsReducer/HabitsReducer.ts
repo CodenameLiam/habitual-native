@@ -4,7 +4,7 @@ import { HABITS_KEY } from 'Hooks/useStorage';
 import { storeData } from 'Controllers/StorageController';
 import produce from 'immer';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { scheduleNotifications } from 'Helpers/Habits';
+import { getSortedHabits, scheduleNotifications } from 'Helpers/Habits';
 import PushNotification from 'react-native-push-notification';
 
 const habitsReducer = produce((state: Habits, action: HabitAction) => {
@@ -13,12 +13,19 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
             state = action.payload;
             break;
         case 'CREATE':
-            state[action.payload.id] = action.payload;
+            if (action.payload.order === 0) {
+                state[action.payload.id] = { ...action.payload, order: Object.keys(state).length + 1 };
+            } else {
+                state[action.payload.id] = action.payload;
+            }
             ReactNativeHapticFeedback.trigger('notificationSuccess');
             scheduleNotifications(state);
             break;
         case 'DELETE':
             delete state[action.payload];
+            getSortedHabits(state).forEach((habit, index) => {
+                state[habit.id].order = index + 1;
+            });
             break;
         case 'TOGGLE':
             state[action.id].dates[action.date] = action.payload;
@@ -43,6 +50,11 @@ const habitsReducer = produce((state: Habits, action: HabitAction) => {
             state[action.id].dates[action.date] = action.payload;
             action.feedback &&
                 ReactNativeHapticFeedback.trigger(action.complete ? 'notificationSuccess' : 'impactMedium');
+            break;
+        case 'ORDER':
+            action.payload.forEach(value => {
+                state[value.id].order = value.order;
+            });
             break;
     }
     storeData(HABITS_KEY, state);

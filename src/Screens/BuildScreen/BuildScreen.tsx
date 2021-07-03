@@ -165,7 +165,12 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                     )}
                 </Card>
             </View>
-            <BuildSave habit={habit} dispatchHabits={dispatchHabits} navigation={navigation} />
+            <BuildSave
+                habit={habit}
+                order={Object.keys(habits).length + 1}
+                dispatchHabits={dispatchHabits}
+                navigation={navigation}
+            />
             <Toast config={ToastConfig} ref={ref => Toast.setRef(ref)} />
             <BuildShadow shadow={shadowRef} />
             <BottomSheet

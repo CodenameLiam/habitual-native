@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { FC, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Full } from 'Styles/Globals';
-import { Habits } from 'Types/Habit.types';
+import { HabitObject, Habits } from 'Types/Habit.types';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import { getDateArray } from 'Helpers/Dates';
@@ -11,7 +11,7 @@ import { AllMonthContainer } from './CalendarMonth.styles';
 import MemoizedCalendarMonthHabit from './CalendarMonthHabit';
 
 interface CalendarMonthProps {
-    habits: Habits;
+    habits: HabitObject[];
     colour: string;
     navigation: TabNavProps;
 }
@@ -34,7 +34,7 @@ const CalendarMonth: FC<CalendarMonthProps> = ({ navigation, habits, colour }) =
 
             <GrowScrollView>
                 <AllMonthContainer>
-                    {Object.values(habits).map(habit => (
+                    {habits.map(habit => (
                         <MemoizedCalendarMonthHabit
                             key={habit.id}
                             habit={habit}
