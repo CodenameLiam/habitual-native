@@ -22,7 +22,7 @@ import {
 } from 'Components/Habit/Habit.styles';
 import Icon from 'Components/Icon';
 import LinearGradient from 'react-native-linear-gradient';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation, useTheme } from '@react-navigation/native';
 import { OnboardingNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { useOnboarded } from 'Context/AppContext';
 
@@ -35,7 +35,7 @@ const Habit: HabitObject = {
     name: 'Go for a walk',
     icon: { family: 'materialcommunity', name: 'walk' },
     total: 1,
-    colour: 'MIDNIGHT',
+    colour: 'TANGERINE',
     type: 'count',
     dates: {},
     schedule: { ...EVERYDAY_SCHEDULE },
@@ -53,7 +53,7 @@ export const Title = styled.Text`
     font-size: 30px;
     margin-bottom: 80px;
     margin-top: 100px;
-    color: ${ThemeColours.dark.text};
+    color: ${props => props.theme.text};
 `;
 
 export const SubTitle = styled(Animated.Text)`
@@ -63,7 +63,7 @@ export const SubTitle = styled(Animated.Text)`
     text-align: center;
     height: 80px;
     padding: 0px 10px;
-    color: ${ThemeColours.dark.text};
+    color: ${props => props.theme.text};
 `;
 
 export const GetStarted = styled(Animated.View)`
@@ -80,10 +80,11 @@ export const GetStartedText = styled.Text`
     font-family: ${fontFamily};
     font-size: 20px;
     text-align: center;
-    color: ${ThemeColours.dark.text};
+    color: ${props => props.theme.text};
 `;
 
 const OnboardingHabit: FC = () => {
+    const theme = useTheme();
     const navigation = useNavigation<OnboardingNavProps>();
     const [, dispatchOnboarded] = useOnboarded();
 
@@ -251,14 +252,14 @@ const OnboardingHabit: FC = () => {
                     onGestureEvent={handleGesture}
                     onHandlerStateChange={handleGestureChange}
                 >
-                    <HabitContainer colour={ThemeColours.dark.card}>
+                    <HabitContainer>
                         <HabitContentContainer>
                             <HabitIconContainer>
                                 <Icon
                                     family={habit.icon.family}
                                     name={habit.icon.name}
                                     size={18}
-                                    colour={ThemeColours.dark.text}
+                                    colour={theme.colors.text}
                                     style={HabitIcon}
                                 />
                                 <HabitColourContainer
@@ -277,7 +278,6 @@ const OnboardingHabit: FC = () => {
                             <HabitTextContainer>
                                 <HabitText
                                     disabled={true}
-                                    colour={ThemeColours.dark.text}
                                     scroll={false}
                                     animationType="bounce"
                                     duration={3000}
@@ -291,13 +291,13 @@ const OnboardingHabit: FC = () => {
                         </HabitContentContainer>
                         <TouchableOpacity onPress={handlePress} style={HabitProgressButton} disabled={stage === 'drag'}>
                             {progress >= habit.total ? (
-                                <Icon family="entypo" name="check" size={20} colour={ThemeColours.dark.text} />
+                                <Icon family="entypo" name="check" size={20} colour={theme.colors.text} />
                             ) : progress > 0 ? (
-                                <HabitProgressText colour={ThemeColours.dark.text}>
+                                <HabitProgressText>
                                     {progress}/{habit.total}
                                 </HabitProgressText>
                             ) : (
-                                <Icon family="fontawesome" name="circle-o" size={12} colour={ThemeColours.dark.text} />
+                                <Icon family="fontawesome" name="circle-o" size={12} colour={theme.colors.text} />
                             )}
                         </TouchableOpacity>
                     </HabitContainer>

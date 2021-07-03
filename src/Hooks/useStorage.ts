@@ -18,7 +18,7 @@ export const DATES_KEY = '@Dates';
 export const ONBOARDED_KEY = '@Onboarded';
 
 /* Default local storage values */
-export const DEFAULT_THEME: Theme = 'DARK';
+export const DEFAULT_THEME: Theme = 'LIGHT';
 export const DEFAULT_COLOUR: Colour = 'GREEN';
 export const DEFAULT_HABITS: Habits = {};
 export const DEFAULT_ONBOARDED: boolean = false;

@@ -9,6 +9,8 @@ import { useOnboarded } from 'Context/AppContext';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from '@emotion/native';
 import { Platform } from 'react-native';
+import { Theme, useTheme } from '@emotion/react';
+import OnboardingTheme from './OnboardingTheme';
 
 const OnboardingImage = styled.Image`
     height: 300px;
@@ -16,7 +18,7 @@ const OnboardingImage = styled.Image`
     border-radius: 15px;
 `;
 
-const data: PaperOnboardingItemType[] = [
+const data = (theme: Theme): PaperOnboardingItemType[] => [
     {
         title: 'Be the best you.',
         description:
@@ -42,13 +44,20 @@ const data: PaperOnboardingItemType[] = [
         image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Accountable.png')} />,
     },
     {
+        content: OnboardingTheme,
+        backgroundColor: theme.background,
+        showCloseButton: true,
+    },
+    {
         content: OnboardingHabit,
-        backgroundColor: ThemeColours.dark.background,
+        backgroundColor: theme.background,
         showCloseButton: true,
     },
 ];
 
 const Onboarding: FC = () => {
+    // Current theme
+    const theme = useTheme();
     const navigation = useNavigation<OnboardingNavProps>();
     const [, dispatchOnboarded] = useOnboarded();
 
@@ -60,7 +69,7 @@ const Onboarding: FC = () => {
 
     return (
         <PaperOnboarding
-            data={data}
+            data={data(theme)}
             onCloseButtonPress={handleOnClosePress}
             indicatorSize={20}
             // indicatorBorderColor={ThemeColours.dark.card}

@@ -1,22 +1,15 @@
 import { useTheme } from '@emotion/react';
 import { GrowContainer, GrowScrollContent, GrowShadow } from 'Components/GrowScrollView/GrowScrollView.styles';
-import {
-    HabitContainer,
-    HabitIcon,
-    HabitIconContainer,
-    HabitText,
-    HabitTextContainer,
-} from 'Components/Habit/Habit.styles';
+import { HabitText, HabitTextContainer } from 'Components/Habit/Habit.styles';
 import Icon from 'Components/Icon';
 import { useHabits } from 'Context/AppContext';
 import { deleteAlert } from 'Helpers/DeleteAlert';
 import { ManageNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, LayoutAnimation } from 'react-native';
+import { LayoutAnimation } from 'react-native';
 import DraggableFlatList, { DragEndParams, RenderItemParams } from 'react-native-draggable-flatlist';
 import { habitActions, OrderArray } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { Gradients } from 'Styles/Colours';
-import { BodyFont } from 'Styles/Fonts';
 import { HabitObject } from 'Types/Habit.types';
 import * as Styles from './ManageScreen.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';

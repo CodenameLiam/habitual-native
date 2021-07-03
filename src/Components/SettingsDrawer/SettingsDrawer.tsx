@@ -15,8 +15,6 @@ import { Colour } from 'Types/Colour.types';
 import GrowScrollView from 'Components/GrowScrollView/GrowScrollView';
 import Icon from 'Components/Icon';
 import { Gradients, GreyColours } from 'Styles/Colours';
-import { useNavigation } from '@react-navigation/native';
-import { SettingsNavProps } from 'Navigation/RootNavigation/RootNavigation.params';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 
