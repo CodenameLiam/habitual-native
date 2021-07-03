@@ -17,6 +17,7 @@ import Icon from 'Components/Icon';
 import { Gradients, GreyColours } from 'Styles/Colours';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
+import Rate from 'react-native-rate';
 
 const CustomColourOrder: Colour[] = [
     'MIDNIGHT',
@@ -90,19 +91,30 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                         />
                     </SettingsCard>
 
-                    <TouchableOpacity onPress={() => handleOpen('https://www.liampercy.com')}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            Rate.rate(
+                                {
+                                    AppleAppID: '2193813192',
+                                    GooglePackageName: 'com.mywebsite.myapp',
+                                    preferInApp: true,
+                                },
+                                success => console.log('App rating was ' + success ? 'successful' : 'unsuccessful'),
+                            )
+                        }
+                    >
                         <SettingsRow>
                             <BodyFont>Rate App</BodyFont>
                             <Icon family="fontawesome" name="star" size={24} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app#features')}>
                         <SettingsRow>
                             <BodyFont>Vote on Features</BodyFont>
                             <Icon family="fontawesome" name="thumbs-up" size={24} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app#support')}>
                         <SettingsRow>
                             <BodyFont>Support</BodyFont>
                             <Icon family="fontawesome" name="support" size={24} colour={emotion.text} />
