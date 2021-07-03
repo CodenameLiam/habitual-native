@@ -37,6 +37,9 @@ import TimeModule from 'Modules/BuildModules/BuildTime/TimeModule';
 import BuildTimeModal from 'Modules/BuildModules/BuildTimeModal/BuildTimeModal';
 import BuildReminderModal from 'Modules/BuildModules/BuildReminderModal/BuildReminderModal';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import PushNotification from 'react-native-push-notification';
+import NotificationSetting from 'react-native-open-notification';
+import { notificationAlert } from 'Helpers/NotificationAlert';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -94,9 +97,15 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                 {/* Reminders */}
                 <TouchableOpacity
                     onPress={() => {
-                        setModal('Reminder');
-                        handleOpen();
                         ReactNativeHapticFeedback.trigger('impactLight');
+                        PushNotification.checkPermissions(permissions => {
+                            if (Object.values(permissions).some(permission => permission === true)) {
+                                setModal('Reminder');
+                                handleOpen();
+                            } else {
+                                notificationAlert(() => NotificationSetting.open());
+                            }
+                        });
                     }}
                 >
                     <CardContainerCircle>
@@ -165,12 +174,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                     )}
                 </Card>
             </View>
-            <BuildSave
-                habit={habit}
-                order={Object.keys(habits).length + 1}
-                dispatchHabits={dispatchHabits}
-                navigation={navigation}
-            />
+            <BuildSave habit={habit} dispatchHabits={dispatchHabits} navigation={navigation} />
             <Toast config={ToastConfig} ref={ref => Toast.setRef(ref)} />
             <BuildShadow shadow={shadowRef} />
             <BottomSheet

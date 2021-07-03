@@ -6348,6 +6348,11 @@ react-native-linear-gradient@^2.5.6:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
   integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
+react-native-open-notification@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-open-notification/-/react-native-open-notification-0.1.4.tgz#20b7c03a1543ce36f3f99ff9924c67eef2688aa9"
+  integrity sha512-TPeFRsao6nDFW5nvBseD6nheRCN1U3poaY90iDzBY1MEEVepClqfEC9Iw0cqj7LYnpDSF8V25fb/SpjEg3HdQQ==
+
 react-native-push-notification@^7.3.2:
   version "7.3.2"
   resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-7.3.2.tgz#9cf64da197646a9bb0822d3d49ac3236e76e8444"
