@@ -20,7 +20,7 @@ export const CategoryButton = styled(TouchableOpacity)<CategoryProps>`
 
 export const CategoryText = styled.Text`
     font-size: 16px;
-    font-family: ${fontFamily};
+    font-family: ${fontFamilyBold};
     color: ${props => props.theme.background};
 `;
 

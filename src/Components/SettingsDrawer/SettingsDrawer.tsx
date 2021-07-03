@@ -70,6 +70,12 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                     <Text style={[headerFont, { color: emotion.text }]}>Settings</Text>
                 </SettingsHeader>
                 <GrowScrollView>
+                    <TouchableOpacity onPress={handleManage}>
+                        <SettingsRow>
+                            <BodyFont>Manage Habits</BodyFont>
+                            <Icon family="fontawesome" name="cog" size={24} colour={emotion.text} />
+                        </SettingsRow>
+                    </TouchableOpacity>
                     <SettingsRow>
                         <BodyFont>Dark Theme</BodyFont>
                         <Switch
@@ -79,18 +85,13 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                             onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')}
                         />
                     </SettingsRow>
-                    <TouchableOpacity onPress={handleManage}>
-                        <SettingsRow>
-                            <BodyFont>Manage Habits</BodyFont>
-                            <Icon family="fontawesome" name="cog" size={24} colour={emotion.text} />
-                        </SettingsRow>
-                    </TouchableOpacity>
                     <SettingsCard title="Favourite Colour" textStyle={{ color: emotion.text, fontSize: 18 }}>
                         <ColourPicker
                             updateGradient={gradient => dispatchColour(gradient)}
                             customOrder={CustomColourOrder}
                         />
                     </SettingsCard>
+
                     <TouchableOpacity onPress={() => handleOpen('https://www.liampercy.com')}>
                         <SettingsRow>
                             <BodyFont>Rate App</BodyFont>
