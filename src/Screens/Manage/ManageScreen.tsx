@@ -75,7 +75,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ navigation }) => {
                     }}
                 >
                     <Styles.ManageButton onPress={() => deleteAlert(() => handleDelete(item.id))}>
-                        <Icon family="feather" name="trash-2" size={20} colour={theme.text} />
+                        <Icon family="feather" name="trash-2" size={24} colour={theme.text} />
                     </Styles.ManageButton>
                     <Styles.CenterContainer
                         onPress={() =>
