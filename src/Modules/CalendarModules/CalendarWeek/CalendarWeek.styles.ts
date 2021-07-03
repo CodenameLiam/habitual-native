@@ -12,6 +12,8 @@ const weekTextContainer = Dimensions.get('screen').width - weekCellContainer * 8
 export const WeekDayContainer = styled.View`
     flex-direction: row;
     margin-left: ${weekTextContainer + 'px'};
+    z-index: 10;
+    margin-top: 20px;
 `;
 
 export const WeekDayText = styled.Text`

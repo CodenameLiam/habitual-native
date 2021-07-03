@@ -40,7 +40,7 @@ const CalendarWeek: FC<CalendarWeekProps> = ({ habits, dispatchHabits, colour, n
             />
             <WeekDayContainer>
                 {dates.map(day => (
-                    <WeekCell key={day.format('l')} disabled={true} colour={theme.card}>
+                    <WeekCell key={day.format('l')} disabled={true} colour={theme.card} style={{ marginBottom: -12.5 }}>
                         <WeekDayText>{day.format('dd')[0]}</WeekDayText>
                     </WeekCell>
                 ))}
