@@ -276,6 +276,7 @@ const OnboardingHabit: FC = () => {
                             </HabitIconContainer>
                             <HabitTextContainer>
                                 <HabitText
+                                    disabled={true}
                                     colour={ThemeColours.dark.text}
                                     scroll={false}
                                     animationType="bounce"

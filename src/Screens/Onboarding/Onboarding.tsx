@@ -8,6 +8,7 @@ import OnboardingHabit from './OnboardingHabit';
 import { useOnboarded } from 'Context/AppContext';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from '@emotion/native';
+import { Platform } from 'react-native';
 
 const OnboardingImage = styled.Image`
     height: 300px;
@@ -67,7 +68,7 @@ const Onboarding: FC = () => {
             safeInsets={{ top: 50, bottom: 50, left: 0, right: 0 }}
             titleStyle={{
                 fontFamily: fontFamily,
-                fontSize: 30,
+                fontSize: Platform.OS === 'ios' ? 30 : 26,
                 fontWeight: '600',
                 marginTop: -50,
                 // color: ThemeColours.dark.card
@@ -75,7 +76,7 @@ const Onboarding: FC = () => {
             descriptionStyle={{
                 fontFamily: fontFamily,
                 fontWeight: '600',
-                fontSize: 18,
+                fontSize: Platform.OS === 'ios' ? 18 : 16,
                 // color: ThemeColours.dark.card,
             }}
             closeButtonText="Skip"
