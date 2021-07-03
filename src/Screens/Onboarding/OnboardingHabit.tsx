@@ -40,6 +40,7 @@ const Habit: HabitObject = {
     dates: {},
     schedule: { ...EVERYDAY_SCHEDULE },
     reminders: [],
+    order: 1,
 };
 
 const gradient = Gradients[Habit.colour];
@@ -50,8 +51,8 @@ const progressInterval = 1;
 export const Title = styled.Text`
     font-family: ${fontFamily};
     font-size: 30px;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 80px;
+    margin-top: 100px;
     color: ${ThemeColours.dark.text};
 `;
 

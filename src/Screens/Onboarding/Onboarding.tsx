@@ -7,6 +7,13 @@ import { fontFamily } from 'Styles/Fonts';
 import OnboardingHabit from './OnboardingHabit';
 import { useOnboarded } from 'Context/AppContext';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import styled from '@emotion/native';
+
+const OnboardingImage = styled.Image`
+    height: 300px;
+    width: 180px;
+    border-radius: 15px;
+`;
 
 const data: PaperOnboardingItemType[] = [
     {
@@ -15,6 +22,7 @@ const data: PaperOnboardingItemType[] = [
             'Habitual helps you to focus on what truly matters. Build the best version of yourself by mastering habits that are important to you.',
         backgroundColor: Gradients.PURPLE.solid,
         showCloseButton: true,
+        image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Best.png')} />,
     },
     {
         title: 'Track your development.',
@@ -22,6 +30,7 @@ const data: PaperOnboardingItemType[] = [
             'View detailed reports as you progress on your habit tracking journey. Challenge yourself to set higher streaks, and work towards achieving your goals.',
         backgroundColor: Gradients.GREEN.start,
         showCloseButton: true,
+        image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Development.png')} />,
     },
     {
         title: 'Stay accountable.',
@@ -29,6 +38,7 @@ const data: PaperOnboardingItemType[] = [
             "Never forget to complete a habit with reminders to nudge yourself in the right direction and keep you motivated. You've got this!",
         backgroundColor: Gradients.TANGERINE.solid,
         showCloseButton: true,
+        image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Accountable.png')} />,
     },
     {
         content: OnboardingHabit,
@@ -59,6 +69,7 @@ const Onboarding: FC = () => {
                 fontFamily: fontFamily,
                 fontSize: 30,
                 fontWeight: '600',
+                marginTop: -50,
                 // color: ThemeColours.dark.card
             }}
             descriptionStyle={{
