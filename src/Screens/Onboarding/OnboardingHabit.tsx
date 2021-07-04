@@ -32,8 +32,8 @@ type Stage = 'count' | 'multiple' | 'drag' | 'complete';
 /* Constants */
 const Habit: HabitObject = {
     id: 'onboard',
-    name: 'Go for a walk',
-    icon: { family: 'materialcommunity', name: 'walk' },
+    name: 'Learn Habitual',
+    icon: { family: 'materialcommunity', name: 'school' },
     total: 1,
     colour: 'TANGERINE',
     type: 'count',
@@ -209,7 +209,7 @@ const OnboardingHabit: FC = () => {
             setTimeout(() => {
                 fadeIn();
                 setStageText(
-                    'You can also complete a habit multiple times in a single day. Try checking off the habit again',
+                    'You can also check off a habit multiple times in a single day. Try checking off the habit again',
                 );
                 setProgress(0);
                 setDragProgress(0);
@@ -231,7 +231,7 @@ const OnboardingHabit: FC = () => {
                     setProgress(0);
                     setDragProgress(0);
                     fadeIn();
-                    setStageText('You can also swipe or drag on a habit to increase progress. Try it now');
+                    setStageText('You can also swipe or drag on a habit to check off progress. Try it now');
                 }, 2000);
             } else {
                 ReactNativeHapticFeedback.trigger('impactMedium');

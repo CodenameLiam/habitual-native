@@ -1,10 +1,10 @@
 import styled from '@emotion/native';
 import { useTheme } from 'Context/AppContext';
 import React, { FC } from 'react';
-import { View, Text, Dimensions, Switch, TouchableOpacity } from 'react-native';
-import { GreyColours, Gradients } from 'Styles/Colours';
+import { View, Dimensions } from 'react-native';
+import { Gradients } from 'Styles/Colours';
 import { fontFamily } from 'Styles/Fonts';
-import { FullCenter, RowBetween, RowCenter } from 'Styles/Globals';
+import { FullCenter, RowBetween } from 'Styles/Globals';
 
 /* Styles */
 export const Title = styled.Text`
@@ -17,10 +17,10 @@ export const Title = styled.Text`
 export const SubTitle = styled.Text`
     font-family: ${fontFamily};
     font-size: 18px;
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
-    height: 80px;
-    padding: 0px 10px;
+    padding: 0px 20px;
+    padding-bottom: 70px;
     color: ${props => props.theme.text};
 `;
 
