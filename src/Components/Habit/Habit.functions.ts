@@ -1,3 +1,4 @@
+import { isTablet } from 'Helpers/Size';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { Dispatch, SetStateAction } from 'react';
 import { Dimensions } from 'react-native';
@@ -18,7 +19,9 @@ export const handleView = (navigation: TabNavProps, habit: HabitObject, dateInde
 // Gestures
 // ------------------------------------------------------------------------------------------------
 export const HabitMaxInterpolation = Dimensions.get('screen').width - 120;
-export const HabitMaxTransformInterpolation = Dimensions.get('screen').width / 20.5;
+export const HabitMaxTransformInterpolation = isTablet()
+    ? Dimensions.get('screen').width / 18
+    : Dimensions.get('screen').width / 20.5;
 
 export const normaliseProgress = (translationX: number, total: number, tempProgress: number): number => {
     const interpolateX = translationX / HabitMaxInterpolation;

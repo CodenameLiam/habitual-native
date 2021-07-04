@@ -1,4 +1,5 @@
 import styled, { css } from '@emotion/native';
+import { isTablet } from 'Helpers/Size';
 import { Animated, TouchableOpacity } from 'react-native';
 import TextTicker from 'react-native-text-ticker';
 import { fontFamily } from 'Styles/Fonts';
@@ -9,7 +10,7 @@ interface HabitProps {
 
 export const HabitContainer = styled(Animated.View)<HabitProps>`
     background-color: ${props => props.colour ?? props.theme.card};
-    height: 70px;
+    height: ${isTablet() ? '100px' : '70px'};
     border-radius: 10px;
     overflow: hidden;
     flex-direction: row;

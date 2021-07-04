@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer, Fragment, FC } from 'react';
-import { TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Dimensions, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { useHabits } from 'Context/AppContext';
 import { useTheme } from '@emotion/react';
 import { buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
@@ -40,6 +40,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import PushNotification from 'react-native-push-notification';
 import NotificationSetting from 'react-native-open-notification';
 import { notificationAlert } from 'Helpers/NotificationAlert';
+import { isTablet } from 'Helpers/Size';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -115,7 +116,10 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
             </View>
             {/* Colour */}
             <Card title="Colour">
-                <ColourPicker updateGradient={gradient => dispatchBuild(buildActions.colour(gradient))} />
+                <ColourPicker
+                    updateGradient={gradient => dispatchBuild(buildActions.colour(gradient))}
+                    size={isTablet() ? Dimensions.get('screen').width / 16 + 'px' : undefined}
+                />
             </Card>
             {/* Schedule */}
             <Card title="Schedule">

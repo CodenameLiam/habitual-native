@@ -2,7 +2,7 @@ import ColourPicker from 'Components/ColourPicker/ColourPicker';
 import { useColour, useTheme } from 'Context/AppContext';
 import { useTheme as useEmotion } from '@emotion/react';
 import React, { FC } from 'react';
-import { Linking, SafeAreaView, Switch, Text, TouchableOpacity } from 'react-native';
+import { Dimensions, Linking, SafeAreaView, Switch, Text, TouchableOpacity } from 'react-native';
 import { BodyFont, headerFont } from 'Styles/Fonts';
 import {
     SettingsCard,
@@ -18,6 +18,7 @@ import { Gradients, GreyColours } from 'Styles/Colours';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 import Rate from 'react-native-rate';
+import { isTablet } from 'Helpers/Size';
 
 const CustomColourOrder: Colour[] = [
     'MIDNIGHT',
@@ -88,6 +89,7 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                         <ColourPicker
                             updateGradient={gradient => dispatchColour(gradient)}
                             customOrder={CustomColourOrder}
+                            size={isTablet() ? Dimensions.get('screen').width / 13 + 'px' : undefined}
                         />
                     </SettingsCard>
 

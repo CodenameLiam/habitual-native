@@ -1,3 +1,4 @@
+import { isTablet } from 'Helpers/Size';
 import { Moment } from 'moment';
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { View, Dimensions, Animated, Easing } from 'react-native';
@@ -11,7 +12,7 @@ import { CircleActiveDot, CircleButton, DayNumber, DayText } from './CircleDate.
 // Constants
 const circleDimensions = Dimensions.get('screen').width / 9;
 const cXcY = circleDimensions / 2;
-const radius = circleDimensions / 2 - 2;
+const radius = circleDimensions / 2 - (isTablet() ? 5 : 2);
 const circumference = radius * 2 * Math.PI;
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -51,7 +52,13 @@ const CircleDate: FC<CircleDateProps> = ({ active, alpha, colour, date, handlePr
             <DayText active={active}>{date.format('ddd').toUpperCase()}</DayText>
             <View style={Absolute}>
                 <Svg width={circleDimensions} height={circleDimensions}>
-                    <Circle stroke={circleColour + '50'} cx={cXcY} cy={cXcY} r={radius} strokeWidth={3} />
+                    <Circle
+                        stroke={circleColour + '50'}
+                        cx={cXcY}
+                        cy={cXcY}
+                        r={radius}
+                        strokeWidth={isTablet() ? 5 : 3}
+                    />
                 </Svg>
                 <Svg
                     width={circleDimensions}
@@ -66,7 +73,7 @@ const CircleDate: FC<CircleDateProps> = ({ active, alpha, colour, date, handlePr
                         cx={cXcY}
                         cy={cXcY}
                         r={radius}
-                        strokeWidth={3}
+                        strokeWidth={isTablet() ? 5 : 3}
                         strokeDashoffset={interpolatedSize}
                         strokeDasharray={[circumference, circumference]}
                     />

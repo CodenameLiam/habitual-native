@@ -7,11 +7,12 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Colour } from 'Types/Colour.types';
 
 interface ColourPickerProps {
+    size?: string;
     customOrder?: Colour[];
     updateGradient: (gradient: Colour) => void;
 }
 
-const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient, customOrder }) => {
+const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient, customOrder, size }) => {
     const handlePress = useCallback(
         (colour: Colour) => {
             ReactNativeHapticFeedback.trigger('impactLight');
@@ -27,6 +28,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient, customOrder
             {gradients.map((colour, index) => (
                 <Swatch
                     key={colour}
+                    size={size}
                     onPress={() => handlePress(colour as Colour)}
                     style={{ marginBottom: index < 6 ? 10 : 5 }}
                 >

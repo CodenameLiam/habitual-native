@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { isTablet } from 'Helpers/Size';
 import { Dimensions } from 'react-native';
 
 const cellDimensions = (Dimensions.get('screen').width - 120) / 53;
@@ -17,7 +18,7 @@ export const CalendarCell = styled.View<CalendarCellProps>`
 
 export const CalendarContainer = styled.View`
     flex-wrap: wrap;
-    height: ${cellDimensions * 10 + 'px'};
+    height: ${(isTablet() ? cellDimensions * 8 : cellDimensions * 10) + 'px'};
 
     margin: 10px 18px;
 `;
