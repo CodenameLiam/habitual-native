@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.habitual"
+        applicationId "com.liampercy.habitual"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
