@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { Picker } from '@react-native-picker/picker';
+// import { Picker } from '@react-native-picker/picker';
 import React, { FC, RefObject, useState } from 'react';
 import { View, LayoutAnimation, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -7,7 +7,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import { Row, Full } from 'Styles/Globals';
 import { HabitReminder } from 'Types/Habit.types';
-import { getReminderHoursItems, getReminderMinutesItems, getReminderString } from './BuildReminderModal.functions';
+// import { getReminderHoursItems, getReminderMinutesItems, getReminderString } from './BuildReminderModal.functions';
 import {
     ReminderButton,
     AddReminderPlus,
@@ -48,18 +48,18 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
-    const handleAddReminder = (): void => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        if (
-            reminders.find(reminder => getReminderString(reminder) === getReminderString({ hour, minute, time })) ===
-            undefined
-        ) {
-            dispatchBuild(buildActions.addReminder({ hour, minute, time }));
-        }
+    // const handleAddReminder = (): void => {
+    //     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    //     if (
+    //         reminders.find(reminder => getReminderString(reminder) === getReminderString({ hour, minute, time })) ===
+    //         undefined
+    //     ) {
+    //         dispatchBuild(buildActions.addReminder({ hour, minute, time }));
+    //     }
 
-        setShowTimePicker(false);
-        ReactNativeHapticFeedback.trigger('notificationSuccess');
-    };
+    //     setShowTimePicker(false);
+    //     ReactNativeHapticFeedback.trigger('notificationSuccess');
+    // };
 
     const handleDeleteReminder = (index: number): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -90,7 +90,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
     return (
         <BuildReminderModalContainer>
             <GrowContainer>
-                <ScrollView
+                {/* <ScrollView
                     waitFor={sheetRef}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 20, paddingTop: 25, paddingLeft: 10, paddingRight: 10 }}
@@ -113,7 +113,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                             </ReminderTime>
                         );
                     })}
-                </ScrollView>
+                </ScrollView> */}
                 <GrowShadow
                     colour={theme.card}
                     style={{
@@ -133,7 +133,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                 </View>
             )}
 
-            {showTimePicker && (
+            {/* {showTimePicker && (
                 <View>
                     <View style={Row}>
                         <Picker style={Full} selectedValue={hour} onValueChange={itemValue => setHour(itemValue)}>
@@ -165,7 +165,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                         </ReminderButton>
                     </View>
                 </View>
-            )}
+            )} */}
         </BuildReminderModalContainer>
     );
 };

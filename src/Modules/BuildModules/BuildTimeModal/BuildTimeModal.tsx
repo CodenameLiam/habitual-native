@@ -1,11 +1,11 @@
 import { useTheme } from '@emotion/react';
-import { Picker } from '@react-native-picker/picker';
+// import { Picker } from '@react-native-picker/picker';
 import { getTime } from 'Helpers/Habits';
 import React, { Dispatch, FC, useState } from 'react';
 import { View } from 'react-native';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import { Full, Row } from 'Styles/Globals';
-import { getHoursItems, getMinutesItems } from './BuildTimeModal.functions';
+// import { getHoursItems, getMinutesItems } from './BuildTimeModal.functions';
 
 interface BuildTimeModalProps {
     total: number;
@@ -31,7 +31,7 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
 
     return (
         <View style={Row}>
-            <Picker style={Full} selectedValue={hourPicker} onValueChange={itemValue => handleChangeHours(itemValue)}>
+            {/* <Picker style={Full} selectedValue={hourPicker} onValueChange={itemValue => handleChangeHours(itemValue)}>
                 {getHoursItems(theme.text)}
             </Picker>
             <Picker
@@ -40,7 +40,7 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
                 onValueChange={itemValue => handleChangeMinutes(itemValue)}
             >
                 {getMinutesItems(theme.text)}
-            </Picker>
+            </Picker> */}
         </View>
     );
 };
