@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PanGestureHandler, PanGestureHandlerGestureEvent, State, Swipeable } from 'react-native-gesture-handler';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { renderRightActions } from './RightActions';
-import { Animated, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Easing } from 'react-native';
+import { Animated, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Dimensions } from 'react-native';
 import {
     HabitColourContainer,
     HabitContainer,
@@ -24,6 +24,18 @@ import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { HabitObject } from 'Types/Habit.types';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { getProgress, getTime, getTimeInterval } from 'Helpers/Habits';
+import {
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring,
+    withTiming,
+    Easing,
+    withSequence,
+    interpolate,
+    interpolateNode,
+    Extrapolate,
+} from 'react-native-reanimated';
+import { transform } from '@babel/core';
 
 interface HabitProps {
     navigation: TabNavProps;
@@ -47,7 +59,6 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     // Progress
     const [progress, setProgress] = useState(getProgress(habit, date));
     const [dragProgress, setDragProgress] = useState(progress);
-    const [isDragging, setIsDragging] = useState(false);
     const { formatTime } = useMemo(() => getTime(progress), [progress]);
     const progressOffset = useMemo(() => (habit.type === 'time' ? getTimeInterval(habit.total) / 2 : 0.5), [
         habit.type,
@@ -55,37 +66,36 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     ]);
     const progressInterval = useMemo(() => progressOffset * 2, [progressOffset]);
 
+    // ------------------------------------------------------------------------------------------------
     // Animations
-    const progressAnimation = useRef(new Animated.Value(Math.min(progress, habit.total))).current;
-    const progressInterpolation = progressAnimation.interpolate({
-        inputRange: [0, habit.total],
-        outputRange: [1, HabitMaxTransformInterpolation],
-    });
+    // ------------------------------------------------------------------------------------------------
+    const animateContainer = useSharedValue(1);
+    const animateColour = useSharedValue(1);
 
-    // ------------------------------------------------------------------------------------------------
-    // Animations
-    // ------------------------------------------------------------------------------------------------
+    const containerStyle = useAnimatedStyle(() => ({ transform: [{ scale: animateContainer.value }] }));
+    const colourStyle = useAnimatedStyle(() => ({ transform: [{ scale: animateColour.value }] }));
+
     // Updating progress when date is changed habit
     useEffect(() => {
         const progress = getProgress(habit, date);
         setProgress(progress);
         setDragProgress(progress);
-    }, [habit, date]);
-
-    // Animating progress when habit is updated
-    useEffect(() => {
-        !isDragging &&
-            Animated.timing(progressAnimation, {
-                toValue: Math.min(progress, habit.total),
-                duration: 500,
-                useNativeDriver: true,
-                easing: Easing.out(Easing.quad),
-            }).start();
-    }, [progress, isDragging, progressAnimation, habit.total]);
+        animateColour.value = withTiming(interpolate(progress, [0, habit.total], [1, 20], Extrapolate.CLAMP), {
+            duration: 500,
+            easing: Easing.out(Easing.quad),
+        });
+    }, [habit, date, animateColour]);
 
     // Habit add button handler
     const handlePress = (): void => {
         const next = progress >= habit.total ? 0 : progress + progressInterval;
+
+        animateContainer.value = withSequence(withTiming(1.03, { duration: 200 }), withTiming(1, { duration: 200 }));
+        animateColour.value = withTiming(interpolate(next, [0, habit.total], [1, 20], Extrapolate.CLAMP), {
+            duration: 500,
+            easing: Easing.out(Easing.quad),
+        });
+
         setProgress(next);
         setDragProgress(next);
         dispatchHabits(habitActions.progress(habit, date, next, next >= habit.total));
@@ -96,12 +106,13 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     // ------------------------------------------------------------------------------------------------
     // Gesture handler
     const handleGesture = (event: PanGestureHandlerGestureEvent): void => {
+        const progressNormalised = normaliseProgress(event.nativeEvent.translationX, habit.total, dragProgress);
+        animateColour.value = interpolate(progressNormalised, [0, habit.total], [1, 20], Extrapolate.CLAMP);
+
         if (event.nativeEvent.velocityX > 1000) {
             setProgress(habit.total);
             return;
         }
-        const progressNormalised = normaliseProgress(event.nativeEvent.translationX, habit.total, dragProgress);
-        progressAnimation.setValue(progressNormalised);
 
         if (progressNormalised >= progress + progressOffset) {
             setProgress(progress + progressInterval);
@@ -114,11 +125,9 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
 
     // Gesture state change handler
     const handleGestureChange = (event: PanGestureHandlerGestureEvent): void => {
-        if (event.nativeEvent.state === State.BEGAN) {
-            setIsDragging(true);
-        } else if (event.nativeEvent.state === State.END) {
+        if (event.nativeEvent.state === State.END && event.nativeEvent.translationX > 10) {
+            animateColour.value = withTiming(interpolate(progress, [0, habit.total], [1, 20], Extrapolate.CLAMP));
             setDragProgress(progress);
-            setIsDragging(false);
             dispatchHabits(habitActions.progress(habit, date, progress, progress >= habit.total));
         }
     };
@@ -142,45 +151,40 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
                 onGestureEvent={handleGesture}
                 onHandlerStateChange={handleGestureChange}
             >
-                <HabitContainer>
+                <HabitContainer style={containerStyle}>
                     {/* Left hand side, icon and name */}
-                    <TouchableWithoutFeedback onPress={() => handleView(navigation, habit, dateIndex)}>
-                        <HabitContentContainer>
-                            <HabitIconContainer>
-                                <Icon
-                                    family={habit.icon.family}
-                                    name={habit.icon.name}
-                                    size={18}
-                                    colour={theme.text}
-                                    style={HabitIcon}
+                    <HabitContentContainer>
+                        <HabitIconContainer>
+                            <Icon
+                                family={habit.icon.family}
+                                name={habit.icon.name}
+                                size={18}
+                                colour={theme.text}
+                                style={HabitIcon}
+                            />
+                            <HabitColourContainer colour={gradient.solid} style={colourStyle}>
+                                <LinearGradient
+                                    colors={[gradient.start, gradient.end]}
+                                    locations={[0.3, 1]}
+                                    style={StyleSheet.absoluteFill}
+                                    start={{ x: 0, y: 0.5 }}
+                                    end={{ x: 1, y: 0 }}
                                 />
-                                <HabitColourContainer
-                                    colour={gradient.solid}
-                                    style={{ transform: [{ scale: progressInterpolation }] }}
-                                >
-                                    <LinearGradient
-                                        colors={[gradient.start, gradient.end]}
-                                        locations={[0.3, 1]}
-                                        style={StyleSheet.absoluteFill}
-                                        start={{ x: 0, y: 0.5 }}
-                                        end={{ x: 1, y: 0 }}
-                                    />
-                                </HabitColourContainer>
-                            </HabitIconContainer>
-                            <HabitTextContainer>
-                                <HabitText
-                                    scroll={false}
-                                    animationType="bounce"
-                                    duration={3000}
-                                    bounceDelay={1500}
-                                    marqueeDelay={1000}
-                                    bouncePadding={{ left: 0, right: 0 }}
-                                >
-                                    {habit.name}
-                                </HabitText>
-                            </HabitTextContainer>
-                        </HabitContentContainer>
-                    </TouchableWithoutFeedback>
+                            </HabitColourContainer>
+                        </HabitIconContainer>
+                        <HabitTextContainer onPress={() => handleView(navigation, habit, dateIndex)}>
+                            <HabitText
+                                scroll={false}
+                                animationType="bounce"
+                                duration={3000}
+                                bounceDelay={1500}
+                                marqueeDelay={1000}
+                                bouncePadding={{ left: 0, right: 0 }}
+                            >
+                                {habit.name}
+                            </HabitText>
+                        </HabitTextContainer>
+                    </HabitContentContainer>
                     {/* Right hand side, progress button */}
                     <TouchableOpacity onPress={handlePress} style={HabitProgressButton}>
                         {progress >= habit.total ? (

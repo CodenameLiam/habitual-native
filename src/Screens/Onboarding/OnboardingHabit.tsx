@@ -1,9 +1,9 @@
 import styled from '@emotion/native';
-import { HabitMaxTransformInterpolation, normaliseProgress } from 'Components/Habit/Habit.functions';
+import { normaliseProgress } from 'Components/Habit/Habit.functions';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { View, Animated, StyleSheet, Dimensions, TouchableOpacity, Easing } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { PanGestureHandler, PanGestureHandlerGestureEvent, State, Swipeable } from 'react-native-gesture-handler';
-import { Gradients, ThemeColours } from 'Styles/Colours';
+import { Gradients } from 'Styles/Colours';
 import { fontFamily } from 'Styles/Fonts';
 import { FullCenter } from 'Styles/Globals';
 import { EVERYDAY_SCHEDULE } from 'Types/Habit.constants';
@@ -25,6 +25,22 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StackActions, useNavigation, useTheme } from '@react-navigation/native';
 import { OnboardingNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { useOnboarded } from 'Context/AppContext';
+import Animated, {
+    Extrapolate,
+    interpolate,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withSequence,
+    withTiming,
+    Easing,
+} from 'react-native-reanimated';
+
+const delay = (duration: number): Promise<void> => {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(), duration);
+    });
+};
 
 /* Interfaces/types */
 type Stage = 'count' | 'multiple' | 'drag' | 'complete';
@@ -103,63 +119,54 @@ const OnboardingHabit: FC = () => {
     const [dragProgress, setDragProgress] = useState(progress);
     const [isDragging, setIsDragging] = useState(false);
 
+    // ------------------------------------------------------------------------------------------------
+    // Animations
+    // ------------------------------------------------------------------------------------------------
+    const animateContainer = useSharedValue(1);
+    const animateColour = useSharedValue(1);
+    const stageOpacity = useSharedValue(1);
+    const startOpacity = useSharedValue(0);
+
+    const containerStyle = useAnimatedStyle(() => ({ transform: [{ scale: animateContainer.value }] }));
+    const colourStyle = useAnimatedStyle(() => ({ transform: [{ scale: animateColour.value }] }));
+    const stageStyle = useAnimatedStyle(() => ({ opacity: stageOpacity.value }));
+    const startStyle = useAnimatedStyle(() => ({ opacity: startOpacity.value }));
+
     // Stages
     const [habit, setHabit] = useState(Habit);
     const [stage, setStage] = useState<Stage>('count');
     const [stageText, setStageText] = useState('Tap the circle to check off your habit');
-    const stageOpacity = useRef(new Animated.Value(1)).current;
-    const startOpacity = useRef(new Animated.Value(0)).current;
 
-    const fadeIn = (): void => {
-        Animated.timing(stageOpacity, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-        }).start();
+    const fadeTransition = (): void => {
+        stageOpacity.value = withSequence(
+            withTiming(0, { duration: 500 }),
+            withDelay(500, withTiming(1, { duration: 500 })),
+        );
     };
-
-    const fadeOut = (): void => {
-        Animated.timing(stageOpacity, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: true,
-        }).start();
-    };
-
-    const getStarted = (): void => {
-        Animated.timing(startOpacity, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-        }).start();
-    };
-
-    // Animations
-    const progressAnimation = useRef(new Animated.Value(Math.min(progress, habit.total))).current;
-    const progressInterpolation = progressAnimation.interpolate({
-        inputRange: [0, habit.total],
-        outputRange: [1, HabitMaxTransformInterpolation],
-    });
 
     // Animating progress when habit is updated
     useEffect(() => {
-        !isDragging &&
-            Animated.timing(progressAnimation, {
-                toValue: Math.min(progress, habit.total),
+        if (!isDragging) {
+            animateContainer.value = withSequence(
+                withTiming(1.03, { duration: 200 }),
+                withTiming(1, { duration: 200 }),
+            );
+            animateColour.value = withTiming(interpolate(progress, [0, habit.total], [1, 20], Extrapolate.CLAMP), {
                 duration: 500,
-                useNativeDriver: true,
                 easing: Easing.out(Easing.quad),
-            }).start();
-    }, [progress, isDragging, progressAnimation]);
+            });
+        }
+    }, [animateColour, animateContainer, habit.total, isDragging, progress]);
 
     const handleGesture = (event: PanGestureHandlerGestureEvent): void => {
         if (stage === 'drag' || stage === 'complete') {
+            const progressNormalised = normaliseProgress(event.nativeEvent.translationX, habit.total, dragProgress);
+            animateColour.value = interpolate(progressNormalised, [0, habit.total], [1, 20], Extrapolate.CLAMP);
+
             if (event.nativeEvent.velocityX > 1000) {
                 setProgress(habit.total);
                 return;
             }
-            const progressNormalised = normaliseProgress(event.nativeEvent.translationX, habit.total, dragProgress);
-            progressAnimation.setValue(progressNormalised);
 
             if (progressNormalised >= progress + progressOffset) {
                 setProgress(progress + progressInterval);
@@ -173,20 +180,22 @@ const OnboardingHabit: FC = () => {
 
     // Gesture state change handler
     const handleGestureChange = (event: PanGestureHandlerGestureEvent): void => {
-        if (event.nativeEvent.state === State.BEGAN) {
+        if (event.nativeEvent.state === State.BEGAN && event.nativeEvent.translationX > 10) {
             setIsDragging(true);
         } else if (event.nativeEvent.state === State.END) {
+            animateColour.value = withTiming(interpolate(progress, [0, habit.total], [1, 20], Extrapolate.CLAMP));
             setDragProgress(progress);
             setIsDragging(false);
             if (progress >= habit.total && stage === 'drag') {
-                ReactNativeHapticFeedback.trigger('notificationSuccess');
-                setStage('complete');
-                fadeOut();
-                setTimeout(() => {
-                    fadeIn();
+                (async () => {
+                    ReactNativeHapticFeedback.trigger('notificationSuccess');
+                    fadeTransition();
+                    await delay(500);
                     setStageText('Great work! Now you are ready to start building habits of your own.');
-                }, 500);
-                setTimeout(() => getStarted(), 1000);
+                    await delay(800);
+                    startOpacity.value = withTiming(1, { duration: 500 });
+                    setStage('complete');
+                })();
             }
         }
     };
@@ -194,45 +203,50 @@ const OnboardingHabit: FC = () => {
     // Habit add button handler
     const handlePress = (): void => {
         const next = progress >= habit.total ? 0 : progress + progressInterval;
+
         setProgress(next);
         setDragProgress(next);
 
         if (stage === 'count') {
-            ReactNativeHapticFeedback.trigger('notificationSuccess');
-            setStage('multiple');
-            fadeOut();
-            setTimeout(() => {
-                fadeIn();
+            (async () => {
+                ReactNativeHapticFeedback.trigger('notificationSuccess');
+                fadeTransition();
+
+                await delay(500);
                 setStageText('Nice!');
-            }, 500);
-            setTimeout(() => fadeOut(), 1500);
-            setTimeout(() => {
-                fadeIn();
+
+                await delay(1500);
+                fadeTransition();
+
+                await delay(500);
                 setStageText(
                     'You can also check off a habit multiple times in a single day. Try checking off the habit again',
                 );
                 setProgress(0);
                 setDragProgress(0);
-            }, 2000);
-            setTimeout(() => {
+                setStage('multiple');
+
+                await delay(500);
                 setHabit({ ...habit, total: 3 });
-            }, 2500);
+            })();
         } else if (stage === 'multiple') {
             if (progress + 1 === habit.total) {
-                ReactNativeHapticFeedback.trigger('notificationSuccess');
-                fadeOut();
-                setStage('drag');
-                setTimeout(() => {
-                    fadeIn();
+                (async () => {
+                    ReactNativeHapticFeedback.trigger('notificationSuccess');
+                    fadeTransition();
+
+                    await delay(500);
                     setStageText('Awesome!');
-                }, 500);
-                setTimeout(() => fadeOut(), 1500);
-                setTimeout(() => {
+
+                    await delay(1500);
+                    fadeTransition();
+
+                    await delay(500);
+                    setStageText('You can also swipe or drag on a habit to check off progress. Try it now');
                     setProgress(0);
                     setDragProgress(0);
-                    fadeIn();
-                    setStageText('You can also swipe or drag on a habit to check off progress. Try it now');
-                }, 2000);
+                    setStage('drag');
+                })();
             } else {
                 ReactNativeHapticFeedback.trigger('impactMedium');
             }
@@ -246,13 +260,12 @@ const OnboardingHabit: FC = () => {
             <Swipeable containerStyle={{ width: '100%' }} ref={swipableRef} waitFor={panRef}>
                 <PanGestureHandler
                     ref={panRef}
-                    activeOffsetX={[-1000, 20]}
-                    failOffsetX={[0, 1000]}
                     minDeltaX={0}
                     onGestureEvent={handleGesture}
                     onHandlerStateChange={handleGestureChange}
+                    enabled={stage === 'drag' || stage === 'complete'}
                 >
-                    <HabitContainer>
+                    <HabitContainer style={containerStyle}>
                         <HabitContentContainer>
                             <HabitIconContainer>
                                 <Icon
@@ -262,10 +275,7 @@ const OnboardingHabit: FC = () => {
                                     colour={theme.colors.text}
                                     style={HabitIcon}
                                 />
-                                <HabitColourContainer
-                                    colour={gradient.solid}
-                                    style={{ transform: [{ scale: progressInterpolation }] }}
-                                >
+                                <HabitColourContainer colour={gradient.solid} style={colourStyle}>
                                     <LinearGradient
                                         colors={[gradient.start, gradient.end]}
                                         locations={[0.3, 1]}
@@ -275,7 +285,7 @@ const OnboardingHabit: FC = () => {
                                     />
                                 </HabitColourContainer>
                             </HabitIconContainer>
-                            <HabitTextContainer>
+                            <HabitTextContainer disabled={true}>
                                 <HabitText
                                     disabled={true}
                                     scroll={false}
@@ -303,14 +313,14 @@ const OnboardingHabit: FC = () => {
                     </HabitContainer>
                 </PanGestureHandler>
             </Swipeable>
-            <SubTitle style={{ opacity: stageOpacity }}>{stageText}</SubTitle>
+            <SubTitle style={stageStyle}>{stageText}</SubTitle>
             <TouchableOpacity
                 style={{ width: '90%', height: 50 }}
                 disabled={stage !== 'complete'}
                 onPress={handleOnClosePress}
             >
                 {stage === 'complete' && (
-                    <GetStarted style={{ opacity: startOpacity }}>
+                    <GetStarted style={startStyle}>
                         <LinearGradient
                             colors={[gradient.start, gradient.end]}
                             style={StyleSheet.absoluteFill}

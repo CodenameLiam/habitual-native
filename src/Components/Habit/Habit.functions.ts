@@ -26,6 +26,6 @@ export const HabitMaxTransformInterpolation = isTablet()
 export const normaliseProgress = (translationX: number, total: number, tempProgress: number): number => {
     const interpolateX = translationX / HabitMaxInterpolation;
     const scaledX = interpolateX * total;
-    const progress = tempProgress + scaledX;
-    return Math.min(Math.max(progress, 0), total);
+    return tempProgress + scaledX;
+    // return Math.min(Math.max(progress, 0), total);
 };

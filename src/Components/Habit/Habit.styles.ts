@@ -1,6 +1,6 @@
 import styled, { css } from '@emotion/native';
 import { isTablet } from 'Helpers/Size';
-import { Animated, TouchableOpacity } from 'react-native';
+import Animated from 'react-native-reanimated';
 import TextTicker from 'react-native-text-ticker';
 import { fontFamily } from 'Styles/Fonts';
 
@@ -24,6 +24,7 @@ export const HabitContentContainer = styled.View`
     align-items: center;
     padding: 5px;
     flex: 1;
+    height: 100%;
 `;
 
 export const HabitIconContainer = styled.View`
@@ -45,8 +46,11 @@ export const HabitColourContainer = styled(Animated.View)<HabitColourContainerPr
     border-radius: 1000px;
 `;
 
-export const HabitTextContainer = styled.View`
+export const HabitTextContainer = styled.TouchableOpacity`
     flex: 1;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
 `;
 
 export const HabitText = styled(TextTicker)<HabitProps>`
@@ -55,7 +59,7 @@ export const HabitText = styled(TextTicker)<HabitProps>`
     color: ${props => props.colour ?? props.theme.text};
 `;
 
-export const RightAction = styled(TouchableOpacity)`
+export const RightAction = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     flex: 1;

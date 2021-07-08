@@ -10,7 +10,7 @@ import {
 import Icon from 'Components/Icon';
 import { useHabits } from 'Context/AppContext';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Animated, Easing, StyleSheet, TouchableOpacity } from 'react-native';
+import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradients } from 'Styles/Colours';
 import { CategoryHabitContainer, CategoryHabitText, CategorySubText } from './Category.styles';
@@ -20,6 +20,14 @@ import { HabitObject } from 'Types/Habit.types';
 import { HabitMaxTransformInterpolation } from 'Components/Habit/Habit.functions';
 import { habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { getTime } from 'Helpers/Habits';
+import {
+    Easing,
+    Extrapolate,
+    interpolate,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
+} from 'react-native-reanimated';
 
 interface CategoryHabitProps {
     habit: HabitObject;
@@ -36,22 +44,16 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
 
     const [checked, setChecked] = useState(getAnimationValue());
 
-    // Animations
-    const progressAnimation = useRef(new Animated.Value(checked)).current;
-    const progressInterpolation = progressAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [1, HabitMaxTransformInterpolation],
-    });
+    const animateColour = useSharedValue(1);
+    const colourStyle = useAnimatedStyle(() => ({ transform: [{ scale: animateColour.value }] }));
 
     // Animate progress
     useEffect(() => {
-        Animated.timing(progressAnimation, {
-            toValue: checked,
+        animateColour.value = withTiming(interpolate(checked, [0, 1], [1, 20]), {
             duration: 500,
-            useNativeDriver: true,
             easing: Easing.out(Easing.quad),
-        }).start();
-    }, [checked, progressAnimation]);
+        });
+    }, [animateColour, checked]);
 
     const handleDelete = (): void => {
         dispatchHabits(habitActions.delete(habit.id));
@@ -63,9 +65,9 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
         if (habits[habit.id]) {
             deleteAlert(handleDelete);
         } else {
-            dispatchHabits(habitActions.create(habit));
-            setChecked(1);
             ReactNativeHapticFeedback.trigger('notificationSuccess');
+            setChecked(1);
+            dispatchHabits(habitActions.create(habit));
         }
     };
 
@@ -80,10 +82,7 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
                         colour={theme.text}
                         style={HabitIcon}
                     />
-                    <HabitColourContainer
-                        colour={gradient.solid}
-                        style={{ transform: [{ scale: progressInterpolation }] }}
-                    >
+                    <HabitColourContainer colour={gradient.solid} style={colourStyle}>
                         <LinearGradient
                             colors={[gradient.start, gradient.end]}
                             locations={[0.3, 1]}
@@ -94,7 +93,7 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
                     </HabitColourContainer>
                 </HabitIconContainer>
 
-                <HabitTextContainer>
+                <HabitTextContainer disabled={true}>
                     <CategoryHabitText>{habit.name}</CategoryHabitText>
                     <CategorySubText colour={Object.keys(habits).includes(habit.id) ? theme.text : gradient.solid}>
                         {habit.type === 'time'

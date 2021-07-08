@@ -3,8 +3,7 @@ import { ColourButtonGroup } from 'Components/ColourButtonGroup/ColourButtonGrou
 import { useColour } from 'Context/AppContext';
 import { getDateArray } from 'Helpers/Dates';
 import moment from 'moment';
-import React, { FC, Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Animated, Dimensions, Easing } from 'react-native';
+import React, { FC, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ClipPath, Defs, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 import { YAxis, XAxis, AreaChart } from 'react-native-svg-charts';
 import { CalendarButtonGroupContainer } from 'Screens/Calendar/CalendarScreen.styles';
@@ -15,6 +14,8 @@ import { activeMonthRange, ActiveMonthType } from './TrendGraph.constants';
 import { getTrendData, getTrendLabel } from './TrendGraph.functions';
 import * as shape from 'd3-shape';
 import { useDebouncedCallback } from 'use-debounce/lib';
+import Animated, { Easing, useAnimatedProps, useSharedValue, withTiming } from 'react-native-reanimated';
+import { Dimensions, Platform, View } from 'react-native';
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const contentInset = { top: 20, bottom: 20, left: 5, right: 5 };
@@ -43,16 +44,25 @@ const GraphLineGradient: FC<GraphGradientProps> = ({ gradient }) => (
 );
 
 interface GraphClipProps {
-    graphAnimation: Animated.Value;
+    graphAnimation: Animated.SharedValue<number>;
+    monthRange: ActiveMonthType;
 }
 
-const GraphClips: FC<GraphClipProps> = ({ graphAnimation }) => (
-    <Defs key={'clips'}>
-        <ClipPath id="clip-path-1">
-            <AnimatedRect x={'0'} y={'0'} width={graphAnimation} height={'100%'} />
-        </ClipPath>
-    </Defs>
-);
+const GraphClips: FC<GraphClipProps> = ({ graphAnimation }) => {
+    // console.log(graphAnimation.value);
+
+    const widthAnimation = useAnimatedProps(() => ({
+        width: graphAnimation.value,
+    }));
+
+    return (
+        <Defs key={'clips'}>
+            <ClipPath id="clip-path-1">
+                <AnimatedRect animatedProps={widthAnimation} x={'0'} y={'0'} height={'100%'} />
+            </ClipPath>
+        </Defs>
+    );
+};
 
 const Line: FC<any> = ({ line }) => (
     <Path
@@ -86,18 +96,28 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
     const dates = useMemo(() => getDateArray(moment().subtract(monthRange, 'month'), moment()), [monthRange]);
     const data = useMemo(() => getTrendData(trendHabits, dates, monthRange), [dates, trendHabits, monthRange]);
 
-    // Animate circle progress
-    const graphAnimation = useRef(new Animated.Value(0)).current;
+    // Animation value
+    const graphAnimation = useSharedValue(0);
+
+    // Animation event
     const animateGraph = useCallback(() => {
-        graphAnimation.setValue(0);
-        Animated.timing(graphAnimation, {
-            toValue: Dimensions.get('screen').width - 50,
-            duration: 2000,
-            useNativeDriver: true,
-            easing: Easing.inOut(Easing.quad),
-        }).start();
+        if (Platform.OS === 'ios') {
+            graphAnimation.value = 0;
+            graphAnimation.value = withTiming(Dimensions.get('screen').width - 50, {
+                duration: 2000,
+                easing: Easing.inOut(Easing.quad),
+            });
+        } else {
+            graphAnimation.value = Dimensions.get('screen').width;
+        }
     }, [graphAnimation]);
 
+    // Animate on mount
+    useEffect(() => {
+        animateGraph();
+    }, [animateGraph]);
+
+    // Month range button functions
     const buttonFunctions = useMemo(
         () =>
             [1, 3, 12].map(value => () => {
@@ -106,10 +126,6 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
             }),
         [animateGraph],
     );
-
-    useEffect(() => {
-        animateGraph();
-    }, [animateGraph]);
 
     return (
         <Fragment>
@@ -150,7 +166,7 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
                 >
                     <GraphBackgroundGradient gradient={gradient} theme={theme.background} />
                     <GraphLineGradient gradient={gradient} />
-                    <GraphClips graphAnimation={graphAnimation} />
+                    <GraphClips graphAnimation={graphAnimation} monthRange={monthRange} />
                     <Line />
                 </AreaChart>
             </View>

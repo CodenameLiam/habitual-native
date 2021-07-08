@@ -1,5 +1,5 @@
 import { StackActions, useNavigation } from '@react-navigation/native';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import PaperOnboarding, { PaperOnboardingItemType } from '@gorhom/paper-onboarding';
 import { Gradients, ThemeColours } from 'Styles/Colours';
 import { OnboardingNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
@@ -67,6 +67,8 @@ const Onboarding: FC = () => {
         navigation.dispatch(StackActions.replace('Tabs'));
     };
 
+    const [index, setIndex] = useState(0);
+
     return (
         <PaperOnboarding
             data={data(theme)}
@@ -89,7 +91,8 @@ const Onboarding: FC = () => {
                 // color: ThemeColours.dark.card,
             }}
             closeButtonText="Skip"
-            closeButtonTextStyle={{ fontFamily: fontFamily }}
+            closeButtonTextStyle={{ fontFamily: fontFamily, color: index < 2 ? '#fff' : theme.text }}
+            onIndexChange={(index: number) => setIndex(index)}
         />
     );
 };
