@@ -20,6 +20,11 @@ const OnboardingImage = styled.Image`
 
 const data = (theme: Theme): PaperOnboardingItemType[] => [
     {
+        content: OnboardingHabit,
+        backgroundColor: theme.background,
+        showCloseButton: true,
+    },
+    {
         title: 'Be the best you.',
         description:
             'Habitual helps you to focus on what truly matters. Build the best version of yourself by mastering habits that are important to you.',
@@ -45,11 +50,6 @@ const data = (theme: Theme): PaperOnboardingItemType[] => [
     },
     {
         content: OnboardingTheme,
-        backgroundColor: theme.background,
-        showCloseButton: true,
-    },
-    {
-        content: OnboardingHabit,
         backgroundColor: theme.background,
         showCloseButton: true,
     },
@@ -89,7 +89,7 @@ const Onboarding: FC = () => {
                 // color: ThemeColours.dark.card,
             }}
             closeButtonText="Skip"
-            closeButtonTextStyle={{ fontFamily: fontFamily }}
+            closeButtonTextStyle={{ fontFamily: fontFamily, color: theme.text }}
         />
     );
 };

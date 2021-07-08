@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { HabitMaxTransformInterpolation, normaliseProgress } from 'Components/Habit/Habit.functions';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { View, Animated, StyleSheet, Dimensions, TouchableOpacity, Easing } from 'react-native';
 import { PanGestureHandler, PanGestureHandlerGestureEvent, State, Swipeable } from 'react-native-gesture-handler';
 import { Gradients, ThemeColours } from 'Styles/Colours';
@@ -25,6 +25,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StackActions, useNavigation, useTheme } from '@react-navigation/native';
 import { OnboardingNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { useOnboarded } from 'Context/AppContext';
+
+const delay = (duration: number): Promise<void> => {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(), duration);
+    });
+};
 
 /* Interfaces/types */
 type Stage = 'count' | 'multiple' | 'drag' | 'complete';
@@ -150,7 +156,7 @@ const OnboardingHabit: FC = () => {
                 useNativeDriver: true,
                 easing: Easing.out(Easing.quad),
             }).start();
-    }, [progress, isDragging, progressAnimation]);
+    }, [progress, isDragging, progressAnimation, habit.total]);
 
     const handleGesture = (event: PanGestureHandlerGestureEvent): void => {
         if (stage === 'drag' || stage === 'complete') {
@@ -191,48 +197,73 @@ const OnboardingHabit: FC = () => {
         }
     };
 
+    // const animateProgress = useCallback(
+    //     (progress: number, total: number) => {
+    //         Animated.timing(progressAnimation, {
+    //             toValue: Math.min(progress, total),
+    //             duration: 500,
+    //             useNativeDriver: true,
+    //             easing: Easing.out(Easing.quad),
+    //         }).start();
+    //     },
+    //     [progressAnimation],
+    // );
+
     // Habit add button handler
     const handlePress = (): void => {
         const next = progress >= habit.total ? 0 : progress + progressInterval;
         setProgress(next);
         setDragProgress(next);
+        // animateProgress(next, habit.total);
 
         if (stage === 'count') {
-            ReactNativeHapticFeedback.trigger('notificationSuccess');
-            setStage('multiple');
-            fadeOut();
-            setTimeout(() => {
+            (async () => {
+                // Stage 1
+
+                ReactNativeHapticFeedback.trigger('notificationSuccess');
+
+                fadeOut();
+
+                // Stage 2
+                await delay(500);
                 fadeIn();
                 setStageText('Nice!');
-            }, 500);
-            setTimeout(() => fadeOut(), 1500);
-            setTimeout(() => {
+
+                await delay(1000);
+                fadeOut();
+
+                await delay(500);
                 fadeIn();
                 setStageText(
                     'You can also check off a habit multiple times in a single day. Try checking off the habit again',
                 );
                 setProgress(0);
                 setDragProgress(0);
-            }, 2000);
-            setTimeout(() => {
+                setStage('multiple');
+
+                await delay(500);
                 setHabit({ ...habit, total: 3 });
-            }, 2500);
+            })();
         } else if (stage === 'multiple') {
             if (progress + 1 === habit.total) {
-                ReactNativeHapticFeedback.trigger('notificationSuccess');
-                fadeOut();
-                setStage('drag');
-                setTimeout(() => {
+                (async () => {
+                    ReactNativeHapticFeedback.trigger('notificationSuccess');
+                    fadeOut();
+
+                    await delay(500);
                     fadeIn();
                     setStageText('Awesome!');
-                }, 500);
-                setTimeout(() => fadeOut(), 1500);
-                setTimeout(() => {
+
+                    await delay(1000);
+                    fadeOut();
+
+                    await delay(500);
                     setProgress(0);
                     setDragProgress(0);
                     fadeIn();
                     setStageText('You can also swipe or drag on a habit to check off progress. Try it now');
-                }, 2000);
+                    setStage('drag');
+                })();
             } else {
                 ReactNativeHapticFeedback.trigger('impactMedium');
             }
