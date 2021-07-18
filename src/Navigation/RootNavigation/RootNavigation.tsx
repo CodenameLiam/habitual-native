@@ -9,7 +9,12 @@ const Drawer = createDrawerNavigator<RootParamsList>();
 const RootNavigation: FC = () => {
     return (
         <Drawer.Navigator
-            screenOptions={{ drawerType: 'slide', overlayColor: 'none', headerShown: false }}
+            screenOptions={{
+                drawerType: 'slide',
+                overlayColor: 'none',
+                headerShown: false,
+                drawerStyle: { width: '75%' },
+            }}
             drawerContent={({ navigation }) => <SettingsDrawer navigation={navigation} />}
         >
             <Drawer.Screen name="App" component={AppNavigation} />

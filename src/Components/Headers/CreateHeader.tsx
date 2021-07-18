@@ -6,6 +6,7 @@ import HeaderBackground from 'Components/HeaderBackground/HeaderBackground';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { BuildNavProps, BuildRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { StackNavigationOptions } from '@react-navigation/stack';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface CreateHeaderProps {
     colour: string;
@@ -27,7 +28,7 @@ const CreateHeader = ({ colour, navigation, route }: CreateHeaderProps): StackNa
     headerBackground: () => (route.params.colour ? <HeaderBackground colour={route.params.colour} /> : <View></View>),
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
     headerRight: () => <IdeasIcon colour={colour} handlePress={() => handleIdeas(navigation)} />,
-    headerStyle: { height: 60 },
+    headerStyle: { height: heightPercentageToDP(7.2) },
     headerTitle: route.params.id ? 'Edit Habit' : 'Create Habit',
 });
 

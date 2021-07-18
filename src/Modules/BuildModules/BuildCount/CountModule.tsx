@@ -7,6 +7,7 @@ import { ProgressTextInput, SqaureButton } from './CountModule.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { HabitObject } from 'Types/Habit.types';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface CountModuleProps {
     habit: HabitObject;
@@ -49,12 +50,12 @@ export const CountModule: React.FC<CountModuleProps> = ({ habit, dispatchBuild }
                 <Icon
                     family="fontawesome"
                     name="minus"
-                    size={24}
+                    size={heightPercentageToDP(3)}
                     colour={Number(habit.total) > 1 ? colour : GreyColours.GREY2}
                 />
             </SqaureButton>
             <SqaureButton onPress={handleAddProgress} colour={colour} grey={false}>
-                <Icon family="fontawesome" name="plus" size={24} colour={colour} />
+                <Icon family="fontawesome" name="plus" size={heightPercentageToDP(3)} colour={colour} />
             </SqaureButton>
         </View>
     );

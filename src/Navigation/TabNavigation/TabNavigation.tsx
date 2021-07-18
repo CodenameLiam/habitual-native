@@ -1,19 +1,16 @@
-import React, { FC, useLayoutEffect, useMemo } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabColours } from '../../Styles/Colours';
-import AnimatedTabBar, { FlashyTabBarItemConfig, TabsConfig } from '@gorhom/animated-tabbar';
-import Icon from 'Components/Icon';
+import AnimatedTabBar from '@gorhom/animated-tabbar';
 import { useTheme } from '@emotion/react';
 import HomeScreen from 'Screens/Home/HomeScreen';
 import CalendarScreen from 'Screens/Calendar/CalendarScreen';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import TrendsScreen from 'Screens/Trends/TrendsScreen';
 import AwardsScreen from 'Screens/Awards/AwardsScreen';
-import { Text, View } from 'react-native';
-import { getCustomTabs } from 'Helpers/HeaderTabs';
 import { getHeaderTitle } from 'Helpers/HeaderTitle';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { TabParamList, HomeRouteProps } from './TabNavigation.params';
+import getCustomTabs from 'Components/CustomTabs/CustomTabs';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -35,9 +32,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ navigation, route }) => {
         <Tab.Navigator
             tabBar={props => (
                 <AnimatedTabBar
+                    itemInnerSpace={15}
                     tabs={CustomTabs}
+                    iconSize={heightPercentageToDP(2.5)}
                     preset="flashy"
-                    style={{ backgroundColor: theme.background }}
+                    style={{ backgroundColor: theme.background, height: heightPercentageToDP(12) }}
                     {...props}
                 />
             )}

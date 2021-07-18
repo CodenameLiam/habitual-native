@@ -45,7 +45,7 @@ const CircleDate: FC<CircleDateProps> = ({ active, alpha, colour, date, handlePr
     }, [alpha, progressAnimation]);
 
     return (
-        <CircleButton circleDimensions={circleDimensions} onPress={handlePress}>
+        <CircleButton style={{ aspectRatio: 1 }} circleDimensions={circleDimensions} onPress={handlePress}>
             {active && <CircleActiveDot colour={circleColour} />}
 
             <DayNumber active={active}>{date.format('D')}</DayNumber>

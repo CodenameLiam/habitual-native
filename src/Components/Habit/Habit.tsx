@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PanGestureHandler, PanGestureHandlerGestureEvent, State, Swipeable } from 'react-native-gesture-handler';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { renderRightActions } from './RightActions';
-import { Animated, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Dimensions } from 'react-native';
+import { Animated, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Dimensions, Text } from 'react-native';
 import {
     HabitColourContainer,
     HabitContainer,
@@ -36,6 +36,8 @@ import {
     Extrapolate,
 } from 'react-native-reanimated';
 import { transform } from '@babel/core';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { isTablet } from 'Helpers/Size';
 
 interface HabitProps {
     navigation: TabNavProps;
@@ -80,22 +82,19 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
         const progress = getProgress(habit, date);
         setProgress(progress);
         setDragProgress(progress);
-        animateColour.value = withTiming(interpolate(progress, [0, habit.total], [1, 20], Extrapolate.CLAMP), {
-            duration: 500,
-            easing: Easing.out(Easing.quad),
-        });
+        animateColour.value = withTiming(
+            interpolate(progress, [0, habit.total], [1, widthPercentageToDP(isTablet() ? 4 : 5)], Extrapolate.CLAMP),
+            {
+                duration: 500,
+                easing: Easing.out(Easing.quad),
+            },
+        );
     }, [habit, date, animateColour]);
 
     // Habit add button handler
     const handlePress = (): void => {
+        animateContainer.value = withSequence(withTiming(1.02, { duration: 200 }), withTiming(1, { duration: 200 }));
         const next = progress >= habit.total ? 0 : progress + progressInterval;
-
-        animateContainer.value = withSequence(withTiming(1.03, { duration: 200 }), withTiming(1, { duration: 200 }));
-        animateColour.value = withTiming(interpolate(next, [0, habit.total], [1, 20], Extrapolate.CLAMP), {
-            duration: 500,
-            easing: Easing.out(Easing.quad),
-        });
-
         setProgress(next);
         setDragProgress(next);
         dispatchHabits(habitActions.progress(habit, date, next, next >= habit.total));
@@ -107,7 +106,12 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     // Gesture handler
     const handleGesture = (event: PanGestureHandlerGestureEvent): void => {
         const progressNormalised = normaliseProgress(event.nativeEvent.translationX, habit.total, dragProgress);
-        animateColour.value = interpolate(progressNormalised, [0, habit.total], [1, 20], Extrapolate.CLAMP);
+        animateColour.value = interpolate(
+            progressNormalised,
+            [0, habit.total],
+            [1, widthPercentageToDP(isTablet() ? 4 : 5)],
+            Extrapolate.CLAMP,
+        );
 
         if (event.nativeEvent.velocityX > 1000) {
             setProgress(habit.total);
@@ -126,7 +130,6 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
     // Gesture state change handler
     const handleGestureChange = (event: PanGestureHandlerGestureEvent): void => {
         if (event.nativeEvent.state === State.END && event.nativeEvent.translationX > 10) {
-            animateColour.value = withTiming(interpolate(progress, [0, habit.total], [1, 20], Extrapolate.CLAMP));
             setDragProgress(progress);
             dispatchHabits(habitActions.progress(habit, date, progress, progress >= habit.total));
         }
@@ -154,15 +157,15 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
                 <HabitContainer style={containerStyle}>
                     {/* Left hand side, icon and name */}
                     <HabitContentContainer>
-                        <HabitIconContainer>
+                        <HabitIconContainer style={{ aspectRatio: 1 }}>
                             <Icon
                                 family={habit.icon.family}
                                 name={habit.icon.name}
-                                size={18}
+                                size={widthPercentageToDP(4)}
                                 colour={theme.text}
                                 style={HabitIcon}
                             />
-                            <HabitColourContainer colour={gradient.solid} style={colourStyle}>
+                            <HabitColourContainer colour={gradient.solid} style={[colourStyle, { aspectRatio: 1 }]}>
                                 <LinearGradient
                                     colors={[gradient.start, gradient.end]}
                                     locations={[0.3, 1]}
@@ -186,15 +189,20 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
                         </HabitTextContainer>
                     </HabitContentContainer>
                     {/* Right hand side, progress button */}
-                    <TouchableOpacity onPress={handlePress} style={HabitProgressButton}>
+                    <TouchableOpacity onPress={handlePress} style={[HabitProgressButton, { aspectRatio: 1 }]}>
                         {progress >= habit.total ? (
-                            <Icon family="entypo" name="check" size={20} colour={theme.text} />
+                            <Icon family="entypo" name="check" size={heightPercentageToDP(2)} colour={theme.text} />
                         ) : progress > 0 ? (
                             <HabitProgressText>
                                 {habit.type === 'count' ? `${progress}/${habit.total}` : formatTime}
                             </HabitProgressText>
                         ) : (
-                            <Icon family="fontawesome" name="circle-o" size={12} colour={theme.text} />
+                            <Icon
+                                family="fontawesome"
+                                name="circle-o"
+                                size={heightPercentageToDP(1.5)}
+                                colour={theme.text}
+                            />
                         )}
                     </TouchableOpacity>
                 </HabitContainer>

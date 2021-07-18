@@ -1,5 +1,7 @@
 import styled from '@emotion/native';
 import Card from 'Components/Card/Card';
+import { isTablet } from 'Helpers/Size';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 export const SettingsDrawerContainer = styled.View`
     flex: 1;
@@ -25,7 +27,7 @@ export const SettingsHeader = styled.View`
 `;
 
 export const SettingsRow = styled.View`
-    min-height: 55px;
+    height: ${heightPercentageToDP(7) + 'px'};
     background-color: ${props => props.theme.card};
     flex-direction: row;
     align-items: center;
@@ -38,6 +40,7 @@ export const SettingsRow = styled.View`
 
 export const SettingsCard = styled(Card)`
     margin: 10px;
-    padding: 10px 15px;
+    margin-bottom: 0px;
+    padding: ${heightPercentageToDP(1.5) + 'px'} 15px;
     border-radius: 10px;
 `;

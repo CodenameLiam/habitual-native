@@ -1,8 +1,10 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily } from 'Styles/Fonts';
 
 export const ColourButtonContainer = styled.View`
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 5px;
@@ -20,7 +22,7 @@ export const ButtonContainer = styled.View<ButtonContainerProps>`
 `;
 
 export const TextContainer = styled(TouchableOpacity)`
-    padding: 8px;
+    padding: ${heightPercentageToDP(1) + 'px'};
 `;
 
 interface TextContentProps {
@@ -28,6 +30,7 @@ interface TextContentProps {
 }
 
 export const TextContent = styled.Text<TextContentProps>`
+    font-size: ${heightPercentageToDP(1.5) + 'px'};
     text-align: center;
     font-family: ${fontFamily};
     color: ${props => props.colour};

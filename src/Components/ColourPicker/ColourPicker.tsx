@@ -30,7 +30,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient, customOrder
                     key={colour}
                     size={size}
                     onPress={() => handlePress(colour as Colour)}
-                    style={{ marginBottom: index < 6 ? 10 : 5 }}
+                    style={{ marginBottom: index < 6 ? 10 : 5, aspectRatio: 1 }}
                 >
                     <LinearGradient
                         style={StyleSheet.absoluteFill}

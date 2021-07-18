@@ -3,13 +3,12 @@ import { StyleSheet } from 'react-native';
 import { Gradients } from 'Styles/Colours';
 import { SaveButton, SaveContainer, SaveText } from './BuildSave.styles';
 import { BuildNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
-import { HabitObject, Habits } from 'Types/Habit.types';
+import { HabitObject } from 'Types/Habit.types';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { habitErrorMessage, validateHabit } from './BuildSave.functions';
 import Toast from 'react-native-toast-message';
 import LinearGradient from 'react-native-linear-gradient';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import PushNotification from 'react-native-push-notification';
 
 interface BuildSaveProps {
     habit: HabitObject;

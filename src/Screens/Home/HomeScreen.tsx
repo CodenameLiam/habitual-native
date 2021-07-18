@@ -12,6 +12,7 @@ import MemoizedHabit from 'Components/Habit/Habit';
 import EmptyPrompt from 'Components/EmptyPrompt/EmptyPrompt';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import MemoizedCircleDate from 'Components/CircleDate/CircleDate';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface HomeScreenProps {
     navigation: TabNavProps;

@@ -41,6 +41,7 @@ import PushNotification from 'react-native-push-notification';
 import NotificationSetting from 'react-native-open-notification';
 import { notificationAlert } from 'Helpers/NotificationAlert';
 import { isTablet } from 'Helpers/Size';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];
 interface BuildScreenProps {
@@ -109,17 +110,14 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                         });
                     }}
                 >
-                    <CardContainerCircle>
-                        <Icon family="ion" name="notifications" size={32} colour={theme.grey} />
+                    <CardContainerCircle style={{ aspectRatio: 1 }}>
+                        <Icon family="ion" name="notifications" size={heightPercentageToDP(3.5)} colour={theme.grey} />
                     </CardContainerCircle>
                 </TouchableOpacity>
             </View>
             {/* Colour */}
             <Card title="Colour">
-                <ColourPicker
-                    updateGradient={gradient => dispatchBuild(buildActions.colour(gradient))}
-                    size={isTablet() ? Dimensions.get('screen').width / 16 + 'px' : undefined}
-                />
+                <ColourPicker updateGradient={gradient => dispatchBuild(buildActions.colour(gradient))} />
             </Card>
             {/* Schedule */}
             <Card title="Schedule">
@@ -143,7 +141,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                             <Icon
                                 family="fontawesome"
                                 name="plus"
-                                size={24}
+                                size={heightPercentageToDP(3)}
                                 colour={habit.type === 'count' ? gradient.solid : theme.grey}
                             />
                         </SqaureButton>
@@ -156,7 +154,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                             <Icon
                                 family="antdesign"
                                 name="clockcircle"
-                                size={24}
+                                size={heightPercentageToDP(3)}
                                 colour={habit.type === 'time' ? gradient.solid : theme.grey}
                             />
                         </SqaureButton>

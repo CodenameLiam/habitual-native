@@ -1,5 +1,6 @@
 import Card from 'Components/Card/Card';
 import React, { Dispatch, FC } from 'react';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import { StyledBuildInput } from './BuildInput.styles';
 
@@ -12,7 +13,7 @@ interface BuildInputProps {
 
 const BuildInput: FC<BuildInputProps> = ({ value, colour, placeholderColour, dispatchBuild }) => {
     return (
-        <Card style={{ marginLeft: 0, flex: 1, marginRight: 12 }}>
+        <Card style={{ marginLeft: 0, flex: 1, marginRight: 12, height: heightPercentageToDP(6) }}>
             <StyledBuildInput
                 colour={colour}
                 placeholder="Name"

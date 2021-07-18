@@ -19,6 +19,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 import Rate from 'react-native-rate';
 import { isTablet } from 'Helpers/Size';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const CustomColourOrder: Colour[] = [
     'MIDNIGHT',
@@ -34,6 +35,8 @@ const CustomColourOrder: Colour[] = [
     'SKY',
     'BLUE',
 ];
+
+const IconSize = heightPercentageToDP(2.8);
 
 interface SettingsDrawerProps {
     navigation: DrawerNavigationHelpers;
@@ -73,7 +76,7 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                     <TouchableOpacity onPress={handleManage}>
                         <SettingsRow>
                             <BodyFont>Manage Habits</BodyFont>
-                            <Icon family="fontawesome" name="cog" size={24} colour={emotion.text} />
+                            <Icon family="fontawesome" name="cog" size={IconSize} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
                     <SettingsRow>
@@ -85,11 +88,11 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                             onValueChange={() => dispatchTheme(dark ? 'LIGHT' : 'DARK')}
                         />
                     </SettingsRow>
-                    <SettingsCard title="Favourite Colour" textStyle={{ color: emotion.text, fontSize: 18 }}>
+                    <SettingsCard title="Favourite Colour" textStyle={{ color: emotion.text }}>
                         <ColourPicker
                             updateGradient={gradient => dispatchColour(gradient)}
-                            customOrder={CustomColourOrder}
-                            size={isTablet() ? Dimensions.get('screen').width / 13 + 'px' : undefined}
+                            customOrder={isTablet() ? undefined : CustomColourOrder}
+                            size={isTablet() ? widthPercentageToDP(10) + 'px' : undefined}
                         />
                     </SettingsCard>
 
@@ -107,19 +110,19 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                     >
                         <SettingsRow>
                             <BodyFont>Rate App</BodyFont>
-                            <Icon family="fontawesome" name="star" size={24} colour={emotion.text} />
+                            <Icon family="fontawesome" name="star" size={IconSize} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app#features')}>
                         <SettingsRow>
                             <BodyFont>Vote on Features</BodyFont>
-                            <Icon family="fontawesome" name="thumbs-up" size={24} colour={emotion.text} />
+                            <Icon family="fontawesome" name="thumbs-up" size={IconSize} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app#support')}>
                         <SettingsRow>
                             <BodyFont>Support</BodyFont>
-                            <Icon family="fontawesome" name="support" size={24} colour={emotion.text} />
+                            <Icon family="fontawesome" name="support" size={IconSize} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
                     {/* <TouchableOpacity>

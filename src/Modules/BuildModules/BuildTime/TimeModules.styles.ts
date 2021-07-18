@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { fontFamily, fontFamilyExtraBold } from 'Styles/Fonts';
+import { fontFamilyExtraBold } from 'Styles/Fonts';
 
 interface ProgressInputProps {
     colour: string;
@@ -18,4 +18,5 @@ export const ProgressTimeInput = styled.TouchableOpacity`
     border-radius: 5px;
     display: flex;
     justify-content: center;
+    width: 100%;
 `;

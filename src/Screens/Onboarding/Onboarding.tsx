@@ -1,97 +1,51 @@
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { FC, useState } from 'react';
-import PaperOnboarding, { PaperOnboardingItemType } from '@gorhom/paper-onboarding';
-import { Gradients, ThemeColours } from 'Styles/Colours';
+import PaperOnboarding from '@gorhom/paper-onboarding';
 import { OnboardingNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { fontFamily } from 'Styles/Fonts';
-import OnboardingHabit from './OnboardingHabit';
 import { useOnboarded } from 'Context/AppContext';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from '@emotion/native';
-import { Platform } from 'react-native';
-import { Theme, useTheme } from '@emotion/react';
-import OnboardingTheme from './OnboardingTheme';
-
-const OnboardingImage = styled.Image`
-    height: 300px;
-    width: 180px;
-    border-radius: 15px;
-`;
-
-const data = (theme: Theme): PaperOnboardingItemType[] => [
-    {
-        title: 'Be the best you.',
-        description:
-            'Habitual helps you to focus on what truly matters. Build the best version of yourself by mastering habits that are important to you.',
-        backgroundColor: Gradients.PURPLE.solid,
-        showCloseButton: true,
-        image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Best.png')} />,
-    },
-    {
-        title: 'Track your development.',
-        description:
-            'View detailed reports as you progress on your habit tracking journey. Challenge yourself to set higher streaks, and work towards achieving your goals.',
-        backgroundColor: Gradients.GREEN.start,
-        showCloseButton: true,
-        image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Development.png')} />,
-    },
-    {
-        title: 'Stay accountable.',
-        description:
-            "Never forget to complete a habit with reminders to nudge yourself in the right direction and keep you motivated. You've got this!",
-        backgroundColor: Gradients.TANGERINE.solid,
-        showCloseButton: true,
-        image: () => <OnboardingImage resizeMode="contain" source={require('assets/images/Accountable.png')} />,
-    },
-    {
-        content: OnboardingTheme,
-        backgroundColor: theme.background,
-        showCloseButton: true,
-    },
-    {
-        content: OnboardingHabit,
-        backgroundColor: theme.background,
-        showCloseButton: true,
-    },
-];
+import { useTheme } from '@emotion/react';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import OnboardingData from './Onboarding.constants';
 
 const Onboarding: FC = () => {
-    // Current theme
+    /* Hooks */
     const theme = useTheme();
     const navigation = useNavigation<OnboardingNavProps>();
     const [, dispatchOnboarded] = useOnboarded();
 
+    /* State */
+    const [index, setIndex] = useState(0);
+
+    /* Skip onboarding */
     const handleOnClosePress = (): void => {
-        ReactNativeHapticFeedback.trigger('impactMedium');
         dispatchOnboarded(true);
+        ReactNativeHapticFeedback.trigger('impactMedium');
         navigation.dispatch(StackActions.replace('Tabs'));
     };
 
-    const [index, setIndex] = useState(0);
-
     return (
         <PaperOnboarding
-            data={data(theme)}
+            data={OnboardingData(theme)}
             onCloseButtonPress={handleOnClosePress}
-            indicatorSize={20}
-            // indicatorBorderColor={ThemeColours.dark.card}
-            // indicatorBackgroundColor={ThemeColours.dark.card}
+            indicatorSize={heightPercentageToDP(1.5)}
+            indicatorBorderColor={index < 3 ? '#fff' : theme.text}
+            indicatorBackgroundColor={index < 3 ? '#fff' : theme.text}
             safeInsets={{ top: 50, bottom: 50, left: 0, right: 0 }}
             titleStyle={{
                 fontFamily: fontFamily,
-                fontSize: Platform.OS === 'ios' ? 30 : 26,
+                fontSize: heightPercentageToDP(3),
                 fontWeight: '600',
                 marginTop: -50,
-                // color: ThemeColours.dark.card
             }}
             descriptionStyle={{
                 fontFamily: fontFamily,
                 fontWeight: '600',
-                fontSize: Platform.OS === 'ios' ? 18 : 16,
-                // color: ThemeColours.dark.card,
+                fontSize: heightPercentageToDP(2),
             }}
             closeButtonText="Skip"
-            closeButtonTextStyle={{ fontFamily: fontFamily, color: index < 2 ? '#fff' : theme.text }}
+            closeButtonTextStyle={{ fontFamily: fontFamily, color: index < 3 ? '#fff' : theme.text }}
             onIndexChange={(index: number) => setIndex(index)}
         />
     );

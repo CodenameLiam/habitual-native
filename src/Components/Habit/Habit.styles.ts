@@ -1,6 +1,7 @@
 import styled, { css } from '@emotion/native';
 import { isTablet } from 'Helpers/Size';
 import Animated from 'react-native-reanimated';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import TextTicker from 'react-native-text-ticker';
 import { fontFamily } from 'Styles/Fonts';
 
@@ -10,13 +11,13 @@ interface HabitProps {
 
 export const HabitContainer = styled(Animated.View)<HabitProps>`
     background-color: ${props => props.colour ?? props.theme.card};
-    height: ${isTablet() ? '100px' : '70px'};
+    height: ${heightPercentageToDP(8.5) + 'px'};
     border-radius: 10px;
     overflow: hidden;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 5px;
+    margin: ${widthPercentageToDP(1) + 'px'};
 `;
 
 export const HabitContentContainer = styled.View`
@@ -31,17 +32,17 @@ export const HabitIconContainer = styled.View`
     align-items: center;
     justify-content: center;
     margin: 15px;
-    width: 35px;
-    height: 30px;
+    width: ${widthPercentageToDP(7) + 'px'};
+    position: relative;
 `;
 
 interface HabitColourContainerProps {
     colour: string;
 }
 export const HabitColourContainer = styled(Animated.View)<HabitColourContainerProps>`
+    position: absolute;
     background-color: ${props => props.colour};
-    height: 35px;
-    width: 35px;
+    width: ${(isTablet() ? 50 : 35) + 'px'};
     overflow: hidden;
     border-radius: 1000px;
 `;
@@ -55,7 +56,7 @@ export const HabitTextContainer = styled.TouchableOpacity`
 
 export const HabitText = styled(TextTicker)<HabitProps>`
     font-family: ${fontFamily};
-    font-size: 18px;
+    font-size: ${heightPercentageToDP(2) + 'px'};
     color: ${props => props.colour ?? props.theme.text};
 `;
 
@@ -79,13 +80,13 @@ export const HabitIcon = css`
 
 export const HabitProgressButton = css`
     height: 100%;
-    width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
 
 export const HabitProgressText = styled.Text<HabitProps>`
+    font-size: ${heightPercentageToDP(1.5) + 'px'};
     font-family: ${fontFamily};
     color: ${props => props.colour ?? props.theme.text};
 `;

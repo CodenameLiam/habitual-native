@@ -1,12 +1,12 @@
 import Card from 'Components/Card/Card';
 import Icon from 'Components/Icon';
 import { IconFamily } from 'Components/Icon/Icon.types';
-import { BuildNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import * as Styles from './BuildIcon.styles';
 
 interface BuildIconProps {
-    // navigation: BuildNavProps;
     onPress: () => void;
     family: IconFamily;
     name: string;
@@ -15,11 +15,9 @@ interface BuildIconProps {
 
 const BuildIcon: FC<BuildIconProps> = ({ onPress, family, name, colour }) => {
     return (
-        <TouchableOpacity onPress={onPress}>
-            <Card>
-                <Icon family={family} name={name} size={32} colour={colour} />
-            </Card>
-        </TouchableOpacity>
+        <Styles.TouchableIcon onPress={onPress} style={{ aspectRatio: 1 }}>
+            <Icon family={family} name={name} size={heightPercentageToDP(3.5)} colour={colour} />
+        </Styles.TouchableIcon>
     );
 };
 

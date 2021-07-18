@@ -1,6 +1,7 @@
 import { StackNavigationOptions, TransitionPresets } from '@react-navigation/stack';
 import Icon from 'Components/Icon';
 import SettingsDrawerIcon from 'Components/SettingsDrawer/SettingsDrawerIcon';
+import { isTablet } from 'Helpers/Size';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 import { View } from 'react-native';
@@ -22,13 +23,16 @@ const handleBuild = (navigation: TabNavProps): void => {
 const TabHeader = ({ active, colour, navigation, handleSettings }: TabHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <View />,
     headerLeft: () => (
-        <TouchableOpacity style={{ paddingLeft: 25 }} onPress={handleSettings}>
+        <TouchableOpacity style={{ paddingLeft: 25, justifyContent: 'center' }} onPress={handleSettings}>
             <SettingsDrawerIcon type="cross" active={active} underlayColor="transparent" color={colour} />
         </TouchableOpacity>
     ),
     headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => handleBuild(navigation)}>
-            <Icon family="entypo" name="plus" size={38} colour={colour} />
+        <TouchableOpacity
+            style={{ paddingRight: 25, justifyContent: 'center' }}
+            onPress={() => handleBuild(navigation)}
+        >
+            <Icon family="entypo" name="plus" size={34} colour={colour} />
         </TouchableOpacity>
     ),
     ...TransitionPresets.ModalSlideFromBottomIOS,

@@ -24,6 +24,7 @@ import { useOnboarded } from 'Context/AppContext';
 import Onboarding from 'Screens/Onboarding/Onboarding';
 import ManageScreen from 'Screens/Manage/ManageScreen';
 import ManageHeader from 'Components/Headers/ManageHeader';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const Stack = createStackNavigator<AppParamList>();
 
