@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { TouchableOpacity } from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily } from 'Styles/Fonts';
 
 export const ArrowContainer = styled.View`
@@ -10,7 +11,7 @@ export const ArrowContainer = styled.View`
 
 export const ArrowTitle = styled.Text`
     font-family: ${fontFamily};
-    font-size: 18px;
+    font-size: ${heightPercentageToDP(2) + 'px'};
     padding: 25px 0px;
     text-align: center;
     color: ${props => props.theme.text};
@@ -22,9 +23,9 @@ interface ArrowProps {
 }
 
 export const ArrowButton = styled(TouchableOpacity)<ArrowProps>`
+    aspect-ratio: 1;
     background-color: ${props => props.colour + '30'};
-    width: 25px;
-    height: 25px;
+    height: ${heightPercentageToDP(3) + 'px'};
     border-radius: 5px;
     justify-content: center;
     align-items: center;

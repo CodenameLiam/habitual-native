@@ -4,6 +4,7 @@ import { ArrowButton, ArrowContainer, ArrowTitle } from './ArrowControls.styles'
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { GreyColours } from 'Styles/Colours';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
 
@@ -42,7 +43,7 @@ const ArrowControls: React.FC<ArrowControlProps> = ({
     return (
         <ArrowContainer>
             <ArrowButton onPress={handleLeftPress} colour={colour} placement="left" hitSlop={hitSlop}>
-                <Icon family="fontawesome5" name="angle-left" size={20} colour={colour} />
+                <Icon family="fontawesome5" name="angle-left" size={heightPercentageToDP(2.2)} colour={colour} />
             </ArrowButton>
             <TouchableOpacity disabled={onTitlePress === undefined} onPress={handleTitlePress}>
                 <ArrowTitle>{title}</ArrowTitle>
@@ -58,7 +59,7 @@ const ArrowControls: React.FC<ArrowControlProps> = ({
                 <Icon
                     family="fontawesome5"
                     name="angle-right"
-                    size={20}
+                    size={heightPercentageToDP(2.2)}
                     colour={rightDisabled ? GreyColours.GREY2 : colour}
                 />
             </ArrowButton>
