@@ -7,6 +7,7 @@ import { Gradients } from 'Styles/Colours';
 import { CategoryObject } from './Category.constants';
 import { CategoryButton, CategoryIcon, CategoryText } from './Category.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface CategoryProps {
     category: CategoryObject;
@@ -33,7 +34,12 @@ const Category: React.FC<CategoryProps> = ({ navigation, category }) => {
                 colors={[Gradients[colour].start, Gradients[colour].end]}
             />
             <CategoryText>{name}</CategoryText>
-            <CategoryIcon family={icon.family} name={icon.name} size={120} colour={theme.background} />
+            <CategoryIcon
+                family={icon.family}
+                name={icon.name}
+                size={heightPercentageToDP(14)}
+                colour={theme.background}
+            />
         </CategoryButton>
     );
 };

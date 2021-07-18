@@ -161,7 +161,7 @@ const Habit: React.FC<HabitProps> = ({ navigation, habit, dispatchHabits, dateIn
                             <Icon
                                 family={habit.icon.family}
                                 name={habit.icon.name}
-                                size={widthPercentageToDP(4)}
+                                size={heightPercentageToDP(2)}
                                 colour={theme.text}
                                 style={HabitIcon}
                             />
