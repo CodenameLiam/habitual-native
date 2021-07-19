@@ -7,6 +7,7 @@ import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import BackgroundTimer from 'react-native-background-timer';
 import { timeAlert } from 'Helpers/TimeAlert';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 interface ViewHeaderProps {
     colour: string;
     navigation: ViewNavProps;
@@ -35,7 +36,7 @@ const ViewHeader = ({ colour, navigation, route }: ViewHeaderProps): StackNaviga
     headerBackground: () => <HeaderBackground colour={route.params.colour} />,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
     headerRight: () => <EditIcon colour={colour} handlePress={() => handleEdit(navigation, route)} />,
-    headerStyle: { height: 60 },
+    headerStyle: { height: heightPercentageToDP(7.2) },
     headerTitle: route.params.name,
 });
 

@@ -7,6 +7,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface TabHeaderProps {
     active: boolean;
@@ -35,6 +36,7 @@ const TabHeader = ({ active, colour, navigation, handleSettings }: TabHeaderProp
             <Icon family="entypo" name="plus" size={34} colour={colour} />
         </TouchableOpacity>
     ),
+    headerStyle: { height: heightPercentageToDP(9.2) },
     ...TransitionPresets.ModalSlideFromBottomIOS,
 });
 
