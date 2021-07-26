@@ -13,6 +13,7 @@ import { StatsBar } from 'Modules/ViewModules/ViewStats/ViewStats.styles';
 import moment from 'moment';
 import { StatsNavProps, StatsRouteProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { useMemo } from 'react';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { Gradients } from 'Styles/Colours';
 import { Colour } from 'Types/Colour.types';
 import { getChartStats, getChartString, trendMessages } from './StatsScreen.functions';
@@ -55,7 +56,7 @@ const StatsScreen: React.FC<StatsScreenProps> = ({ navigation, route }) => {
                                     : 'chevron-down'
                                 : 'minus'
                         }
-                        size={50}
+                        size={heightPercentageToDP(6)}
                         colour={gradient.solid}
                     />
                 </TrendButtonCircleLarge>

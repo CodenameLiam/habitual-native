@@ -4,6 +4,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import React from 'react';
 import { View } from 'react-native';
 import { IdeaNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface IdeasHeaderProps {
     colour: string;
@@ -18,7 +19,7 @@ const handleBack = (navigation: IdeaNavProps): void => {
 const IdeasHeader = ({ colour, navigation }: IdeasHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <View></View>,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
-    headerStyle: { height: 60 },
+    headerStyle: { height: heightPercentageToDP(7.2) },
     headerTitle: 'Habit Ideas',
 });
 

@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { Dimensions } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import TextTicker from 'react-native-text-ticker';
 import { fontFamily } from 'Styles/Fonts';
 
@@ -12,7 +12,7 @@ export const AllMonthContainer = styled.View`
     justify-content: space-between;
 `;
 
-export const MonthCalendarContainer = styled.View`
+export const MonthCalendarContainer = styled.TouchableOpacity`
     width: 50%;
     align-items: center;
 `;
@@ -27,9 +27,6 @@ export const MonthTextContainer = styled.View`
 // ------------------------------------------------------------------------------------
 // Habits
 // ------------------------------------------------------------------------------------
-const calendarWidth = Dimensions.get('screen').width / 2 - 22.5;
-const calendarHeight = calendarWidth / 1.2;
-const cellDimensions = calendarWidth / 8.5;
 
 interface MonthProps {
     colour: string;
@@ -38,19 +35,21 @@ interface MonthProps {
 export const MonthText = styled(TextTicker)<MonthProps>`
     color: ${props => props.colour};
     font-family: ${fontFamily};
+    font-size: ${heightPercentageToDP(1.5) + 'px'};
 `;
 
 export const MonthContainer = styled.View`
-    width: ${calendarWidth + 'px'};
-    height: ${calendarHeight + 'px'};
     flex-wrap: wrap;
     flex-direction: row;
+    padding-left: ${widthPercentageToDP(2) + 'px'};
+    margin-bottom: ${heightPercentageToDP(2) + 'px'};
 `;
 
 export const MonthCell = styled.View<MonthProps>`
-    width: ${cellDimensions + 'px'};
-    height: ${cellDimensions + 'px'};
-    margin: 1.5px;
-    border-radius: 3px;
+    aspect-ratio: 1;
+    width: ${widthPercentageToDP(6) + 'px'};
+    height: 1px;
+    margin: ${heightPercentageToDP(0.15) + 'px'};
+    border-radius: ${heightPercentageToDP(0.5) + 'px'};
     background-color: ${props => props.colour};
 `;

@@ -3,6 +3,7 @@ import { today } from 'Helpers/Dates';
 import { getCalendarDates } from 'Helpers/Habits';
 import React, { Dispatch, FC, MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { CalendarList, DateObject } from 'react-native-calendars';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { GreyColours } from 'Styles/Colours';
 import { fontFamily } from 'Styles/Fonts';
@@ -70,11 +71,12 @@ const ViewCalendar: FC<ViewCalendarProps> = ({ habit, dispatchHabits, colour, pl
                 selectedDayBackgroundColor: colour,
                 todayTextColor: colour,
                 dotColor: colour,
-                textMonthFontSize: 15,
+                textMonthFontSize: heightPercentageToDP(2),
                 textMonthFontFamily: fontFamily,
                 textMonthFontWeight: '600',
                 textDayFontFamily: fontFamily,
                 textDayFontWeight: '600',
+                textDayFontSize: heightPercentageToDP(1.8),
                 textDayHeaderFontFamily: fontFamily,
                 textDayHeaderFontWeight: '600',
                 textSectionTitleColor: GreyColours.GREY2,

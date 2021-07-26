@@ -1,6 +1,5 @@
 import styled from '@emotion/native';
 import Card from 'Components/Card/Card';
-import { isTablet } from 'Helpers/Size';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 export const SettingsDrawerContainer = styled.View`
@@ -22,7 +21,7 @@ export const SettingsDrawerShadow = styled.View`
 `;
 
 export const SettingsHeader = styled.View`
-    padding: 15px;
+    padding: ${heightPercentageToDP(2) + 'px'};
     padding-bottom: 0px;
 `;
 

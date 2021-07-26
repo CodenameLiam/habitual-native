@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamilyExtraBold } from 'Styles/Fonts';
 
 interface CircleContainerProps {
@@ -13,6 +14,6 @@ export const CircleContainer = styled.View<CircleContainerProps>`
 
 export const CircleText = styled.Text`
     font-family: ${fontFamilyExtraBold};
-    font-size: 30px;
+    font-size: ${heightPercentageToDP(3.5) + 'px'};
     color: ${props => props.theme.text};
 `;

@@ -1,12 +1,13 @@
 import { getAlpha, getTime } from 'Helpers/Habits';
 import React, { FC, MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import Svg, { Circle } from 'react-native-svg';
 import { HabitType } from 'Types/Habit.types';
 import { CircleContainer, CircleText } from './ViewCircle.styles';
 
 // Constants
-const circleDimensions = Dimensions.get('screen').width - 60;
+const circleDimensions = Math.min(widthPercentageToDP(90), 400);
 const cXcY = circleDimensions / 2;
 const radius = circleDimensions / 2 - 15;
 const circumference = radius * 2 * Math.PI;

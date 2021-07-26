@@ -4,6 +4,7 @@ import Icon from 'Components/Icon';
 import { getCompleted, getCompletedRate, getHighestStreak, getSortedDates, getStreak } from 'Helpers/Habits';
 import moment from 'moment';
 import React, { FC, Fragment, useEffect, useMemo, useState } from 'react';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { HabitObject } from 'Types/Habit.types';
 import { useDebouncedCallback } from 'use-debounce/lib';
 import {
@@ -49,23 +50,23 @@ const ViewStats: FC<ViewStatsProps> = ({ colour, habit }) => {
             <StatsContainer>
                 <Card
                     style={StatsCardLeft}
-                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    textStyle={{ fontSize: heightPercentageToDP(1.8), color: theme.text, textAlign: 'center' }}
                     title="Current Streak"
                 >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
-                        <Icon family="fontawesome5" name="fire" colour={theme.text} size={30} />
+                        <Icon family="fontawesome5" name="fire" colour={theme.text} size={heightPercentageToDP(3.5)} />
                         <StatsText>{streak}</StatsText>
                     </StatsContentContainer>
                 </Card>
                 <Card
                     style={StatsCard}
-                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    textStyle={{ fontSize: heightPercentageToDP(1.8), color: theme.text, textAlign: 'center' }}
                     title="Highest Streak"
                 >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
-                        <Icon family="fontawesome5" name="crown" colour={theme.text} size={30} />
+                        <Icon family="fontawesome5" name="crown" colour={theme.text} size={heightPercentageToDP(3.5)} />
                         <StatsText>{highestStreak}</StatsText>
                     </StatsContentContainer>
                 </Card>
@@ -73,23 +74,28 @@ const ViewStats: FC<ViewStatsProps> = ({ colour, habit }) => {
             <StatsContainer>
                 <Card
                     style={StatsCardLeft}
-                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    textStyle={{ fontSize: heightPercentageToDP(1.8), color: theme.text, textAlign: 'center' }}
                     title="Total Completed"
                 >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
-                        <Icon family="fontawesome5" name="check" colour={theme.text} size={30} />
+                        <Icon family="fontawesome5" name="check" colour={theme.text} size={heightPercentageToDP(3.5)} />
                         <StatsText>{completed}</StatsText>
                     </StatsContentContainer>
                 </Card>
                 <Card
                     style={StatsCard}
-                    textStyle={{ fontSize: 17, color: theme.text, textAlign: 'center' }}
+                    textStyle={{ fontSize: heightPercentageToDP(1.8), color: theme.text, textAlign: 'center' }}
                     title="Completion Rate"
                 >
                     <StatsBar colour={colour} />
                     <StatsContentContainer>
-                        <Icon family="fontawesome5" name="percentage" colour={theme.text} size={30} />
+                        <Icon
+                            family="fontawesome5"
+                            name="percentage"
+                            colour={theme.text}
+                            size={heightPercentageToDP(3.5)}
+                        />
                         <StatsText>{completeRate}</StatsText>
                     </StatsContentContainer>
                 </Card>

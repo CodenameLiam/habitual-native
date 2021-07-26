@@ -1,4 +1,5 @@
 import styled, { css } from '@emotion/native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily } from 'Styles/Fonts';
 
 export const AllStatsContainer = styled.View`
@@ -19,7 +20,7 @@ export const StatsContentContainer = styled.View`
 
 // Text that appears on a stats card
 export const StatsText = styled.Text`
-    font-size: 30px;
+    font-size: ${heightPercentageToDP(3.5) + 'px'};
     font-family: ${fontFamily};
     text-align: center;
     padding-left: 15px;
@@ -34,7 +35,7 @@ interface StatsBarProps {
 export const StatsBar = styled.View<StatsBarProps>`
     background-color: ${props => props.colour};
     position: absolute;
-    width: 10px;
+    width: ${widthPercentageToDP(3) + 'px'};
     top: 0;
     bottom: 0;
     left: 0;

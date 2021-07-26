@@ -6,8 +6,9 @@ import { getDateArray } from 'Helpers/Dates';
 import moment from 'moment';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { View, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { Gradients } from 'Styles/Colours';
 import { Full, MarginBottom, MarginRight, RowCenter } from 'Styles/Globals';
 import { Colour } from 'Types/Colour.types';
@@ -55,7 +56,7 @@ const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => 
                 {yearHabits.map((habit, index) => {
                     const colour = Gradients[habit.colour].solid;
                     return (
-                        <TouchableWithoutFeedback
+                        <TouchableOpacity
                             key={habit.id}
                             onPress={() => handleHabitPress(habit.id, habit.name, habit.colour)}
                         >
@@ -65,14 +66,14 @@ const CalendarYear: FC<CalendarYearProps> = ({ habits, colour, navigation }) => 
                                         style={MarginRight}
                                         family={habit.icon.family}
                                         name={habit.icon.name}
-                                        size={14}
+                                        size={heightPercentageToDP(1.5)}
                                         colour={colour}
                                     />
                                     <YearHabitText colour={colour}>{habit.name}</YearHabitText>
                                 </View>
                                 <MemoizedYearlyCalendar habit={habit} colour={colour} yearArray={dates} />
                             </View>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                     );
                 })}
             </GrowScrollView>

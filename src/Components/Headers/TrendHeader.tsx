@@ -5,6 +5,7 @@ import { StatsNavProps, StatsRouteProps } from 'Navigation/AppNavigation/AppNavi
 
 import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface TrendHeaderProps {
     colour: string;
@@ -20,7 +21,7 @@ const handleBack = (navigation: StatsNavProps): void => {
 const TrendHeader = ({ colour, navigation, route }: TrendHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <HeaderBackground colour={route.params.colour} />,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
-    headerStyle: { height: 60 },
+    headerStyle: { height: heightPercentageToDP(7.2) },
     headerTitle: route.params.name,
 });
 

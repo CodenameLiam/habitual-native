@@ -16,6 +16,7 @@ import { HabitObject } from 'Types/Habit.types';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import { getSortedDates } from 'Helpers/Habits';
 import { getChartString } from 'Screens/Stats/StatsScreen.functions';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface TrendButtonProps {
     habit: HabitObject;
@@ -57,7 +58,7 @@ const TrendButton: FC<TrendButtonProps> = ({ habit, navigation }) => {
                                 : 'chevron-down'
                             : 'minus'
                     }
-                    size={42}
+                    size={heightPercentageToDP(4.5)}
                     colour={gradient.solid}
                 />
             </TrendButtonCircle>

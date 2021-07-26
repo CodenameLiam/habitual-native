@@ -24,7 +24,7 @@ import { useOnboarded } from 'Context/AppContext';
 import Onboarding from 'Screens/Onboarding/Onboarding';
 import ManageScreen from 'Screens/Manage/ManageScreen';
 import ManageHeader from 'Components/Headers/ManageHeader';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const Stack = createStackNavigator<AppParamList>();
 
@@ -56,7 +56,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ navigation }) => {
                 gestureEnabled: true,
                 cardOverlayEnabled: true,
                 gestureResponseDistance: Dimensions.get('screen').height,
-                headerTitleStyle: headerFont,
+                headerTitleStyle: [headerFont, { maxWidth: widthPercentageToDP(60) }],
                 headerTitleAlign: 'center',
                 ...TransitionPresets.ModalPresentationIOS,
             }}

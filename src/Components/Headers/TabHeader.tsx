@@ -36,7 +36,7 @@ const TabHeader = ({ active, colour, navigation, handleSettings }: TabHeaderProp
             <Icon family="entypo" name="plus" size={34} colour={colour} />
         </TouchableOpacity>
     ),
-    headerStyle: { height: heightPercentageToDP(9.2) },
+    headerStyle: { height: heightPercentageToDP(10) },
     ...TransitionPresets.ModalSlideFromBottomIOS,
 });
 

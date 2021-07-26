@@ -1,9 +1,11 @@
 import styled, { css } from '@emotion/native';
 import { TrendButtonCircle } from 'Components/TrendButton/TrendButton.styles';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily } from 'Styles/Fonts';
 
 export const TrendGrowthContainer = styled.View`
     padding: 15px;
+    padding: ${heightPercentageToDP(2) + 'px'};
     flex-direction: row;
     align-items: center;
 `;
@@ -15,19 +17,20 @@ export const TrendMessageContainer = styled.View`
 
 export const TrendMessage = styled.Text`
     font-family: ${fontFamily};
-    font-size: 12px;
+    font-size: ${heightPercentageToDP(1.4) + 'px'};
     color: ${props => props.theme.text};
+    margin-top: ${heightPercentageToDP(0.5) + 'px'};
 `;
 
 export const TrendButtonCircleLarge = styled(TrendButtonCircle)`
-    height: 60px;
-    width: 60px;
+    aspect-ratio: 1;
+    height: ${heightPercentageToDP(7) + 'px'};
     background-color: ${props => props.theme.card};
+    margin-right: ${heightPercentageToDP(1) + 'px'};
 `;
 
 export const TrendMessageMargin = css`
-    margin-left: 15px;
-    margin-top: 10px;
+    margin-left: ${heightPercentageToDP(2.5) + 'px'};
 `;
 
 interface TrendStatsProps {
@@ -35,9 +38,9 @@ interface TrendStatsProps {
 }
 
 export const TrendStats = styled.Text<TrendStatsProps>`
-    margin-left: 15px;
+    margin-left: ${heightPercentageToDP(2.5) + 'px'};
     margin-bottom: ${props => (!props.colour ? 0 : 5) + 'px'};
     font-family: ${fontFamily};
-    font-size: 18px;
+    font-size: ${heightPercentageToDP(2) + 'px'};
     color: ${props => props.colour ?? props.theme.grey};
 `;

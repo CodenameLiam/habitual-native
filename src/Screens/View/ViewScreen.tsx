@@ -31,11 +31,6 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
 
     // Mounting
     const mountRef = useRef(false);
-    const [ready, setReady] = useState(false);
-    InteractionManager.runAfterInteractions(() => {
-        setReady(true);
-    });
-
     // Updating header information if habit is updated
     useEffect(() => {
         // Only update after initial render
@@ -106,14 +101,13 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
             <ViewStats habit={habit} colour={gradient.solid} />
 
             {/* Monthly calendar */}
-            {ready && (
-                <ViewCalendar
-                    habit={habit}
-                    dispatchHabits={dispatchHabits}
-                    colour={gradient.solid}
-                    playingRef={playingRef}
-                />
-            )}
+
+            <ViewCalendar
+                habit={habit}
+                dispatchHabits={dispatchHabits}
+                colour={gradient.solid}
+                playingRef={playingRef}
+            />
         </DismissableScrollView>
     );
 };

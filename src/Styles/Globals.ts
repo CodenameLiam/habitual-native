@@ -26,6 +26,7 @@ export const RowBetween = css`
 export const RowCenter = css`
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 `;
 
 export const MarginLeft = css`

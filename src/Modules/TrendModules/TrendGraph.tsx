@@ -16,6 +16,7 @@ import * as shape from 'd3-shape';
 import { useDebouncedCallback } from 'use-debounce/lib';
 import Animated, { Easing, useAnimatedProps, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Dimensions, Platform, View } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const contentInset = { top: 20, bottom: 20, left: 5, right: 5 };
@@ -103,7 +104,7 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
     const animateGraph = useCallback(() => {
         if (Platform.OS === 'ios') {
             graphAnimation.value = 0;
-            graphAnimation.value = withTiming(Dimensions.get('screen').width - 50, {
+            graphAnimation.value = withTiming(Dimensions.get('screen').width - widthPercentageToDP(10), {
                 duration: 2000,
                 easing: Easing.inOut(Easing.quad),
             });
@@ -138,13 +139,13 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
                 />
             </CalendarButtonGroupContainer>
 
-            <View style={{ height: 180, flexDirection: 'row', marginLeft: 15, marginRight: 15 }}>
+            <View style={{ height: heightPercentageToDP(20), flexDirection: 'row', marginLeft: 15, marginRight: 15 }}>
                 <YAxis
                     data={data}
                     contentInset={contentInset}
                     svg={{
                         fill: theme.grey,
-                        fontSize: 10,
+                        fontSize: heightPercentageToDP(1.2),
                         fontFamily: fontFamily,
                         fontWeight: '600',
                     }}
@@ -171,13 +172,12 @@ const TrendGraph: FC<TrendGraphProps> = ({ habits }) => {
                 </AreaChart>
             </View>
             <XAxis
-                style={{ marginHorizontal: -10 }}
                 data={data}
                 formatLabel={(value, index) => getTrendLabel(index, monthRange)}
                 contentInset={{ left: 50, right: 40 }}
                 svg={{
                     fill: theme.grey,
-                    fontSize: 10,
+                    fontSize: heightPercentageToDP(1.2),
                     fontFamily: fontFamily,
                     fontWeight: '600',
                 }}

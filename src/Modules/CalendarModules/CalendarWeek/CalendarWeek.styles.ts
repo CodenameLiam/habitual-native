@@ -1,15 +1,11 @@
 import styled from '@emotion/native';
-import { Dimensions } from 'react-native';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import TextTicker from 'react-native-text-ticker';
 import { fontFamily, fontFamilyBold } from 'Styles/Fonts';
 
 // ------------------------------------------------------------------------------------
 // Cells
 // ------------------------------------------------------------------------------------
-const weekCellContainer = Dimensions.get('screen').width / 13.5;
-const weekTextContainer = Dimensions.get('screen').width - weekCellContainer * 8.5;
-/* margin-left: ${weekTextContainer + 'px'}; */
 
 export const WeekDayContainer = styled.View`
     flex-direction: row;
@@ -22,20 +18,19 @@ export const WeekDayContainer = styled.View`
 export const WeekDayText = styled.Text`
     color: ${props => props.theme.text};
     font-family: ${fontFamilyBold};
+    font-size: ${heightPercentageToDP(1.5) + 'px'};
 `;
 
 interface WeekCellProps {
     colour: string;
 }
-/* height: ${weekCellContainer + 'px'};
-width: ${weekCellContainer + 'px'}; */
 
 export const WeekCell = styled.TouchableOpacity<WeekCellProps>`
     aspect-ratio: 1;
-    width: 10%;
+    width: ${widthPercentageToDP(7) + 'px'};
     background-color: ${props => props.colour};
     margin: ${heightPercentageToDP(0.2) + 'px'};
-    border-radius: 5px;
+    border-radius: ${heightPercentageToDP(0.5) + 'px'};
     justify-content: center;
     align-items: center;
 `;
@@ -49,11 +44,6 @@ export const WeekHabitContainer = styled.View`
     margin-right: ${heightPercentageToDP(1.5) + 'px'};
 `;
 
-/* width: ${weekTextContainer + 'px'};
-    height: ${weekCellContainer + 'px'}; */
-/* padding-right: 10px; */
-/* padding-left: 15px; */
-
 export const WeekHabitButton = styled.TouchableOpacity`
     flex: 1;
     overflow: hidden;
@@ -66,4 +56,5 @@ export const WeekHabitButton = styled.TouchableOpacity`
 export const WeekHabitText = styled(TextTicker)<WeekCellProps>`
     color: ${props => props.colour};
     font-family: ${fontFamily};
+    font-size: ${heightPercentageToDP(1.5) + 'px'};
 `;

@@ -12,6 +12,7 @@ import { renderDisabledIcon } from './CalendarWeekHabit.functions';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { HabitAction, habitActions } from 'Reducers/HabitsReducer/HabitReducer.actions';
 import { WeekHabitContainer, WeekHabitButton, WeekHabitText, WeekCell } from '../CalendarWeek/CalendarWeek.styles';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface CalendarWeekHabitProps {
     habit: HabitObject;
@@ -35,7 +36,13 @@ const CalendarWeekHabit: FC<CalendarWeekHabitProps> = ({ habit, dispatchHabits, 
     return (
         <WeekHabitContainer>
             <WeekHabitButton onPress={() => handleHabitPress(habit.id, habit.name, habit.colour)}>
-                <Icon style={MarginRight} family={habit.icon.family} name={habit.icon.name} size={14} colour={colour} />
+                <Icon
+                    style={MarginRight}
+                    family={habit.icon.family}
+                    name={habit.icon.name}
+                    size={heightPercentageToDP(2)}
+                    colour={colour}
+                />
                 <WeekHabitText
                     colour={colour}
                     scroll={false}
@@ -59,7 +66,14 @@ const CalendarWeekHabit: FC<CalendarWeekHabitProps> = ({ habit, dispatchHabits, 
                         habit,
                         day.format('YYYY-MM-DD'),
                         day.format('ddd').toUpperCase() as ScheduleType,
-                    ) && <Icon family="fontawesome" name="minus" size={16} colour={GreyColours.GREY2} />}
+                    ) && (
+                        <Icon
+                            family="fontawesome"
+                            name="minus"
+                            size={heightPercentageToDP(1.5)}
+                            colour={GreyColours.GREY2}
+                        />
+                    )}
                 </WeekCell>
             ))}
         </WeekHabitContainer>

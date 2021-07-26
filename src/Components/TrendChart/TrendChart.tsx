@@ -2,9 +2,10 @@ import { useTheme } from '@emotion/react';
 import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
 import moment from 'moment';
 import React, { useMemo } from 'react';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { getChartString } from 'Screens/Stats/StatsScreen.functions';
 import { HabitType } from 'Types/Habit.types';
-import { getAlignment, getHeight } from './TrendChart.functions';
+import { getAlignment, getHeight, maxChartHeight } from './TrendChart.functions';
 import {
     TrendLine,
     TrendMonthText,
@@ -39,11 +40,14 @@ const TrendChart: React.FC<TrendChartProps> = ({ colour, type, weeklyTotalArray,
     const theme = useTheme();
     const { enoughData, heights, maxHeight } = weeklyTotalArray;
 
-    const threeMonthAverageHeight = useMemo(() => 160 - getHeight(maxHeight, threeMonthAverage), [
+    const threeMonthAverageHeight = useMemo(() => maxChartHeight - getHeight(maxHeight, threeMonthAverage), [
         maxHeight,
         threeMonthAverage,
     ]);
-    const yearAverageHeight = useMemo(() => 160 - getHeight(maxHeight, yearAverage), [maxHeight, yearAverage]);
+    const yearAverageHeight = useMemo(() => maxChartHeight - getHeight(maxHeight, yearAverage), [
+        maxHeight,
+        yearAverage,
+    ]);
 
     return (
         <TrendContainer>

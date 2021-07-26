@@ -1,7 +1,6 @@
 import { Moment } from 'moment';
 import { TabNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React, { FC, memo, useCallback, useMemo } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { HabitObject } from 'Types/Habit.types';
 import {
     MonthCalendarContainer,
@@ -37,38 +36,31 @@ const CalendarMonthHabit: FC<CalendarMonthHabitProps> = ({ habit, dates, navigat
     );
 
     return (
-        <TouchableWithoutFeedback onPress={() => handleHabitPress(habit.id, habit.name, habit.colour)}>
-            <MonthCalendarContainer>
-                <MonthTextContainer>
-                    <Icon
-                        style={MarginRight}
-                        family={habit.icon.family}
-                        name={habit.icon.name}
-                        size={14}
-                        colour={colour}
+        <MonthCalendarContainer onPress={() => handleHabitPress(habit.id, habit.name, habit.colour)}>
+            <MonthTextContainer>
+                <Icon style={MarginRight} family={habit.icon.family} name={habit.icon.name} size={14} colour={colour} />
+                <MonthText
+                    colour={colour}
+                    scroll={false}
+                    animationType="bounce"
+                    duration={5000}
+                    bounceDelay={1500}
+                    marqueeDelay={1000}
+                    bouncePadding={{ left: 0, right: 0 }}
+                >
+                    {habit.name}
+                </MonthText>
+            </MonthTextContainer>
+
+            <MonthContainer>
+                {dates.map((day, index) => (
+                    <MonthCell
+                        key={index + habit.id}
+                        colour={getColour(habit, day.format('YYYY-MM-DD'), colour, theme.card)}
                     />
-                    <MonthText
-                        colour={colour}
-                        scroll={false}
-                        animationType="bounce"
-                        duration={5000}
-                        bounceDelay={1500}
-                        marqueeDelay={1000}
-                        bouncePadding={{ left: 0, right: 0 }}
-                    >
-                        {habit.name}
-                    </MonthText>
-                </MonthTextContainer>
-                <MonthContainer>
-                    {dates.map((day, index) => (
-                        <MonthCell
-                            key={index + habit.id}
-                            colour={getColour(habit, day.format('YYYY-MM-DD'), colour, theme.card)}
-                        />
-                    ))}
-                </MonthContainer>
-            </MonthCalendarContainer>
-        </TouchableWithoutFeedback>
+                ))}
+            </MonthContainer>
+        </MonthCalendarContainer>
     );
 };
 
