@@ -26,7 +26,7 @@ type BuildScreenSnaps = {
 export const BuildScreenSnapPoints: BuildScreenSnaps = {
     Mount: '0px',
     Icon: '70%',
-    Time: '300px',
+    Time: '50%',
     Reminder: '500px',
 };
 

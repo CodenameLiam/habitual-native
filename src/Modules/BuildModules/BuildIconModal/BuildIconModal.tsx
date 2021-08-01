@@ -8,6 +8,7 @@ import { IconContainer, IconGroupContainer, Label, LabelContainer, Row } from '.
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import Icon from 'Components/Icon';
 import BottomSheet from 'reanimated-bottom-sheet';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 const IconDimensions = (Dimensions.get('screen').width - 30) / 10.5;
 
@@ -39,7 +40,12 @@ const BuildIconModal: FC<BuildIconModalProps> = ({ sheetRef, handleClose, dispat
                     <Row>
                         {group.icons.map((icon, index) => (
                             <IconContainer key={index + icon.name} onPress={() => handlePress(icon)}>
-                                <Icon family={icon.family} name={icon.name} colour={theme.text} size={IconDimensions} />
+                                <Icon
+                                    family={icon.family}
+                                    name={icon.name}
+                                    colour={theme.text}
+                                    size={widthPercentageToDP(11)}
+                                />
                             </IconContainer>
                         ))}
                     </Row>

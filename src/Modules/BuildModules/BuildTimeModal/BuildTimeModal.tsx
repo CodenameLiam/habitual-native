@@ -1,11 +1,12 @@
 import { useTheme } from '@emotion/react';
-import { Picker } from '@react-native-picker/picker';
 import { getTime } from 'Helpers/Habits';
-import React, { Dispatch, FC, useState } from 'react';
-import { View } from 'react-native';
+import React, { Dispatch, FC, useCallback, useEffect, useState } from 'react';
+import { Keyboard, View } from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
-import { Full, Row } from 'Styles/Globals';
-import { getHoursItems, getMinutesItems } from './BuildTimeModal.functions';
+import { BuildModalInput } from 'Screens/BuildScreen/BuildScreen.styles';
+import { BodyFont } from 'Styles/Fonts';
+import { RowCenter } from 'Styles/Globals';
 
 interface BuildTimeModalProps {
     total: number;
@@ -16,31 +17,52 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
     const theme = useTheme();
 
     const { hours, minutes } = getTime(total);
-    const [hourPicker, setHourPicker] = useState(hours);
-    const [minutePicker, setMinutePicker] = useState(minutes);
+    const [hourString, setHourString] = useState(hours);
+    const [minuteString, setMinuteString] = useState(minutes);
 
-    const handleChangeHours = (hours: number): void => {
-        setHourPicker(hours);
+    const handleChangeHours = (text: string): void => {
+        const hours = Number(text.replace(/[^0-9]/g, ''));
+        setHourString(hours);
         dispatchBuild(buildActions.total(hours * 3600 + minutes * 60));
     };
 
-    const handleChangeMinutes = (minutes: number): void => {
-        setMinutePicker(minutes);
+    const handleChangeMinutes = (text: string): void => {
+        const minutes = Number(text.replace(/[^0-9]/g, ''));
+        setMinuteString(minutes);
         dispatchBuild(buildActions.total(hours * 3600 + minutes * 60));
     };
+
+    const _keyboardWillHide = useCallback(() => {
+        setHourString(hourString + Math.floor(minuteString / 60));
+        console.log(Math.floor(minuteString / 60));
+        setMinuteString(prev => prev % 60);
+    }, [hourString, minuteString]);
+
+    useEffect(() => {
+        Keyboard.addListener('keyboardWillHide', _keyboardWillHide);
+        return () => {
+            Keyboard.removeListener('keyboardWillHide', _keyboardWillHide);
+        };
+    }, [_keyboardWillHide]);
 
     return (
-        <View style={Row}>
-            <Picker style={Full} selectedValue={hourPicker} onValueChange={itemValue => handleChangeHours(itemValue)}>
-                {getHoursItems(theme.text)}
-            </Picker>
-            <Picker
-                style={Full}
-                selectedValue={minutePicker}
-                onValueChange={itemValue => handleChangeMinutes(itemValue)}
-            >
-                {getMinutesItems(theme.text)}
-            </Picker>
+        <View style={[RowCenter, { padding: heightPercentageToDP(2), paddingTop: heightPercentageToDP(4) }]}>
+            <BuildModalInput
+                keyboardType="number-pad"
+                colour={theme.text}
+                style={{ marginRight: 10 }}
+                onChangeText={handleChangeHours}
+                value={hourString > 0 ? String(hourString) : ''}
+            />
+            <BodyFont style={{ marginRight: 30 }}>hours</BodyFont>
+            <BuildModalInput
+                keyboardType="number-pad"
+                colour={theme.text}
+                style={{ marginRight: 10 }}
+                onChangeText={handleChangeMinutes}
+                value={String(minuteString)}
+            />
+            <BodyFont>mins</BodyFont>
         </View>
     );
 };

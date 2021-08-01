@@ -40,7 +40,6 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import PushNotification from 'react-native-push-notification';
 import NotificationSetting from 'react-native-open-notification';
 import { notificationAlert } from 'Helpers/NotificationAlert';
-import { isTablet } from 'Helpers/Size';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const scheduleFunctions = [EVERYDAY_SCHEDULE, WEEKDAY_SCHEDULE, WEEKEND_SCHEDULE];

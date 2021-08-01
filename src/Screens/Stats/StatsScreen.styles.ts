@@ -1,6 +1,6 @@
 import styled, { css } from '@emotion/native';
 import { TrendButtonCircle } from 'Components/TrendButton/TrendButton.styles';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily } from 'Styles/Fonts';
 
 export const TrendGrowthContainer = styled.View`
