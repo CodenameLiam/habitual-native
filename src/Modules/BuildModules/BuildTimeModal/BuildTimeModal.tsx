@@ -34,7 +34,6 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
 
     const _keyboardWillHide = useCallback(() => {
         setHourString(hourString + Math.floor(minuteString / 60));
-        console.log(Math.floor(minuteString / 60));
         setMinuteString(prev => prev % 60);
     }, [hourString, minuteString]);
 
