@@ -75,7 +75,13 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
     const { modal, setModal, sheetRef, shadowRef, handleOpen, handleClose } = useBuildModal(navigation);
 
     return (
-        <KeyboardAwareScrollView contentContainerStyle={Full} scrollEnabled={false} extraScrollHeight={60}>
+        <KeyboardAwareScrollView
+            enableAutomaticScroll={modal === 'Mount'}
+            contentContainerStyle={Full}
+            scrollEnabled={false}
+            extraScrollHeight={60}
+            keyboardShouldPersistTaps={modal === 'Reminder' ? 'always' : 'never'}
+        >
             <View style={Row}>
                 {/* Icon */}
                 <BuildIcon
@@ -213,6 +219,7 @@ const BuildScreen: FC<BuildScreenProps> = ({ navigation, route }) => {
                                     Reminder: (
                                         <BuildReminderModal
                                             colour={gradient.solid}
+                                            gradient={gradient}
                                             reminders={habit.reminders}
                                             dispatchBuild={dispatchBuild}
                                             sheetRef={sheetRef}

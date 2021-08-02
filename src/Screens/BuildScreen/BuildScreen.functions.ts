@@ -26,8 +26,8 @@ type BuildScreenSnaps = {
 export const BuildScreenSnapPoints: BuildScreenSnaps = {
     Mount: '0px',
     Icon: '70%',
-    Time: '50%',
-    Reminder: '500px',
+    Time: '55%',
+    Reminder: '55%',
 };
 
 interface UseBuildModal {
@@ -61,6 +61,7 @@ export const useBuildModal = (navigation: BuildNavProps): UseBuildModal => {
         navigation.setOptions({
             gestureResponseDistance: Dimensions.get('screen').height,
         });
+        setModal('Mount');
     }, [navigation]);
 
     return { modal, setModal, sheetRef, shadowRef, handleOpen, handleClose };

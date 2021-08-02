@@ -1,38 +1,40 @@
 import { useTheme } from '@emotion/react';
-import { Picker } from '@react-native-picker/picker';
 import React, { FC, RefObject, useState } from 'react';
-import { View, LayoutAnimation, TouchableOpacity } from 'react-native';
+import { View, LayoutAnimation, TouchableOpacity, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
-import { Row, Full } from 'Styles/Globals';
+import { Row, RowCenter } from 'Styles/Globals';
 import { HabitReminder } from 'Types/Habit.types';
-import { getReminderHoursItems, getReminderMinutesItems, getReminderString } from './BuildReminderModal.functions';
+import { getReminderString, zeroPad } from './BuildReminderModal.functions';
 import {
     ReminderButton,
     AddReminderPlus,
     BuildReminderModalContainer,
     ReminderTime,
-    CancelReminder,
+    ReminderTimeButton,
+    ReminderInput,
 } from './BuildReminderModal.styles';
 import { BodyFont } from 'Styles/Fonts';
 import Icon from 'Components/Icon';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { Gradients } from 'Styles/Colours';
 import { GrowContainer, GrowShadow } from 'Components/GrowScrollView/GrowScrollView.styles';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { Gradient, Gradients } from 'Styles/Colours';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface BuildReminderModalProps {
     colour: string;
+    gradient: Gradient;
     reminders: HabitReminder[];
     sheetRef: RefObject<BottomSheet>;
     dispatchBuild: (action: BuildAction) => void;
 }
 
-const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, reminders, dispatchBuild }) => {
+const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, gradient, sheetRef, reminders, dispatchBuild }) => {
     const theme = useTheme();
 
-    const [hour, setHour] = useState(10);
-    const [minute, setMinute] = useState(0);
+    const [timeString, setTimeString] = useState('');
     const [time, setTime] = useState<'am' | 'pm'>('am');
 
     const [showTimePicker, setShowTimePicker] = useState(false);
@@ -41,24 +43,10 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
     const handleShowTimePicker = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setEditIndex(undefined);
-        setHour(10);
-        setMinute(0);
+        setTimeString('');
         setTime('am');
         setShowTimePicker(!showTimePicker);
         ReactNativeHapticFeedback.trigger('impactLight');
-    };
-
-    const handleAddReminder = (): void => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        if (
-            reminders.find(reminder => getReminderString(reminder) === getReminderString({ hour, minute, time })) ===
-            undefined
-        ) {
-            dispatchBuild(buildActions.addReminder({ hour, minute, time }));
-        }
-
-        setShowTimePicker(false);
-        ReactNativeHapticFeedback.trigger('notificationSuccess');
     };
 
     const handleDeleteReminder = (index: number): void => {
@@ -73,47 +61,128 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setShowTimePicker(true);
         setEditIndex(index);
-        setHour(reminder.hour);
-        setMinute(reminder.minute);
+        setTimeString(`${String(reminder.hour)}:${zeroPad(reminder.minute)}`);
         setTime(reminder.time);
         ReactNativeHapticFeedback.trigger('impactLight');
     };
 
     const handleConfirmEditReminder = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        editIndex !== undefined && dispatchBuild(buildActions.editReminder(editIndex, { hour, minute, time }));
-        setEditIndex(undefined);
+        if ((timeString[0] === '1' && timeString.length === 5) || timeString.length === 4) {
+            const [hours, minutes] = timeString.split(':');
+
+            const hour = Number(hours) > 1 ? Number(hours) : 12;
+            const minute = Number(minutes);
+
+            if (
+                reminders.find(
+                    reminder => getReminderString(reminder) === getReminderString({ hour, minute, time }),
+                ) === undefined
+            ) {
+                if (editIndex === undefined) {
+                    dispatchBuild(
+                        buildActions.addReminder({
+                            hour,
+                            minute,
+                            time,
+                        }),
+                    );
+                } else {
+                    dispatchBuild(
+                        buildActions.editReminder(editIndex, {
+                            hour,
+                            minute,
+                            time,
+                        }),
+                    );
+                }
+            }
+
+            ReactNativeHapticFeedback.trigger('notificationSuccess');
+        }
         setShowTimePicker(false);
-        ReactNativeHapticFeedback.trigger('notificationSuccess');
     };
 
     return (
         <BuildReminderModalContainer>
             <GrowContainer>
-                <ScrollView
-                    waitFor={sheetRef}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 20, paddingTop: 25, paddingLeft: 10, paddingRight: 10 }}
-                >
-                    {reminders.map((reminder, index) => {
-                        const reminderString = getReminderString(reminder);
-                        return (
-                            <ReminderTime
-                                key={reminderString}
-                                colour={theme.background}
-                                onPress={() => handleEditReminder(index, reminder)}
-                            >
-                                <BodyFont>{reminderString}</BodyFont>
-                                <TouchableOpacity
-                                    onPress={() => handleDeleteReminder(index)}
-                                    hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                {showTimePicker ? (
+                    <View style={[RowCenter, { paddingTop: heightPercentageToDP(4) }]}>
+                        <ReminderInput
+                            colour={theme.text}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            autoFocus
+                            value={timeString}
+                            mask={text => {
+                                if (text?.charAt(0) === '1') {
+                                    return [/\d/, /\d/, ':', /[0-5]/, /\d/];
+                                } else {
+                                    return [/\d/, ':', /[0-5]/, /\d/];
+                                }
+                            }}
+                            placeholder="8:00"
+                            placeholderTextColor={theme.grey}
+                            onChangeText={setTimeString}
+                            accessibilityComponentType
+                            accessibilityTraits
+                            onEndEditing={handleConfirmEditReminder}
+                        />
+                        <ReminderTimeButton
+                            colour={time === 'am' ? colour : theme.background}
+                            onPress={() => setTime('am')}
+                        >
+                            {time === 'am' && (
+                                <LinearGradient
+                                    colors={[gradient.start, gradient.end]}
+                                    style={StyleSheet.absoluteFill}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                />
+                            )}
+                            <BodyFont>AM</BodyFont>
+                        </ReminderTimeButton>
+                        <ReminderTimeButton
+                            colour={time === 'pm' ? colour : theme.background}
+                            onPress={() => setTime('pm')}
+                        >
+                            {time === 'pm' && (
+                                <LinearGradient
+                                    colors={[gradient.start, gradient.end]}
+                                    style={StyleSheet.absoluteFill}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                />
+                            )}
+                            <BodyFont>PM</BodyFont>
+                        </ReminderTimeButton>
+                    </View>
+                ) : (
+                    <ScrollView
+                        waitFor={sheetRef}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ paddingBottom: 20, paddingTop: 25, paddingLeft: 10, paddingRight: 10 }}
+                    >
+                        {reminders.map((reminder, index) => {
+                            const reminderString = getReminderString(reminder);
+                            return (
+                                <ReminderTime
+                                    key={reminderString}
+                                    colour={theme.background}
+                                    onPress={() => handleEditReminder(index, reminder)}
                                 >
-                                    <Icon family="feather" name="trash-2" size={24} colour={theme.text} />
-                                </TouchableOpacity>
-                            </ReminderTime>
-                        );
-                    })}
-                </ScrollView>
+                                    <BodyFont>{reminderString}</BodyFont>
+                                    <TouchableOpacity
+                                        onPress={() => handleDeleteReminder(index)}
+                                        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                                    >
+                                        <Icon family="feather" name="trash-2" size={24} colour={theme.text} />
+                                    </TouchableOpacity>
+                                </ReminderTime>
+                            );
+                        })}
+                    </ScrollView>
+                )}
                 <GrowShadow
                     colour={theme.card}
                     style={{
@@ -124,16 +193,23 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                     }}
                 />
             </GrowContainer>
+
             {!showTimePicker && (
                 <View style={Row}>
                     <ReminderButton colour={colour} onPress={handleShowTimePicker}>
+                        <LinearGradient
+                            colors={[gradient.start, gradient.end]}
+                            style={StyleSheet.absoluteFill}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                        />
                         <Icon family="fontawesome" name="plus" size={24} colour={theme.text} style={AddReminderPlus} />
                         <BodyFont>Add Reminder</BodyFont>
                     </ReminderButton>
                 </View>
             )}
 
-            {showTimePicker && (
+            {/* {showTimePicker && (
                 <View>
                     <View style={Row}>
                         <Picker style={Full} selectedValue={hour} onValueChange={itemValue => setHour(itemValue)}>
@@ -165,7 +241,7 @@ const BuildReminderModal: FC<BuildReminderModalProps> = ({ colour, sheetRef, rem
                         </ReminderButton>
                     </View>
                 </View>
-            )}
+            )} */}
         </BuildReminderModalContainer>
     );
 };

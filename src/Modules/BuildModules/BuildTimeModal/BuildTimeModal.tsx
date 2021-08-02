@@ -23,14 +23,16 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
     const handleChangeHours = (text: string): void => {
         const hours = Number(text.replace(/[^0-9]/g, ''));
         setHourString(hours);
-        dispatchBuild(buildActions.total(hours * 3600 + minutes * 60));
     };
 
     const handleChangeMinutes = (text: string): void => {
         const minutes = Number(text.replace(/[^0-9]/g, ''));
         setMinuteString(minutes);
-        dispatchBuild(buildActions.total(hours * 3600 + minutes * 60));
     };
+
+    const handleEndEditing = useCallback(() => {
+        dispatchBuild(buildActions.total(Number(hourString) * 3600 + Number(minuteString) * 60));
+    }, [dispatchBuild, hourString, minuteString]);
 
     const _keyboardWillHide = useCallback(() => {
         setHourString(hourString + Math.floor(minuteString / 60));
@@ -48,18 +50,22 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
         <View style={[RowCenter, { padding: heightPercentageToDP(2), paddingTop: heightPercentageToDP(4) }]}>
             <BuildModalInput
                 keyboardType="number-pad"
+                returnKeyType="done"
                 colour={theme.text}
                 style={{ marginRight: 10 }}
                 onChangeText={handleChangeHours}
                 value={hourString > 0 ? String(hourString) : ''}
+                onEndEditing={handleEndEditing}
             />
             <BodyFont style={{ marginRight: 30 }}>hours</BodyFont>
             <BuildModalInput
                 keyboardType="number-pad"
+                returnKeyType="done"
                 colour={theme.text}
                 style={{ marginRight: 10 }}
                 onChangeText={handleChangeMinutes}
-                value={String(minuteString)}
+                value={minuteString > 0 ? String(minuteString) : ''}
+                onEndEditing={handleEndEditing}
             />
             <BodyFont>mins</BodyFont>
         </View>

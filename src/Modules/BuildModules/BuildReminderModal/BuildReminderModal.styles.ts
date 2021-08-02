@@ -1,4 +1,7 @@
 import styled, { css } from '@emotion/native';
+import MaskInput from 'react-native-mask-input';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { fontFamily } from 'Styles/Fonts';
 
 export const BuildReminderModalContainer = styled.View`
     flex: 1;
@@ -14,9 +17,27 @@ export const ReminderButton = styled.TouchableOpacity<ReminderButtonProps>`
     align-items: center;
     flex-direction: row;
     border-radius: 10px;
-    height: 50px;
+    height: ${heightPercentageToDP(6) + 'px'};
     flex: 1;
+    overflow: hidden;
     background-color: ${props => props.colour};
+`;
+
+export const ReminderInput = styled(MaskInput)<ReminderButtonProps>`
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: ${fontFamily};
+    color: ${props => props.colour};
+    background-color: ${props => props.theme.background};
+    font-size: ${heightPercentageToDP(2) + 'px'};
+`;
+
+export const ReminderTimeButton = styled(ReminderButton)`
+    max-width: ${widthPercentageToDP(15) + 'px'};
+    border-radius: 5px;
+    margin-left: 10px;
 `;
 
 export const ReminderTime = styled(ReminderButton)`

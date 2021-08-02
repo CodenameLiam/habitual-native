@@ -6,7 +6,7 @@ import { HabitReminder } from 'Types/Habit.types';
 const MAX_HOURS = 12;
 const MAX_MINUTES = 59;
 
-const zeroPad = (num: number): string => {
+export const zeroPad = (num: number): string => {
     return num < 10 ? `0${num}` : String(num);
 };
 
