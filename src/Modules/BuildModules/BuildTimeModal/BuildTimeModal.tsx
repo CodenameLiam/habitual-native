@@ -66,6 +66,7 @@ const BuildTimeModal: FC<BuildTimeModalProps> = ({ total, dispatchBuild }) => {
                 onChangeText={handleChangeMinutes}
                 value={minuteString > 0 ? String(minuteString) : ''}
                 onEndEditing={handleEndEditing}
+                autoFocus
             />
             <BodyFont>mins</BodyFont>
         </View>

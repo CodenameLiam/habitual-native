@@ -131,9 +131,9 @@ export const getStreak = (habit: HabitObject, date: Moment): Streak => {
         date.subtract(1, 'd');
 
         // If the progress for this day is greater than the total, or the habit is not scheduled for today, increment the current streak
-        if (isComplete(habit, date.format('YYYY-MM-DD')) || isScheduled(habit, date) === false) {
+        if (isComplete(habit, date.format('YYYY-MM-DD'))) {
             streak++;
-        } else {
+        } else if (isScheduled(habit, date)) {
             // Otherwise the streak has ended
             isStreak = false;
         }
