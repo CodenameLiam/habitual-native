@@ -15,6 +15,7 @@ import ViewCircle from 'Modules/ViewModules/ViewCircle/ViewCircle';
 import ViewProgressButton from 'Modules/ViewModules/ViewProgressButton/ViewProgressButton';
 import ViewCalendar from 'Modules/ViewModules/ViewCalendar/ViewCalendar';
 import ViewStats from 'Modules/ViewModules/ViewStats/ViewStats';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface ViewScreenProps {
     navigation: ViewNavProps;
@@ -62,7 +63,10 @@ const ViewScreen: React.FC<ViewScreenProps> = ({ navigation, route }) => {
     const playingRef = useRef<boolean>(false);
 
     return (
-        <DismissableScrollView navigation={navigation}>
+        <DismissableScrollView
+            contentContainerStyle={{ paddingBottom: heightPercentageToDP(3) }}
+            navigation={navigation}
+        >
             <ArrowControls
                 title={currentDateMoment.format('MMM Do YYYY')}
                 colour={gradient.solid}

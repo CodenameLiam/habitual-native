@@ -44,6 +44,7 @@ export const AppContextProvider: FC = ({ children }) => {
     useEffect(() => {
         if (!loading) {
             SplashScreen.hide();
+            StatusBar.setHidden(false);
         }
     }, [loading]);
 

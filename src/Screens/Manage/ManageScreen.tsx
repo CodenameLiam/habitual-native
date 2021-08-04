@@ -54,6 +54,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ navigation }) => {
     const renderItem = useCallback(
         ({ item, index, drag, isActive }: RenderItemParams<HabitObject>) => {
             const handlePress = (): void => {
+                ReactNativeHapticFeedback.trigger('impactMedium');
                 navigation.setOptions({ gestureEnabled: false });
                 drag();
             };
