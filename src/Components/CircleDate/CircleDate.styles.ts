@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { isTablet } from 'Helpers/Size';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily, fontFamilyBold } from 'Styles/Fonts';
@@ -20,7 +21,7 @@ interface CircleTextProps {
 }
 
 export const DayNumber = styled.Text<CircleTextProps>`
-    font-size: ${heightPercentageToDP(1.6) + 'px'};
+    font-size: ${heightPercentageToDP(isTablet() ? 2 : 1.6) + 'px'};
     font-family: ${fontFamily};
     color: ${props => (props.active ? props.theme.text : props.theme.disabled)};
 `;

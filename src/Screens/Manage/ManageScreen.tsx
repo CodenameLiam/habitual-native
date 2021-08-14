@@ -14,6 +14,7 @@ import { HabitObject } from 'Types/Habit.types';
 import * as Styles from './ManageScreen.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { getSortedHabits } from 'Helpers/Habits';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface ManageScreenProps {
     navigation: ManageNavProps;
@@ -69,7 +70,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ navigation }) => {
                     }}
                 >
                     <Styles.ManageButton onPress={() => deleteAlert(() => handleDelete(item.id))}>
-                        <Icon family="feather" name="trash-2" size={24} colour={theme.text} />
+                        <Icon family="feather" name="trash-2" size={heightPercentageToDP(2.5)} colour={theme.text} />
                     </Styles.ManageButton>
                     <Styles.CenterContainer
                         onPress={() =>
@@ -82,12 +83,12 @@ const ManageScreen: FC<ManageScreenProps> = ({ navigation }) => {
                         <Icon
                             family={item.icon.family}
                             name={item.icon.name}
-                            size={20}
+                            size={heightPercentageToDP(2)}
                             colour={Gradients[item.colour].solid}
                             style={{ marginRight: 15 }}
                         />
 
-                        <HabitTextContainer>
+                        <HabitTextContainer disabled={true}>
                             <HabitText
                                 scroll={false}
                                 animationType="bounce"
@@ -95,7 +96,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ navigation }) => {
                                 bounceDelay={1500}
                                 marqueeDelay={1000}
                                 bouncePadding={{ left: 0, right: 0 }}
-                                style={{ fontSize: 16 }}
+                                style={{ fontSize: heightPercentageToDP(1.5) }}
                                 colour={Gradients[item.colour].solid}
                             >
                                 {item.name}
@@ -103,7 +104,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ navigation }) => {
                         </HabitTextContainer>
                     </Styles.CenterContainer>
                     <Styles.ManageButton style={{ opacity: isActive ? 0.5 : 1 }} onPressIn={handlePress}>
-                        <Icon family="feather" name="menu" size={24} colour={theme.text} />
+                        <Icon family="feather" name="menu" size={heightPercentageToDP(2.5)} colour={theme.text} />
                     </Styles.ManageButton>
                 </Styles.Container>
             );

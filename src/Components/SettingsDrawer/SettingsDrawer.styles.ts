@@ -31,14 +31,14 @@ export const SettingsRow = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 10px;
+    margin: ${heightPercentageToDP(1) + 'px'};
     margin-bottom: 0px;
     padding: 10px 15px;
     border-radius: 10px;
 `;
 
 export const SettingsCard = styled(Card)`
-    margin: 10px;
+    margin: ${heightPercentageToDP(1) + 'px'};
     margin-bottom: 0px;
     padding: ${heightPercentageToDP(1.5) + 'px'} 15px;
     border-radius: 10px;

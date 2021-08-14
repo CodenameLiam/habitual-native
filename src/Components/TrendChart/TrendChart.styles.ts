@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { isTablet } from 'Helpers/Size';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { fontFamily } from 'Styles/Fonts';
 import { maxChartHeight } from './TrendChart.functions';
@@ -50,6 +51,7 @@ export const TrendLineContainer = styled.View<TrendLineContainerProps>`
     justify-content: flex-end;
     ${props => props.background && `background-color: ${props.theme.card};`}
     height: 100%;
+    width: ${widthPercentageToDP(0.6) + 'px'};
 `;
 
 interface TrendLineProps {
@@ -60,7 +62,7 @@ interface TrendLineProps {
 }
 
 export const TrendLine = styled.View<TrendLineProps>`
-    width: ${widthPercentageToDP(0.5) + 'px'};
+    width: 100%;
     height: ${props => props.height}px;
     background-color: ${props => props.colour};
     border-radius: 10px;
@@ -71,27 +73,35 @@ export const TrendDot = styled.View<TrendLineProps>`
     display: ${props => (props.display ? 'flex' : 'none')};
     background-color: ${props => props.colour};
     top: ${props => props.height + 'px'};
-    height: 4px;
-    width: ${widthPercentageToDP(1) + 'px'};
+    height: ${heightPercentageToDP(0.4) + 'px'};
+    width: ${widthPercentageToDP(1.2) + 'px'};
     border-radius: 3px;
 `;
 
 export const TrendLabelContainer = styled.View<TrendLineProps>`
     position: absolute;
     overflow: hidden;
-    top: ${props => props.height + 'px'};
+    top: ${props => props.height - heightPercentageToDP(0.9) + 'px'};
     background-color: ${props => props.colour};
     border-radius: 100px;
-    width: ${props => (props.time ? 55 : 40) + 'px'};
-    height: 18px;
+    width: ${props => (props.time ? heightPercentageToDP(6.5) : heightPercentageToDP(5)) + 'px'};
+    height: ${heightPercentageToDP(2.5) + 'px'};
     justify-content: center;
     align-items: center;
-    left: ${props => (props.time ? -50 : -45) + 'px'};
+    left: ${props =>
+        (props.time
+            ? isTablet()
+                ? -widthPercentageToDP(10)
+                : -heightPercentageToDP(6)
+            : isTablet()
+            ? -widthPercentageToDP(9)
+            : -heightPercentageToDP(5)) + 'px'};
 `;
 
 export const TrendLabel = styled.Text`
     color: ${props => props.theme.text};
     font-family: ${fontFamily};
+    font-size: ${heightPercentageToDP(1.5) + 'px'};
 `;
 
 /* font-size: ${heightPercentageToDP(1.4) + 'px'}; */

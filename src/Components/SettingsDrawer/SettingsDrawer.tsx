@@ -92,7 +92,7 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                         <ColourPicker
                             updateGradient={gradient => dispatchColour(gradient)}
                             customOrder={isTablet() ? undefined : CustomColourOrder}
-                            size={isTablet() ? widthPercentageToDP(10) + 'px' : undefined}
+                            size={isTablet() ? widthPercentageToDP(11) + 'px' : undefined}
                         />
                     </SettingsCard>
 

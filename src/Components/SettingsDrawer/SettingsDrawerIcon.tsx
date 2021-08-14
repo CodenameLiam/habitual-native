@@ -4,6 +4,7 @@
 // @ts-nocheck
 import React, { Component } from 'react';
 import { Animated, TouchableWithoutFeedback } from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface SettingsNavigationIconProps {
     type: string;
@@ -17,63 +18,27 @@ interface SettingsNavigationIconProps {
  * TODO: Unfuck this component
  */
 
+// Was 3
+const height = heightPercentageToDP(0.4);
+
+// Was 25
+const width = heightPercentageToDP(3);
+
+// Was -10
+const topBarMargin = heightPercentageToDP(1.2);
+
+// Was -10
+const bottomBarMargin = heightPercentageToDP(-1.3);
+
+// Was 4
+const bottomBarMarginInactive = heightPercentageToDP(0.5);
+
 export default class SettingsDrawerIcon extends Component<SettingsNavigationIconProps> {
     constructor(props: any) {
         super(props);
         this.state = {
             active: false,
         };
-    }
-
-    spinCross() {
-        if (!this.state.active) {
-            Animated.spring(this.containerAnim, {
-                toValue: 1,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBar, {
-                toValue: 0.9,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBar, {
-                toValue: 0.9,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBarMargin, {
-                toValue: -10,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.middleBarOpacity, {
-                toValue: 0,
-                duration: 30,
-                useNativeDriver: false,
-            }).start();
-        } else {
-            this.setState({
-                active: false,
-            });
-            Animated.spring(this.containerAnim, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBar, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBar, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBarMargin, {
-                toValue: 4,
-                useNativeDriver: false,
-            }).start();
-            Animated.timing(this.middleBarOpacity, {
-                toValue: 1,
-                duration: 600,
-                useNativeDriver: false,
-            }).start();
-        }
     }
 
     cross() {
@@ -87,7 +52,7 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
                 useNativeDriver: false,
             }).start();
             Animated.spring(this.bottomBarMargin, {
-                toValue: -10,
+                toValue: bottomBarMargin,
                 useNativeDriver: false,
             }).start();
             Animated.timing(this.middleBarOpacity, {
@@ -108,7 +73,7 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
                 useNativeDriver: false,
             }).start();
             Animated.spring(this.bottomBarMargin, {
-                toValue: 4,
+                toValue: bottomBarMarginInactive,
                 useNativeDriver: false,
             }).start();
             Animated.spring(this.middleBarOpacity, {
@@ -119,145 +84,11 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
         }
     }
 
-    spinArrow() {
-        if (!this.state.active) {
-            Animated.spring(this.containerAnim, {
-                toValue: 1,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBar, {
-                toValue: 1,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBar, {
-                toValue: 1,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.width, {
-                toValue: 14,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.marginLeft, {
-                toValue: -13,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBarMargin, {
-                toValue: 2,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBarMargin, {
-                toValue: -2,
-                useNativeDriver: false,
-            }).start();
-        } else {
-            Animated.spring(this.containerAnim, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBar, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBar, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.width, {
-                toValue: 25,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.marginLeft, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBarMargin, {
-                toValue: 4,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBarMargin, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-        }
-    }
-
-    arrow() {
-        if (!this.state.active) {
-            Animated.spring(this.topBar, {
-                toValue: 1,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBar, {
-                toValue: 1,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.width, {
-                toValue: 14,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.marginLeft, {
-                toValue: -13,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBarMargin, {
-                toValue: 2,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBarMargin, {
-                toValue: -2,
-                useNativeDriver: false,
-            }).start();
-        } else {
-            this.setState({
-                active: false,
-            });
-            Animated.spring(this.topBar, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBar, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.width, {
-                toValue: 25,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.marginLeft, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.bottomBarMargin, {
-                toValue: 4,
-                useNativeDriver: false,
-            }).start();
-            Animated.spring(this.topBarMargin, {
-                toValue: 0,
-                useNativeDriver: false,
-            }).start();
-        }
-    }
+    //
 
     _animate(active: any) {
         this.setState({ active });
-        const {
-            props: { type },
-        } = this;
-
-        switch (type) {
-            case 'spinArrow':
-                this.spinArrow();
-                break;
-            case 'arrow':
-                this.arrow();
-                break;
-            case 'spinCross':
-                this.spinCross();
-                break;
-            default:
-                this.cross();
-                break;
-        }
+        this.cross();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: { active: any }) {
@@ -280,43 +111,20 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
         } = this;
 
         if (this.props.active) {
-            if (type === 'spinArrow') {
-                this.containerAnim = this.containerAnim || new Animated.Value(1);
-                this.topBar = this.topBar || new Animated.Value(1);
-                this.bottomBar = this.bottomBar || new Animated.Value(1);
-                this.width = this.width || new Animated.Value(14);
-                this.marginLeft = this.marginLeft || new Animated.Value(-13);
-                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(2);
-                this.topBarMargin = this.topBarMargin || new Animated.Value(-2);
-            } else if (type === 'arrow') {
-                this.topBar = this.topBar || new Animated.Value(1);
-                this.bottomBar = this.bottomBar || new Animated.Value(1);
-                this.width = this.width || new Animated.Value(14);
-                this.marginLeft = this.marginLeft || new Animated.Value(-13);
-                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(2);
-                this.topBarMargin = this.topBarMargin || new Animated.Value(-2);
-            } else if (type === 'spinCross') {
-                this.containerAnim = this.containerAnim || new Animated.Value(1);
-                this.topBar = this.topBar || new Animated.Value(0.9);
-                this.bottomBar = this.bottomBar || new Animated.Value(0.9);
-                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(-10);
-                this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(0);
-            } else {
-                this.topBar = this.topBar || new Animated.Value(0.9);
-                this.bottomBar = this.bottomBar || new Animated.Value(0.9);
-                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(-10);
-                this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(0);
-            }
+            this.topBar = this.topBar || new Animated.Value(0.9);
+            this.bottomBar = this.bottomBar || new Animated.Value(0.9);
+            this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(bottomBarMargin);
+            this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(0);
         }
 
         this.containerAnim = this.containerAnim || new Animated.Value(0);
         this.topBar = this.topBar || new Animated.Value(0);
         this.bottomBar = this.bottomBar || new Animated.Value(0);
         this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(1);
-        this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(4);
+        this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(bottomBarMarginInactive);
         this.topBarMargin = this.topBarMargin || new Animated.Value(0);
         this.marginLeft = this.marginLeft || new Animated.Value(0);
-        this.width = this.width || new Animated.Value(25);
+        this.width = this.width || new Animated.Value(width);
 
         return (
             <TouchableWithoutFeedback
@@ -326,10 +134,11 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
             >
                 <Animated.View
                     style={{
-                        width: 35,
+                        width: heightPercentageToDP(5),
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: 35,
+                        height: heightPercentageToDP(5),
+                        // backgroundColor: 'red',
                         transform: [
                             {
                                 rotate: this.containerAnim.interpolate({
@@ -342,7 +151,7 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
                 >
                     <Animated.View
                         style={{
-                            height: 3,
+                            height: height,
                             marginLeft: this.marginLeft,
                             width: this.width,
                             marginBottom: this.topBarMargin,
@@ -359,16 +168,16 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
                     />
                     <Animated.View
                         style={{
-                            height: 3,
-                            width: 25,
+                            height: height,
+                            width: width,
                             opacity: this.middleBarOpacity,
                             backgroundColor: color ?? 'black',
-                            marginTop: 4,
+                            marginTop: bottomBarMarginInactive,
                         }}
                     />
                     <Animated.View
                         style={{
-                            height: 3,
+                            height: height,
                             marginLeft: this.marginLeft,
                             width: this.width,
                             backgroundColor: color ?? 'black',
@@ -388,3 +197,198 @@ export default class SettingsDrawerIcon extends Component<SettingsNavigationIcon
         );
     }
 }
+
+// if (type === 'spinArrow') {
+//     this.containerAnim = this.containerAnim || new Animated.Value(1);
+//     this.topBar = this.topBar || new Animated.Value(1);
+//     this.bottomBar = this.bottomBar || new Animated.Value(1);
+//     this.width = this.width || new Animated.Value(14);
+//     this.marginLeft = this.marginLeft || new Animated.Value(-13);
+//     this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(2);
+//     this.topBarMargin = this.topBarMargin || new Animated.Value(-2);
+// } else if (type === 'arrow') {
+//     this.topBar = this.topBar || new Animated.Value(1);
+//     this.bottomBar = this.bottomBar || new Animated.Value(1);
+//     this.width = this.width || new Animated.Value(14);
+//     this.marginLeft = this.marginLeft || new Animated.Value(-13);
+//     this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(2);
+//     this.topBarMargin = this.topBarMargin || new Animated.Value(-2);
+// } else if (type === 'spinCross') {
+//     this.containerAnim = this.containerAnim || new Animated.Value(1);
+//     this.topBar = this.topBar || new Animated.Value(0.9);
+//     this.bottomBar = this.bottomBar || new Animated.Value(0.9);
+//     this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(-10);
+//     this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(0);
+// } else {
+
+// }
+
+// spinCross() {
+//     if (!this.state.active) {
+//         Animated.spring(this.containerAnim, {
+//             toValue: 1,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBar, {
+//             toValue: 0.9,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBar, {
+//             toValue: 0.9,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBarMargin, {
+//             toValue: -10,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.middleBarOpacity, {
+//             toValue: 0,
+//             duration: 30,
+//             useNativeDriver: false,
+//         }).start();
+//     } else {
+//         this.setState({
+//             active: false,
+//         });
+//         Animated.spring(this.containerAnim, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBar, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBar, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBarMargin, {
+//             toValue: 4,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.timing(this.middleBarOpacity, {
+//             toValue: 1,
+//             duration: 600,
+//             useNativeDriver: false,
+//         }).start();
+//     }
+// }
+
+// spinArrow() {
+//     if (!this.state.active) {
+//         Animated.spring(this.containerAnim, {
+//             toValue: 1,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBar, {
+//             toValue: 1,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBar, {
+//             toValue: 1,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.width, {
+//             toValue: 14,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.marginLeft, {
+//             toValue: -13,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBarMargin, {
+//             toValue: 2,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBarMargin, {
+//             toValue: -2,
+//             useNativeDriver: false,
+//         }).start();
+//     } else {
+//         Animated.spring(this.containerAnim, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBar, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBar, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.width, {
+//             toValue: 25,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.marginLeft, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBarMargin, {
+//             toValue: 4,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBarMargin, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//     }
+// }
+
+// arrow() {
+//     if (!this.state.active) {
+//         Animated.spring(this.topBar, {
+//             toValue: 1,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBar, {
+//             toValue: 1,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.width, {
+//             toValue: 14,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.marginLeft, {
+//             toValue: -13,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBarMargin, {
+//             toValue: 2,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBarMargin, {
+//             toValue: -2,
+//             useNativeDriver: false,
+//         }).start();
+//     } else {
+//         this.setState({
+//             active: false,
+//         });
+//         Animated.spring(this.topBar, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBar, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.width, {
+//             toValue: 25,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.marginLeft, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.bottomBarMargin, {
+//             toValue: 4,
+//             useNativeDriver: false,
+//         }).start();
+//         Animated.spring(this.topBarMargin, {
+//             toValue: 0,
+//             useNativeDriver: false,
+//         }).start();
+//     }
+// }

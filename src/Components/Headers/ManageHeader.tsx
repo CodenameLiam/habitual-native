@@ -4,6 +4,7 @@ import { ManageNavProps } from 'Navigation/AppNavigation/AppNavigation.params';
 import React from 'react';
 import { View } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface ManageHeaderProps {
     colour: string;
@@ -18,7 +19,7 @@ const handleBack = (navigation: ManageNavProps): void => {
 const ManageHeader = ({ colour, navigation }: ManageHeaderProps): StackNavigationOptions => ({
     headerBackground: () => <View></View>,
     headerLeft: () => <BackIcon colour={colour} handlePress={() => handleBack(navigation)} />,
-    headerStyle: { height: 60 },
+    headerStyle: { height: heightPercentageToDP(7.2) },
     headerTitle: 'Manage Habits',
 });
 

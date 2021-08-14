@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import { IWeeklyTotalArray } from 'Components/TrendButton/TrendButton.functions';
 import moment from 'moment';
 import React, { useMemo } from 'react';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { getChartString } from 'Screens/Stats/StatsScreen.functions';
 import { HabitType } from 'Types/Habit.types';
 import { getAlignment, getHeight, maxChartHeight } from './TrendChart.functions';
@@ -67,7 +67,7 @@ const TrendChart: React.FC<TrendChartProps> = ({ colour, type, weeklyTotalArray,
                             {enoughData && index === 25 && (
                                 <TrendLabelContainer
                                     colour={theme.grey}
-                                    height={yearAverageHeight - 8}
+                                    height={yearAverageHeight}
                                     time={type === 'time'}
                                 >
                                     <TrendLabel>{getChartString(yearAverage, type).split(' ')[0]}</TrendLabel>
@@ -76,7 +76,7 @@ const TrendChart: React.FC<TrendChartProps> = ({ colour, type, weeklyTotalArray,
                             {index === 50 && (
                                 <TrendLabelContainer
                                     colour={colour}
-                                    height={threeMonthAverageHeight - 8}
+                                    height={threeMonthAverageHeight}
                                     time={type === 'time'}
                                 >
                                     <TrendLabel>{getChartString(threeMonthAverage, type).split(' ')[0]}</TrendLabel>

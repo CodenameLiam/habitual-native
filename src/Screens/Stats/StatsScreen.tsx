@@ -81,7 +81,7 @@ const StatsScreen: React.FC<StatsScreenProps> = ({ navigation, route }) => {
                 </TrendMessageContainer>
             </TrendGrowthContainer>
             <TrendMessage style={TrendMessageMargin}>
-                {moment().format('MMM Do YYYY') + ' - ' + moment().format('MMM Do YYYY')}
+                {moment().subtract(1, 'y').format('MMM Do YYYY') + ' - ' + moment().format('MMM Do YYYY')}
             </TrendMessage>
             <TrendChart
                 colour={gradient.solid}

@@ -33,7 +33,7 @@ const TabHeader = ({ active, colour, navigation, handleSettings }: TabHeaderProp
             style={{ paddingRight: 25, justifyContent: 'center' }}
             onPress={() => handleBuild(navigation)}
         >
-            <Icon family="entypo" name="plus" size={34} colour={colour} />
+            <Icon family="entypo" name="plus" size={heightPercentageToDP(4)} colour={colour} />
         </TouchableOpacity>
     ),
     headerStyle: { height: heightPercentageToDP(10) },

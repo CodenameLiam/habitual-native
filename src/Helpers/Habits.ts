@@ -1,6 +1,7 @@
 import moment, { Moment } from 'moment';
 import { MarkedDateCustomStyles } from 'react-native-calendars';
 import PushNotification from 'react-native-push-notification';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { HabitDates, HabitObject, Habits, ScheduleType } from 'Types/Habit.types';
 import { getDateArray, today } from './Dates';
 

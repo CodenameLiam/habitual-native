@@ -5,6 +5,7 @@ import { Gradient, Gradients } from 'Styles/Colours';
 import { PickerContainer, Swatch } from './ColourPicker.styles';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { Colour } from 'Types/Colour.types';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface ColourPickerProps {
     size?: string;
@@ -30,7 +31,10 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ updateGradient, customOrder
                     key={colour}
                     size={size}
                     onPress={() => handlePress(colour as Colour)}
-                    style={{ marginBottom: index < 6 ? 10 : 5, aspectRatio: 1 }}
+                    style={{
+                        marginBottom: index < 6 ? heightPercentageToDP(1) : heightPercentageToDP(0.5),
+                        aspectRatio: 1,
+                    }}
                 >
                     <LinearGradient
                         style={StyleSheet.absoluteFill}

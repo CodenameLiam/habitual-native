@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 interface ContainerProps {
     colour?: string;
@@ -6,13 +7,13 @@ interface ContainerProps {
 
 export const Container = styled.View<ContainerProps>`
     background-color: ${props => props.colour ?? props.theme.card};
-    height: 70px;
+    height: ${heightPercentageToDP(8.5) + 'px'};
     border-radius: 10px;
-    /* overflow: hidden; */
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 5px;
+    margin: ${heightPercentageToDP(1) + 'px'};
+    margin-bottom: 0px;
 `;
 
 export const CenterContainer = styled.TouchableOpacity`
@@ -23,8 +24,8 @@ export const CenterContainer = styled.TouchableOpacity`
 `;
 
 export const ManageButton = styled.TouchableOpacity`
-    height: 70px;
-    width: 70px;
+    aspect-ratio: 1;
+    height: ${heightPercentageToDP(8.5) + 'px'};
     justify-content: center;
     align-items: center;
 `;

@@ -77,9 +77,26 @@ const ViewCalendar: FC<ViewCalendarProps> = ({ habit, dispatchHabits, colour, pl
                 textDayFontFamily: fontFamily,
                 textDayFontWeight: '600',
                 textDayFontSize: heightPercentageToDP(1.8),
-                textDayHeaderFontFamily: fontFamily,
-                textDayHeaderFontWeight: '600',
-                textSectionTitleColor: GreyColours.GREY2,
+                'stylesheet.day.basic': {
+                    base: {
+                        width: heightPercentageToDP(4),
+                        height: heightPercentageToDP(4),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    },
+                },
+                'stylesheet.calendar.header': {
+                    dayHeader: {
+                        marginTop: 2,
+                        marginBottom: 7,
+                        flex: 1,
+                        textAlign: 'center',
+                        fontWeight: '600',
+                        fontFamily: fontFamily,
+                        color: GreyColours.GREY2,
+                        fontSize: heightPercentageToDP(1.6),
+                    },
+                },
             }}
         />
     );
