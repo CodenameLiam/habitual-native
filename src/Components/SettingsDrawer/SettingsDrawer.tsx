@@ -100,8 +100,8 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                         onPress={() =>
                             Rate.rate(
                                 {
-                                    AppleAppID: '2193813192',
-                                    GooglePackageName: 'com.mywebsite.myapp',
+                                    AppleAppID: '1575064438',
+                                    GooglePackageName: 'com.liampercy.habitual',
                                     preferInApp: true,
                                 },
                                 success => console.log('App rating was ' + success ? 'successful' : 'unsuccessful'),
@@ -113,13 +113,13 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                             <Icon family="fontawesome" name="star" size={IconSize} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app#features')}>
+                    <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app/request')}>
                         <SettingsRow>
                             <BodyFont>Vote on Features</BodyFont>
                             <Icon family="fontawesome" name="thumbs-up" size={IconSize} colour={emotion.text} />
                         </SettingsRow>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app#support')}>
+                    <TouchableOpacity onPress={() => handleOpen('https://www.gethabitual.app/support')}>
                         <SettingsRow>
                             <BodyFont>Support</BodyFont>
                             <Icon family="fontawesome" name="support" size={IconSize} colour={emotion.text} />

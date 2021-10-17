@@ -71,7 +71,7 @@ export const TrendLine = styled.View<TrendLineProps>`
 export const TrendDot = styled.View<TrendLineProps>`
     position: absolute;
     display: ${props => (props.display ? 'flex' : 'none')};
-    background-color: ${props => props.colour};
+    background-color: ${props => (props.display ? props.colour : props.theme.background)};
     top: ${props => props.height + 'px'};
     height: ${heightPercentageToDP(0.4) + 'px'};
     width: ${widthPercentageToDP(1.2) + 'px'};

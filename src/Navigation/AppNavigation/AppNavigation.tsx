@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrawerStatus } from '@react-navigation/drawer';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import TabNavigation from '../TabNavigation/TabNavigation';
 import { useTheme } from '@emotion/react';
 import TabHeader from '../../Components/Headers/TabHeader';

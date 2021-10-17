@@ -827,10 +827,10 @@
     lodash.isequal "^4.5.0"
     react-native-redash "15.7.3"
 
-"@gorhom/paper-onboarding@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@gorhom/paper-onboarding/-/paper-onboarding-1.1.0.tgz#819d74b75391cec2fd795edbc8a3ff4d8c790923"
-  integrity sha512-wqa19NbJuKO4RJvHtfD+r+wctRZv77urOiiYkksUngLDYFBj1YP2RMCMZrWsW9GTvToP4NtBbXTqDaLaU0uDng==
+"@gorhom/paper-onboarding@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@gorhom/paper-onboarding/-/paper-onboarding-1.2.0.tgz#6241c55301ae8006306e54bb8b401de398e47ff4"
+  integrity sha512-GGHkUsg9Ijjruvyqm5Ce3tboUfZ6BdeybJJO2gg3o5B2p7fbevDiDK/vlwxiyVrWlW4u1BKFjNGJdzcuhlLfeQ==
   dependencies:
     lodash.isequal "^4.5.0"
     react-native-redash "^14.2.4"

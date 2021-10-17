@@ -10,10 +10,12 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
     UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const App: FC = () => (
-    <AppContextProvider>
-        <RootNavigation />
-    </AppContextProvider>
-);
+const App: FC = () => {
+    return (
+        <AppContextProvider>
+            <RootNavigation />
+        </AppContextProvider>
+    );
+};
 
 export default App;

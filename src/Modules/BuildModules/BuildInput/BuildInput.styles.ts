@@ -11,4 +11,6 @@ export const StyledBuildInput = styled.TextInput<InputProps>`
     color: ${props => props.colour};
     font-family: ${fontFamily};
     font-size: ${heightPercentageToDP(2) + 'px'};
+    width: 100%;
+    padding: 0px;
 `;

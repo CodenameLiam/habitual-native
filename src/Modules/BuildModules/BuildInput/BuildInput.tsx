@@ -1,5 +1,6 @@
 import Card from 'Components/Card/Card';
 import React, { Dispatch, FC } from 'react';
+import { Text, TextInput, View } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { BuildAction, buildActions } from 'Reducers/BuildReducer/BuildReducer.actions';
 import { StyledBuildInput } from './BuildInput.styles';

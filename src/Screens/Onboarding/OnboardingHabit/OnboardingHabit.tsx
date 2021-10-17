@@ -217,7 +217,7 @@ const OnboardingHabit: FC = () => {
                                     colour={theme.text}
                                     style={HabitIcon}
                                 />
-                                <HabitColourContainer colour={gradient.solid} style={[colourStyle, { aspectRatio: 1 }]}>
+                                <HabitColourContainer colour={gradient.solid} style={colourStyle}>
                                     <LinearGradient
                                         colors={[gradient.start, gradient.end]}
                                         locations={[0.3, 1]}
@@ -240,11 +240,7 @@ const OnboardingHabit: FC = () => {
                                 </HabitText>
                             </HabitTextContainer>
                         </HabitContentContainer>
-                        <TouchableOpacity
-                            onPress={handlePress}
-                            style={[HabitProgressButton, { aspectRatio: 1 }]}
-                            disabled={stage === 'drag'}
-                        >
+                        <TouchableOpacity onPress={handlePress} style={HabitProgressButton} disabled={stage === 'drag'}>
                             {progress >= habit.total ? (
                                 <Icon family="entypo" name="check" size={heightPercentageToDP(2)} colour={theme.text} />
                             ) : progress > 0 ? (

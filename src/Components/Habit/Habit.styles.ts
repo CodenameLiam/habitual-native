@@ -45,6 +45,7 @@ export const HabitColourContainer = styled(Animated.View)<HabitColourContainerPr
     width: ${(isTablet() ? 50 : 35) + 'px'};
     overflow: hidden;
     border-radius: 1000px;
+    aspect-ratio: 1;
 `;
 
 export const HabitTextContainer = styled.TouchableOpacity`
@@ -83,6 +84,7 @@ export const HabitProgressButton = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    aspect-ratio: 1;
 `;
 
 export const HabitProgressText = styled.Text<HabitProps>`

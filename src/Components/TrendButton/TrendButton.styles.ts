@@ -28,8 +28,8 @@ export const TrendButtonCircle = styled.View`
 
 export const TrendTextContainer = styled.View`
     margin-left: ${heightPercentageToDP(1) + 'px'};
-    width: 60%;
     align-items: flex-start;
+    flex: 1;
 `;
 
 interface TrendAverageTextProps {

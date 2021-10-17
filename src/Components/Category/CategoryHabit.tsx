@@ -96,7 +96,7 @@ const CategoryHabit: React.FC<CategoryHabitProps> = ({ habit }) => {
                         colour={theme.text}
                         style={HabitIcon}
                     />
-                    <HabitColourContainer colour={gradient.solid} style={[colourStyle, { aspectRatio: 1 }]}>
+                    <HabitColourContainer colour={gradient.solid} style={colourStyle}>
                         <LinearGradient
                             colors={[gradient.start, gradient.end]}
                             locations={[0.3, 1]}
