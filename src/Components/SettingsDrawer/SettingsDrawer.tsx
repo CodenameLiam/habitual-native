@@ -101,7 +101,7 @@ const SettingsDrawer: FC<SettingsDrawerProps> = ({ navigation }) => {
                             Rate.rate(
                                 {
                                     AppleAppID: '1575064438',
-                                    GooglePackageName: 'com.liampercy.habitual',
+                                    GooglePackageName: 'org.liam.Habitual',
                                     preferInApp: true,
                                 },
                                 success => console.log('App rating was ' + success ? 'successful' : 'unsuccessful'),
